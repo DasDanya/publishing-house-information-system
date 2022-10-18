@@ -17,10 +17,15 @@ namespace PublishingHouse
             InitializeComponent();
         }
 
+
+       
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            IconImage.LoadIconsOfMainTab(orderTab, employeeTab); // загружаем иконки на вкладки
+            IconImage.LoadIconsOfMainTab(employeeTab); // загружаем иконки на вкладки
+            ConnectionToDb.Open();
         }
+
+        
 
         private void employeeTab_Click(object sender, EventArgs e)
         {
@@ -28,9 +33,14 @@ namespace PublishingHouse
             EmployeesMenu employeesMenu = new EmployeesMenu();
             employeesMenu.Show();
 
-            employeesMenu.FormClosed += (sender, e) => this.Show();
+            employeesMenu.FormClosed += (sender, e) => this.Show(); // при закрытии формы со сотрудниками откроется главное меню
             this.Hide();
            
+        }
+
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            ConnectionToDb.Close();
         }
     }
 }

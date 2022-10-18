@@ -31,7 +31,6 @@ namespace PublishingHouse
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.Tabs = new System.Windows.Forms.MenuStrip();
-            this.orderTab = new System.Windows.Forms.ToolStripMenuItem();
             this.employeeTab = new System.Windows.Forms.ToolStripMenuItem();
             this.Tabs.SuspendLayout();
             this.SuspendLayout();
@@ -40,19 +39,12 @@ namespace PublishingHouse
             // 
             this.Tabs.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.Tabs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.orderTab,
             this.employeeTab});
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
             this.Tabs.Size = new System.Drawing.Size(800, 28);
             this.Tabs.TabIndex = 0;
             this.Tabs.Text = "menuStrip1";
-            // 
-            // orderTab
-            // 
-            this.orderTab.Name = "orderTab";
-            this.orderTab.Size = new System.Drawing.Size(72, 24);
-            this.orderTab.Text = "Заказы";
             // 
             // employeeTab
             // 
@@ -74,6 +66,7 @@ namespace PublishingHouse
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Информационная система издательства";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenu_FormClosing);
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.Tabs.ResumeLayout(false);
             this.Tabs.PerformLayout();
@@ -85,7 +78,6 @@ namespace PublishingHouse
         #endregion
 
         private System.Windows.Forms.MenuStrip Tabs;
-        private System.Windows.Forms.ToolStripMenuItem orderTab;
         private System.Windows.Forms.ToolStripMenuItem employeeTab;
     }
 }
