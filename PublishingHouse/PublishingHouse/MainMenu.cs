@@ -19,7 +19,7 @@ namespace PublishingHouse
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-
+            IconImage.LoadIconsOfMainTab(orderTab, employeeTab);
         }
     }
 }
