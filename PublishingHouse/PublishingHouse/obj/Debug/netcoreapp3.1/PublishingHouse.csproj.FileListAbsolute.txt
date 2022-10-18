@@ -14,3 +14,4 @@ C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHou
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.dll
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.pdb
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.genruntimeconfig.cache
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.EmployeesMenu.resources

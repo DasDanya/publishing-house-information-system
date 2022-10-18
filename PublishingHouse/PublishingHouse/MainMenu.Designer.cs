@@ -29,6 +29,7 @@ namespace PublishingHouse
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.Tabs = new System.Windows.Forms.MenuStrip();
             this.orderTab = new System.Windows.Forms.ToolStripMenuItem();
             this.employeeTab = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,6 +59,7 @@ namespace PublishingHouse
             this.employeeTab.Name = "employeeTab";
             this.employeeTab.Size = new System.Drawing.Size(105, 24);
             this.employeeTab.Text = "Сотрудники";
+            this.employeeTab.Click += new System.EventHandler(this.employeeTab_Click);
             // 
             // MainMenu
             // 
@@ -66,6 +68,7 @@ namespace PublishingHouse
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.Tabs;
             this.MaximizeBox = false;
             this.Name = "MainMenu";

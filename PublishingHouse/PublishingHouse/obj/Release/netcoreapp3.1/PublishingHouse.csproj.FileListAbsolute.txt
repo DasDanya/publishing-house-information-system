@@ -1,0 +1,16 @@
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\PublishingHouse.exe
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\PublishingHouse.deps.json
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\PublishingHouse.runtimeconfig.json
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\PublishingHouse.runtimeconfig.dev.json
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\PublishingHouse.dll
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\PublishingHouse.pdb
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.EmployeesMenu.resources
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.MainMenu.resources
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.csproj.GenerateResource.cache
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.AssemblyInfoInputs.cache
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.AssemblyInfo.cs
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.dll
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.pdb
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.genruntimeconfig.cache

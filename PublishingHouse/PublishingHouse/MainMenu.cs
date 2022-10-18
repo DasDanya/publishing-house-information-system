@@ -19,7 +19,18 @@ namespace PublishingHouse
 
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            IconImage.LoadIconsOfMainTab(orderTab, employeeTab);
+            IconImage.LoadIconsOfMainTab(orderTab, employeeTab); // загружаем иконки на вкладки
+        }
+
+        private void employeeTab_Click(object sender, EventArgs e)
+        {
+
+            EmployeesMenu employeesMenu = new EmployeesMenu();
+            employeesMenu.Show();
+
+            employeesMenu.FormClosed += (sender, e) => this.Show();
+            this.Hide();
+           
         }
     }
 }
