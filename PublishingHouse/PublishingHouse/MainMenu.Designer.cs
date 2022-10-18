@@ -1,7 +1,7 @@
 ﻿
 namespace PublishingHouse
 {
-    partial class Form1
+    partial class MainMenu
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,10 +29,20 @@ namespace PublishingHouse
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // MainMenu
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.Name = "MainMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Информационная система издательства";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

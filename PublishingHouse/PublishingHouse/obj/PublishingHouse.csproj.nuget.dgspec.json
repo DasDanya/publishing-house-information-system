@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\programs\\PublishingHouse\\PublishingHouse\\PublishingHouse.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\publishing-house-information-system\\PublishingHouse\\PublishingHouse\\PublishingHouse.csproj": {}
   },
   "projects": {
-    "C:\\programs\\PublishingHouse\\PublishingHouse\\PublishingHouse.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\publishing-house-information-system\\PublishingHouse\\PublishingHouse\\PublishingHouse.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\programs\\PublishingHouse\\PublishingHouse\\PublishingHouse.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\publishing-house-information-system\\PublishingHouse\\PublishingHouse\\PublishingHouse.csproj",
         "projectName": "PublishingHouse",
-        "projectPath": "C:\\programs\\PublishingHouse\\PublishingHouse\\PublishingHouse.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\publishing-house-information-system\\PublishingHouse\\PublishingHouse\\PublishingHouse.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\programs\\PublishingHouse\\PublishingHouse\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\publishing-house-information-system\\PublishingHouse\\PublishingHouse\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
