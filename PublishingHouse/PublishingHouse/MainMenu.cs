@@ -22,7 +22,15 @@ namespace PublishingHouse
         private void MainMenu_Load(object sender, EventArgs e)
         {
             IconImage.LoadIconsOfMainTab(employeeTab); // загружаем иконки на вкладки
-            ConnectionToDb.Open();
+            try
+            {
+                ConnectionToDb.Open();
+                MessageBox.Show("Nice");
+            }
+            catch (Exception ex) {
+
+                MessageBox.Show("bad");
+            }
         }
 
         
