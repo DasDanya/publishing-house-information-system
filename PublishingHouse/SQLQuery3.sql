@@ -1,0 +1,29 @@
+﻿CREATE TABLE product(
+prodId INT PRIMARY KEY IDENTITY NOT NULL,
+prodNumEdition INT NOT NULL,
+prodName NVARCHAR(100) NOT NULL,
+prodType NVARCHAR(50) NOT NULL,
+prodVisual IMAGE NOT NULL
+);
+
+CREATE TABLE bookingProduct(
+prodCount INT NOT NULL,
+bkCost DECIMAL NOT NULL,
+fprodId INT REFERENCES product (prodId) NOT NULL,
+fbkId INT REFERENCES booking (bkId) NOT NULL
+);
+
+CREATE TABLE material(
+matId INT PRIMARY KEY IDENTITY NOT NULL,
+matType NVARCHAR(50) NOT NULL,
+matColor NVARCHAR(50) NOT NULL,
+matSize NVARCHAR(15) NOT NULL,
+matCost DECIMAL NOT NULL,
+);
+
+CREATE TABLE productMaterial(
+matCount INT NOT NULL,
+prodCost DECIMAL NOT NULL,
+fprodId INT REFERENCES product (prodId) NOT NULL,
+fmatId INT REFERENCES material (matId) NOT NULL
+);

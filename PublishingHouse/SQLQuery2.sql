@@ -1,0 +1,17 @@
+﻿CREATE TABLE employee(
+empId INT PRIMARY KEY IDENTITY NOT NULL,
+empSurname NVARCHAR(50) NOT NULL,
+empFirstname NVARCHAR(50) NOT NULL,
+empMiddlename NVARCHAR(50) NOT NULL,
+empType NVARCHAR(50) NOT NULL,
+empPhone NVARCHAR(12) NOT NULL,
+empEmail NVARCHAR(64) NOT NULL,
+empPassword NVARCHAR(12) NOT NULL,
+empVisual IMAGE NOT NULL
+);
+
+CREATE TABLE bookingEmployee(
+fbkId INT REFERENCES booking (bkId),
+fempId INT REFERENCES employee (empId)
+);
+
