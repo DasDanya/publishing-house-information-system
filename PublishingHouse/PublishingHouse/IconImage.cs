@@ -20,8 +20,13 @@ namespace PublishingHouse
         public static void LoadIconsOfMainTab(ToolStripMenuItem firstItem, ToolStripMenuItem secondItem) 
         {
             //firstItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images" + "/orderIcon.png"));
-            firstItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images" + "/employee.ico"));
-            secondItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images" + "/paper.ico"));
+            firstItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images/employee.ico"));
+            secondItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images/paper.ico"));
+        }
+
+        public static void LoadIconsOfMaterialTab(ToolStripMenuItem item) 
+        {
+            item.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images/back.ico"));
         }
     }
 }

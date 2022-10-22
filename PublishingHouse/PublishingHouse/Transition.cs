@@ -17,8 +17,7 @@ namespace PublishingHouse
         public static void TransitionByForms(Form actualForm, Form openingForm) 
         {
             openingForm.Show();
-            openingForm.FormClosed += (sender, e) => actualForm.Show(); // при закрытии формы со сотрудниками откроется главное меню
-
+            //openingForm.FormClosed += (sender, e) => actualForm.Show(); // при закрытии формы со сотрудниками откроется главное меню
             actualForm.Hide();
         }
     }

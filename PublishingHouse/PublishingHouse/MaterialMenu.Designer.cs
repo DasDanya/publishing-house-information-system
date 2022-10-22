@@ -33,21 +33,37 @@ namespace PublishingHouse
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaterialMenu));
             this.materialDataGridView = new System.Windows.Forms.DataGridView();
             this.materialGroupBox = new System.Windows.Forms.GroupBox();
+            this.addButton = new System.Windows.Forms.Button();
+            this.costTextBox = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.heightTextBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.widthTextBox = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.colorComboBox = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.typeComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.backTab = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.materialDataGridView)).BeginInit();
             this.materialGroupBox.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialDataGridView
             // 
+            this.materialDataGridView.AllowUserToAddRows = false;
+            this.materialDataGridView.AllowUserToResizeColumns = false;
+            this.materialDataGridView.AllowUserToResizeRows = false;
             this.materialDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.materialDataGridView.Location = new System.Drawing.Point(12, 12);
+            this.materialDataGridView.Location = new System.Drawing.Point(12, 30);
             this.materialDataGridView.Name = "materialDataGridView";
+            this.materialDataGridView.ReadOnly = true;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -64,18 +80,103 @@ namespace PublishingHouse
             // 
             // materialGroupBox
             // 
+            this.materialGroupBox.Controls.Add(this.addButton);
+            this.materialGroupBox.Controls.Add(this.costTextBox);
+            this.materialGroupBox.Controls.Add(this.label8);
+            this.materialGroupBox.Controls.Add(this.label9);
+            this.materialGroupBox.Controls.Add(this.heightTextBox);
+            this.materialGroupBox.Controls.Add(this.label7);
+            this.materialGroupBox.Controls.Add(this.widthTextBox);
+            this.materialGroupBox.Controls.Add(this.label6);
+            this.materialGroupBox.Controls.Add(this.label5);
             this.materialGroupBox.Controls.Add(this.label3);
-            this.materialGroupBox.Controls.Add(this.comboBox1);
+            this.materialGroupBox.Controls.Add(this.colorComboBox);
             this.materialGroupBox.Controls.Add(this.label4);
             this.materialGroupBox.Controls.Add(this.label2);
             this.materialGroupBox.Controls.Add(this.typeComboBox);
             this.materialGroupBox.Controls.Add(this.label1);
-            this.materialGroupBox.Location = new System.Drawing.Point(693, 12);
+            this.materialGroupBox.Location = new System.Drawing.Point(693, 30);
             this.materialGroupBox.Name = "materialGroupBox";
-            this.materialGroupBox.Size = new System.Drawing.Size(379, 371);
+            this.materialGroupBox.Size = new System.Drawing.Size(379, 466);
             this.materialGroupBox.TabIndex = 1;
             this.materialGroupBox.TabStop = false;
             this.materialGroupBox.Text = "Работа с данными";
+            // 
+            // addButton
+            // 
+            this.addButton.Location = new System.Drawing.Point(6, 387);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(157, 43);
+            this.addButton.TabIndex = 15;
+            this.addButton.Text = "Добавить материал";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
+            // costTextBox
+            // 
+            this.costTextBox.Location = new System.Drawing.Point(98, 334);
+            this.costTextBox.Name = "costTextBox";
+            this.costTextBox.Size = new System.Drawing.Size(275, 27);
+            this.costTextBox.TabIndex = 14;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(57, 301);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(284, 20);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "Введите стоимость материала в рублях";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 337);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(86, 20);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "Стоимость:";
+            // 
+            // heightTextBox
+            // 
+            this.heightTextBox.Location = new System.Drawing.Point(272, 250);
+            this.heightTextBox.Name = "heightTextBox";
+            this.heightTextBox.Size = new System.Drawing.Size(107, 27);
+            this.heightTextBox.TabIndex = 10;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(210, 250);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 20);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "Длина:";
+            // 
+            // widthTextBox
+            // 
+            this.widthTextBox.Location = new System.Drawing.Point(80, 250);
+            this.widthTextBox.Name = "widthTextBox";
+            this.widthTextBox.Size = new System.Drawing.Size(107, 27);
+            this.widthTextBox.TabIndex = 8;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 250);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(70, 20);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Ширина:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(80, 213);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(241, 20);
+            this.label5.TabIndex = 6;
+            this.label5.Text = "Введите размер материала в мм:";
             // 
             // label3
             // 
@@ -86,10 +187,10 @@ namespace PublishingHouse
             this.label3.TabIndex = 5;
             this.label3.Text = "Выберите цвет из списка или введите вручную";
             // 
-            // comboBox1
+            // colorComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.colorComboBox.FormattingEnabled = true;
+            this.colorComboBox.Items.AddRange(new object[] {
             "Белый",
             "Голубой",
             "Жёлтый",
@@ -100,10 +201,10 @@ namespace PublishingHouse
             "Синий",
             "Фиолетовый",
             "Чёрный"});
-            this.comboBox1.Location = new System.Drawing.Point(144, 158);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(229, 28);
-            this.comboBox1.TabIndex = 4;
+            this.colorComboBox.Location = new System.Drawing.Point(144, 158);
+            this.colorComboBox.Name = "colorComboBox";
+            this.colorComboBox.Size = new System.Drawing.Size(229, 28);
+            this.colorComboBox.TabIndex = 4;
             // 
             // label4
             // 
@@ -150,23 +251,48 @@ namespace PublishingHouse
             this.label1.TabIndex = 0;
             this.label1.Text = "Тип материала:";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.backTab});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1084, 28);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // backTab
+            // 
+            this.backTab.Name = "backTab";
+            this.backTab.Size = new System.Drawing.Size(65, 24);
+            this.backTab.Text = "Назад";
+            this.backTab.Click += new System.EventHandler(this.backTab_Click);
+            // 
             // MaterialMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1084, 450);
+            this.ClientSize = new System.Drawing.Size(1084, 508);
             this.Controls.Add(this.materialGroupBox);
             this.Controls.Add(this.materialDataGridView);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MaterialMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Материалы";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaterialMenu_FormClosing);
+            this.Load += new System.EventHandler(this.MaterialMenu_Load);
             ((System.ComponentModel.ISupportInitialize)(this.materialDataGridView)).EndInit();
             this.materialGroupBox.ResumeLayout(false);
             this.materialGroupBox.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -178,7 +304,18 @@ namespace PublishingHouse
         private System.Windows.Forms.ComboBox typeComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox colorComboBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem backTab;
+        private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.TextBox costTextBox;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox heightTextBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox widthTextBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
     }
 }

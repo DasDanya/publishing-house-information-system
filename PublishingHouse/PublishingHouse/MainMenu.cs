@@ -37,6 +37,7 @@ namespace PublishingHouse
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
             //ConnectionToDb.Close();
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
 
         private void materialTab_Click(object sender, EventArgs e)
