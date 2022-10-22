@@ -14,5 +14,15 @@ namespace PublishingHouse
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ColorDialog dialog = new ColorDialog();
+
+            if (dialog.ShowDialog() == DialogResult.OK) 
+            {
+                MessageBox.Show(dialog.Color.ToString());
+            }
+        }
     }
 }
