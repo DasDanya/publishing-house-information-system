@@ -17,11 +17,11 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="firstItem">Вкладка заказов</param>
         /// <param name="secondItem">Вкладка сотрудников</param>
-        public static void LoadIconsOfMainTab(ToolStripMenuItem firstItem) 
+        public static void LoadIconsOfMainTab(ToolStripMenuItem firstItem, ToolStripMenuItem secondItem) 
         {
             //firstItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images" + "/orderIcon.png"));
-            firstItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images" + "/employees.jpg"));
-
+            firstItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images" + "/employee.ico"));
+            secondItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images" + "/paper.ico"));
         }
     }
 }

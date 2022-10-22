@@ -32,6 +32,7 @@ namespace PublishingHouse
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.Tabs = new System.Windows.Forms.MenuStrip();
             this.employeeTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.materialTab = new System.Windows.Forms.ToolStripMenuItem();
             this.Tabs.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -39,7 +40,8 @@ namespace PublishingHouse
             // 
             this.Tabs.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.Tabs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.employeeTab});
+            this.employeeTab,
+            this.materialTab});
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
             this.Tabs.Size = new System.Drawing.Size(800, 28);
@@ -52,6 +54,13 @@ namespace PublishingHouse
             this.employeeTab.Size = new System.Drawing.Size(105, 24);
             this.employeeTab.Text = "Сотрудники";
             this.employeeTab.Click += new System.EventHandler(this.employeeTab_Click);
+            // 
+            // materialTab
+            // 
+            this.materialTab.Name = "materialTab";
+            this.materialTab.Size = new System.Drawing.Size(103, 24);
+            this.materialTab.Text = "Материалы";
+            this.materialTab.Click += new System.EventHandler(this.materialTab_Click);
             // 
             // MainMenu
             // 
@@ -79,6 +88,7 @@ namespace PublishingHouse
 
         private System.Windows.Forms.MenuStrip Tabs;
         private System.Windows.Forms.ToolStripMenuItem employeeTab;
+        private System.Windows.Forms.ToolStripMenuItem materialTab;
     }
 }
 
