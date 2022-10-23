@@ -36,7 +36,7 @@ namespace PublishingHouse
         {
             try
             {
-                if (typeComboBox.Text == "" || colorComboBox.Text == "" || widthComboBox.Text == "" || heightComboBox.Text == "" || costTextBox.Text == "" || int.Parse(heightComboBox.Text) <=0 || int.Parse(widthComboBox.Text) <=0 || double.Parse(costTextBox.Text) <= 0)
+                if (!CorrectInputData())
                 {
                     MessageBox.Show("Поля для ввода должны быть заполнены. Ширина и высота должны быть целыми числами. Ширина, высота, стоимость должны быть числами больше нуля.", "Добавление материала", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -91,7 +91,7 @@ namespace PublishingHouse
                 materialDataGridView.DataSource = Material.LoadMaterial();
 
                 // Устанавливаем столбцам ширину и свойство "Только для чтения"
-                SetWidthColumsTable();
+                SetSizeColumsAndRowsOfTable();
                 SetReadOnlyColumns();
             }
             catch 
@@ -101,14 +101,19 @@ namespace PublishingHouse
         }
 
         /// <summary>
-        /// Метод, устанавливающий ширину столбцов таблицы
+        /// Метод, устанавливающий размер столбцов таблицы
         /// </summary>
-        private void SetWidthColumsTable() 
+        private void SetSizeColumsAndRowsOfTable() 
         {
+            // Устанавливаем высоту
+            WorkWithRows.SetHeightRows(materialDataGridView);
+
+            // Устанавливаем ширину
             materialDataGridView.Columns["Тип"].Width = 200;
             materialDataGridView.Columns["Цвет"].Width = 180;
             materialDataGridView.Columns["Размер в мм"].Width = 140;
             materialDataGridView.Columns["Стоимость в ₽"].Width = 140;
+           
         }
 
         /// <summary>
@@ -150,41 +155,87 @@ namespace PublishingHouse
             costTextBox.Text = "";
         }
 
+        /// <summary>
+        /// Метод корректности введённых данных о материале
+        /// </summary>
+        /// <returns>Корректны ли данные</returns>
+        private bool CorrectInputData() 
+        {
+            if (typeComboBox.Text == "" || colorComboBox.Text == "" || widthComboBox.Text == "" || heightComboBox.Text == "" || costTextBox.Text == "" || int.Parse(heightComboBox.Text) <= 0 || int.Parse(widthComboBox.Text) <= 0 || double.Parse(costTextBox.Text) <= 0) 
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+        /// <summary>
+        /// Метод заполнения полей для ввода данных
+        /// </summary>
+        private void FillingBoxes(int number) 
+        {
+            typeComboBox.Text = materialDataGridView.Rows[number].Cells["Тип"].Value.ToString();
+            colorComboBox.Text = materialDataGridView.Rows[number].Cells["Цвет"].Value.ToString();
+            costTextBox.Text = materialDataGridView.Rows[number].Cells["Стоимость в ₽"].Value.ToString();
+
+            string size = materialDataGridView.Rows[number].Cells["Размер в мм"].Value.ToString();
+            widthComboBox.Text = size.Substring(0, size.IndexOf('x'));
+            heightComboBox.Text = size.Substring(size.IndexOf('x')+1);
+        }
         private void deleteButton_Click(object sender, EventArgs e)
         {
             try
             {
-                if (WorkWithRows.CountSelectedRows(materialDataGridView) != 1)
+                if (WorkWithRows.CountSelectedRows(materialDataGridView) < 1)
                 {
-                    MessageBox.Show("Для удаления материала необходимо выбрать одну запись", "Удаление материала", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Для удаления материала необходимо выбрать хотя бы одну запись", "Удаление материалов", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
-                    if (MessageBox.Show("Вы точно хотите удалить эту запись?", "Удаление материала", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                    {
-                        // Получаем номер выбранной записи. Создаём материал
-                        int number = WorkWithRows.NumberSelectedRows(materialDataGridView);
-                        Material material = new Material(materialDataGridView.Rows[number].Cells["Тип"].Value.ToString(), materialDataGridView.Rows[number].Cells["Цвет"].Value.ToString(), materialDataGridView.Rows[number].Cells["Размер в мм"].Value.ToString(), Convert.ToDouble(materialDataGridView.Rows[number].Cells["Стоимость в ₽"].Value));
+                    if (MessageBox.Show("Вы точно хотите удалить эту(-и) запись(-и)?", "Удаление материалов", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {                        
+                        // Создаём массив выбранных материалов
+                        Material[] materials = Material.GetArrayMaterials(materialDataGridView, WorkWithRows.GetListIndexesSelectedRows(materialDataGridView));
 
-                        // Удаляем материал из базы данных
-                        if (material.DeleteMaterial() == 1)
+                        // Удаляем материалы из базы данных
+                        if (Material.DeleteMaterial(materials) == materials.Length)
                         {
-                            MessageBox.Show("Запись успешно удалена!", "Удаление материала", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show("Запись(-и) успешно удалена(-ы)!", "Удаление материалов", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                            // Выводим новые данные и очищаем текстовые поля 
+                            // Выводим новые данные 
                             ReloadData();
-                            ClearBoxes();
+                            
                         }
                         else
                         {
-                            MessageBox.Show("Ошибка удаления материала", "Удаление материала", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Ошибка удаления материала(-ов)", "Удаление материалов", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
             }
             catch
             {
-                MessageBox.Show("Произошка ошибка удаления записи", "Удаление материала", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Произошка ошибка удаления записи(-ей)", "Удаление материалов", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void selectForChangeButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (WorkWithRows.CountSelectedRows(materialDataGridView) != 1)
+                {
+                    MessageBox.Show("Для изменния материала необходимо выбрать одну запись", "Выбор материала для изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else 
+                {
+                    // Заполняем поля для ввода данными, выбранными пользователем
+                    FillingBoxes(WorkWithRows.NumberSelectedRows(materialDataGridView));
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Произошла ошибка выбора материала для изменения", "Выбор материала для изменения", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

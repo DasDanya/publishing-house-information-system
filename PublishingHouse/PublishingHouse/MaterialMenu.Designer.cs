@@ -34,6 +34,7 @@ namespace PublishingHouse
             this.materialDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.materialGroupBox = new System.Windows.Forms.GroupBox();
+            this.selectForChangeButton = new System.Windows.Forms.Button();
             this.widthComboBox = new System.Windows.Forms.ComboBox();
             this.heightComboBox = new System.Windows.Forms.ComboBox();
             this.deleteButton = new System.Windows.Forms.Button();
@@ -78,7 +79,7 @@ namespace PublishingHouse
             this.materialDataGridView.RowHeadersVisible = false;
             this.materialDataGridView.RowHeadersWidth = 51;
             this.materialDataGridView.RowTemplate.Height = 29;
-            this.materialDataGridView.Size = new System.Drawing.Size(768, 371);
+            this.materialDataGridView.Size = new System.Drawing.Size(768, 504);
             this.materialDataGridView.TabIndex = 0;
             // 
             // Select
@@ -92,6 +93,7 @@ namespace PublishingHouse
             // 
             // materialGroupBox
             // 
+            this.materialGroupBox.Controls.Add(this.selectForChangeButton);
             this.materialGroupBox.Controls.Add(this.widthComboBox);
             this.materialGroupBox.Controls.Add(this.heightComboBox);
             this.materialGroupBox.Controls.Add(this.deleteButton);
@@ -110,10 +112,19 @@ namespace PublishingHouse
             this.materialGroupBox.Controls.Add(this.label1);
             this.materialGroupBox.Location = new System.Drawing.Point(800, 30);
             this.materialGroupBox.Name = "materialGroupBox";
-            this.materialGroupBox.Size = new System.Drawing.Size(379, 466);
+            this.materialGroupBox.Size = new System.Drawing.Size(449, 504);
             this.materialGroupBox.TabIndex = 1;
             this.materialGroupBox.TabStop = false;
             this.materialGroupBox.Text = "Работа с данными";
+            // 
+            // selectForChangeButton
+            // 
+            this.selectForChangeButton.Location = new System.Drawing.Point(6, 455);
+            this.selectForChangeButton.Name = "selectForChangeButton";
+            this.selectForChangeButton.Size = new System.Drawing.Size(187, 43);
+            this.selectForChangeButton.TabIndex = 0;
+            this.selectForChangeButton.Text = "Выбрать для изменения";
+            this.selectForChangeButton.Click += new System.EventHandler(this.selectForChangeButton_Click);
             // 
             // widthComboBox
             // 
@@ -130,9 +141,9 @@ namespace PublishingHouse
             "52",
             "37",
             "26"});
-            this.widthComboBox.Location = new System.Drawing.Point(82, 250);
+            this.widthComboBox.Location = new System.Drawing.Point(76, 250);
             this.widthComboBox.Name = "widthComboBox";
-            this.widthComboBox.Size = new System.Drawing.Size(101, 28);
+            this.widthComboBox.Size = new System.Drawing.Size(128, 28);
             this.widthComboBox.TabIndex = 18;
             // 
             // heightComboBox
@@ -152,14 +163,14 @@ namespace PublishingHouse
             "35"});
             this.heightComboBox.Location = new System.Drawing.Point(272, 250);
             this.heightComboBox.Name = "heightComboBox";
-            this.heightComboBox.Size = new System.Drawing.Size(101, 28);
+            this.heightComboBox.Size = new System.Drawing.Size(140, 28);
             this.heightComboBox.TabIndex = 17;
             // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(216, 387);
+            this.deleteButton.Location = new System.Drawing.Point(225, 387);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(157, 43);
+            this.deleteButton.Size = new System.Drawing.Size(187, 43);
             this.deleteButton.TabIndex = 16;
             this.deleteButton.Text = "Удалить материал";
             this.deleteButton.UseVisualStyleBackColor = true;
@@ -169,7 +180,7 @@ namespace PublishingHouse
             // 
             this.addButton.Location = new System.Drawing.Point(6, 387);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(157, 43);
+            this.addButton.Size = new System.Drawing.Size(187, 43);
             this.addButton.TabIndex = 15;
             this.addButton.Text = "Добавить материал";
             this.addButton.UseVisualStyleBackColor = true;
@@ -179,7 +190,7 @@ namespace PublishingHouse
             // 
             this.costTextBox.Location = new System.Drawing.Point(98, 334);
             this.costTextBox.Name = "costTextBox";
-            this.costTextBox.Size = new System.Drawing.Size(275, 27);
+            this.costTextBox.Size = new System.Drawing.Size(314, 27);
             this.costTextBox.TabIndex = 14;
             // 
             // label8
@@ -252,7 +263,7 @@ namespace PublishingHouse
             "Чёрный"});
             this.colorComboBox.Location = new System.Drawing.Point(144, 158);
             this.colorComboBox.Name = "colorComboBox";
-            this.colorComboBox.Size = new System.Drawing.Size(229, 28);
+            this.colorComboBox.Size = new System.Drawing.Size(268, 28);
             this.colorComboBox.TabIndex = 4;
             // 
             // label4
@@ -288,7 +299,7 @@ namespace PublishingHouse
             "Форзацная бумага"});
             this.typeComboBox.Location = new System.Drawing.Point(144, 73);
             this.typeComboBox.Name = "typeComboBox";
-            this.typeComboBox.Size = new System.Drawing.Size(229, 28);
+            this.typeComboBox.Size = new System.Drawing.Size(268, 28);
             this.typeComboBox.TabIndex = 1;
             // 
             // label1
@@ -322,7 +333,7 @@ namespace PublishingHouse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1328, 508);
+            this.ClientSize = new System.Drawing.Size(1328, 544);
             this.Controls.Add(this.materialGroupBox);
             this.Controls.Add(this.materialDataGridView);
             this.Controls.Add(this.menuStrip1);
@@ -368,5 +379,6 @@ namespace PublishingHouse
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.ComboBox widthComboBox;
         private System.Windows.Forms.ComboBox heightComboBox;
+        private System.Windows.Forms.Button selectForChangeButton;
     }
 }

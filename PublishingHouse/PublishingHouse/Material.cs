@@ -16,6 +16,7 @@ namespace PublishingHouse
         string type, color, size;
         double cost;
       
+
         public Material(string type, string color, string size, double cost)
         {
             this.type = type;
@@ -85,23 +86,22 @@ namespace PublishingHouse
             return data;
         }
 
-        
-        /// <summary>
-        /// Метод удаления материала из базы данных
-        /// </summary>
-        /// <returns>Количество удаленных записей из базы данных</returns>
-        public int DeleteMaterial() 
+        public static int DeleteMaterial(Material[] materials) 
         {
             int count = 0;
             try
             {
                 ConnectionToDb.Open();
 
-                // Создаём запрос на удаление записи из базы данных и выполняем запрос
-                SqlCommand command = new SqlCommand("DELETE FROM material WHERE matType = N'"+ type +"' AND matColor = N'"+ color +"' AND matSize = '"+ size +"' AND matCost = @cost ", ConnectionToDb.Connection);
-                command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
-                count = command.ExecuteNonQuery();
+                for (int i = 0; i < materials.Length; i++)
+                {
+                    // Создаём запрос на удаление записи из базы данных и выполняем запрос
+                    SqlCommand command = new SqlCommand("DELETE FROM material WHERE matType = N'" + materials[i].type + "' AND matColor = N'" + materials[i].color + "' AND matSize = '" + materials[i].size + "' AND matCost = @cost ", ConnectionToDb.Connection);
+                    command.Parameters.Add("@cost", SqlDbType.Float).Value = materials[i].cost;
+                    count += command.ExecuteNonQuery();
 
+                }
+                
                 ConnectionToDb.Close();
             }
             catch
@@ -144,6 +144,24 @@ namespace PublishingHouse
             }
 
             return exist;
+        }
+
+        public static Material[] GetArrayMaterials(DataGridView dataGridView, List<int> indexes) 
+        {
+            int indexArray = 0;
+            Material[] materials = new Material[indexes.Count];
+            
+            for (int i = 0; i < dataGridView.Rows.Count; i++)
+            {
+                // Если номер строки есть в списке индексов
+                if (indexes.Contains(i)) 
+                {
+                    // Создаём материал и добавляем его в массив
+                    Material material = new Material(dataGridView.Rows[i].Cells["Тип"].Value.ToString(), dataGridView.Rows[i].Cells["Цвет"].Value.ToString(), dataGridView.Rows[i].Cells["Размер в мм"].Value.ToString(), Convert.ToDouble(dataGridView.Rows[i].Cells["Стоимость в ₽"].Value));
+                    materials[indexArray++] = material;
+                }
+            }
+            return materials;
         }
     }
 }
