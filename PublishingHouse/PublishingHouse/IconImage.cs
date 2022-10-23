@@ -19,14 +19,28 @@ namespace PublishingHouse
         /// <param name="secondItem">Вкладка сотрудников</param>
         public static void LoadIconsOfMainTab(ToolStripMenuItem firstItem, ToolStripMenuItem secondItem) 
         {
-            //firstItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images" + "/orderIcon.png"));
-            firstItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images/employee.ico"));
-            secondItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images/paper.ico"));
+            try
+            {
+                //firstItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images" + "/orderIcon.png"));
+                firstItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images/employee.ico"));
+                secondItem.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images/paper.ico"));
+            }
+            catch 
+            {
+                throw new Exception();
+            }
         }
 
-        public static void LoadIconsOfMaterialTab(ToolStripMenuItem item) 
+        public static void LoadIconsOfMaterialTab(ToolStripMenuItem item)
         {
-            item.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images/back.ico"));
+            try
+            {
+                item.Image = Image.FromFile(Path.Combine(Directory.GetCurrentDirectory() + "/images/back.ico"));
+            }
+            catch 
+            {
+                throw new Exception();
+            }
         }
     }
 }
