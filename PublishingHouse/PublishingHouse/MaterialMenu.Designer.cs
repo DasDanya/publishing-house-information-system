@@ -53,6 +53,7 @@ namespace PublishingHouse
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.backTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.materialDataGridView)).BeginInit();
             this.materialGroupBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -93,6 +94,7 @@ namespace PublishingHouse
             // 
             // materialGroupBox
             // 
+            this.materialGroupBox.Controls.Add(this.changeButton);
             this.materialGroupBox.Controls.Add(this.selectForChangeButton);
             this.materialGroupBox.Controls.Add(this.widthComboBox);
             this.materialGroupBox.Controls.Add(this.heightComboBox);
@@ -329,6 +331,16 @@ namespace PublishingHouse
             this.backTab.Text = "Назад";
             this.backTab.Click += new System.EventHandler(this.backTab_Click);
             // 
+            // changeButton
+            // 
+            this.changeButton.Location = new System.Drawing.Point(225, 455);
+            this.changeButton.Name = "changeButton";
+            this.changeButton.Size = new System.Drawing.Size(187, 43);
+            this.changeButton.TabIndex = 19;
+            this.changeButton.Text = "Изменить матрериал";
+            this.changeButton.UseVisualStyleBackColor = true;
+            this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
+            // 
             // MaterialMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -380,5 +392,6 @@ namespace PublishingHouse
         private System.Windows.Forms.ComboBox widthComboBox;
         private System.Windows.Forms.ComboBox heightComboBox;
         private System.Windows.Forms.Button selectForChangeButton;
+        private System.Windows.Forms.Button changeButton;
     }
 }
