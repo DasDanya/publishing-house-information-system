@@ -24,6 +24,9 @@ namespace PublishingHouse
             //Загружаем данные из бд в таблицу
             LoadData();
 
+            // Устанавливаем значения и свойства полям для поиска
+            WorkWithDataDgv.SetElementsForSearchStringData(materialDataGridView, columnComboBox, searchTextBox);
+
         }
 
         private void backTab_Click(object sender, EventArgs e)
@@ -61,6 +64,10 @@ namespace PublishingHouse
                             // Выводим новые данные и очищаем текстовые поля 
                             ReloadData();
                             ClearBoxes();
+
+                            // Устанавливаем значения и свойства полям для поиска
+                            WorkWithDataDgv.SetElementsForSearchStringData(materialDataGridView, columnComboBox, searchTextBox);
+
                         }
                         else
                         {
@@ -106,13 +113,13 @@ namespace PublishingHouse
         private void SetSizeColumsAndRowsOfTable()
         {
             // Устанавливаем высоту
-            WorkWithRows.SetHeightRows(materialDataGridView);
+            WorkWithDataDgv.SetHeightRows(materialDataGridView);
 
             // Устанавливаем ширину
             materialDataGridView.Columns["Тип"].Width = 200;
             materialDataGridView.Columns["Цвет"].Width = 180;
-            materialDataGridView.Columns["Размер в мм"].Width = 140;
-            materialDataGridView.Columns["Стоимость в ₽"].Width = 140;
+            materialDataGridView.Columns["Размер"].Width = 140;
+            materialDataGridView.Columns["Стоимость"].Width = 140;
 
         }
 
@@ -123,8 +130,8 @@ namespace PublishingHouse
         {
             materialDataGridView.Columns["Тип"].ReadOnly = true;
             materialDataGridView.Columns["Цвет"].ReadOnly = true;
-            materialDataGridView.Columns["Размер в мм"].ReadOnly = true;
-            materialDataGridView.Columns["Стоимость в ₽"].ReadOnly = true;
+            materialDataGridView.Columns["Размер"].ReadOnly = true;
+            materialDataGridView.Columns["Стоимость"].ReadOnly = true;
         }
 
         /// <summary>
@@ -155,6 +162,8 @@ namespace PublishingHouse
             costTextBox.Text = "";
         }
 
+       
+
         /// <summary>
         /// Метод корректности введённых данных о материале
         /// </summary>
@@ -178,21 +187,21 @@ namespace PublishingHouse
 
             typeComboBox.Text = materialDataGridView.Rows[number].Cells["Тип"].Value.ToString();
             colorComboBox.Text = materialDataGridView.Rows[number].Cells["Цвет"].Value.ToString();
-            costTextBox.Text = materialDataGridView.Rows[number].Cells["Стоимость в ₽"].Value.ToString();
+            costTextBox.Text = materialDataGridView.Rows[number].Cells["Стоимость"].Value.ToString();
 
-            string size = materialDataGridView.Rows[number].Cells["Размер в мм"].Value.ToString();
+            string size = materialDataGridView.Rows[number].Cells["Размер"].Value.ToString();
             Material material = new Material(typeComboBox.Text, colorComboBox.Text, size, Convert.ToDouble(costTextBox.Text));
             id = material.GetIdMaterial();
             
             widthComboBox.Text = size.Substring(0, size.IndexOf('x'));
-            heightComboBox.Text = size.Substring(size.IndexOf('x') + 1);
+            heightComboBox.Text = size.Substring(size.IndexOf('x')+1);
 
         }
         private void deleteButton_Click(object sender, EventArgs e)
         {
             try
             {
-                if (WorkWithRows.CountSelectedRows(materialDataGridView) < 1)
+                if (WorkWithDataDgv.CountSelectedRows(materialDataGridView) < 1)
                 {
                     MessageBox.Show("Для удаления материала необходимо выбрать хотя бы одну запись", "Удаление материалов", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -201,7 +210,7 @@ namespace PublishingHouse
                     if (MessageBox.Show("Вы точно хотите удалить эту(-и) запись(-и)?", "Удаление материалов", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     {
                         // Создаём массив выбранных материалов
-                        Material[] materials = Material.GetArrayMaterials(materialDataGridView, WorkWithRows.GetListIndexesSelectedRows(materialDataGridView));
+                        Material[] materials = Material.GetArrayMaterials(materialDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(materialDataGridView));
 
                         // Удаляем материалы из базы данных
                         if (Material.DeleteMaterial(materials) == materials.Length)
@@ -210,6 +219,9 @@ namespace PublishingHouse
 
                             // Выводим новые данные 
                             ReloadData();
+
+                            // Устанавливаем значения и свойства полям для поиска
+                            WorkWithDataDgv.SetElementsForSearchStringData(materialDataGridView, columnComboBox, searchTextBox);
 
                         }
                         else
@@ -229,22 +241,22 @@ namespace PublishingHouse
         {
             try
             {
-                if (WorkWithRows.CountSelectedRows(materialDataGridView) != 1)
+                if (WorkWithDataDgv.CountSelectedRows(materialDataGridView) != 1)
                 {
                     MessageBox.Show("Для изменния материала необходимо выбрать одну запись", "Выбор материала для изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                 {
                     // Заполняем поля для ввода данными, выбранными пользователем
-                    GetDataSelectedMaterial(WorkWithRows.NumberSelectedRows(materialDataGridView));
+                    GetDataSelectedMaterial(WorkWithDataDgv.NumberSelectedRows(materialDataGridView));
 
                     changeButton.Enabled = true;
                     selectForChangeButton.Enabled = false;
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Произошла ошибка выбора материала для изменения", "Выбор материала для изменения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Выбор материала для изменения", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -278,6 +290,7 @@ namespace PublishingHouse
 
                                 // Выводим новые данные и очищаем текстовые поля 
                                 ReloadData();
+                                ClearBoxes();
 
                                 changeButton.Enabled = false;
                                 selectForChangeButton.Enabled = true;
@@ -295,6 +308,19 @@ namespace PublishingHouse
             {
                 MessageBox.Show("Неккоректный ввод данных", "Изменение материала", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            // Ищём запрашиваемые данные в таблице
+            WorkWithDataDgv.GetLikeValue(materialDataGridView, columnComboBox, searchTextBox);
+
+            SetSizeColumsAndRowsOfTable();
+        }
+
+        private void materialDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
     }
 }

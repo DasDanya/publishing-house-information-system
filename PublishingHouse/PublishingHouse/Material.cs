@@ -37,11 +37,11 @@ namespace PublishingHouse
             {
                 ConnectionToDb.Open();
 
-                // Выполняем запрос на загрузку всех данных из бд
+                //Выполняем запрос на загрузку всех данных из бд
                 const string SQLPROCEDURE = "selectMaterial";
                 SqlCommand command = new SqlCommand(SQLPROCEDURE, ConnectionToDb.Connection);
 
-                // Указываем,что команда является хранимой процедурой 
+                //Указываем,что команда является хранимой процедурой
                 command.CommandType = CommandType.StoredProcedure;
                 SqlDataReader dataReader = command.ExecuteReader();
 
@@ -76,7 +76,7 @@ namespace PublishingHouse
                 if (indexes.Contains(i))
                 {
                     // Создаём материал и добавляем его в массив
-                    Material material = new Material(dataGridView.Rows[i].Cells["Тип"].Value.ToString(), dataGridView.Rows[i].Cells["Цвет"].Value.ToString(), dataGridView.Rows[i].Cells["Размер в мм"].Value.ToString(), Convert.ToDouble(dataGridView.Rows[i].Cells["Стоимость в ₽"].Value));
+                    Material material = new Material(dataGridView.Rows[i].Cells["Тип"].Value.ToString(), dataGridView.Rows[i].Cells["Цвет"].Value.ToString(), dataGridView.Rows[i].Cells["Размер"].Value.ToString(), Convert.ToDouble(dataGridView.Rows[i].Cells["Стоимость"].Value));
                     materials[indexArray++] = material;
                 }
             }
@@ -100,7 +100,7 @@ namespace PublishingHouse
                 {
                     for (int i = 0; i < dataGridView.Rows.Count; i++)
                     {
-                        if (dataGridView.Rows[i].Cells["Тип"].Value.ToString() == type && dataGridView.Rows[i].Cells["Цвет"].Value.ToString() == color && dataGridView.Rows[i].Cells["Размер в мм"].Value.ToString() == size && Convert.ToDouble(dataGridView.Rows[i].Cells["Стоимость в ₽"].Value) == cost)
+                        if (dataGridView.Rows[i].Cells["Тип"].Value.ToString() == type && dataGridView.Rows[i].Cells["Цвет"].Value.ToString() == color && dataGridView.Rows[i].Cells["Размер"].Value.ToString() == size && Convert.ToDouble(dataGridView.Rows[i].Cells["Стоимость"].Value) == cost)
                         {
                             exist = true;
                             break;
