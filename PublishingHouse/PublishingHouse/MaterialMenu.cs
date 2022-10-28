@@ -313,7 +313,7 @@ namespace PublishingHouse
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
             // Ищём запрашиваемые данные в таблице
-            WorkWithDataDgv.GetLikeValue(materialDataGridView, columnComboBox, searchTextBox);
+            WorkWithDataDgv.GetLikeString(materialDataGridView, columnComboBox, searchTextBox);
 
             SetSizeColumsAndRowsOfTable();
         }
@@ -321,6 +321,47 @@ namespace PublishingHouse
         private void materialDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+        }
+
+        private void resetChangeButton_Click(object sender, EventArgs e)
+        {
+            ClearBoxes();
+
+            selectForChangeButton.Enabled = true;
+            changeButton.Enabled = false;
+
+        }
+
+        private void searchCostButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Получаем данные из текстовых полей
+                double from = double.Parse(fromTextBox.Text);
+                double to = double.Parse(toTextBox.Text);
+
+                if (from < 1 || to < 1 || from >= to)
+                {
+                    MessageBox.Show("Диапазон должен содержать числа больше нуля. Значение правого текстового поля должно быть больше левого", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else 
+                {
+                    WorkWithDataDgv.GetLikeCost(materialDataGridView, "Стоимость", from, to);
+                    WorkWithDataDgv.SetHeightRows(materialDataGridView);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
+        }
+
+        private void resetCostButton_Click(object sender, EventArgs e)
+        {
+            WorkWithDataDgv.ResetSearchCost(materialDataGridView);
+            WorkWithDataDgv.SetHeightRows(materialDataGridView);
         }
     }
 }

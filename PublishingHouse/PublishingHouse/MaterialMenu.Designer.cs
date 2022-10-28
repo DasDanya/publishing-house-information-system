@@ -34,6 +34,14 @@ namespace PublishingHouse
             this.materialDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.materialGroupBox = new System.Windows.Forms.GroupBox();
+            this.searchCostButton = new System.Windows.Forms.Button();
+            this.resetChangeButton = new System.Windows.Forms.Button();
+            this.resetCostButton = new System.Windows.Forms.Button();
+            this.toTextBox = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.fromTextBox = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -101,6 +109,14 @@ namespace PublishingHouse
             // 
             // materialGroupBox
             // 
+            this.materialGroupBox.Controls.Add(this.searchCostButton);
+            this.materialGroupBox.Controls.Add(this.resetChangeButton);
+            this.materialGroupBox.Controls.Add(this.resetCostButton);
+            this.materialGroupBox.Controls.Add(this.toTextBox);
+            this.materialGroupBox.Controls.Add(this.label16);
+            this.materialGroupBox.Controls.Add(this.fromTextBox);
+            this.materialGroupBox.Controls.Add(this.label15);
+            this.materialGroupBox.Controls.Add(this.label14);
             this.materialGroupBox.Controls.Add(this.searchTextBox);
             this.materialGroupBox.Controls.Add(this.label13);
             this.materialGroupBox.Controls.Add(this.label12);
@@ -132,9 +148,84 @@ namespace PublishingHouse
             this.materialGroupBox.TabStop = false;
             this.materialGroupBox.Text = "Работа с данными";
             // 
+            // searchCostButton
+            // 
+            this.searchCostButton.Location = new System.Drawing.Point(504, 314);
+            this.searchCostButton.Name = "searchCostButton";
+            this.searchCostButton.Size = new System.Drawing.Size(359, 43);
+            this.searchCostButton.TabIndex = 33;
+            this.searchCostButton.Text = "Поиск материала по стоимости";
+            this.searchCostButton.UseVisualStyleBackColor = true;
+            this.searchCostButton.Click += new System.EventHandler(this.searchCostButton_Click);
+            // 
+            // resetChangeButton
+            // 
+            this.resetChangeButton.Location = new System.Drawing.Point(501, 455);
+            this.resetChangeButton.Name = "resetChangeButton";
+            this.resetChangeButton.Size = new System.Drawing.Size(359, 43);
+            this.resetChangeButton.TabIndex = 32;
+            this.resetChangeButton.Text = "Сбросить изменение материала";
+            this.resetChangeButton.UseVisualStyleBackColor = true;
+            this.resetChangeButton.Click += new System.EventHandler(this.resetChangeButton_Click);
+            // 
+            // resetCostButton
+            // 
+            this.resetCostButton.Location = new System.Drawing.Point(501, 387);
+            this.resetCostButton.Name = "resetCostButton";
+            this.resetCostButton.Size = new System.Drawing.Size(359, 43);
+            this.resetCostButton.TabIndex = 31;
+            this.resetCostButton.Text = "Сбросить поиск по стоимости";
+            this.resetCostButton.UseVisualStyleBackColor = true;
+            this.resetCostButton.Click += new System.EventHandler(this.resetCostButton_Click);
+            // 
+            // toTextBox
+            // 
+            this.toTextBox.Location = new System.Drawing.Point(740, 248);
+            this.toTextBox.MaxLength = 8;
+            this.toTextBox.Name = "toTextBox";
+            this.toTextBox.Size = new System.Drawing.Size(120, 27);
+            this.toTextBox.TabIndex = 30;
+            this.toTextBox.Text = "1000";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(708, 250);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(28, 20);
+            this.label16.TabIndex = 29;
+            this.label16.Text = "До";
+            // 
+            // fromTextBox
+            // 
+            this.fromTextBox.Location = new System.Drawing.Point(539, 247);
+            this.fromTextBox.MaxLength = 8;
+            this.fromTextBox.Name = "fromTextBox";
+            this.fromTextBox.Size = new System.Drawing.Size(120, 27);
+            this.fromTextBox.TabIndex = 28;
+            this.fromTextBox.Text = "1";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(501, 250);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(26, 20);
+            this.label15.TabIndex = 27;
+            this.label15.Text = "От";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(539, 212);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(298, 20);
+            this.label14.TabIndex = 26;
+            this.label14.Text = "Введите диапазон стоимости для поиска ";
+            // 
             // searchTextBox
             // 
-            this.searchTextBox.Location = new System.Drawing.Point(592, 151);
+            this.searchTextBox.Location = new System.Drawing.Point(592, 158);
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(268, 27);
             this.searchTextBox.TabIndex = 25;
@@ -143,7 +234,7 @@ namespace PublishingHouse
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(504, 154);
+            this.label13.Location = new System.Drawing.Point(504, 162);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(67, 20);
             this.label13.TabIndex = 24;
@@ -220,7 +311,7 @@ namespace PublishingHouse
             "52",
             "37",
             "26"});
-            this.widthComboBox.Location = new System.Drawing.Point(76, 250);
+            this.widthComboBox.Location = new System.Drawing.Point(76, 247);
             this.widthComboBox.Name = "widthComboBox";
             this.widthComboBox.Size = new System.Drawing.Size(128, 28);
             this.widthComboBox.TabIndex = 18;
@@ -240,7 +331,7 @@ namespace PublishingHouse
             "74",
             "52",
             "35"});
-            this.heightComboBox.Location = new System.Drawing.Point(272, 250);
+            this.heightComboBox.Location = new System.Drawing.Point(272, 247);
             this.heightComboBox.Name = "heightComboBox";
             this.heightComboBox.Size = new System.Drawing.Size(140, 28);
             this.heightComboBox.TabIndex = 17;
@@ -340,7 +431,7 @@ namespace PublishingHouse
             "Синий",
             "Фиолетовый",
             "Чёрный"});
-            this.colorComboBox.Location = new System.Drawing.Point(144, 158);
+            this.colorComboBox.Location = new System.Drawing.Point(144, 154);
             this.colorComboBox.Name = "colorComboBox";
             this.colorComboBox.Size = new System.Drawing.Size(268, 28);
             this.colorComboBox.TabIndex = 4;
@@ -376,7 +467,7 @@ namespace PublishingHouse
             "Офсетная бумага",
             "Типографская бумага",
             "Форзацная бумага"});
-            this.typeComboBox.Location = new System.Drawing.Point(144, 73);
+            this.typeComboBox.Location = new System.Drawing.Point(144, 70);
             this.typeComboBox.Name = "typeComboBox";
             this.typeComboBox.Size = new System.Drawing.Size(268, 28);
             this.typeComboBox.TabIndex = 1;
@@ -466,5 +557,13 @@ namespace PublishingHouse
         private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox toTextBox;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox fromTextBox;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button resetChangeButton;
+        private System.Windows.Forms.Button resetCostButton;
+        private System.Windows.Forms.Button searchCostButton;
     }
 }

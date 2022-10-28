@@ -117,10 +117,21 @@ namespace PublishingHouse
         /// <param name="dataGridView">Таблица</param>
         /// <param name="comboBox">Список столбцов</param>
         /// <param name="textBox">Поле,хранящее запрос пользователя</param>
-        public static void GetLikeValue(DataGridView dataGridView, ComboBox comboBox, TextBox textBox) 
+        public static void GetLikeString(DataGridView dataGridView, ComboBox comboBox, TextBox textBox) 
         {
             
             (dataGridView.DataSource as DataTable).DefaultView.RowFilter = comboBox.Text + $" LIKE '%{textBox.Text}%'";
+        }
+
+        public static void GetLikeCost(DataGridView dataGridView, string column, double from, double to) 
+        {
+
+            (dataGridView.DataSource as DataTable).DefaultView.RowFilter = "["+column+"] >= '" + from.ToString() + "' AND ["+column+"] <= '" + to.ToString() + "'";
+        }
+
+        public static void ResetSearchCost(DataGridView dataGridView) 
+        {
+            (dataGridView.DataSource as DataTable).DefaultView.RowFilter = string.Empty;
         }
 
         /// <summary>
