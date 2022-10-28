@@ -152,7 +152,7 @@ namespace PublishingHouse
             // 
             this.searchCostButton.Location = new System.Drawing.Point(504, 314);
             this.searchCostButton.Name = "searchCostButton";
-            this.searchCostButton.Size = new System.Drawing.Size(359, 43);
+            this.searchCostButton.Size = new System.Drawing.Size(356, 43);
             this.searchCostButton.TabIndex = 33;
             this.searchCostButton.Text = "Поиск материала по стоимости";
             this.searchCostButton.UseVisualStyleBackColor = true;

@@ -123,12 +123,23 @@ namespace PublishingHouse
             (dataGridView.DataSource as DataTable).DefaultView.RowFilter = comboBox.Text + $" LIKE '%{textBox.Text}%'";
         }
 
+        /// <summary>
+        /// Метод поиска материала по стоимости
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="column">Столбец</param>
+        /// <param name="from">Левое пороговое значение</param>
+        /// <param name="to">Правое пороговое значение</param>
         public static void GetLikeCost(DataGridView dataGridView, string column, double from, double to) 
         {
 
             (dataGridView.DataSource as DataTable).DefaultView.RowFilter = "["+column+"] >= '" + from.ToString() + "' AND ["+column+"] <= '" + to.ToString() + "'";
         }
 
+        /// <summary>
+        /// Сброс поиска материала по стоимости
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
         public static void ResetSearchCost(DataGridView dataGridView) 
         {
             (dataGridView.DataSource as DataTable).DefaultView.RowFilter = string.Empty;
