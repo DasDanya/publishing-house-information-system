@@ -14,3 +14,12 @@ C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHou
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.dll
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.pdb
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.genruntimeconfig.cache
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.MaterialMenu.resources
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.PopularDataMaterialMenu.resources
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Release\netcoreapp3.1\PublishingHouse.csproj.CopyComplete

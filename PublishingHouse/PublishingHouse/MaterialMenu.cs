@@ -340,28 +340,43 @@ namespace PublishingHouse
                 double from = double.Parse(fromTextBox.Text);
                 double to = double.Parse(toTextBox.Text);
 
+                // Если некорректный ввод данных
                 if (from < 1 || to < 1 || from >= to)
                 {
                     MessageBox.Show("Диапазон должен содержать числа больше нуля. Значение правого текстового поля должно быть больше левого", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else 
                 {
+                    // Производим поиск по определенному столбцу
                     WorkWithDataDgv.GetLikeCost(materialDataGridView, "Стоимость", from, to);
                     WorkWithDataDgv.SetHeightRows(materialDataGridView);
                 }
             }
 
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message, "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Неккоректный ввод данных", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
            
         }
 
         private void resetCostButton_Click(object sender, EventArgs e)
         {
+            // Сбрасываем поиск по стоимости
             WorkWithDataDgv.ResetSearchCost(materialDataGridView);
             WorkWithDataDgv.SetHeightRows(materialDataGridView);
+        }
+
+        private void popDataAbMaterialButton_Click(object sender, EventArgs e)
+        {
+            // Если есть записи в таблице, то открываем форму с популярными данными
+            if (materialDataGridView.Rows.Count != 0)
+            {
+                PopularDataMaterialMenu popularDataMaterialMenu = new PopularDataMaterialMenu();
+                Transition.TransitionByForms(this, popularDataMaterialMenu);
+            }
+            else
+                MessageBox.Show("Невозможно вывести популярные данные о материалах, так они отсутствуют!", "Вывод популярных данных о материалах", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

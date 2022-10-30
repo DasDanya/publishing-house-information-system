@@ -16,6 +16,9 @@ namespace PublishingHouse
         string type, color, size;
         double cost;
 
+        public string Type { get { return type; } }
+
+
         /// <summary>
         /// Конструктор для заполнения определенного поля
         /// </summary>
@@ -247,10 +250,10 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="columnName">Столбец</param>
         /// <returns>Список популярных данных</returns>
-        public static List<Material> PopularDataAboutMaterial(string columnName) 
+        public static List<string> PopularDataAboutMaterial(string columnName) 
         {
             string nameColumnDb = "";
-            List<Material> popularData = new List<Material>();
+            List<string> popularData = new List<string>();
 
             try
             {
@@ -273,19 +276,18 @@ namespace PublishingHouse
                 }
 
                 // Создаём запрос на получение популярных данных и получаем их 
-                SqlCommand command = new SqlCommand("select '"+nameColumnDb+"', COUNT('"+nameColumnDb+"') FROM material GROUP BY '"+nameColumnDb+"' ORDER BY '"+nameColumnDb+"' LIMIT 1", ConnectionToDb.Connection);
+                string query = string.Format("select TOP 3 {0} FROM material GROUP BY {1} ORDER BY COUNT({2}) DESC", nameColumnDb, nameColumnDb, nameColumnDb);
+                SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
                 SqlDataReader reader = command.ExecuteReader();
-
+                
                 // Считываем данные из ридера и записываем в список
                 while (reader.Read()) 
                 {
-                    // Создаём материал и добавляем его в список популярных
-                    Material material = new Material((string)reader["'" + nameColumnDb + "'"], columnName);
-                    popularData.Add(material);
+                    popularData.Add((string)reader[""+ nameColumnDb + ""]);
                 }
 
             }
-            catch 
+            catch
             {
                 throw new Exception(string.Format("Ошибка получения данных столбца {0}", columnName));
             }

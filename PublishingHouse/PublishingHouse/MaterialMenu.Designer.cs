@@ -68,6 +68,7 @@ namespace PublishingHouse
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.backTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.popDataAbMaterialButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.materialDataGridView)).BeginInit();
             this.materialGroupBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -109,6 +110,7 @@ namespace PublishingHouse
             // 
             // materialGroupBox
             // 
+            this.materialGroupBox.Controls.Add(this.popDataAbMaterialButton);
             this.materialGroupBox.Controls.Add(this.searchCostButton);
             this.materialGroupBox.Controls.Add(this.resetChangeButton);
             this.materialGroupBox.Controls.Add(this.resetCostButton);
@@ -499,6 +501,16 @@ namespace PublishingHouse
             this.backTab.Text = "Назад";
             this.backTab.Click += new System.EventHandler(this.backTab_Click);
             // 
+            // popDataAbMaterialButton
+            // 
+            this.popDataAbMaterialButton.Location = new System.Drawing.Point(411, 281);
+            this.popDataAbMaterialButton.Name = "popDataAbMaterialButton";
+            this.popDataAbMaterialButton.Size = new System.Drawing.Size(94, 29);
+            this.popDataAbMaterialButton.TabIndex = 34;
+            this.popDataAbMaterialButton.Text = "button";
+            this.popDataAbMaterialButton.UseVisualStyleBackColor = true;
+            this.popDataAbMaterialButton.Click += new System.EventHandler(this.popDataAbMaterialButton_Click);
+            // 
             // MaterialMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -553,7 +565,6 @@ namespace PublishingHouse
         private System.Windows.Forms.Button changeButton;
         private System.Windows.Forms.ComboBox columnComboBox;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
@@ -565,5 +576,7 @@ namespace PublishingHouse
         private System.Windows.Forms.Button resetChangeButton;
         private System.Windows.Forms.Button resetCostButton;
         private System.Windows.Forms.Button searchCostButton;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button popDataAbMaterialButton;
     }
 }
