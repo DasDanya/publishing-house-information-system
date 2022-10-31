@@ -34,6 +34,12 @@ namespace PublishingHouse
             this.materialDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.materialGroupBox = new System.Windows.Forms.GroupBox();
+            this.cComboBox = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.bComboBox = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.selectColorButton = new System.Windows.Forms.Button();
+            this.popDataAbMaterialButton = new System.Windows.Forms.Button();
             this.searchCostButton = new System.Windows.Forms.Button();
             this.resetChangeButton = new System.Windows.Forms.Button();
             this.resetCostButton = new System.Windows.Forms.Button();
@@ -50,25 +56,22 @@ namespace PublishingHouse
             this.label10 = new System.Windows.Forms.Label();
             this.changeButton = new System.Windows.Forms.Button();
             this.selectForChangeButton = new System.Windows.Forms.Button();
-            this.widthComboBox = new System.Windows.Forms.ComboBox();
-            this.heightComboBox = new System.Windows.Forms.ComboBox();
+            this.aComboBox = new System.Windows.Forms.ComboBox();
             this.deleteButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.costTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.colorComboBox = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.colorInfoLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.typeComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.backTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.popDataAbMaterialButton = new System.Windows.Forms.Button();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.materialDataGridView)).BeginInit();
             this.materialGroupBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -110,6 +113,11 @@ namespace PublishingHouse
             // 
             // materialGroupBox
             // 
+            this.materialGroupBox.Controls.Add(this.cComboBox);
+            this.materialGroupBox.Controls.Add(this.label7);
+            this.materialGroupBox.Controls.Add(this.bComboBox);
+            this.materialGroupBox.Controls.Add(this.label4);
+            this.materialGroupBox.Controls.Add(this.selectColorButton);
             this.materialGroupBox.Controls.Add(this.popDataAbMaterialButton);
             this.materialGroupBox.Controls.Add(this.searchCostButton);
             this.materialGroupBox.Controls.Add(this.resetChangeButton);
@@ -127,19 +135,16 @@ namespace PublishingHouse
             this.materialGroupBox.Controls.Add(this.label10);
             this.materialGroupBox.Controls.Add(this.changeButton);
             this.materialGroupBox.Controls.Add(this.selectForChangeButton);
-            this.materialGroupBox.Controls.Add(this.widthComboBox);
-            this.materialGroupBox.Controls.Add(this.heightComboBox);
+            this.materialGroupBox.Controls.Add(this.aComboBox);
             this.materialGroupBox.Controls.Add(this.deleteButton);
             this.materialGroupBox.Controls.Add(this.addButton);
             this.materialGroupBox.Controls.Add(this.costTextBox);
             this.materialGroupBox.Controls.Add(this.label8);
             this.materialGroupBox.Controls.Add(this.label9);
-            this.materialGroupBox.Controls.Add(this.label7);
             this.materialGroupBox.Controls.Add(this.label6);
             this.materialGroupBox.Controls.Add(this.label5);
             this.materialGroupBox.Controls.Add(this.label3);
-            this.materialGroupBox.Controls.Add(this.colorComboBox);
-            this.materialGroupBox.Controls.Add(this.label4);
+            this.materialGroupBox.Controls.Add(this.colorInfoLabel);
             this.materialGroupBox.Controls.Add(this.label2);
             this.materialGroupBox.Controls.Add(this.typeComboBox);
             this.materialGroupBox.Controls.Add(this.label1);
@@ -150,9 +155,85 @@ namespace PublishingHouse
             this.materialGroupBox.TabStop = false;
             this.materialGroupBox.Text = "Работа с данными";
             // 
+            // cComboBox
+            // 
+            this.cComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cComboBox.FormattingEnabled = true;
+            this.cComboBox.Items.AddRange(new object[] {
+            "917x1297",
+            "648x917",
+            "458x648",
+            "324x458",
+            "229x324",
+            "162x229",
+            "114x162",
+            "81x114",
+            ""});
+            this.cComboBox.Location = new System.Drawing.Point(307, 247);
+            this.cComboBox.Name = "cComboBox";
+            this.cComboBox.Size = new System.Drawing.Size(105, 28);
+            this.cComboBox.TabIndex = 39;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(279, 250);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(21, 20);
+            this.label7.TabIndex = 38;
+            this.label7.Text = "С:";
+            // 
+            // bComboBox
+            // 
+            this.bComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.bComboBox.FormattingEnabled = true;
+            this.bComboBox.Items.AddRange(new object[] {
+            "1000x1414",
+            "707x1000",
+            "500x707",
+            "353x500",
+            "250x353",
+            "176x250",
+            "125x176",
+            "88x125",
+            ""});
+            this.bComboBox.Location = new System.Drawing.Point(168, 248);
+            this.bComboBox.Name = "bComboBox";
+            this.bComboBox.Size = new System.Drawing.Size(105, 28);
+            this.bComboBox.TabIndex = 37;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(145, 251);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(21, 20);
+            this.label4.TabIndex = 36;
+            this.label4.Text = "В:";
+            // 
+            // selectColorButton
+            // 
+            this.selectColorButton.Location = new System.Drawing.Point(144, 156);
+            this.selectColorButton.Name = "selectColorButton";
+            this.selectColorButton.Size = new System.Drawing.Size(268, 29);
+            this.selectColorButton.TabIndex = 35;
+            this.selectColorButton.Text = "Выбрать цвет";
+            this.selectColorButton.UseVisualStyleBackColor = true;
+            this.selectColorButton.Click += new System.EventHandler(this.selectColorButton_Click);
+            // 
+            // popDataAbMaterialButton
+            // 
+            this.popDataAbMaterialButton.Location = new System.Drawing.Point(694, 455);
+            this.popDataAbMaterialButton.Name = "popDataAbMaterialButton";
+            this.popDataAbMaterialButton.Size = new System.Drawing.Size(166, 43);
+            this.popDataAbMaterialButton.TabIndex = 34;
+            this.popDataAbMaterialButton.Text = "Мода данных";
+            this.popDataAbMaterialButton.UseVisualStyleBackColor = true;
+            this.popDataAbMaterialButton.Click += new System.EventHandler(this.popDataAbMaterialButton_Click);
+            // 
             // searchCostButton
             // 
-            this.searchCostButton.Location = new System.Drawing.Point(504, 314);
+            this.searchCostButton.Location = new System.Drawing.Point(501, 318);
             this.searchCostButton.Name = "searchCostButton";
             this.searchCostButton.Size = new System.Drawing.Size(356, 43);
             this.searchCostButton.TabIndex = 33;
@@ -164,9 +245,9 @@ namespace PublishingHouse
             // 
             this.resetChangeButton.Location = new System.Drawing.Point(501, 455);
             this.resetChangeButton.Name = "resetChangeButton";
-            this.resetChangeButton.Size = new System.Drawing.Size(359, 43);
+            this.resetChangeButton.Size = new System.Drawing.Size(166, 43);
             this.resetChangeButton.TabIndex = 32;
-            this.resetChangeButton.Text = "Сбросить изменение материала";
+            this.resetChangeButton.Text = "Сбросить изменение";
             this.resetChangeButton.UseVisualStyleBackColor = true;
             this.resetChangeButton.Click += new System.EventHandler(this.resetChangeButton_Click);
             // 
@@ -298,45 +379,24 @@ namespace PublishingHouse
             this.selectForChangeButton.Text = "Выбрать для изменения";
             this.selectForChangeButton.Click += new System.EventHandler(this.selectForChangeButton_Click);
             // 
-            // widthComboBox
+            // aComboBox
             // 
-            this.widthComboBox.FormattingEnabled = true;
-            this.widthComboBox.Items.AddRange(new object[] {
-            "841",
-            "594",
-            "420",
-            "297",
-            "210",
-            "148",
-            "105",
-            "74",
-            "52",
-            "37",
-            "26"});
-            this.widthComboBox.Location = new System.Drawing.Point(76, 247);
-            this.widthComboBox.Name = "widthComboBox";
-            this.widthComboBox.Size = new System.Drawing.Size(128, 28);
-            this.widthComboBox.TabIndex = 18;
-            // 
-            // heightComboBox
-            // 
-            this.heightComboBox.FormattingEnabled = true;
-            this.heightComboBox.Items.AddRange(new object[] {
-            "1189",
-            "841",
-            "594",
-            "420",
-            "297",
-            "210",
-            "148",
-            "105",
-            "74",
-            "52",
-            "35"});
-            this.heightComboBox.Location = new System.Drawing.Point(272, 247);
-            this.heightComboBox.Name = "heightComboBox";
-            this.heightComboBox.Size = new System.Drawing.Size(140, 28);
-            this.heightComboBox.TabIndex = 17;
+            this.aComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.aComboBox.FormattingEnabled = true;
+            this.aComboBox.Items.AddRange(new object[] {
+            "841x1189",
+            "594x841",
+            "420x594",
+            "297x420",
+            "210x297",
+            "148x210",
+            "105x148",
+            "74x105",
+            ""});
+            this.aComboBox.Location = new System.Drawing.Point(34, 248);
+            this.aComboBox.Name = "aComboBox";
+            this.aComboBox.Size = new System.Drawing.Size(105, 28);
+            this.aComboBox.TabIndex = 18;
             // 
             // deleteButton
             // 
@@ -383,92 +443,70 @@ namespace PublishingHouse
             this.label9.TabIndex = 11;
             this.label9.Text = "Стоимость:";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(210, 250);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 20);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "Длина:";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 250);
+            this.label6.Location = new System.Drawing.Point(6, 251);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(70, 20);
+            this.label6.Size = new System.Drawing.Size(22, 20);
             this.label6.TabIndex = 7;
-            this.label6.Text = "Ширина:";
+            this.label6.Text = "А:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(58, 212);
+            this.label5.Location = new System.Drawing.Point(44, 212);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(323, 20);
+            this.label5.Size = new System.Drawing.Size(352, 20);
             this.label5.TabIndex = 6;
-            this.label5.Text = "Выберите размер или введите вручную (мм)";
+            this.label5.Text = "Выберите размер из преложенных списков (мм)";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(44, 124);
+            this.label3.Location = new System.Drawing.Point(132, 124);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(337, 20);
+            this.label3.Size = new System.Drawing.Size(192, 20);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Выберите цвет из списка или введите вручную";
+            this.label3.Text = "Выберите цвет материала";
             // 
-            // colorComboBox
+            // colorInfoLabel
             // 
-            this.colorComboBox.FormattingEnabled = true;
-            this.colorComboBox.Items.AddRange(new object[] {
-            "Белый",
-            "Голубой",
-            "Жёлтый",
-            "Зелёный",
-            "Красный",
-            "Оранжевый",
-            "Серый",
-            "Синий",
-            "Фиолетовый",
-            "Чёрный"});
-            this.colorComboBox.Location = new System.Drawing.Point(144, 154);
-            this.colorComboBox.Name = "colorComboBox";
-            this.colorComboBox.Size = new System.Drawing.Size(268, 28);
-            this.colorComboBox.TabIndex = 4;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 158);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(124, 20);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Цвет материала:";
+            this.colorInfoLabel.AutoSize = true;
+            this.colorInfoLabel.Location = new System.Drawing.Point(6, 158);
+            this.colorInfoLabel.Name = "colorInfoLabel";
+            this.colorInfoLabel.Size = new System.Drawing.Size(125, 20);
+            this.colorInfoLabel.TabIndex = 3;
+            this.colorInfoLabel.Text = "Цвет не выбран!";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 39);
+            this.label2.Location = new System.Drawing.Point(98, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(330, 20);
+            this.label2.Size = new System.Drawing.Size(256, 20);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Выберите тип из списка или введите вручную";
+            this.label2.Text = "Выберите тип материала из списка";
             // 
             // typeComboBox
             // 
+            this.typeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.typeComboBox.FormattingEnabled = true;
             this.typeComboBox.Items.AddRange(new object[] {
             "Бумага для глубокой печати",
             "Газетная бумага",
             "Глянцевая бумага",
+            "Дизайнерская бумага",
+            "Картон",
+            "Крафт-бумага",
             "Матовая бумага",
             "Мелованная бумага",
             "Обложечная бумага",
             "Офсетная бумага",
+            "Самокопирующаяся бумага",
             "Типографская бумага",
-            "Форзацная бумага"});
+            "Форзацная бумага",
+            ""});
             this.typeComboBox.Location = new System.Drawing.Point(144, 70);
             this.typeComboBox.Name = "typeComboBox";
             this.typeComboBox.Size = new System.Drawing.Size(268, 28);
@@ -500,16 +538,6 @@ namespace PublishingHouse
             this.backTab.Size = new System.Drawing.Size(65, 24);
             this.backTab.Text = "Назад";
             this.backTab.Click += new System.EventHandler(this.backTab_Click);
-            // 
-            // popDataAbMaterialButton
-            // 
-            this.popDataAbMaterialButton.Location = new System.Drawing.Point(411, 281);
-            this.popDataAbMaterialButton.Name = "popDataAbMaterialButton";
-            this.popDataAbMaterialButton.Size = new System.Drawing.Size(94, 29);
-            this.popDataAbMaterialButton.TabIndex = 34;
-            this.popDataAbMaterialButton.Text = "button";
-            this.popDataAbMaterialButton.UseVisualStyleBackColor = true;
-            this.popDataAbMaterialButton.Click += new System.EventHandler(this.popDataAbMaterialButton_Click);
             // 
             // MaterialMenu
             // 
@@ -546,21 +574,17 @@ namespace PublishingHouse
         private System.Windows.Forms.ComboBox typeComboBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox colorComboBox;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem backTab;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.TextBox costTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
         private System.Windows.Forms.Button deleteButton;
-        private System.Windows.Forms.ComboBox widthComboBox;
-        private System.Windows.Forms.ComboBox heightComboBox;
+        private System.Windows.Forms.ComboBox aComboBox;
         private System.Windows.Forms.Button selectForChangeButton;
         private System.Windows.Forms.Button changeButton;
         private System.Windows.Forms.ComboBox columnComboBox;
@@ -578,5 +602,12 @@ namespace PublishingHouse
         private System.Windows.Forms.Button searchCostButton;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button popDataAbMaterialButton;
+        private System.Windows.Forms.Button selectColorButton;
+        private System.Windows.Forms.Label colorInfoLabel;
+        private System.Windows.Forms.ColorDialog colorDialog;
+        private System.Windows.Forms.ComboBox cComboBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox bComboBox;
+        private System.Windows.Forms.Label label4;
     }
 }
