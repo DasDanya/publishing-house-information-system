@@ -33,6 +33,7 @@ namespace PublishingHouse
             this.Tabs = new System.Windows.Forms.MenuStrip();
             this.employeeTab = new System.Windows.Forms.ToolStripMenuItem();
             this.materialTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.printingHouseTab = new System.Windows.Forms.ToolStripMenuItem();
             this.Tabs.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -41,7 +42,8 @@ namespace PublishingHouse
             this.Tabs.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.Tabs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.employeeTab,
-            this.materialTab});
+            this.materialTab,
+            this.printingHouseTab});
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
             this.Tabs.Size = new System.Drawing.Size(800, 28);
@@ -61,6 +63,13 @@ namespace PublishingHouse
             this.materialTab.Size = new System.Drawing.Size(103, 24);
             this.materialTab.Text = "Материалы";
             this.materialTab.Click += new System.EventHandler(this.materialTab_Click);
+            // 
+            // printingHouseTab
+            // 
+            this.printingHouseTab.Name = "printingHouseTab";
+            this.printingHouseTab.Size = new System.Drawing.Size(109, 24);
+            this.printingHouseTab.Text = "Типографии";
+            this.printingHouseTab.Click += new System.EventHandler(this.printingHouseTab_Click);
             // 
             // MainMenu
             // 
@@ -89,6 +98,7 @@ namespace PublishingHouse
         private System.Windows.Forms.MenuStrip Tabs;
         private System.Windows.Forms.ToolStripMenuItem employeeTab;
         private System.Windows.Forms.ToolStripMenuItem materialTab;
+        private System.Windows.Forms.ToolStripMenuItem printingHouseTab;
     }
 }
 

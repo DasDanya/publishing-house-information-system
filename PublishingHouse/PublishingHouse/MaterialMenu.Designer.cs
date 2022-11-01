@@ -309,6 +309,7 @@ namespace PublishingHouse
             // searchTextBox
             // 
             this.searchTextBox.Location = new System.Drawing.Point(592, 158);
+            this.searchTextBox.MaxLength = 30;
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(268, 27);
             this.searchTextBox.TabIndex = 25;
@@ -421,6 +422,7 @@ namespace PublishingHouse
             // costTextBox
             // 
             this.costTextBox.Location = new System.Drawing.Point(98, 334);
+            this.costTextBox.MaxLength = 8;
             this.costTextBox.Name = "costTextBox";
             this.costTextBox.Size = new System.Drawing.Size(314, 27);
             this.costTextBox.TabIndex = 14;

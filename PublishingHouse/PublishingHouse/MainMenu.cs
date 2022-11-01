@@ -21,11 +21,9 @@ namespace PublishingHouse
        
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            IconImage.LoadIconsOfMainTab(employeeTab, materialTab); // загружаем иконки на вкладки
+            IconImage.LoadIconsOfMainTab(employeeTab, materialTab, printingHouseTab); // загружаем иконки на вкладки
             
         }
-
-        
 
         private void employeeTab_Click(object sender, EventArgs e)
         {
@@ -44,6 +42,12 @@ namespace PublishingHouse
         {
             MaterialMenu materialMenu = new MaterialMenu();
             Transition.TransitionByForms(this, materialMenu); // Переход между формами
+        }
+
+        private void printingHouseTab_Click(object sender, EventArgs e)
+        {
+            PrintingHouseMenu printingHouseMenu = new PrintingHouseMenu();
+            Transition.TransitionByForms(this, printingHouseMenu); // Переход между формами
         }
     }
 }

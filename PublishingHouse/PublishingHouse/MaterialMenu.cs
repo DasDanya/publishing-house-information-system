@@ -29,6 +29,10 @@ namespace PublishingHouse
 
         }
 
+        /// <summary>
+        /// Метод, проверяющий правильно ли пользователь выбрал размер материала
+        /// </summary>
+        /// <returns>Правильный ли ввод</returns>
         private bool CorrectInputSize() 
         {
             //if ((!string.IsNullOrWhiteSpace(bComboBox.Text) && !string.IsNullOrWhiteSpace(cComboBox.Text)) || (!string.IsNullOrWhiteSpace(aComboBox.Text) && !string.IsNullOrWhiteSpace(cComboBox.Text)) || (!string.IsNullOrWhiteSpace(aComboBox.Text) || !string.IsNullOrWhiteSpace(cComboBox.Text)) || (!string.IsNullOrWhiteSpace(aComboBox.Text) && !string.IsNullOrWhiteSpace(bComboBox.Text) && !string.IsNullOrWhiteSpace(cComboBox.Text)) || (string.IsNullOrWhiteSpace(aComboBox.Text) && string.IsNullOrWhiteSpace(bComboBox.Text) && string.IsNullOrWhiteSpace(cComboBox.Text)))
@@ -38,6 +42,10 @@ namespace PublishingHouse
                 return false;
         }
 
+        /// <summary>
+        /// Метод, возвращающий размер материала
+        /// </summary>
+        /// <returns>Размер материала</returns>
         private string ValueInputSize() 
         {
             string size = "";
@@ -372,6 +380,7 @@ namespace PublishingHouse
 
         private void resetChangeButton_Click(object sender, EventArgs e)
         {
+            // Очищаем поля и приводим кнопки в нужное состояние
             ClearBoxes();
 
             selectForChangeButton.Enabled = true;
