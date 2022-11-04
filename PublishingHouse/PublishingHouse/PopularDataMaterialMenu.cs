@@ -19,7 +19,7 @@ namespace PublishingHouse
         private void PopularDataMaterialMenu_Load(object sender, EventArgs e)
         {
             //Загружаем иконки для вкладок
-            IconImage.LoadIconsOfMaterialTab(backTab);
+            IconImage.LoadIconBackTab(backTab);
 
             // Списки лейблов
             List<Label> popularType = new List<Label>{ firstTypeLabel, secondTypeLabel, thirdTypeLabel };
@@ -27,9 +27,9 @@ namespace PublishingHouse
             List<Label> popularSize = new List<Label> { firstSizeLabel, secondSizeLabel, thirdSizeLabel };
             
             // Выводим популярные данные
-            PopularData.GetPopularData(popularType, Material.PopularDataAboutMaterial("Тип"));
-            PopularData.GetPopularData(popularColor, Material.PopularDataAboutMaterial("Цвет"));
-            PopularData.GetPopularData(popularSize, Material.PopularDataAboutMaterial("Размер"));
+            //OccurrenceMaterial.GetPopularData(popularType, Material.PopularDataAboutMaterial("Тип"));
+            //OccurrenceMaterial.GetPopularData(popularColor, Material.PopularDataAboutMaterial("Цвет"));
+            //OccurrenceMaterial.GetPopularData(popularSize, Material.PopularDataAboutMaterial("Размер"));
         }
 
         private void PopularDataMaterialMenu_FormClosing(object sender, FormClosingEventArgs e)

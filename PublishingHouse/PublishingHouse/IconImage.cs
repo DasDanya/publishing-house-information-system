@@ -32,7 +32,11 @@ namespace PublishingHouse
             }
         }
 
-        public static void LoadIconsOfMaterialTab(ToolStripMenuItem item)
+        /// <summary>
+        /// Метод загрузки иконки для вкладки "Назад"
+        /// </summary>
+        /// <param name="item"></param>
+        public static void LoadIconBackTab(ToolStripMenuItem item)
         {
             try
             {

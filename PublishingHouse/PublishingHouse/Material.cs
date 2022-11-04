@@ -245,15 +245,43 @@ namespace PublishingHouse
             return count;
         }
 
+       /// <summary>
+       /// Метод полученмя количества строк
+       /// </summary>
+       /// <returns>Количество строк</returns>
+        public static int GetCountRows()
+        {
+            int count = -1;
+            try 
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение количества строк и возвращаем их
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM material", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                count = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения количества строк");
+            }
+        
+            return count;
+        }
+
         /// <summary>
-        /// Метод получения списка популярных данных определенного столбца
+        /// Метод,возвращающий таблицу с определенным количеством строк по определенному порядку вывода
         /// </summary>
-        /// <param name="columnName">Столбец</param>
-        /// <returns>Список популярных данных</returns>
-        public static List<string> PopularDataAboutMaterial(string columnName) 
+        /// <param name="columnName">Название столбца</param>
+        /// <param name="order">Порядок вывода</param>
+        /// <param name="countString">Количество строк</param>
+        /// <returns>Таблица</returns>
+        public static DataTable GetTableByOccurrence(string columnName, string order, int countString)
         {
             string nameColumnDb = "";
-            List<string> popularData = new List<string>();
+            DataTable table = new DataTable();
 
             try
             {
@@ -275,25 +303,73 @@ namespace PublishingHouse
 
                 }
 
-                // Создаём запрос на получение популярных данных и получаем их 
-                string query = string.Format("select TOP 3 {0} FROM material GROUP BY {1} ORDER BY COUNT({2}) DESC", nameColumnDb, nameColumnDb, nameColumnDb);
+                // Формируем запрос на получение данных нужного столбца определенного количества и определенного порядка
+                string query = string.Format("select TOP {0} {1} AS N'{2}' FROM material GROUP BY {3} ORDER BY COUNT({4}) {5}", countString, nameColumnDb, columnName, nameColumnDb, nameColumnDb, order);
                 SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
-                SqlDataReader reader = command.ExecuteReader();
-                
-                // Считываем данные из ридера и записываем в список
-                while (reader.Read()) 
-                {
-                    popularData.Add((string)reader[""+ nameColumnDb + ""]);
-                }
 
+                // Выполняем запрос и заполняем таблицу данными
+                command.CommandType = CommandType.Text;
+                SqlDataReader dataReader = command.ExecuteReader();
+                table.Load(dataReader);
+
+                ConnectionToDb.Close();
             }
-            catch
+            catch  
             {
-                throw new Exception(string.Format("Ошибка получения данных столбца {0}", columnName));
+                throw new Exception(string.Format("Ошибка получения таблицы - {0}",columnName));
             }
 
-            return popularData;
+            return table;
         }
 
+        //    /// <summary>
+        //    /// Метод получения списка популярных данных определенного столбца
+        //    /// </summary>
+        //    /// <param name="columnName">Столбец</param>
+        //    /// <returns>Список популярных данных</returns>
+        //    public static List<string> PopularDataAboutMaterial(string columnName) 
+        //    {
+        //        string nameColumnDb = "";
+        //        List<string> popularData = new List<string>();
+
+                //try
+                //{
+                //    ConnectionToDb.Open();
+
+                //    // В зависимости от названия столбца
+                //    switch (columnName)
+                //    {
+                //        // Получаем соответствующие названия столбцов бд
+                //        case "Тип":
+                //            nameColumnDb = "matType";
+                //            break;
+                //        case "Цвет":
+                //            nameColumnDb = "matColor";
+                //            break;
+                //        case "Размер":
+                //            nameColumnDb = "matSize";
+                //            break;
+
+                //    }
+
+    //            // Создаём запрос на получение популярных данных и получаем их 
+    //            string query = string.Format("select TOP 3 {0} FROM material GROUP BY {1} ORDER BY COUNT({2}) DESC", nameColumnDb, nameColumnDb, nameColumnDb);
+    //            SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
+    //            SqlDataReader reader = command.ExecuteReader();
+
+    //            // Считываем данные из ридера и записываем в список
+    //            while (reader.Read()) 
+    //            {
+    //                popularData.Add((string)reader[""+ nameColumnDb + ""]);
+    //            }
+
+    //        }
+    //        catch
+    //        {
+    //            throw new Exception(string.Format("Ошибка получения данных столбца {0}", columnName));
+    //        }
+
+    //        return popularData;
+    //    }
     }
 }

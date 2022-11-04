@@ -67,15 +67,15 @@ namespace PublishingHouse
             return indexes;
         }
 
-        public static void SetHeightRows(DataGridView dataGridView) 
-        {
-            for (int i = 0; i < dataGridView.Rows.Count; i++)
-            {
-                // Получаем строку и задаём высоту
-                DataGridViewRow row = dataGridView.Rows[i];
-                row.Height = 45;
-            }
-        }
+        //public static void SetHeightRows(DataGridView dataGridView)
+        //{
+        //    for (int i = 0; i < dataGridView.Rows.Count; i++)
+        //    {
+        //        // Получаем строку и задаём высоту
+        //        DataGridViewRow row = dataGridView.Rows[i];
+        //        row.Height = 45;
+        //    }
+        //}
 
         /// <summary>
         /// Метод, возвращаюший ComboBox столбцов для поиска материала

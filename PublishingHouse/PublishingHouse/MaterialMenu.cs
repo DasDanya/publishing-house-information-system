@@ -19,7 +19,7 @@ namespace PublishingHouse
         private void MaterialMenu_Load(object sender, EventArgs e)
         {
             //Загружаем иконки для вкладок
-            IconImage.LoadIconsOfMaterialTab(backTab);
+            IconImage.LoadIconBackTab(backTab);
 
             //Загружаем данные из бд в таблицу
             LoadData();
@@ -127,8 +127,11 @@ namespace PublishingHouse
                 materialDataGridView.DataSource = Material.LoadMaterial();
 
                 // Устанавливаем столбцам ширину и свойство "Только для чтения"
-                SetSizeColumsAndRowsOfTable();
+                SetColumnsWidth();
                 SetReadOnlyColumns();
+
+                // Первая строчка не выделятся
+                materialDataGridView.ClearSelection();
             }
             catch
             {
@@ -137,18 +140,20 @@ namespace PublishingHouse
         }
 
         /// <summary>
-        /// Метод, устанавливающий размер столбцов таблицы
+        /// Метод, устанавливающий размер столбцов
         /// </summary>
-        private void SetSizeColumsAndRowsOfTable()
+        private void SetColumnsWidth()
         {
-            // Устанавливаем высоту
-            WorkWithDataDgv.SetHeightRows(materialDataGridView);
+            //// Устанавливаем высоту
+            //WorkWithDataDgv.SetHeightRows(materialDataGridView);
 
             // Устанавливаем ширину
             materialDataGridView.Columns["Тип"].Width = 200;
             materialDataGridView.Columns["Цвет"].Width = 180;
             materialDataGridView.Columns["Размер"].Width = 140;
             materialDataGridView.Columns["Стоимость"].Width = 140;
+
+           
 
         }
 
@@ -157,10 +162,10 @@ namespace PublishingHouse
         /// </summary>
         private void SetReadOnlyColumns()
         {
-            materialDataGridView.Columns["Тип"].ReadOnly = true;
-            materialDataGridView.Columns["Цвет"].ReadOnly = true;
-            materialDataGridView.Columns["Размер"].ReadOnly = true;
-            materialDataGridView.Columns["Стоимость"].ReadOnly = true;
+            for (int i = 1; i < materialDataGridView.Columns.Count; i++)
+            {
+                materialDataGridView.Columns[i].ReadOnly = true;
+            }
         }
 
         /// <summary>
@@ -370,7 +375,7 @@ namespace PublishingHouse
             // Ищём запрашиваемые данные в таблице
             WorkWithDataDgv.GetLikeString(materialDataGridView, columnComboBox, searchTextBox);
 
-            SetSizeColumsAndRowsOfTable();
+            SetColumnsWidth();
         }
 
         private void materialDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
@@ -407,7 +412,7 @@ namespace PublishingHouse
                 {
                     // Производим поиск по определенному столбцу
                     WorkWithDataDgv.GetLikeCost(materialDataGridView, "Стоимость", from, to);
-                    WorkWithDataDgv.SetHeightRows(materialDataGridView);
+                    //WorkWithDataDgv.SetHeightRows(materialDataGridView);
                 }
             }
 
@@ -422,7 +427,7 @@ namespace PublishingHouse
         {
             // Сбрасываем поиск по стоимости
             WorkWithDataDgv.ResetSearchCost(materialDataGridView);
-            WorkWithDataDgv.SetHeightRows(materialDataGridView);
+            //WorkWithDataDgv.SetHeightRows(materialDataGridView);
         }
 
         private void popDataAbMaterialButton_Click(object sender, EventArgs e)
@@ -430,8 +435,11 @@ namespace PublishingHouse
             // Если есть записи в таблице, то открываем форму с популярными данными
             if (materialDataGridView.Rows.Count != 0)
             {
-                PopularDataMaterialMenu popularDataMaterialMenu = new PopularDataMaterialMenu();
-                Transition.TransitionByForms(this, popularDataMaterialMenu);
+                //PopularDataMaterialMenu popularDataMaterialMenu = new PopularDataMaterialMenu();
+                //Transition.TransitionByForms(this, popularDataMaterialMenu);
+
+                OccurrenceMaterialData popularMaterialData = new OccurrenceMaterialData();
+                Transition.TransitionByForms(this, popularMaterialData);
             }
             else
                 MessageBox.Show("Невозможно вывести популярные данные о материалах, так они отсутствуют!", "Вывод популярных данных о материалах", MessageBoxButtons.OK, MessageBoxIcon.Error);

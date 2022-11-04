@@ -97,7 +97,7 @@ namespace PublishingHouse
             this.materialDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.materialDataGridView.RowHeadersVisible = false;
             this.materialDataGridView.RowHeadersWidth = 51;
-            this.materialDataGridView.RowTemplate.Height = 29;
+            this.materialDataGridView.RowTemplate.Height = 50;
             this.materialDataGridView.Size = new System.Drawing.Size(768, 504);
             this.materialDataGridView.TabIndex = 0;
             this.materialDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.materialDataGridView_ColumnStateChanged);
