@@ -38,8 +38,8 @@ namespace PublishingHouse
             this.getTypesButton = new System.Windows.Forms.Button();
             this.countTypeTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.descRadioButton = new System.Windows.Forms.RadioButton();
-            this.ascRadioButton = new System.Windows.Forms.RadioButton();
+            this.descTypeRadioButton = new System.Windows.Forms.RadioButton();
+            this.ascTypeRadioButton = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.typeDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -93,8 +93,8 @@ namespace PublishingHouse
             this.groupBox1.Controls.Add(this.getTypesButton);
             this.groupBox1.Controls.Add(this.countTypeTextBox);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.descRadioButton);
-            this.groupBox1.Controls.Add(this.ascRadioButton);
+            this.groupBox1.Controls.Add(this.descTypeRadioButton);
+            this.groupBox1.Controls.Add(this.ascTypeRadioButton);
             this.groupBox1.Location = new System.Drawing.Point(351, 69);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(250, 312);
@@ -129,27 +129,27 @@ namespace PublishingHouse
             this.label2.TabIndex = 2;
             this.label2.Text = "Количество выводимых строк:";
             // 
-            // descRadioButton
+            // descTypeRadioButton
             // 
-            this.descRadioButton.AutoSize = true;
-            this.descRadioButton.Location = new System.Drawing.Point(7, 85);
-            this.descRadioButton.Name = "descRadioButton";
-            this.descRadioButton.Size = new System.Drawing.Size(127, 24);
-            this.descRadioButton.TabIndex = 1;
-            this.descRadioButton.TabStop = true;
-            this.descRadioButton.Text = "По убыванию";
-            this.descRadioButton.UseVisualStyleBackColor = true;
+            this.descTypeRadioButton.AutoSize = true;
+            this.descTypeRadioButton.Location = new System.Drawing.Point(7, 85);
+            this.descTypeRadioButton.Name = "descTypeRadioButton";
+            this.descTypeRadioButton.Size = new System.Drawing.Size(127, 24);
+            this.descTypeRadioButton.TabIndex = 1;
+            this.descTypeRadioButton.TabStop = true;
+            this.descTypeRadioButton.Text = "По убыванию";
+            this.descTypeRadioButton.UseVisualStyleBackColor = true;
             // 
-            // ascRadioButton
+            // ascTypeRadioButton
             // 
-            this.ascRadioButton.AutoSize = true;
-            this.ascRadioButton.Location = new System.Drawing.Point(6, 43);
-            this.ascRadioButton.Name = "ascRadioButton";
-            this.ascRadioButton.Size = new System.Drawing.Size(146, 24);
-            this.ascRadioButton.TabIndex = 0;
-            this.ascRadioButton.TabStop = true;
-            this.ascRadioButton.Text = "По возрастанию";
-            this.ascRadioButton.UseVisualStyleBackColor = true;
+            this.ascTypeRadioButton.AutoSize = true;
+            this.ascTypeRadioButton.Location = new System.Drawing.Point(6, 43);
+            this.ascTypeRadioButton.Name = "ascTypeRadioButton";
+            this.ascTypeRadioButton.Size = new System.Drawing.Size(146, 24);
+            this.ascTypeRadioButton.TabIndex = 0;
+            this.ascTypeRadioButton.TabStop = true;
+            this.ascTypeRadioButton.Text = "По возрастанию";
+            this.ascTypeRadioButton.UseVisualStyleBackColor = true;
             // 
             // OccurrenceMaterialData
             // 
@@ -189,7 +189,7 @@ namespace PublishingHouse
         private System.Windows.Forms.Button getTypesButton;
         private System.Windows.Forms.TextBox countTypeTextBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton descRadioButton;
-        private System.Windows.Forms.RadioButton ascRadioButton;
+        private System.Windows.Forms.RadioButton descTypeRadioButton;
+        private System.Windows.Forms.RadioButton ascTypeRadioButton;
     }
 }
