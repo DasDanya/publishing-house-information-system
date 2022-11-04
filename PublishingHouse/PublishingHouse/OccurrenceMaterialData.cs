@@ -15,8 +15,6 @@ namespace PublishingHouse
             InitializeComponent();
         }
 
-        // Количество строк
-        int count = Material.GetCountRows();
 
         private void PopularMaterialData_Load(object sender, EventArgs e)
         {
@@ -24,7 +22,7 @@ namespace PublishingHouse
             IconImage.LoadIconBackTab(backTab);
 
             // Заполняем таблицы
-            FillingTable(typeDataGridView, "Тип", "DESC", count);
+            FillingTable(typeDataGridView, "Тип", "DESC", Material.GetCountUniqueRecords("matType"));
 
             // Делаем radioButton выбранными
             ButtonIsChecked();
@@ -45,17 +43,20 @@ namespace PublishingHouse
 
         
         /// <summary>
-        /// Заполняет указанную таблицу, согласно пользовательскому запросу
+        /// Заполняем таблицу согласно пользовательскому запросу
         /// </summary>
-        /// <param name="countTextBox">Поле, с указанным количеством строк</param>
-        /// <param name="dataGridView">Таблицу</param>
+        /// <param name="countTextBox">Поле, в которое записано количество строк</param>
+        /// <param name="dataGridView">Таблица</param>
         /// <param name="descRadioButton">RadioButton "По убыванию"</param>
         /// <param name="ascRadioButton">RadioButton "По возврастанию"</param>
-        /// <param name="columnName">Столбец таблицы</param>
-        private void OutputTableByUserQuery(TextBox countTextBox, DataGridView dataGridView, RadioButton descRadioButton, RadioButton ascRadioButton, string columnName) 
+        /// <param name="columnName">Имя столбца в таблице</param>
+        /// <param name="columnNameInDb">Имя столбца в бд</param>
+        private void OutputTableByUserQuery(TextBox countTextBox, DataGridView dataGridView, RadioButton descRadioButton, RadioButton ascRadioButton, string columnName, string columnNameInDb) 
         {
             try
             {
+                // Получаем общее количество строк и количество,введенное пользователем
+                int count = Material.GetCountUniqueRecords(columnNameInDb);
                 int inputCount = int.Parse(countTextBox.Text);
 
                 if (inputCount > count || inputCount < 1)
@@ -124,7 +125,7 @@ namespace PublishingHouse
 
         private void getTypesButton_Click(object sender, EventArgs e)
         {
-            OutputTableByUserQuery(countTypeTextBox, typeDataGridView, descTypeRadioButton, ascTypeRadioButton, "Тип");
+            OutputTableByUserQuery(countTypeTextBox, typeDataGridView, descTypeRadioButton, ascTypeRadioButton, "Тип", "matType");
         }
 
 

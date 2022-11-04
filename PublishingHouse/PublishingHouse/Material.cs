@@ -245,19 +245,21 @@ namespace PublishingHouse
             return count;
         }
 
-       /// <summary>
-       /// Метод полученмя количества строк
-       /// </summary>
-       /// <returns>Количество строк</returns>
-        public static int GetCountRows()
+      /// <summary>
+      /// Метод получения количества уникальных записей
+      /// </summary>
+      /// <param name="columnNameInDb">Название столбца</param>
+      /// <returns>Количество уникальных записей</returns>
+      public static int GetCountUniqueRecords(string columnNameInDb)
         {
             int count = -1;
             try 
             {
                 ConnectionToDb.Open();
 
-                // Формируем запрос на получение количества строк и возвращаем их
-                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM material", ConnectionToDb.Connection);
+                // Формируем запрос на получение количества уникальных записей и возвращаем их
+                string query = string.Format("SELECT COUNT(DISTINCT {0}) FROM material", columnNameInDb);
+                SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
                 command.CommandType = CommandType.Text;
                 count = Convert.ToInt32(command.ExecuteScalar());
 
