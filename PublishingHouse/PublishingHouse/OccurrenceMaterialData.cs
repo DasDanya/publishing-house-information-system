@@ -23,6 +23,8 @@ namespace PublishingHouse
 
             // Заполняем таблицы
             FillingTable(typeDataGridView, "Тип", "DESC", Material.GetCountUniqueRecords("matType"));
+            FillingTable(colorDataGridView, "Цвет", "DESC", Material.GetCountUniqueRecords("matColor"));
+            FillingTable(sizeDataGridView, "Размер", "DESC", Material.GetCountUniqueRecords("matSize"));
 
             // Делаем radioButton выбранными
             ButtonIsChecked();
@@ -104,6 +106,8 @@ namespace PublishingHouse
         private void ButtonIsChecked() 
         {
             descTypeRadioButton.Checked = true;
+            descColorRadioButton.Checked = true;
+            descSizeRadioButton.Checked = true;
         }
 
         /// <summary>
@@ -126,6 +130,16 @@ namespace PublishingHouse
         private void getTypesButton_Click(object sender, EventArgs e)
         {
             OutputTableByUserQuery(countTypeTextBox, typeDataGridView, descTypeRadioButton, ascTypeRadioButton, "Тип", "matType");
+        }
+
+        private void getColorsButton_Click(object sender, EventArgs e)
+        {
+            OutputTableByUserQuery(countColorTextBox, colorDataGridView, descColorRadioButton, ascColorRadioButton, "Цвет", "matColor");
+        }
+
+        private void getSizesButton_Click(object sender, EventArgs e)
+        {
+            OutputTableByUserQuery(countSizeTextBox, sizeDataGridView, descSizeRadioButton, ascSizeRadioButton, "Размер", "matSize");
         }
 
 

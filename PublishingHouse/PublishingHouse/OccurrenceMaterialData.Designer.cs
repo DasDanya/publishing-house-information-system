@@ -40,9 +40,29 @@ namespace PublishingHouse
             this.label2 = new System.Windows.Forms.Label();
             this.descTypeRadioButton = new System.Windows.Forms.RadioButton();
             this.ascTypeRadioButton = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.getColorsButton = new System.Windows.Forms.Button();
+            this.countColorTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.descColorRadioButton = new System.Windows.Forms.RadioButton();
+            this.ascColorRadioButton = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.colorDataGridView = new System.Windows.Forms.DataGridView();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.getSizesButton = new System.Windows.Forms.Button();
+            this.countSizeTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.descSizeRadioButton = new System.Windows.Forms.RadioButton();
+            this.ascSizeRadioButton = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.sizeDataGridView = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.typeDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colorDataGridView)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sizeDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -52,7 +72,7 @@ namespace PublishingHouse
             this.backTab});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(829, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1866, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -95,9 +115,9 @@ namespace PublishingHouse
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.descTypeRadioButton);
             this.groupBox1.Controls.Add(this.ascTypeRadioButton);
-            this.groupBox1.Location = new System.Drawing.Point(351, 69);
+            this.groupBox1.Location = new System.Drawing.Point(351, 61);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(250, 312);
+            this.groupBox1.Size = new System.Drawing.Size(250, 320);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с типами";
@@ -151,11 +171,193 @@ namespace PublishingHouse
             this.ascTypeRadioButton.Text = "По возрастанию";
             this.ascTypeRadioButton.UseVisualStyleBackColor = true;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.getColorsButton);
+            this.groupBox2.Controls.Add(this.countColorTextBox);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.descColorRadioButton);
+            this.groupBox2.Controls.Add(this.ascColorRadioButton);
+            this.groupBox2.Location = new System.Drawing.Point(976, 61);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(250, 320);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Работа с цветами";
+            // 
+            // getColorsButton
+            // 
+            this.getColorsButton.Location = new System.Drawing.Point(6, 201);
+            this.getColorsButton.Name = "getColorsButton";
+            this.getColorsButton.Size = new System.Drawing.Size(237, 96);
+            this.getColorsButton.TabIndex = 4;
+            this.getColorsButton.Text = "Получить цвета";
+            this.getColorsButton.UseVisualStyleBackColor = true;
+            this.getColorsButton.Click += new System.EventHandler(this.getColorsButton_Click);
+            // 
+            // countColorTextBox
+            // 
+            this.countColorTextBox.Location = new System.Drawing.Point(6, 157);
+            this.countColorTextBox.MaxLength = 11;
+            this.countColorTextBox.Name = "countColorTextBox";
+            this.countColorTextBox.Size = new System.Drawing.Size(238, 27);
+            this.countColorTextBox.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 125);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(221, 20);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Количество выводимых строк:";
+            // 
+            // descColorRadioButton
+            // 
+            this.descColorRadioButton.AutoSize = true;
+            this.descColorRadioButton.Location = new System.Drawing.Point(7, 85);
+            this.descColorRadioButton.Name = "descColorRadioButton";
+            this.descColorRadioButton.Size = new System.Drawing.Size(127, 24);
+            this.descColorRadioButton.TabIndex = 1;
+            this.descColorRadioButton.TabStop = true;
+            this.descColorRadioButton.Text = "По убыванию";
+            this.descColorRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ascColorRadioButton
+            // 
+            this.ascColorRadioButton.AutoSize = true;
+            this.ascColorRadioButton.Location = new System.Drawing.Point(6, 43);
+            this.ascColorRadioButton.Name = "ascColorRadioButton";
+            this.ascColorRadioButton.Size = new System.Drawing.Size(146, 24);
+            this.ascColorRadioButton.TabIndex = 0;
+            this.ascColorRadioButton.TabStop = true;
+            this.ascColorRadioButton.Text = "По возрастанию";
+            this.ascColorRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(765, 37);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 20);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Цвета";
+            // 
+            // colorDataGridView
+            // 
+            this.colorDataGridView.AllowUserToAddRows = false;
+            this.colorDataGridView.AllowUserToResizeColumns = false;
+            this.colorDataGridView.AllowUserToResizeRows = false;
+            this.colorDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.colorDataGridView.Location = new System.Drawing.Point(637, 69);
+            this.colorDataGridView.Name = "colorDataGridView";
+            this.colorDataGridView.ReadOnly = true;
+            this.colorDataGridView.RowHeadersVisible = false;
+            this.colorDataGridView.RowHeadersWidth = 51;
+            this.colorDataGridView.RowTemplate.Height = 50;
+            this.colorDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.colorDataGridView.Size = new System.Drawing.Size(312, 312);
+            this.colorDataGridView.TabIndex = 4;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.getSizesButton);
+            this.groupBox3.Controls.Add(this.countSizeTextBox);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.descSizeRadioButton);
+            this.groupBox3.Controls.Add(this.ascSizeRadioButton);
+            this.groupBox3.Location = new System.Drawing.Point(1601, 61);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(250, 320);
+            this.groupBox3.TabIndex = 9;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Работа с размерами";
+            // 
+            // getSizesButton
+            // 
+            this.getSizesButton.Location = new System.Drawing.Point(6, 201);
+            this.getSizesButton.Name = "getSizesButton";
+            this.getSizesButton.Size = new System.Drawing.Size(237, 96);
+            this.getSizesButton.TabIndex = 4;
+            this.getSizesButton.Text = "Получить размеры";
+            this.getSizesButton.UseVisualStyleBackColor = true;
+            this.getSizesButton.Click += new System.EventHandler(this.getSizesButton_Click);
+            // 
+            // countSizeTextBox
+            // 
+            this.countSizeTextBox.Location = new System.Drawing.Point(6, 157);
+            this.countSizeTextBox.MaxLength = 11;
+            this.countSizeTextBox.Name = "countSizeTextBox";
+            this.countSizeTextBox.Size = new System.Drawing.Size(238, 27);
+            this.countSizeTextBox.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 125);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(221, 20);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Количество выводимых строк:";
+            // 
+            // descSizeRadioButton
+            // 
+            this.descSizeRadioButton.AutoSize = true;
+            this.descSizeRadioButton.Location = new System.Drawing.Point(7, 85);
+            this.descSizeRadioButton.Name = "descSizeRadioButton";
+            this.descSizeRadioButton.Size = new System.Drawing.Size(127, 24);
+            this.descSizeRadioButton.TabIndex = 1;
+            this.descSizeRadioButton.TabStop = true;
+            this.descSizeRadioButton.Text = "По убыванию";
+            this.descSizeRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ascSizeRadioButton
+            // 
+            this.ascSizeRadioButton.AutoSize = true;
+            this.ascSizeRadioButton.Location = new System.Drawing.Point(6, 43);
+            this.ascSizeRadioButton.Name = "ascSizeRadioButton";
+            this.ascSizeRadioButton.Size = new System.Drawing.Size(146, 24);
+            this.ascSizeRadioButton.TabIndex = 0;
+            this.ascSizeRadioButton.TabStop = true;
+            this.ascSizeRadioButton.Text = "По возрастанию";
+            this.ascSizeRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(1381, 37);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(71, 20);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "Размеры";
+            // 
+            // sizeDataGridView
+            // 
+            this.sizeDataGridView.AllowUserToAddRows = false;
+            this.sizeDataGridView.AllowUserToResizeColumns = false;
+            this.sizeDataGridView.AllowUserToResizeRows = false;
+            this.sizeDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.sizeDataGridView.Location = new System.Drawing.Point(1262, 69);
+            this.sizeDataGridView.Name = "sizeDataGridView";
+            this.sizeDataGridView.ReadOnly = true;
+            this.sizeDataGridView.RowHeadersVisible = false;
+            this.sizeDataGridView.RowHeadersWidth = 51;
+            this.sizeDataGridView.RowTemplate.Height = 50;
+            this.sizeDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.sizeDataGridView.Size = new System.Drawing.Size(312, 312);
+            this.sizeDataGridView.TabIndex = 7;
+            // 
             // OccurrenceMaterialData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(829, 502);
+            this.ClientSize = new System.Drawing.Size(1866, 407);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.sizeDataGridView);
+            this.Controls.Add(this.colorDataGridView);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.typeDataGridView);
@@ -174,6 +376,12 @@ namespace PublishingHouse
             ((System.ComponentModel.ISupportInitialize)(this.typeDataGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colorDataGridView)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sizeDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -191,5 +399,21 @@ namespace PublishingHouse
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton descTypeRadioButton;
         private System.Windows.Forms.RadioButton ascTypeRadioButton;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button getColorsButton;
+        private System.Windows.Forms.TextBox countColorTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RadioButton descColorRadioButton;
+        private System.Windows.Forms.RadioButton ascColorRadioButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView colorDataGridView;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button getSizesButton;
+        private System.Windows.Forms.TextBox countSizeTextBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.RadioButton descSizeRadioButton;
+        private System.Windows.Forms.RadioButton ascSizeRadioButton;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridView sizeDataGridView;
     }
 }
