@@ -309,6 +309,7 @@ namespace PublishingHouse
                     selectForChangeButton.Enabled = false;
                     addButton.Enabled = false;
                     deleteButton.Enabled = false;
+                    resetChangeButton.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -353,6 +354,7 @@ namespace PublishingHouse
                                 deleteButton.Enabled = true;
                                 changeButton.Enabled = false;
                                 selectForChangeButton.Enabled = true;
+                                resetChangeButton.Enabled = false;
                                 
                             }
                             else
@@ -392,42 +394,53 @@ namespace PublishingHouse
             changeButton.Enabled = false;
             addButton.Enabled = true;
             deleteButton.Enabled = true;
+            resetChangeButton.Enabled = false;
 
         }
 
         private void searchCostButton_Click(object sender, EventArgs e)
         {
-            try
+            if (materialDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки для поиска", "Поиск по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
             {
-                // Получаем данные из текстовых полей
-                double from = double.Parse(fromTextBox.Text);
-                double to = double.Parse(toTextBox.Text);
-
-                // Если некорректный ввод данных
-                if (from < 1 || to < 1 || from >= to)
+                try
                 {
-                    MessageBox.Show("Диапазон должен содержать числа больше нуля. Значение правого текстового поля должно быть больше левого", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else 
-                {
-                    // Производим поиск по определенному столбцу
-                    WorkWithDataDgv.GetLikeCost(materialDataGridView, "Стоимость", from, to);
-                    //WorkWithDataDgv.SetHeightRows(materialDataGridView);
-                }
-            }
+                    // Получаем данные из текстовых полей
+                    double from = double.Parse(fromTextBox.Text);
+                    double to = double.Parse(toTextBox.Text);
 
-            catch
-            {
-                MessageBox.Show("Неккоректный ввод данных", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Если некорректный ввод данных
+                    if (from < 1 || to < 1 || from >= to)
+                    {
+                        MessageBox.Show("Диапазон должен содержать числа больше нуля. Значение правого текстового поля должно быть больше левого", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        // Производим поиск по определенному столбцу
+                        WorkWithDataDgv.GetLikeCost(materialDataGridView, "Стоимость", from, to);
+                        //WorkWithDataDgv.SetHeightRows(materialDataGridView);
+                    }
+                }
+
+                catch
+                {
+                    MessageBox.Show("Неккоректный ввод данных", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
            
         }
 
         private void resetCostButton_Click(object sender, EventArgs e)
         {
-            // Сбрасываем поиск по стоимости
-            WorkWithDataDgv.ResetSearchCost(materialDataGridView);
-            //WorkWithDataDgv.SetHeightRows(materialDataGridView);
+            if (materialDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки для сброса поиска по стоимости", "Сброс поиска по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                // Сбрасываем поиск по стоимости
+                WorkWithDataDgv.ResetSearchCost(materialDataGridView);
+                //WorkWithDataDgv.SetHeightRows(materialDataGridView);
+            }
         }
 
         private void popDataAbMaterialButton_Click(object sender, EventArgs e)
@@ -442,7 +455,7 @@ namespace PublishingHouse
                 Transition.TransitionByForms(this, popularMaterialData);
             }
             else
-                MessageBox.Show("Невозможно вывести популярные данные о материалах, так они отсутствуют!", "Вывод популярных данных о материалах", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Невозможно вывести моду данных о материалах, так они отсутствуют!", "Вывод моды данных о материалах", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void selectColorButton_Click(object sender, EventArgs e)
@@ -455,5 +468,21 @@ namespace PublishingHouse
         }
 
         
+        private void selectAllRowsButton_Click(object sender, EventArgs e)
+        {
+            if (materialDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки для выбора", "Выбрать всё", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(materialDataGridView, true);
+        }
+
+        private void cancelSelectRowsButton_Click(object sender, EventArgs e)
+        {
+            if (materialDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки", "Отменить выбор строк", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(materialDataGridView, false);
+            
+        }
     }
 }

@@ -126,7 +126,7 @@ namespace PublishingHouse
             // 
             this.getTypesButton.Location = new System.Drawing.Point(6, 201);
             this.getTypesButton.Name = "getTypesButton";
-            this.getTypesButton.Size = new System.Drawing.Size(237, 96);
+            this.getTypesButton.Size = new System.Drawing.Size(237, 113);
             this.getTypesButton.TabIndex = 4;
             this.getTypesButton.Text = "Получить типы";
             this.getTypesButton.UseVisualStyleBackColor = true;
@@ -187,9 +187,9 @@ namespace PublishingHouse
             // 
             // getColorsButton
             // 
-            this.getColorsButton.Location = new System.Drawing.Point(6, 201);
+            this.getColorsButton.Location = new System.Drawing.Point(7, 201);
             this.getColorsButton.Name = "getColorsButton";
-            this.getColorsButton.Size = new System.Drawing.Size(237, 96);
+            this.getColorsButton.Size = new System.Drawing.Size(237, 113);
             this.getColorsButton.TabIndex = 4;
             this.getColorsButton.Text = "Получить цвета";
             this.getColorsButton.UseVisualStyleBackColor = true;
@@ -277,7 +277,7 @@ namespace PublishingHouse
             // 
             this.getSizesButton.Location = new System.Drawing.Point(6, 201);
             this.getSizesButton.Name = "getSizesButton";
-            this.getSizesButton.Size = new System.Drawing.Size(237, 96);
+            this.getSizesButton.Size = new System.Drawing.Size(237, 113);
             this.getSizesButton.TabIndex = 4;
             this.getSizesButton.Text = "Получить размеры";
             this.getSizesButton.UseVisualStyleBackColor = true;

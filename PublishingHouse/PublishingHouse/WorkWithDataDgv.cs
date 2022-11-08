@@ -164,7 +164,22 @@ namespace PublishingHouse
                 textBox.Enabled = true;    
         }
 
-        
-        
+        /// <summary>
+        /// Метод, который устанавливает или сбрасывает выбор строк
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="select">True - установка, False - сброс</param>
+        public static void SelectOrCancelSelectAllRows(DataGridView dataGridView, bool select) 
+        {
+            if (dataGridView.Rows.Count < 1)
+                return;
+            else 
+            {
+                for (int i = 0; i < dataGridView.Rows.Count; i++)
+                {
+                   dataGridView.Rows[i].Cells["Select"].Value = select;
+                }    
+            }
+        }
     }
 }

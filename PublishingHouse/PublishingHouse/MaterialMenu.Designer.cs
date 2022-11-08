@@ -34,6 +34,8 @@ namespace PublishingHouse
             this.materialDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.materialGroupBox = new System.Windows.Forms.GroupBox();
+            this.cancelSelectRowsButton = new System.Windows.Forms.Button();
+            this.selectAllRowsButton = new System.Windows.Forms.Button();
             this.cComboBox = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.bComboBox = new System.Windows.Forms.ComboBox();
@@ -113,6 +115,8 @@ namespace PublishingHouse
             // 
             // materialGroupBox
             // 
+            this.materialGroupBox.Controls.Add(this.cancelSelectRowsButton);
+            this.materialGroupBox.Controls.Add(this.selectAllRowsButton);
             this.materialGroupBox.Controls.Add(this.cComboBox);
             this.materialGroupBox.Controls.Add(this.label7);
             this.materialGroupBox.Controls.Add(this.bComboBox);
@@ -154,6 +158,26 @@ namespace PublishingHouse
             this.materialGroupBox.TabIndex = 1;
             this.materialGroupBox.TabStop = false;
             this.materialGroupBox.Text = "Работа с данными";
+            // 
+            // cancelSelectRowsButton
+            // 
+            this.cancelSelectRowsButton.Location = new System.Drawing.Point(694, 387);
+            this.cancelSelectRowsButton.Name = "cancelSelectRowsButton";
+            this.cancelSelectRowsButton.Size = new System.Drawing.Size(166, 43);
+            this.cancelSelectRowsButton.TabIndex = 41;
+            this.cancelSelectRowsButton.Text = "Отменить выбор";
+            this.cancelSelectRowsButton.UseVisualStyleBackColor = true;
+            this.cancelSelectRowsButton.Click += new System.EventHandler(this.cancelSelectRowsButton_Click);
+            // 
+            // selectAllRowsButton
+            // 
+            this.selectAllRowsButton.Location = new System.Drawing.Point(501, 387);
+            this.selectAllRowsButton.Name = "selectAllRowsButton";
+            this.selectAllRowsButton.Size = new System.Drawing.Size(166, 43);
+            this.selectAllRowsButton.TabIndex = 40;
+            this.selectAllRowsButton.Text = "Выбрать всё";
+            this.selectAllRowsButton.UseVisualStyleBackColor = true;
+            this.selectAllRowsButton.Click += new System.EventHandler(this.selectAllRowsButton_Click);
             // 
             // cComboBox
             // 
@@ -235,14 +259,15 @@ namespace PublishingHouse
             // 
             this.searchCostButton.Location = new System.Drawing.Point(501, 318);
             this.searchCostButton.Name = "searchCostButton";
-            this.searchCostButton.Size = new System.Drawing.Size(356, 43);
+            this.searchCostButton.Size = new System.Drawing.Size(166, 43);
             this.searchCostButton.TabIndex = 33;
-            this.searchCostButton.Text = "Поиск материала по стоимости";
+            this.searchCostButton.Text = "Поиск по стоимости";
             this.searchCostButton.UseVisualStyleBackColor = true;
             this.searchCostButton.Click += new System.EventHandler(this.searchCostButton_Click);
             // 
             // resetChangeButton
             // 
+            this.resetChangeButton.Enabled = false;
             this.resetChangeButton.Location = new System.Drawing.Point(501, 455);
             this.resetChangeButton.Name = "resetChangeButton";
             this.resetChangeButton.Size = new System.Drawing.Size(166, 43);
@@ -253,17 +278,17 @@ namespace PublishingHouse
             // 
             // resetCostButton
             // 
-            this.resetCostButton.Location = new System.Drawing.Point(501, 387);
+            this.resetCostButton.Location = new System.Drawing.Point(694, 318);
             this.resetCostButton.Name = "resetCostButton";
-            this.resetCostButton.Size = new System.Drawing.Size(359, 43);
+            this.resetCostButton.Size = new System.Drawing.Size(166, 43);
             this.resetCostButton.TabIndex = 31;
-            this.resetCostButton.Text = "Сбросить поиск по стоимости";
+            this.resetCostButton.Text = "Сбросить поиск";
             this.resetCostButton.UseVisualStyleBackColor = true;
             this.resetCostButton.Click += new System.EventHandler(this.resetCostButton_Click);
             // 
             // toTextBox
             // 
-            this.toTextBox.Location = new System.Drawing.Point(740, 248);
+            this.toTextBox.Location = new System.Drawing.Point(740, 247);
             this.toTextBox.MaxLength = 8;
             this.toTextBox.Name = "toTextBox";
             this.toTextBox.Size = new System.Drawing.Size(120, 27);
@@ -273,7 +298,7 @@ namespace PublishingHouse
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(708, 250);
+            this.label16.Location = new System.Drawing.Point(706, 250);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(28, 20);
             this.label16.TabIndex = 29;
@@ -291,7 +316,7 @@ namespace PublishingHouse
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(501, 250);
+            this.label15.Location = new System.Drawing.Point(504, 250);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(26, 20);
             this.label15.TabIndex = 27;
@@ -367,7 +392,7 @@ namespace PublishingHouse
             this.changeButton.Name = "changeButton";
             this.changeButton.Size = new System.Drawing.Size(187, 43);
             this.changeButton.TabIndex = 19;
-            this.changeButton.Text = "Изменить матрериал";
+            this.changeButton.Text = "Изменить материал";
             this.changeButton.UseVisualStyleBackColor = true;
             this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
             // 
@@ -611,5 +636,7 @@ namespace PublishingHouse
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox bComboBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button selectAllRowsButton;
+        private System.Windows.Forms.Button cancelSelectRowsButton;
     }
 }
