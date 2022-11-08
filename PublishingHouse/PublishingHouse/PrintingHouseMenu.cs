@@ -98,5 +98,11 @@ namespace PublishingHouse
             else
                 return false;
         }
+
+        private void inputButton_Click(object sender, EventArgs e)
+        {
+            FillDataPrintingHouse fillDataPrintingHouse = new FillDataPrintingHouse();
+            Transition.TransitionByForms(this, fillDataPrintingHouse);
+        }
     }
 }
