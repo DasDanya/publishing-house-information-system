@@ -54,6 +54,9 @@ namespace PublishingHouse
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.inputNameLabel = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.typesStreetComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,16 +80,17 @@ namespace PublishingHouse
             // 
             // saveInputButton
             // 
-            this.saveInputButton.Location = new System.Drawing.Point(351, 336);
+            this.saveInputButton.Location = new System.Drawing.Point(204, 432);
             this.saveInputButton.Name = "saveInputButton";
             this.saveInputButton.Size = new System.Drawing.Size(262, 66);
             this.saveInputButton.TabIndex = 43;
             this.saveInputButton.Text = "Сохранить введённые данные";
             this.saveInputButton.UseVisualStyleBackColor = true;
+            this.saveInputButton.Click += new System.EventHandler(this.saveInputButton_Click);
             // 
             // houseTextBox
             // 
-            this.houseTextBox.Location = new System.Drawing.Point(400, 277);
+            this.houseTextBox.Location = new System.Drawing.Point(400, 375);
             this.houseTextBox.MaxLength = 7;
             this.houseTextBox.Name = "houseTextBox";
             this.houseTextBox.Size = new System.Drawing.Size(213, 27);
@@ -95,7 +99,7 @@ namespace PublishingHouse
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(351, 277);
+            this.label12.Location = new System.Drawing.Point(351, 375);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(42, 20);
             this.label12.TabIndex = 41;
@@ -104,7 +108,7 @@ namespace PublishingHouse
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(416, 238);
+            this.label13.Location = new System.Drawing.Point(416, 336);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(155, 20);
             this.label13.TabIndex = 40;
@@ -112,7 +116,7 @@ namespace PublishingHouse
             // 
             // streetTextBox
             // 
-            this.streetTextBox.Location = new System.Drawing.Point(400, 179);
+            this.streetTextBox.Location = new System.Drawing.Point(400, 277);
             this.streetTextBox.MaxLength = 30;
             this.streetTextBox.Name = "streetTextBox";
             this.streetTextBox.Size = new System.Drawing.Size(213, 27);
@@ -121,20 +125,20 @@ namespace PublishingHouse
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(339, 179);
+            this.label10.Location = new System.Drawing.Point(347, 277);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(55, 20);
+            this.label10.Size = new System.Drawing.Size(42, 20);
             this.label10.TabIndex = 38;
-            this.label10.Text = "Улица:";
+            this.label10.Text = "Имя:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(400, 140);
+            this.label11.Location = new System.Drawing.Point(400, 238);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(183, 20);
+            this.label11.Size = new System.Drawing.Size(181, 20);
             this.label11.TabIndex = 37;
-            this.label11.Text = "Введите название улицы";
+            this.label11.Text = "Введите имя типа улицы";
             // 
             // cityTextBox
             // 
@@ -266,11 +270,54 @@ namespace PublishingHouse
             this.inputNameLabel.TabIndex = 22;
             this.inputNameLabel.Text = "Введите название типографии";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(417, 140);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(154, 20);
+            this.label14.TabIndex = 44;
+            this.label14.Text = "Выберите тип улицы";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(351, 179);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(38, 20);
+            this.label15.TabIndex = 45;
+            this.label15.Text = "Тип:";
+            // 
+            // typesStreetComboBox
+            // 
+            this.typesStreetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.typesStreetComboBox.FormattingEnabled = true;
+            this.typesStreetComboBox.Items.AddRange(new object[] {
+            "Улица",
+            "Аллея",
+            "Бульвар",
+            "Линия",
+            "Набережная",
+            "Переулок",
+            "Проезд",
+            "Проспект",
+            "Проулок",
+            "Спуск",
+            "Тупик",
+            "Шоссе"});
+            this.typesStreetComboBox.Location = new System.Drawing.Point(400, 179);
+            this.typesStreetComboBox.Name = "typesStreetComboBox";
+            this.typesStreetComboBox.Size = new System.Drawing.Size(213, 28);
+            this.typesStreetComboBox.TabIndex = 46;
+            // 
             // FillDataPrintingHouse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 450);
+            this.ClientSize = new System.Drawing.Size(653, 513);
+            this.Controls.Add(this.typesStreetComboBox);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.saveInputButton);
             this.Controls.Add(this.houseTextBox);
             this.Controls.Add(this.label12);
@@ -336,5 +383,8 @@ namespace PublishingHouse
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label inputNameLabel;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.ComboBox typesStreetComboBox;
     }
 }
