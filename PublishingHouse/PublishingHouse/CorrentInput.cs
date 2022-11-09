@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Net.Mail;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -18,16 +17,8 @@ namespace PublishingHouse
         /// <param name="email">Электронная почта</param>
         /// <returns>Корректна ли электронная почта</returns>
         public static bool IsCorrectEmail(string email)
-        {
-            try
-            {
-                MailAddress mailAddress = new MailAddress(email);
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
+        {  
+            return Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
         }
 
 
@@ -38,12 +29,8 @@ namespace PublishingHouse
         /// <returns></returns>
         public static bool CheckNameOfStateOrCity(string checkString)
         {
-            //if (Regex.IsMatch(checkString, @"^[а - я А - Я] + (?:[\s -][а - я А - Я] +) *$"))
-            //    return true;
-            //else
-            //    return false;
-
-            return true;
+           return Regex.IsMatch(checkString, @"^\p{Lu}\p{L}*(?:[\s-]\p{Lu}\p{L}*)*$");
+            
         }
 
 

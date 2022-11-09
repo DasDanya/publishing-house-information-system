@@ -38,13 +38,15 @@ namespace PublishingHouse
         /// <returns>Правильно ли введены данные</returns>
         private bool CorrectInputData() 
         {
-            if (nameTextBox.Text != "" && phoneNumberTextBox.MaskCompleted && CorrentInput.IsCorrectEmail(emailTextBox.Text) && CorrentInput.CheckNameOfStateOrCity(stateTextBox.Text)
-                && CorrentInput.CheckNameOfStateOrCity(cityTextBox.Text) && typesStreetComboBox.Text != "" && streetTextBox.Text != "" && CorrentInput.IsCorrectNumberOfHouse(houseTextBox.Text))
+            if (nameTextBox.Text == "" || !phoneNumberTextBox.MaskFull || !CorrentInput.IsCorrectEmail(emailTextBox.Text) || !CorrentInput.CheckNameOfStateOrCity(stateTextBox.Text)
+                || !CorrentInput.CheckNameOfStateOrCity(cityTextBox.Text) || typesStreetComboBox.Text == "" || streetTextBox.Text == "" || !CorrentInput.IsCorrectNumberOfHouse(houseTextBox.Text))
             {
-                return true;
+                return false;
             }
             else
-                return false;
+                return true;
+
+
         }
 
         private void saveInputButton_Click(object sender, EventArgs e)
@@ -54,13 +56,14 @@ namespace PublishingHouse
                 if (CorrectInputData())
                     MessageBox.Show("ok");
                 else
-                    MessageBox.Show("Все поля должны быть заполнены. В названии субъектов и городов должны присутствовать только русские буквы и знак тире. Проверьте правильность" +
-                        " ввода номера дома", "Заполнение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Все поля должны быть заполнены. Проверьте правильность ввода названия субъекта, города," +
+                        " номера дома или электронной почты", "Заполнение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch 
             {
-                MessageBox.Show("Неправильный ввод электронной почты", "Заполнение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Проверьте правильность ввода названия субъекта, города," +
+                        " номера дома или электронной почты", "Заполнение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-        }
+}
     }
 }
