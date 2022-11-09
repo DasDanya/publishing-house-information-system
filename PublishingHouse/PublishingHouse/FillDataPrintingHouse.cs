@@ -38,7 +38,7 @@ namespace PublishingHouse
         /// <returns>Правильно ли введены данные</returns>
         private bool CorrectInputData() 
         {
-            if (nameTextBox.Text == "" || !phoneNumberTextBox.MaskFull || !CorrentInput.IsCorrectEmail(emailTextBox.Text) || !CorrentInput.CheckNameOfStateOrCity(stateTextBox.Text)
+            if (nameTextBox.Text == "" || !phoneNumberTextBox.MaskFull || !CorrentInput.IsCorrectEmail(emailTextBox.Text) || typesOfStateComboBox.Text == ""|| !CorrentInput.CheckNameOfStateOrCity(stateTextBox.Text)
                 || !CorrentInput.CheckNameOfStateOrCity(cityTextBox.Text) || typesStreetComboBox.Text == "" || streetTextBox.Text == "" || !CorrentInput.IsCorrectNumberOfHouse(houseTextBox.Text))
             {
                 return false;

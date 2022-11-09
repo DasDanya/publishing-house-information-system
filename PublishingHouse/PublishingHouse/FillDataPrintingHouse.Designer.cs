@@ -57,6 +57,9 @@ namespace PublishingHouse
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.typesStreetComboBox = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.typesOfStateComboBox = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,7 +83,7 @@ namespace PublishingHouse
             // 
             // saveInputButton
             // 
-            this.saveInputButton.Location = new System.Drawing.Point(204, 432);
+            this.saveInputButton.Location = new System.Drawing.Point(351, 434);
             this.saveInputButton.Name = "saveInputButton";
             this.saveInputButton.Size = new System.Drawing.Size(262, 66);
             this.saveInputButton.TabIndex = 43;
@@ -125,20 +128,20 @@ namespace PublishingHouse
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(347, 277);
+            this.label10.Location = new System.Drawing.Point(339, 277);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(42, 20);
+            this.label10.Size = new System.Drawing.Size(55, 20);
             this.label10.TabIndex = 38;
-            this.label10.Text = "Имя:";
+            this.label10.Text = "Улица:";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(400, 238);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(181, 20);
+            this.label11.Size = new System.Drawing.Size(183, 20);
             this.label11.TabIndex = 37;
-            this.label11.Text = "Введите имя типа улицы";
+            this.label11.Text = "Введите название улицы";
             // 
             // cityTextBox
             // 
@@ -168,7 +171,7 @@ namespace PublishingHouse
             // 
             // stateTextBox
             // 
-            this.stateTextBox.Location = new System.Drawing.Point(90, 375);
+            this.stateTextBox.Location = new System.Drawing.Point(90, 473);
             this.stateTextBox.MaxLength = 30;
             this.stateTextBox.Name = "stateTextBox";
             this.stateTextBox.Size = new System.Drawing.Size(208, 27);
@@ -177,7 +180,7 @@ namespace PublishingHouse
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 375);
+            this.label6.Location = new System.Drawing.Point(17, 473);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 20);
             this.label6.TabIndex = 32;
@@ -186,7 +189,7 @@ namespace PublishingHouse
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(76, 336);
+            this.label7.Location = new System.Drawing.Point(76, 434);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(200, 20);
             this.label7.TabIndex = 31;
@@ -310,11 +313,47 @@ namespace PublishingHouse
             this.typesStreetComboBox.Size = new System.Drawing.Size(213, 28);
             this.typesStreetComboBox.TabIndex = 46;
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(90, 336);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(171, 20);
+            this.label16.TabIndex = 47;
+            this.label16.Text = "Выберите тип субъекта";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(32, 375);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(38, 20);
+            this.label17.TabIndex = 48;
+            this.label17.Text = "Тип:";
+            // 
+            // typesOfStateComboBox
+            // 
+            this.typesOfStateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.typesOfStateComboBox.FormattingEnabled = true;
+            this.typesOfStateComboBox.Items.AddRange(new object[] {
+            "Область",
+            "Автономная область",
+            "Автономный округ",
+            "Край",
+            "Республика"});
+            this.typesOfStateComboBox.Location = new System.Drawing.Point(90, 375);
+            this.typesOfStateComboBox.Name = "typesOfStateComboBox";
+            this.typesOfStateComboBox.Size = new System.Drawing.Size(208, 28);
+            this.typesOfStateComboBox.TabIndex = 49;
+            // 
             // FillDataPrintingHouse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 513);
+            this.ClientSize = new System.Drawing.Size(653, 523);
+            this.Controls.Add(this.typesOfStateComboBox);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.typesStreetComboBox);
             this.Controls.Add(this.label15);
             this.Controls.Add(this.label14);
@@ -386,5 +425,8 @@ namespace PublishingHouse
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ComboBox typesStreetComboBox;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ComboBox typesOfStateComboBox;
     }
 }
