@@ -56,7 +56,11 @@ namespace PublishingHouse
                 // Если пользователь ввёл корректные данные
                 if (CorrectInputData())
                 {
-                    
+                    // Создаём типографию
+                    PrintingHouse printingHouse = new PrintingHouse(nameTextBox.Text, phoneNumberTextBox.Text, emailTextBox.Text, typesOfStateComboBox.Text, CorrectOutput.CorrectString(CorrectOutput.DeleteSpaces(stateTextBox.Text)),
+                        CorrectOutput.CorrectString(CorrectOutput.DeleteSpaces(cityTextBox.Text)), typesStreetComboBox.Text, streetTextBox.Text, CorrectOutput.DeleteSpaces(houseTextBox.Text));
+
+
                 }
                 else
                     MessageBox.Show("Все поля должны быть заполнены. Проверьте правильность ввода названия типографии, субъекта, города," +

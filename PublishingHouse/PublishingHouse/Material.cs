@@ -16,7 +16,7 @@ namespace PublishingHouse
         string type, color, size;
         double cost;
 
-        public string Type { get { return type; } }
+        //public string Type { get { return type; } }
 
 
         /// <summary>
@@ -302,6 +302,10 @@ namespace PublishingHouse
                     case "Размер":
                         nameColumnDb = "matSize";
                         break;
+                    case "Стоимость":
+                        nameColumnDb = "matCost";
+                        break;
+
 
                 }
 

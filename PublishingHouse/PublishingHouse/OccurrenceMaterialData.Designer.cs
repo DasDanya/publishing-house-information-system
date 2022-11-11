@@ -48,21 +48,31 @@ namespace PublishingHouse
             this.ascColorRadioButton = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.colorDataGridView = new System.Windows.Forms.DataGridView();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.getSizesButton = new System.Windows.Forms.Button();
             this.countSizeTextBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.descSizeRadioButton = new System.Windows.Forms.RadioButton();
             this.ascSizeRadioButton = new System.Windows.Forms.RadioButton();
-            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.sizeDataGridView = new System.Windows.Forms.DataGridView();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.getCostsButton = new System.Windows.Forms.Button();
+            this.countCostTextBox = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.descCostRadioButton = new System.Windows.Forms.RadioButton();
+            this.ascCostRadioButton = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.costDataGridView = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.typeDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.colorDataGridView)).BeginInit();
-            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sizeDataGridView)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.costDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -72,7 +82,7 @@ namespace PublishingHouse
             this.backTab});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1866, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1268, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -237,7 +247,7 @@ namespace PublishingHouse
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(765, 37);
+            this.label4.Location = new System.Drawing.Point(769, 37);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(50, 20);
             this.label4.TabIndex = 5;
@@ -259,19 +269,19 @@ namespace PublishingHouse
             this.colorDataGridView.Size = new System.Drawing.Size(312, 312);
             this.colorDataGridView.TabIndex = 4;
             // 
-            // groupBox3
+            // groupBox4
             // 
-            this.groupBox3.Controls.Add(this.getSizesButton);
-            this.groupBox3.Controls.Add(this.countSizeTextBox);
-            this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.descSizeRadioButton);
-            this.groupBox3.Controls.Add(this.ascSizeRadioButton);
-            this.groupBox3.Location = new System.Drawing.Point(1601, 61);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(250, 320);
-            this.groupBox3.TabIndex = 9;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Работа с размерами";
+            this.groupBox4.Controls.Add(this.getSizesButton);
+            this.groupBox4.Controls.Add(this.countSizeTextBox);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.descSizeRadioButton);
+            this.groupBox4.Controls.Add(this.ascSizeRadioButton);
+            this.groupBox4.Location = new System.Drawing.Point(351, 429);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(250, 320);
+            this.groupBox4.TabIndex = 12;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Работа с размерами";
             // 
             // getSizesButton
             // 
@@ -291,14 +301,14 @@ namespace PublishingHouse
             this.countSizeTextBox.Size = new System.Drawing.Size(238, 27);
             this.countSizeTextBox.TabIndex = 3;
             // 
-            // label5
+            // label7
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(17, 125);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(221, 20);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Количество выводимых строк:";
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(17, 125);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(221, 20);
+            this.label7.TabIndex = 2;
+            this.label7.Text = "Количество выводимых строк:";
             // 
             // descSizeRadioButton
             // 
@@ -322,14 +332,14 @@ namespace PublishingHouse
             this.ascSizeRadioButton.Text = "По возрастанию";
             this.ascSizeRadioButton.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // label8
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1381, 37);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(71, 20);
-            this.label6.TabIndex = 8;
-            this.label6.Text = "Размеры";
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(131, 405);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(71, 20);
+            this.label8.TabIndex = 11;
+            this.label8.Text = "Размеры";
             // 
             // sizeDataGridView
             // 
@@ -337,7 +347,7 @@ namespace PublishingHouse
             this.sizeDataGridView.AllowUserToResizeColumns = false;
             this.sizeDataGridView.AllowUserToResizeRows = false;
             this.sizeDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.sizeDataGridView.Location = new System.Drawing.Point(1262, 69);
+            this.sizeDataGridView.Location = new System.Drawing.Point(12, 437);
             this.sizeDataGridView.Name = "sizeDataGridView";
             this.sizeDataGridView.ReadOnly = true;
             this.sizeDataGridView.RowHeadersVisible = false;
@@ -345,18 +355,109 @@ namespace PublishingHouse
             this.sizeDataGridView.RowTemplate.Height = 50;
             this.sizeDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.sizeDataGridView.Size = new System.Drawing.Size(312, 312);
-            this.sizeDataGridView.TabIndex = 7;
+            this.sizeDataGridView.TabIndex = 10;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.getCostsButton);
+            this.groupBox3.Controls.Add(this.countCostTextBox);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.descCostRadioButton);
+            this.groupBox3.Controls.Add(this.ascCostRadioButton);
+            this.groupBox3.Location = new System.Drawing.Point(976, 429);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(250, 320);
+            this.groupBox3.TabIndex = 15;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Работа со стоимостями";
+            // 
+            // getCostsButton
+            // 
+            this.getCostsButton.Location = new System.Drawing.Point(6, 201);
+            this.getCostsButton.Name = "getCostsButton";
+            this.getCostsButton.Size = new System.Drawing.Size(237, 113);
+            this.getCostsButton.TabIndex = 4;
+            this.getCostsButton.Text = "Получить стоимости";
+            this.getCostsButton.UseVisualStyleBackColor = true;
+            this.getCostsButton.Click += new System.EventHandler(this.getCostsButton_Click);
+            // 
+            // countCostTextBox
+            // 
+            this.countCostTextBox.Location = new System.Drawing.Point(6, 157);
+            this.countCostTextBox.MaxLength = 11;
+            this.countCostTextBox.Name = "countCostTextBox";
+            this.countCostTextBox.Size = new System.Drawing.Size(238, 27);
+            this.countCostTextBox.TabIndex = 3;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 125);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(221, 20);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Количество выводимых строк:";
+            // 
+            // descCostRadioButton
+            // 
+            this.descCostRadioButton.AutoSize = true;
+            this.descCostRadioButton.Location = new System.Drawing.Point(7, 85);
+            this.descCostRadioButton.Name = "descCostRadioButton";
+            this.descCostRadioButton.Size = new System.Drawing.Size(127, 24);
+            this.descCostRadioButton.TabIndex = 1;
+            this.descCostRadioButton.TabStop = true;
+            this.descCostRadioButton.Text = "По убыванию";
+            this.descCostRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // ascCostRadioButton
+            // 
+            this.ascCostRadioButton.AutoSize = true;
+            this.ascCostRadioButton.Location = new System.Drawing.Point(6, 43);
+            this.ascCostRadioButton.Name = "ascCostRadioButton";
+            this.ascCostRadioButton.Size = new System.Drawing.Size(146, 24);
+            this.ascCostRadioButton.TabIndex = 0;
+            this.ascCostRadioButton.TabStop = true;
+            this.ascCostRadioButton.Text = "По возрастанию";
+            this.ascCostRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(756, 405);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(84, 20);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Стоимости";
+            // 
+            // costDataGridView
+            // 
+            this.costDataGridView.AllowUserToAddRows = false;
+            this.costDataGridView.AllowUserToResizeColumns = false;
+            this.costDataGridView.AllowUserToResizeRows = false;
+            this.costDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.costDataGridView.Location = new System.Drawing.Point(637, 437);
+            this.costDataGridView.Name = "costDataGridView";
+            this.costDataGridView.ReadOnly = true;
+            this.costDataGridView.RowHeadersVisible = false;
+            this.costDataGridView.RowHeadersWidth = 51;
+            this.costDataGridView.RowTemplate.Height = 50;
+            this.costDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.costDataGridView.Size = new System.Drawing.Size(312, 312);
+            this.costDataGridView.TabIndex = 13;
             // 
             // OccurrenceMaterialData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1866, 407);
+            this.ClientSize = new System.Drawing.Size(1268, 779);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.costDataGridView);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.sizeDataGridView);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.colorDataGridView);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
@@ -379,9 +480,12 @@ namespace PublishingHouse
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.colorDataGridView)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sizeDataGridView)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sizeDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.costDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -407,13 +511,21 @@ namespace PublishingHouse
         private System.Windows.Forms.RadioButton ascColorRadioButton;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DataGridView colorDataGridView;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button getSizesButton;
         private System.Windows.Forms.TextBox countSizeTextBox;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.RadioButton descSizeRadioButton;
         private System.Windows.Forms.RadioButton ascSizeRadioButton;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridView sizeDataGridView;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button getCostsButton;
+        private System.Windows.Forms.TextBox countCostTextBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.RadioButton descCostRadioButton;
+        private System.Windows.Forms.RadioButton ascCostRadioButton;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridView costDataGridView;
     }
 }
