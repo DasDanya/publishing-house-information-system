@@ -310,7 +310,8 @@ namespace PublishingHouse
                 }
 
                 // Формируем запрос на получение данных нужного столбца определенного количества и определенного порядка
-                string query = string.Format("select TOP {0} {1} AS N'{2}' FROM material GROUP BY {3} ORDER BY COUNT({4}) {5}", countString, nameColumnDb, columnName, nameColumnDb, nameColumnDb, order);
+                //string query = string.Format("select TOP {0} {1} AS N'{2}' FROM material GROUP BY {3} ORDER BY COUNT({4}) {5}", countString, nameColumnDb, columnName, nameColumnDb, nameColumnDb, order);
+                string query = string.Format("select TOP {0} {1} AS N'{2}', COUNT({3}) AS N'Количество' FROM material GROUP BY {4} ORDER BY COUNT({5}) {6}", countString, nameColumnDb, columnName, nameColumnDb, nameColumnDb, nameColumnDb, order);
                 SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
 
                 // Выполняем запрос и заполняем таблицу данными
