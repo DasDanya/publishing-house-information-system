@@ -14,7 +14,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="str">Строка</param>
         /// <returns>Правильная строка</returns>
-        public static string CorrectString(string str)
+        public static string CorrectStateOrCity(string str)
         {
             if (string.IsNullOrEmpty(str))
                 return string.Empty;

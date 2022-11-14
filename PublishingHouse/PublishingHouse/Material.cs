@@ -19,20 +19,20 @@ namespace PublishingHouse
         //public string Type { get { return type; } }
 
 
-        /// <summary>
-        /// Конструктор для заполнения определенного поля
-        /// </summary>
-        /// <param name="value">Значение</param>
-        /// <param name="field">Поле</param>
-        public Material(string value, string field) 
-        {
-            if (field == "type")
-                type = value;
-            if (field == "color")
-                color = value;
-            if (field == "size")
-                size = value;
-        }
+        ///// <summary>
+        ///// Конструктор для заполнения определенного поля
+        ///// </summary>
+        ///// <param name="value">Значение</param>
+        ///// <param name="field">Поле</param>
+        //public Material(string value, string field) 
+        //{
+        //    if (field == "type")
+        //        type = value;
+        //    if (field == "color")
+        //        color = value;
+        //    if (field == "size")
+        //        size = value;
+        //}
 
         
         public Material(string type, string color, string size, double cost)

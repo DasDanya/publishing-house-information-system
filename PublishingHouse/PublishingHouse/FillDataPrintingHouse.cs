@@ -57,9 +57,13 @@ namespace PublishingHouse
                 if (CorrectInputData())
                 {
                     // Создаём типографию
-                    PrintingHouse printingHouse = new PrintingHouse(nameTextBox.Text, phoneNumberTextBox.Text, emailTextBox.Text, typesOfStateComboBox.Text, CorrectOutput.CorrectString(CorrectOutput.DeleteSpaces(stateTextBox.Text)),
-                        CorrectOutput.CorrectString(CorrectOutput.DeleteSpaces(cityTextBox.Text)), typesStreetComboBox.Text, streetTextBox.Text, CorrectOutput.DeleteSpaces(houseTextBox.Text));
-
+                    PrintingHouse printingHouse = new PrintingHouse(nameTextBox.Text, phoneNumberTextBox.Text, emailTextBox.Text, typesOfStateComboBox.Text, CorrectOutput.CorrectStateOrCity(stateTextBox.Text),
+                        CorrectOutput.CorrectStateOrCity(cityTextBox.Text), typesStreetComboBox.Text, streetTextBox.Text, houseTextBox.Text.Replace(" ", ""));
+                    
+                    // Возвращаемся в меню типографий
+                    PrintingHouseMenu printingHouseMenu = new PrintingHouseMenu(printingHouse);
+                    Transition.TransitionByForms(this, printingHouseMenu);
+                    
 
                 }
                 else

@@ -28,5 +28,17 @@ namespace PublishingHouse
         {
             return $"{name}\n {numberPhone}\n {email}\n {typeState}\n {nameState}\n {city}\n {typeStreet}\n {nameStreet}\n {numberHouse}";
         }
+
+        ///// <summary>
+        ///// Метод, определяющий заполнены ли поля класса
+        ///// </summary>
+        ///// <returns>Заполнены ли поля класса</returns>
+        //public bool IsFilled() 
+        //{
+        //    if (name != "" && numberPhone != "" && email != "" && typeState != "" && nameState != "" && city != "" && typeStreet != "" && nameStreet != "" && numberHouse != "")
+        //        return true;
+        //    else
+        //        return false;
+        //}
     }
 }

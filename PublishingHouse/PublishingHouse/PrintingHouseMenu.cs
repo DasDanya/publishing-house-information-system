@@ -13,10 +13,18 @@ namespace PublishingHouse
 {
     public partial class PrintingHouseMenu : Form
     {
+        PrintingHouse printingHouse;
         public PrintingHouseMenu()
         {
             InitializeComponent();
         }
+
+        public PrintingHouseMenu(PrintingHouse printingHouse) 
+        {
+            InitializeComponent();
+            this.printingHouse = printingHouse;
+        }
+
 
         private void PrintingHouseMenu_Load(object sender, EventArgs e)
         {
@@ -38,7 +46,10 @@ namespace PublishingHouse
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            CorrectInputData();
+            if (printingHouse == null)
+                MessageBox.Show("Перед добавлением данных о типографии необходимо ввести их", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                MessageBox.Show(printingHouse.ToString());
         }
 
         /// <summary>

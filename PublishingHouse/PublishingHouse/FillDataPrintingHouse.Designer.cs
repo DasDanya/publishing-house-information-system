@@ -306,6 +306,7 @@ namespace PublishingHouse
             "Проспект",
             "Проулок",
             "Спуск",
+            "Съезд",
             "Тупик",
             "Шоссе"});
             this.typesStreetComboBox.Location = new System.Drawing.Point(400, 179);

@@ -29,9 +29,9 @@ namespace PublishingHouse
         /// <returns></returns>
         public static bool CheckNameOfStateOrCity(string checkString)
         {
-            return Regex.IsMatch(checkString, @"^[А-Яа-я]*(?:[\s-][А-Яа-я]*)*$");
+            //return Regex.IsMatch(checkString, @"^[А-Яа-я]*(?:[\s-][А-Яа-я]*)*$");
 
-            //return Regex.IsMatch(checkString, @"^\p{Lu}\p{L}*(?:[\s-]\p{Lu}\p{L}*)*$");
+            return Regex.IsMatch(checkString, @"^\p{Lu}\p{L}*(?:[\s-]\p{Lu}\p{L}*)*$");
 
         }
 

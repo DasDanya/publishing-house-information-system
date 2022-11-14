@@ -91,8 +91,10 @@ namespace PublishingHouse
                 // Заполняем таблицы полностью по убыванию повторяемости
                 dataGridView.DataSource = Material.GetTableByOccurrence(columnName, order, count);
 
-                // Устанавливаем ширину столбца и делаем первую строку без выделения
-                dataGridView.Columns[0].Width = 310;
+                // Устанавливаем ширину столбцов и делаем первую строку без выделения
+                dataGridView.Columns[0].Width = 200;
+                dataGridView.Columns[1].Width = 110;
+
                 dataGridView.ClearSelection();
             }
             catch 
