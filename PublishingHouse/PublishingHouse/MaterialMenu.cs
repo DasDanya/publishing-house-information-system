@@ -100,7 +100,7 @@ namespace PublishingHouse
                         }
                         else
                         {
-                            MessageBox.Show("Ошибка добавления материала", "Добавление материала", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Запись не была добавлена или неоднократно добавлена", "Добавление материала", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }

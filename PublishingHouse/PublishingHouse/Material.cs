@@ -181,7 +181,7 @@ namespace PublishingHouse
             }
             catch 
             {
-                throw new Exception("Ошибка добавления записи");
+                throw new Exception("Ошибка добавления материала");
             }
 
             return count;

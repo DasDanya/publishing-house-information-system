@@ -46,10 +46,25 @@ namespace PublishingHouse
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            if (printingHouse == null)
-                MessageBox.Show("Перед добавлением данных о типографии необходимо ввести их", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else
-                MessageBox.Show(printingHouse.ToString());
+            try
+            {
+                // Если пользователь не ввёл данные о типографии
+                if (printingHouse == null)
+                    MessageBox.Show("Перед добавлением данных о типографии необходимо ввести их", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    if (printingHouse.AddPrintingHouse() == 1)
+                        MessageBox.Show("Запись успешно добавлена!", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show("Запись не была добавлена или неоднократно добавлена", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка добавления данных о типографии", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+                
         }
 
         /// <summary>

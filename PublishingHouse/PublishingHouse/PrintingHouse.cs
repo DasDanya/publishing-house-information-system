@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace PublishingHouse
 {
@@ -40,5 +42,32 @@ namespace PublishingHouse
         //    else
         //        return false;
         //}
+
+        /// <summary>
+        /// Метод добавления типографии в бд
+        /// </summary>
+        /// <returns>Количество добавленных записей</returns>
+        public int AddPrintingHouse() 
+        {
+            int count = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Создаём запрос на добавление данных и выполняем запрос
+                SqlCommand command = new SqlCommand("INSERT INTO printingHouse (phName, phPhone, phEmail, phTypeState, phState, phCity, phStreet, phHouse, phTypeStreet ) VALUES (N'" + name + "', N'" + numberPhone + "', N'" + email + "', N'"+ typeState + "', N'"+ nameState + "', N'" + city + "', N'" + nameStreet + "', N'" + numberHouse + "', N'" + typeStreet + "') ", ConnectionToDb.Connection);               
+                count = command.ExecuteNonQuery();
+
+                ConnectionToDb.Close();
+            }
+
+            catch 
+            {
+                throw new Exception("Ошибка добавления типографии");
+            }
+
+            return count;
+        }
     }
 }
