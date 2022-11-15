@@ -55,13 +55,26 @@ namespace PublishingHouse
             {
                 ConnectionToDb.Open();
 
-                // Создаём запрос на добавление данных и выполняем запрос
-                SqlCommand command = new SqlCommand("INSERT INTO printingHouse (phName, phPhone, phEmail, phTypeState, phState, phCity, phStreet, phHouse, phTypeStreet ) VALUES (N'" + name + "', N'" + numberPhone + "', N'" + email + "', N'"+ typeState + "', N'"+ nameState + "', N'" + city + "', N'" + nameStreet + "', N'" + numberHouse + "', N'" + typeStreet + "') ", ConnectionToDb.Connection);               
+                // Указываем, что команда является хранимой процедурой
+                const string SQLPROCEDURE = "addPrintingHouse";
+                SqlCommand command = new SqlCommand(SQLPROCEDURE, ConnectionToDb.Connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Передаём данные для добавления записи
+                command.Parameters.Add("@phName", SqlDbType.NVarChar).Value = name;
+                command.Parameters.Add("@phPhone", SqlDbType.NVarChar).Value = numberPhone;
+                command.Parameters.Add("@phEmail", SqlDbType.NVarChar).Value = email;
+                command.Parameters.Add("@phTypeState", SqlDbType.NVarChar).Value = typeState;
+                command.Parameters.Add("@phState", SqlDbType.NVarChar).Value = nameState;
+                command.Parameters.Add("@phCity", SqlDbType.NVarChar).Value = city;
+                command.Parameters.Add("@phStreet", SqlDbType.NVarChar).Value = nameStreet;
+                command.Parameters.Add("@phHouse", SqlDbType.NVarChar).Value = numberHouse;
+                command.Parameters.Add("@phTypeStreet", SqlDbType.NVarChar).Value = typeStreet;
+
                 count = command.ExecuteNonQuery();
 
                 ConnectionToDb.Close();
             }
-
             catch 
             {
                 throw new Exception("Ошибка добавления типографии");
