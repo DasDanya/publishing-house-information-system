@@ -37,6 +37,7 @@ namespace PublishingHouse
             this.inputButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.workWithPrHouseGroupBox = new System.Windows.Forms.GroupBox();
+            this.searchOrdersButton = new System.Windows.Forms.Button();
             this.infoLabel = new System.Windows.Forms.Label();
             this.ordersTreeView = new System.Windows.Forms.TreeView();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
@@ -88,6 +89,7 @@ namespace PublishingHouse
             this.Select.HeaderText = "Выбрать";
             this.Select.MinimumWidth = 6;
             this.Select.Name = "Select";
+            this.Select.ToolTipText = "\"\"";
             this.Select.Width = 125;
             // 
             // inputButton
@@ -112,6 +114,7 @@ namespace PublishingHouse
             // 
             // workWithPrHouseGroupBox
             // 
+            this.workWithPrHouseGroupBox.Controls.Add(this.searchOrdersButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.infoLabel);
             this.workWithPrHouseGroupBox.Controls.Add(this.ordersTreeView);
             this.workWithPrHouseGroupBox.Controls.Add(this.menuStrip2);
@@ -123,6 +126,17 @@ namespace PublishingHouse
             this.workWithPrHouseGroupBox.TabIndex = 23;
             this.workWithPrHouseGroupBox.TabStop = false;
             this.workWithPrHouseGroupBox.Text = "Работа с данными";
+            // 
+            // searchOrdersButton
+            // 
+            this.searchOrdersButton.Location = new System.Drawing.Point(128, 64);
+            this.searchOrdersButton.Name = "searchOrdersButton";
+            this.searchOrdersButton.Size = new System.Drawing.Size(211, 57);
+            this.searchOrdersButton.TabIndex = 25;
+            this.searchOrdersButton.Text = "Поиск заказов";
+            this.searchOrdersButton.UseVisualStyleBackColor = true;
+            this.searchOrdersButton.Visible = false;
+            this.searchOrdersButton.Click += new System.EventHandler(this.searchOrdersButton_Click);
             // 
             // infoLabel
             // 
@@ -136,7 +150,7 @@ namespace PublishingHouse
             // 
             this.ordersTreeView.Location = new System.Drawing.Point(6, 64);
             this.ordersTreeView.Name = "ordersTreeView";
-            this.ordersTreeView.Size = new System.Drawing.Size(211, 154);
+            this.ordersTreeView.Size = new System.Drawing.Size(116, 154);
             this.ordersTreeView.TabIndex = 23;
             this.ordersTreeView.Visible = false;
             // 
@@ -202,12 +216,13 @@ namespace PublishingHouse
         private System.Windows.Forms.DataGridView printingHouseDataGridView;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button inputButton;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
         private System.Windows.Forms.GroupBox workWithPrHouseGroupBox;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem processingTab;
         private System.Windows.Forms.ToolStripMenuItem searchTab;
         private System.Windows.Forms.TreeView ordersTreeView;
         private System.Windows.Forms.Label infoLabel;
+        private System.Windows.Forms.Button searchOrdersButton;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
     }
 }

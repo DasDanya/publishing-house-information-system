@@ -170,12 +170,53 @@ namespace PublishingHouse
         private void searchTab_Click(object sender, EventArgs e)
         {
             ordersTreeView.Visible = true;
+            searchOrdersButton.Visible = true;
+            addButton.Visible = false;
+            inputButton.Visible = false;
 
         }
 
         private void processingTab_Click(object sender, EventArgs e)
         {
+            ordersTreeView.Nodes.Clear();
             ordersTreeView.Visible = false;
+            searchOrdersButton.Visible = false;
         }
+
+        private void searchOrdersButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ordersTreeView.Nodes.Clear();
+                // Если пользователь выбрал 0 или несколько записей
+                if (WorkWithDataDgv.CountSelectedRows(printingHouseDataGridView) != 1)
+                    MessageBox.Show("Неодходимо выбрать одну запись", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else 
+                {
+                    // Получаем список заказов
+                    List<string> orders = PrintingHouse.GetNumbersOfOrdersThisPrintingHouse(printingHouseDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(printingHouseDataGridView)].Cells["Электронная почта"].Value.ToString());
+
+                    // Если список пуст
+                    if (orders.Count == 0)
+                        MessageBox.Show("Выбранная типография не выполняет заказы", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                    {
+                        // Выводим номера заказов
+                        foreach (string order in orders)
+                        {
+                            ordersTreeView.Nodes.Add(order);
+                        }
+                    }
+
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка поиска заказов", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        
     }
 }

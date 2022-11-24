@@ -130,14 +130,55 @@ namespace PublishingHouse
         //    }   
         //}
 
-        //private void Get
+        //
+
+        /// <summary>
+        /// Метод получения списка номеров заказов конкретной типографии
+        /// </summary>
+        /// <param name="email">Электронная почта</param>
+        /// <returns>Список номеров заказов</returns>
+        public static List<string> GetNumbersOfOrdersThisPrintingHouse(string email) 
+        {
+            List<string> orders = new List<string>();
+          
+            try
+            {
+                // Получаем id типографии
+                int id = GetIdPrintingHouse(email);
+
+                ConnectionToDb.Open();
+
+                // Создаём запрос на получение номеров заказов
+                SqlCommand command = new SqlCommand($"SELECT * FROM booking, printingHouse WHERE booking.fphId = {id} AND printingHouse.phId = {id}", ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+                
+
+                // Считываем данные из ридера и записываем в список
+                while (dataReader.Read())
+                {
+                    // Получаем номер заказа
+                    int numberOfOrder = Convert.ToInt32(dataReader["bkNumber"]);
+                    orders.Add(numberOfOrder.ToString());
+                }
+
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения списка номеров заказов");
+            }
+
+
+            return orders; 
+        }
 
         /// <summary>
         /// Метод получения id записи о типографии
         /// </summary>
         /// <param name="email">Электронная почта</param>
         /// <returns>id записи</returns>
-        private int GetIdPrintingHouse(string email) 
+        private static int GetIdPrintingHouse(string email) 
         {
             int id = 0;
 
@@ -146,14 +187,14 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Создаём запрос на получение id записи о типографии
-                SqlCommand command = new SqlCommand("Select phId FROM printingHouse WHERE email = N'"+email+"'", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("Select phId FROM printingHouse WHERE phEmail = N'"+email+"'", ConnectionToDb.Connection);
                 // Получаем id записи
                 id = Convert.ToInt32(command.ExecuteScalar());
                 ConnectionToDb.Close();
             }
-            catch 
+            catch
             {
-                throw new Exception("Произошла ошибка получения уникального номера записи типографии");
+                throw new Exception("Произошла ошибка получения уникального номера записи о типографии");
             }
 
             return id;

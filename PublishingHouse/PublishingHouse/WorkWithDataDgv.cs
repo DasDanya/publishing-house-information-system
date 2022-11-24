@@ -78,10 +78,10 @@ namespace PublishingHouse
         //}
 
         /// <summary>
-        /// Метод, возвращаюший ComboBox столбцов для поиска материала
+        /// Метод, возвращаюший ComboBox столбцов для поиска данных
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
-        /// <returns>ComboBox столбцов для поиска материала</returns>
+        /// <returns>ComboBox столбцов для поиска данных</returns>
         private static void SetRowOfColumnsIntoComboBox(DataGridView dataGridView, ComboBox comboBox) 
         {
 
@@ -124,7 +124,7 @@ namespace PublishingHouse
         }
 
         /// <summary>
-        /// Метод поиска материала по стоимости
+        /// Метод поиска данных по диапазону
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
         /// <param name="column">Столбец</param>
@@ -137,7 +137,7 @@ namespace PublishingHouse
         }
 
         /// <summary>
-        /// Сброс поиска материала по стоимости
+        /// Сброс поиска данных по стоимости
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
         public static void ResetSearchCost(DataGridView dataGridView) 
