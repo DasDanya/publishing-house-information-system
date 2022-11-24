@@ -37,9 +37,11 @@ namespace PublishingHouse
             this.inputButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.workWithPrHouseGroupBox = new System.Windows.Forms.GroupBox();
+            this.infoLabel = new System.Windows.Forms.Label();
+            this.ordersTreeView = new System.Windows.Forms.TreeView();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
-            this.обработкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.printingHouseDataGridView)).BeginInit();
             this.workWithPrHouseGroupBox.SuspendLayout();
@@ -90,9 +92,9 @@ namespace PublishingHouse
             // 
             // inputButton
             // 
-            this.inputButton.Location = new System.Drawing.Point(987, 416);
+            this.inputButton.Location = new System.Drawing.Point(6, 64);
             this.inputButton.Name = "inputButton";
-            this.inputButton.Size = new System.Drawing.Size(211, 86);
+            this.inputButton.Size = new System.Drawing.Size(211, 57);
             this.inputButton.TabIndex = 22;
             this.inputButton.Text = "Ввести данные";
             this.inputButton.UseVisualStyleBackColor = true;
@@ -100,7 +102,7 @@ namespace PublishingHouse
             // 
             // addButton
             // 
-            this.addButton.Location = new System.Drawing.Point(696, 416);
+            this.addButton.Location = new System.Drawing.Point(6, 152);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(211, 57);
             this.addButton.TabIndex = 21;
@@ -110,7 +112,11 @@ namespace PublishingHouse
             // 
             // workWithPrHouseGroupBox
             // 
+            this.workWithPrHouseGroupBox.Controls.Add(this.infoLabel);
+            this.workWithPrHouseGroupBox.Controls.Add(this.ordersTreeView);
             this.workWithPrHouseGroupBox.Controls.Add(this.menuStrip2);
+            this.workWithPrHouseGroupBox.Controls.Add(this.addButton);
+            this.workWithPrHouseGroupBox.Controls.Add(this.inputButton);
             this.workWithPrHouseGroupBox.Location = new System.Drawing.Point(35, 360);
             this.workWithPrHouseGroupBox.Name = "workWithPrHouseGroupBox";
             this.workWithPrHouseGroupBox.Size = new System.Drawing.Size(600, 224);
@@ -118,29 +124,47 @@ namespace PublishingHouse
             this.workWithPrHouseGroupBox.TabStop = false;
             this.workWithPrHouseGroupBox.Text = "Работа с данными";
             // 
+            // infoLabel
+            // 
+            this.infoLabel.AutoSize = true;
+            this.infoLabel.Location = new System.Drawing.Point(6, 129);
+            this.infoLabel.Name = "infoLabel";
+            this.infoLabel.Size = new System.Drawing.Size(0, 20);
+            this.infoLabel.TabIndex = 24;
+            // 
+            // ordersTreeView
+            // 
+            this.ordersTreeView.Location = new System.Drawing.Point(6, 64);
+            this.ordersTreeView.Name = "ordersTreeView";
+            this.ordersTreeView.Size = new System.Drawing.Size(211, 154);
+            this.ordersTreeView.TabIndex = 23;
+            this.ordersTreeView.Visible = false;
+            // 
             // menuStrip2
             // 
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.обработкаToolStripMenuItem,
-            this.поискToolStripMenuItem});
+            this.processingTab,
+            this.searchTab});
             this.menuStrip2.Location = new System.Drawing.Point(3, 23);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(594, 28);
             this.menuStrip2.TabIndex = 0;
             this.menuStrip2.Text = "menuStrip2";
             // 
-            // обработкаToolStripMenuItem
+            // processingTab
             // 
-            this.обработкаToolStripMenuItem.Name = "обработкаToolStripMenuItem";
-            this.обработкаToolStripMenuItem.Size = new System.Drawing.Size(99, 24);
-            this.обработкаToolStripMenuItem.Text = "Обработка";
+            this.processingTab.Name = "processingTab";
+            this.processingTab.Size = new System.Drawing.Size(99, 24);
+            this.processingTab.Text = "Обработка";
+            this.processingTab.Click += new System.EventHandler(this.processingTab_Click);
             // 
-            // поискToolStripMenuItem
+            // searchTab
             // 
-            this.поискToolStripMenuItem.Name = "поискToolStripMenuItem";
-            this.поискToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
-            this.поискToolStripMenuItem.Text = "Поиск";
+            this.searchTab.Name = "searchTab";
+            this.searchTab.Size = new System.Drawing.Size(66, 24);
+            this.searchTab.Text = "Поиск";
+            this.searchTab.Click += new System.EventHandler(this.searchTab_Click);
             // 
             // PrintingHouseMenu
             // 
@@ -148,8 +172,6 @@ namespace PublishingHouse
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1425, 596);
             this.Controls.Add(this.workWithPrHouseGroupBox);
-            this.Controls.Add(this.inputButton);
-            this.Controls.Add(this.addButton);
             this.Controls.Add(this.printingHouseDataGridView);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -183,7 +205,9 @@ namespace PublishingHouse
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
         private System.Windows.Forms.GroupBox workWithPrHouseGroupBox;
         private System.Windows.Forms.MenuStrip menuStrip2;
-        private System.Windows.Forms.ToolStripMenuItem обработкаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem поискToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processingTab;
+        private System.Windows.Forms.ToolStripMenuItem searchTab;
+        private System.Windows.Forms.TreeView ordersTreeView;
+        private System.Windows.Forms.Label infoLabel;
     }
 }

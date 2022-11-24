@@ -31,7 +31,28 @@ namespace PublishingHouse
             //Загружаем иконки для вкладок
             IconImage.LoadIconBackTab(backTab);
             PrintingHouse.LoadPrintingHouse(printingHouseDataGridView);
-            
+
+            // Если пользователь ввёл данные о типографии
+            if(printingHouse != null) 
+            {
+                infoLabel.Text = "Вы можете добавить запись";
+            }
+
+        }
+
+        /// <summary>
+        /// Метод вывода новых данных из бд
+        /// </summary>
+        private void ReloadData()
+        {
+            // Удаляем все строки из таблицы
+            while (printingHouseDataGridView.Rows.Count != 0)
+            {
+                printingHouseDataGridView.Rows.Remove(printingHouseDataGridView.Rows[printingHouseDataGridView.Rows.Count - 1]);
+            }
+
+            // Загружаем новые данные
+            PrintingHouse.LoadPrintingHouse(printingHouseDataGridView);
 
         }
 
@@ -57,7 +78,14 @@ namespace PublishingHouse
                 else
                 {
                     if (printingHouse.AddPrintingHouse() == 1)
+                    {
                         MessageBox.Show("Запись успешно добавлена!", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        infoLabel.Text = "";
+
+                        // Выводим новые данные 
+                        ReloadData();
+                    }
+
                     else
                         MessageBox.Show("Запись не была добавлена или неоднократно добавлена", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -139,6 +167,15 @@ namespace PublishingHouse
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
 
-        
+        private void searchTab_Click(object sender, EventArgs e)
+        {
+            ordersTreeView.Visible = true;
+
+        }
+
+        private void processingTab_Click(object sender, EventArgs e)
+        {
+            ordersTreeView.Visible = false;
+        }
     }
 }
