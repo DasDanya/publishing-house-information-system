@@ -30,6 +30,9 @@ namespace PublishingHouse
         {
             //Загружаем иконки для вкладок
             IconImage.LoadIconBackTab(backTab);
+            PrintingHouse.LoadPrintingHouse(printingHouseDataGridView);
+            
+
         }
 
         private void backTab_Click(object sender, EventArgs e)
@@ -130,5 +133,12 @@ namespace PublishingHouse
             FillDataPrintingHouse fillDataPrintingHouse = new FillDataPrintingHouse();
             Transition.TransitionByForms(this, fillDataPrintingHouse);
         }
+
+        private void printingHouseDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+        }
+
+        
     }
 }

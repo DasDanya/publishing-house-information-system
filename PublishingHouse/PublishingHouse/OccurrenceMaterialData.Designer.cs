@@ -108,6 +108,7 @@ namespace PublishingHouse
             this.typeDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.typeDataGridView.Size = new System.Drawing.Size(312, 312);
             this.typeDataGridView.TabIndex = 1;
+            this.typeDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.DataGridView_ColumnStateChanged);
             // 
             // label1
             // 
@@ -268,6 +269,7 @@ namespace PublishingHouse
             this.colorDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colorDataGridView.Size = new System.Drawing.Size(312, 312);
             this.colorDataGridView.TabIndex = 4;
+            this.colorDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.DataGridView_ColumnStateChanged);
             // 
             // groupBox4
             // 
@@ -356,6 +358,7 @@ namespace PublishingHouse
             this.sizeDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.sizeDataGridView.Size = new System.Drawing.Size(312, 312);
             this.sizeDataGridView.TabIndex = 10;
+            this.sizeDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.DataGridView_ColumnStateChanged);
             // 
             // groupBox3
             // 
@@ -444,6 +447,7 @@ namespace PublishingHouse
             this.costDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.costDataGridView.Size = new System.Drawing.Size(312, 312);
             this.costDataGridView.TabIndex = 13;
+            this.costDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.DataGridView_ColumnStateChanged);
             // 
             // OccurrenceMaterialData
             // 

@@ -151,7 +151,10 @@ namespace PublishingHouse
             OutputTableByUserQuery(countCostTextBox, costDataGridView, descCostRadioButton, ascCostRadioButton, "Стоимость", "matCost");
         }
 
-
+        private void DataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+        }
 
         //private void FillingTable(DataGridView dataGridView, string columnName, string order) 
         //{            

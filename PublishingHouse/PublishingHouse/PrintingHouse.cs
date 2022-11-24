@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace PublishingHouse
 {
@@ -81,6 +82,81 @@ namespace PublishingHouse
             }
 
             return count;
+        }
+
+        public static void LoadPrintingHouse(DataGridView dataGridView) 
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                
+                ConnectionToDb.Open();
+
+                // Запрос на вывод всех типографий
+                SqlCommand command = new SqlCommand("SELECT phName AS N'Название', phPhone AS N'Номер телефона', phEmail AS N'Электронная почта', phTypeState AS N'Тип субъекта'," +
+                    " phState AS N'Название субъекта', phCity AS N'Город', phTypeStreet AS N'Тип улицы', phStreet AS N'Название улицы', phHouse AS N'Дом №' FROM printingHouse ORDER BY phName", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Загружаем данные о типографиях в таблицу
+                dt.Load(dataReader);
+                dataGridView.DataSource = dt;
+
+                
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка загрузки данных о типографиях");
+            }
+        }
+
+        //private static void GetListPerformedOrders(DataGridView dataGridView)
+        //{
+        //    DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
+
+        //    column.HeaderText = "Заказы";
+        //    column.Name = "Orders";
+
+        //    dataGridView.Columns.Add(column.Name, column.HeaderText);
+
+        //    column.Items.Add("555");
+        //    column.Items.Add("666");
+
+        //    for (int i = 0; i < dataGridView.Rows.Count; i++)
+        //    {
+
+        //    }   
+        //}
+
+        //private void Get
+
+        /// <summary>
+        /// Метод получения id записи о типографии
+        /// </summary>
+        /// <param name="email">Электронная почта</param>
+        /// <returns>id записи</returns>
+        private int GetIdPrintingHouse(string email) 
+        {
+            int id = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Создаём запрос на получение id записи о типографии
+                SqlCommand command = new SqlCommand("Select phId FROM printingHouse WHERE email = N'"+email+"'", ConnectionToDb.Connection);
+                // Получаем id записи
+                id = Convert.ToInt32(command.ExecuteScalar());
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Произошла ошибка получения уникального номера записи типографии");
+            }
+
+            return id;
         }
     }
 }
