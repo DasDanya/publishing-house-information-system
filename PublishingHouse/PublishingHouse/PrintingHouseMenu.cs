@@ -265,6 +265,10 @@ namespace PublishingHouse
                     printingHouseDataGridView.Rows[numberRow].Cells["Тип субъекта"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Название субъекта"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Город"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Тип улицы"].Value.ToString(),
                     printingHouseDataGridView.Rows[numberRow].Cells["Название улицы"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Дом №"].Value.ToString());
 
+                FillDataPrintingHouse fillDataPrintingHouse = new FillDataPrintingHouse(printingHouse);
+                Transition.TransitionByForms(this, fillDataPrintingHouse);
+                
+
             }
 
             

@@ -14,6 +14,17 @@ namespace PublishingHouse
     {
         string name, numberPhone, email, typeState, nameState, city, typeStreet, nameStreet, numberHouse;
 
+        public string Name { get { return name; } } 
+        public string NumberPhone { get { return  numberPhone; } }
+        public string Email { get { return email; } } 
+        public string TypeState { get { return typeState; } }
+        public string NameState { get { return nameState; } }
+        public string City { get { return city; } }
+        public string TypeStreet { get { return typeStreet; } }
+        public string NameStreet { get { return nameStreet; } }
+        public string NumberHouse { get { return numberHouse; } }
+
+
         public PrintingHouse(string name, string numberPhone, string email, string typeState, string nameState, string city, string typeStreet, string nameStreet, string numberHouse)
         {
             this.name = name;

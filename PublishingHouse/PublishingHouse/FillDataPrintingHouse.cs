@@ -10,9 +10,20 @@ namespace PublishingHouse
 {
     public partial class FillDataPrintingHouse : Form
     {
+
+        PrintingHouse printingHouse = null;
+
         public FillDataPrintingHouse()
         {
             InitializeComponent();
+        }
+
+
+        public FillDataPrintingHouse(PrintingHouse printingHouse)
+        {
+            InitializeComponent();
+            this.printingHouse = printingHouse;
+
         }
 
         private void FillDataPrintingHouse_FormClosing(object sender, FormClosingEventArgs e)
@@ -30,6 +41,26 @@ namespace PublishingHouse
         {
             //Загружаем иконки для вкладок
             IconImage.LoadIconBackTab(backTab);
+
+            if(printingHouse != null)
+            {
+                LoadDataAboutPrintingHouse();    
+            }
+        }
+
+        private void LoadDataAboutPrintingHouse()
+        {
+            nameTextBox.Text = printingHouse.Name;
+            phoneNumberTextBox.Text = printingHouse.NumberPhone;
+            emailTextBox.Text = printingHouse.Email;
+            typesOfStateComboBox.Text = printingHouse.TypeState;
+            stateTextBox.Text = printingHouse.NameState;
+            cityTextBox.Text = printingHouse.City;
+            typesStreetComboBox.Text = printingHouse.TypeStreet;
+            streetTextBox.Text = printingHouse.NameStreet;
+            houseTextBox.Text = printingHouse.NumberHouse;
+
+
         }
 
         /// <summary>
