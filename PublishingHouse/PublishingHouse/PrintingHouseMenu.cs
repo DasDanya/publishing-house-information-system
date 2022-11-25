@@ -173,6 +173,7 @@ namespace PublishingHouse
             searchOrdersButton.Visible = true;
             addButton.Visible = false;
             inputButton.Visible = false;
+            deleteButton.Visible = false;
 
         }
 
@@ -181,6 +182,9 @@ namespace PublishingHouse
             ordersTreeView.Nodes.Clear();
             ordersTreeView.Visible = false;
             searchOrdersButton.Visible = false;
+            deleteButton.Visible = true;
+            addButton.Visible = true;
+            inputButton.Visible = true;
         }
 
         private void searchOrdersButton_Click(object sender, EventArgs e)
@@ -217,6 +221,53 @@ namespace PublishingHouse
             }
         }
 
-        
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+                // Если пользователь выбрал 0 или несколько записей
+                if (WorkWithDataDgv.CountSelectedRows(printingHouseDataGridView) < 1)
+                    MessageBox.Show("Неодходимо выбрать одну или несколько записей", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);   
+                else 
+                {
+                    if (MessageBox.Show("Вы точно хотите удалить эту(-и) запись(-и)?", "Удаление типографий", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        int[] arrayId = PrintingHouse.GetArrayIdPrintingHouse(printingHouseDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(printingHouseDataGridView));
+
+                        if (PrintingHouse.DeletePrintingHouses(arrayId) == arrayId.Length)
+                        {
+                            MessageBox.Show("Записи успешно удалены!", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            ReloadData();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Количество удаленных записей не совпаадает с количеством выбранных записей", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            //}
+            //catch(Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            
+        }
+
+        private void selectForChangeButton_Click(object sender, EventArgs e)
+        {
+            if (WorkWithDataDgv.CountSelectedRows(printingHouseDataGridView) != 1)
+                MessageBox.Show("Неодходимо выбрать одну запись", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            
+            else 
+            {
+                int numberRow = WorkWithDataDgv.NumberSelectedRows(printingHouseDataGridView);
+                PrintingHouse printingHouse = new PrintingHouse(printingHouseDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Электронная почта"].Value.ToString(),
+                    printingHouseDataGridView.Rows[numberRow].Cells["Тип субъекта"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Название субъекта"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Город"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Тип улицы"].Value.ToString(),
+                    printingHouseDataGridView.Rows[numberRow].Cells["Название улицы"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Дом №"].Value.ToString());
+
+            }
+
+            
+        }
     }
 }

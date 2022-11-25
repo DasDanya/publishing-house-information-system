@@ -37,12 +37,14 @@ namespace PublishingHouse
             this.inputButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.workWithPrHouseGroupBox = new System.Windows.Forms.GroupBox();
+            this.deleteButton = new System.Windows.Forms.Button();
             this.searchOrdersButton = new System.Windows.Forms.Button();
             this.infoLabel = new System.Windows.Forms.Label();
             this.ordersTreeView = new System.Windows.Forms.TreeView();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
             this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectForChangeButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.printingHouseDataGridView)).BeginInit();
             this.workWithPrHouseGroupBox.SuspendLayout();
@@ -114,6 +116,8 @@ namespace PublishingHouse
             // 
             // workWithPrHouseGroupBox
             // 
+            this.workWithPrHouseGroupBox.Controls.Add(this.selectForChangeButton);
+            this.workWithPrHouseGroupBox.Controls.Add(this.deleteButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.searchOrdersButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.infoLabel);
             this.workWithPrHouseGroupBox.Controls.Add(this.ordersTreeView);
@@ -126,6 +130,16 @@ namespace PublishingHouse
             this.workWithPrHouseGroupBox.TabIndex = 23;
             this.workWithPrHouseGroupBox.TabStop = false;
             this.workWithPrHouseGroupBox.Text = "Работа с данными";
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(223, 64);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(211, 57);
+            this.deleteButton.TabIndex = 26;
+            this.deleteButton.Text = "Удалить типографии";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // searchOrdersButton
             // 
@@ -180,6 +194,16 @@ namespace PublishingHouse
             this.searchTab.Text = "Поиск";
             this.searchTab.Click += new System.EventHandler(this.searchTab_Click);
             // 
+            // selectForChangeButton
+            // 
+            this.selectForChangeButton.Location = new System.Drawing.Point(223, 152);
+            this.selectForChangeButton.Name = "selectForChangeButton";
+            this.selectForChangeButton.Size = new System.Drawing.Size(211, 57);
+            this.selectForChangeButton.TabIndex = 27;
+            this.selectForChangeButton.Text = "Выбрать для изменения";
+            this.selectForChangeButton.UseVisualStyleBackColor = true;
+            this.selectForChangeButton.Click += new System.EventHandler(this.selectForChangeButton_Click);
+            // 
             // PrintingHouseMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -224,5 +248,7 @@ namespace PublishingHouse
         private System.Windows.Forms.Label infoLabel;
         private System.Windows.Forms.Button searchOrdersButton;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
+        private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Button selectForChangeButton;
     }
 }

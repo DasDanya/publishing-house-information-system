@@ -199,5 +199,61 @@ namespace PublishingHouse
 
             return id;
         }
+
+        public static int DeletePrintingHouses(int[] arrayId) 
+        {
+            int countDeleteRows = 0;
+
+            //try
+            //{
+                ConnectionToDb.Open();
+                               
+                for (int i = 0; i < arrayId.Length; i++)
+                {
+                    SqlCommand command = new SqlCommand($"DELETE FROM printingHouse WHERE phId = {arrayId[i]}", ConnectionToDb.Connection);
+                    countDeleteRows += command.ExecuteNonQuery();
+                }
+
+                ConnectionToDb.Close();
+            //}
+            //catch(Exception ex)
+            //{
+            //    throw new Exception(ex.Message);
+            //}
+            return countDeleteRows;
+        }
+
+
+        public static int[] GetArrayIdPrintingHouse(DataGridView dataGridView, List<int> selectedRows) 
+        {
+            int indexArray = 0;
+            int[] arrayId = new int[selectedRows.Count];
+
+            SqlCommand command = new SqlCommand();
+            //try
+            //{
+                ConnectionToDb.Open();
+
+                for (int i = 0; i < dataGridView.Rows.Count; i++)
+                {
+                    // Если список содержит индекс
+                    if (selectedRows.Contains(i)) 
+                    {
+                        string email = dataGridView.Rows[i].Cells["Электронная почта"].Value.ToString();
+
+                        command = new SqlCommand("SELECT phId FROM printingHouse WHERE phEmail = '"+email+"'", ConnectionToDb.Connection);                       
+                        arrayId[indexArray++] = Convert.ToInt32(command.ExecuteScalar());
+                    }
+                }
+
+                ConnectionToDb.Close();
+            //}
+            //catch(Exception ex)
+            //{
+            //    throw new Exception(ex.Message);
+            //}
+
+            return arrayId;
+        }
     }
 }
