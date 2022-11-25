@@ -37,6 +37,10 @@ namespace PublishingHouse
             this.inputButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.workWithPrHouseGroupBox = new System.Windows.Forms.GroupBox();
+            this.changeButton = new System.Windows.Forms.Button();
+            this.resetChangeButton = new System.Windows.Forms.Button();
+            this.infoChangeLabel = new System.Windows.Forms.Label();
+            this.selectForChangeButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.searchOrdersButton = new System.Windows.Forms.Button();
             this.infoLabel = new System.Windows.Forms.Label();
@@ -44,7 +48,6 @@ namespace PublishingHouse
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
             this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectForChangeButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.printingHouseDataGridView)).BeginInit();
             this.workWithPrHouseGroupBox.SuspendLayout();
@@ -116,6 +119,9 @@ namespace PublishingHouse
             // 
             // workWithPrHouseGroupBox
             // 
+            this.workWithPrHouseGroupBox.Controls.Add(this.changeButton);
+            this.workWithPrHouseGroupBox.Controls.Add(this.resetChangeButton);
+            this.workWithPrHouseGroupBox.Controls.Add(this.infoChangeLabel);
             this.workWithPrHouseGroupBox.Controls.Add(this.selectForChangeButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.deleteButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.searchOrdersButton);
@@ -126,14 +132,53 @@ namespace PublishingHouse
             this.workWithPrHouseGroupBox.Controls.Add(this.inputButton);
             this.workWithPrHouseGroupBox.Location = new System.Drawing.Point(35, 360);
             this.workWithPrHouseGroupBox.Name = "workWithPrHouseGroupBox";
-            this.workWithPrHouseGroupBox.Size = new System.Drawing.Size(600, 224);
+            this.workWithPrHouseGroupBox.Size = new System.Drawing.Size(704, 224);
             this.workWithPrHouseGroupBox.TabIndex = 23;
             this.workWithPrHouseGroupBox.TabStop = false;
             this.workWithPrHouseGroupBox.Text = "Работа с данными";
             // 
+            // changeButton
+            // 
+            this.changeButton.Enabled = false;
+            this.changeButton.Location = new System.Drawing.Point(440, 152);
+            this.changeButton.Name = "changeButton";
+            this.changeButton.Size = new System.Drawing.Size(211, 57);
+            this.changeButton.TabIndex = 30;
+            this.changeButton.Text = "Изменить данные о типографии";
+            this.changeButton.UseVisualStyleBackColor = true;
+            // 
+            // resetChangeButton
+            // 
+            this.resetChangeButton.Location = new System.Drawing.Point(224, 152);
+            this.resetChangeButton.Name = "resetChangeButton";
+            this.resetChangeButton.Size = new System.Drawing.Size(210, 57);
+            this.resetChangeButton.TabIndex = 29;
+            this.resetChangeButton.Text = "Отменить выбор для изменения";
+            this.resetChangeButton.UseVisualStyleBackColor = true;
+            this.resetChangeButton.Click += new System.EventHandler(this.resetChangeButton_Click);
+            // 
+            // infoChangeLabel
+            // 
+            this.infoChangeLabel.AutoSize = true;
+            this.infoChangeLabel.Location = new System.Drawing.Point(440, 129);
+            this.infoChangeLabel.Name = "infoChangeLabel";
+            this.infoChangeLabel.Size = new System.Drawing.Size(16, 20);
+            this.infoChangeLabel.TabIndex = 28;
+            this.infoChangeLabel.Text = "c";
+            // 
+            // selectForChangeButton
+            // 
+            this.selectForChangeButton.Location = new System.Drawing.Point(223, 64);
+            this.selectForChangeButton.Name = "selectForChangeButton";
+            this.selectForChangeButton.Size = new System.Drawing.Size(211, 57);
+            this.selectForChangeButton.TabIndex = 27;
+            this.selectForChangeButton.Text = "Выбрать для изменения";
+            this.selectForChangeButton.UseVisualStyleBackColor = true;
+            this.selectForChangeButton.Click += new System.EventHandler(this.selectForChangeButton_Click);
+            // 
             // deleteButton
             // 
-            this.deleteButton.Location = new System.Drawing.Point(223, 64);
+            this.deleteButton.Location = new System.Drawing.Point(440, 64);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(211, 57);
             this.deleteButton.TabIndex = 26;
@@ -176,7 +221,7 @@ namespace PublishingHouse
             this.searchTab});
             this.menuStrip2.Location = new System.Drawing.Point(3, 23);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(594, 28);
+            this.menuStrip2.Size = new System.Drawing.Size(698, 28);
             this.menuStrip2.TabIndex = 0;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -193,16 +238,6 @@ namespace PublishingHouse
             this.searchTab.Size = new System.Drawing.Size(66, 24);
             this.searchTab.Text = "Поиск";
             this.searchTab.Click += new System.EventHandler(this.searchTab_Click);
-            // 
-            // selectForChangeButton
-            // 
-            this.selectForChangeButton.Location = new System.Drawing.Point(223, 152);
-            this.selectForChangeButton.Name = "selectForChangeButton";
-            this.selectForChangeButton.Size = new System.Drawing.Size(211, 57);
-            this.selectForChangeButton.TabIndex = 27;
-            this.selectForChangeButton.Text = "Выбрать для изменения";
-            this.selectForChangeButton.UseVisualStyleBackColor = true;
-            this.selectForChangeButton.Click += new System.EventHandler(this.selectForChangeButton_Click);
             // 
             // PrintingHouseMenu
             // 
@@ -250,5 +285,8 @@ namespace PublishingHouse
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button selectForChangeButton;
+        private System.Windows.Forms.Button resetChangeButton;
+        private System.Windows.Forms.Label infoChangeLabel;
+        private System.Windows.Forms.Button changeButton;
     }
 }

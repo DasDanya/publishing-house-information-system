@@ -12,18 +12,22 @@ namespace PublishingHouse
     {
 
         PrintingHouse printingHouse = null;
-
+        char state = ' ';
         public FillDataPrintingHouse()
         {
             InitializeComponent();
         }
 
-
-        public FillDataPrintingHouse(PrintingHouse printingHouse)
+        public FillDataPrintingHouse(char state) 
+        {
+            InitializeComponent();
+            this.state = state;
+        }
+        public FillDataPrintingHouse(PrintingHouse printingHouse, char state)
         {
             InitializeComponent();
             this.printingHouse = printingHouse;
-
+            this.state = state;
         }
 
         private void FillDataPrintingHouse_FormClosing(object sender, FormClosingEventArgs e)
@@ -48,6 +52,9 @@ namespace PublishingHouse
             }
         }
 
+        /// <summary>
+        /// Метод для загрузки данных о типографии в соответствующие поля
+        /// </summary>
         private void LoadDataAboutPrintingHouse()
         {
             nameTextBox.Text = printingHouse.Name;
@@ -92,7 +99,7 @@ namespace PublishingHouse
                         CorrectOutput.CorrectStateOrCity(cityTextBox.Text), typesStreetComboBox.Text, streetTextBox.Text, houseTextBox.Text.Replace(" ", ""));
                     
                     // Возвращаемся в меню типографий
-                    PrintingHouseMenu printingHouseMenu = new PrintingHouseMenu(printingHouse);
+                    PrintingHouseMenu printingHouseMenu = new PrintingHouseMenu(printingHouse,state);
                     Transition.TransitionByForms(this, printingHouseMenu);
                     
 

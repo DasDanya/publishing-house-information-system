@@ -14,15 +14,18 @@ namespace PublishingHouse
     public partial class PrintingHouseMenu : Form
     {
         PrintingHouse printingHouse;
+        char state = ' ';
         public PrintingHouseMenu()
         {
             InitializeComponent();
         }
 
-        public PrintingHouseMenu(PrintingHouse printingHouse) 
+        public PrintingHouseMenu(PrintingHouse printingHouse, char state) 
         {
             InitializeComponent();
             this.printingHouse = printingHouse;
+            this.state = state;
+
         }
 
 
@@ -32,10 +35,20 @@ namespace PublishingHouse
             IconImage.LoadIconBackTab(backTab);
             PrintingHouse.LoadPrintingHouse(printingHouseDataGridView);
 
-            // Если пользователь ввёл данные о типографии
-            if(printingHouse != null) 
+            // Если пользователь добавляет запись
+            if (printingHouse != null && state == 'A')
             {
                 infoLabel.Text = "Вы можете добавить запись";
+            }
+
+            // Если пользователь изменяет запись
+            else if (printingHouse != null && state == 'C') 
+            {
+                addButton.Enabled = false;
+                deleteButton.Enabled = false;
+                changeButton.Enabled = true;
+
+                infoChangeLabel.Text = "Вы можете изменить запись";
             }
 
         }
@@ -73,7 +86,7 @@ namespace PublishingHouse
             try
             {
                 // Если пользователь не ввёл данные о типографии
-                if (printingHouse == null)
+                if (printingHouse == null && state != 'A')
                     MessageBox.Show("Перед добавлением данных о типографии необходимо ввести их", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 else
                 {
@@ -81,9 +94,10 @@ namespace PublishingHouse
                     {
                         MessageBox.Show("Запись успешно добавлена!", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         infoLabel.Text = "";
-
-                        // Выводим новые данные 
+                        
+                        // Выводим новые данные и очищаем буффер
                         ReloadData();
+                        ClearBuffer();
                     }
 
                     else
@@ -98,67 +112,11 @@ namespace PublishingHouse
                 
         }
 
-        /// <summary>
-        /// Метод проверки правильности введенных данных
-        /// </summary>
-        private void CorrectInputData() 
-        {
-            //if (nameTextBox.Text == "" || !phoneNumberTextBox.MaskCompleted || !IsCorrectEmail(emailTextBox.Text) || !IsCorrectPartOfAddress(stateTextBox.Text)
-            //    || !IsCorrectPartOfAddress(cityTextBox.Text) || !IsCorrectPartOfAddress(stateTextBox.Text) || !IsCorrectNumberOfHouse(houseTextBox.Text))
-
-            
-
-            
-        }
-
-        /// <summary>
-        /// Метод проверки электронной почты на корректность
-        /// </summary>
-        /// <param name="email">Электронная почта</param>
-        /// <returns>Корректна ли электронная почта</returns>
-        private bool IsCorrectEmail(string email)
-        {
-            try
-            {
-                MailAddress mailAddress = new MailAddress(email);
-                return true;
-            }
-            catch (FormatException)
-            {
-                return false;
-            }
-        }
-
-        
-        /// <summary>
-        /// Метод проверки части адреса на корректность
-        /// </summary>
-        /// <param name="part">Часть адреса</param>
-        /// <returns>Корректна ли часть адреса</returns>
-        private bool IsCorrectPartOfAddress(string part) 
-        {
-            if (part.All(Char.IsLetter) && part != "" && Regex.IsMatch(part, "^[А-Яа-я]+$"))
-                return true;
-            else
-                return false;
-        }
-
-        /// <summary>
-        /// Метод проверки номера дома на корректность
-        /// </summary>
-        /// <param name="house">Номер дома</param>
-        /// <returns>Корректен ли номер дома</returns>
-        private bool IsCorrectNumberOfHouse(string house) 
-        {
-            if (Regex.IsMatch(house, @"^[1-9]\d*(?: ?(?:[А-Га-г]|[/] ?\d+))?$"))
-                return true;
-            else
-                return false;
-        }
 
         private void inputButton_Click(object sender, EventArgs e)
         {
-            FillDataPrintingHouse fillDataPrintingHouse = new FillDataPrintingHouse();
+            // Переходим в меню для ввода данных
+            FillDataPrintingHouse fillDataPrintingHouse = new FillDataPrintingHouse('A');
             Transition.TransitionByForms(this, fillDataPrintingHouse);
         }
 
@@ -169,22 +127,29 @@ namespace PublishingHouse
 
         private void searchTab_Click(object sender, EventArgs e)
         {
+            // Отображаем компоненты для поиска данных
             ordersTreeView.Visible = true;
             searchOrdersButton.Visible = true;
             addButton.Visible = false;
             inputButton.Visible = false;
             deleteButton.Visible = false;
-
+            selectForChangeButton.Visible = false;
+            resetChangeButton.Visible = false;
+            changeButton.Visible = false;
         }
 
         private void processingTab_Click(object sender, EventArgs e)
         {
+            // Отображаем компоненты для обработки данных
             ordersTreeView.Nodes.Clear();
             ordersTreeView.Visible = false;
             searchOrdersButton.Visible = false;
             deleteButton.Visible = true;
             addButton.Visible = true;
             inputButton.Visible = true;
+            selectForChangeButton.Visible = true;
+            resetChangeButton.Visible = true;
+            changeButton.Visible = true;
         }
 
         private void searchOrdersButton_Click(object sender, EventArgs e)
@@ -230,10 +195,13 @@ namespace PublishingHouse
                     MessageBox.Show("Неодходимо выбрать одну или несколько записей", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);   
                 else 
                 {
+                    // Если пользователь соглашается на удаление записи(-ей)
                     if (MessageBox.Show("Вы точно хотите удалить эту(-и) запись(-и)?", "Удаление типографий", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     {
+                        // Получаем массив id
                         int[] arrayId = PrintingHouse.GetArrayIdPrintingHouse(printingHouseDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(printingHouseDataGridView));
 
+                        // Если мы удалили указанное количество записей
                         if (PrintingHouse.DeletePrintingHouses(arrayId) == arrayId.Length)
                         {
                             MessageBox.Show("Записи успешно удалены!", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -255,23 +223,43 @@ namespace PublishingHouse
 
         private void selectForChangeButton_Click(object sender, EventArgs e)
         {
+            // Если количество выбранный записей не равно 1
             if (WorkWithDataDgv.CountSelectedRows(printingHouseDataGridView) != 1)
                 MessageBox.Show("Неодходимо выбрать одну запись", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             
             else 
             {
+                // Получаем номер выбранной записи и создаём объект типографии
                 int numberRow = WorkWithDataDgv.NumberSelectedRows(printingHouseDataGridView);
                 PrintingHouse printingHouse = new PrintingHouse(printingHouseDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Электронная почта"].Value.ToString(),
                     printingHouseDataGridView.Rows[numberRow].Cells["Тип субъекта"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Название субъекта"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Город"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Тип улицы"].Value.ToString(),
                     printingHouseDataGridView.Rows[numberRow].Cells["Название улицы"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Дом №"].Value.ToString());
 
-                FillDataPrintingHouse fillDataPrintingHouse = new FillDataPrintingHouse(printingHouse);
+                // Переходим в меню ввода данных для изменения этих самых данных
+                FillDataPrintingHouse fillDataPrintingHouse = new FillDataPrintingHouse(printingHouse, 'C');
                 Transition.TransitionByForms(this, fillDataPrintingHouse);
                 
 
             }
+        }
 
-            
+        /// <summary>
+        /// Метод очистки значений для буфферных переменных
+        /// </summary>
+        private void ClearBuffer()
+        {
+            printingHouse = null;
+            state = ' ';
+        }
+
+        private void resetChangeButton_Click(object sender, EventArgs e)
+        {
+            // Приводим буфферные данные и компоненты в состояние по умолчанию
+            ClearBuffer();
+            deleteButton.Enabled = true;
+            addButton.Enabled = true;
+            changeButton.Enabled = false;
+            infoChangeLabel.Text = "";
         }
     }
 }
