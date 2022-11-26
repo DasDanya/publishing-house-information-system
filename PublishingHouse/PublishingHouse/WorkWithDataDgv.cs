@@ -119,11 +119,7 @@ namespace PublishingHouse
         /// <param name="textBox">Поле,хранящее запрос пользователя</param>
         public static void GetLikeString(DataGridView dataGridView, ComboBox comboBox, TextBox textBox) 
         {
-
-            string query = string.Format(" {0} LIKE '" + textBox.Text + "%'", comboBox.Text);
-            //(dataGridView.DataSource as DataTable).DefaultView.RowFilter = comboBox.Text + $" LIKE '%{textBox.Text}%'";
-
-            (dataGridView.DataSource as DataTable).DefaultView.RowFilter = String.Format("[{0}] LIKE '{1}'", comboBox.Text, textBox.Text);
+            (dataGridView.DataSource as DataTable).DefaultView.RowFilter = String.Format("[{0}] LIKE '%{1}%'", comboBox.Text, textBox.Text);
         }
 
         /// <summary>
