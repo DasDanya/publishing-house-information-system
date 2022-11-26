@@ -48,6 +48,11 @@ namespace PublishingHouse
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
             this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.columnsLabel = new System.Windows.Forms.Label();
+            this.columnsComboBox = new System.Windows.Forms.ComboBox();
+            this.fashionButton = new System.Windows.Forms.Button();
+            this.searchDataLabel = new System.Windows.Forms.Label();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.printingHouseDataGridView)).BeginInit();
             this.workWithPrHouseGroupBox.SuspendLayout();
@@ -119,6 +124,11 @@ namespace PublishingHouse
             // 
             // workWithPrHouseGroupBox
             // 
+            this.workWithPrHouseGroupBox.Controls.Add(this.searchTextBox);
+            this.workWithPrHouseGroupBox.Controls.Add(this.searchDataLabel);
+            this.workWithPrHouseGroupBox.Controls.Add(this.fashionButton);
+            this.workWithPrHouseGroupBox.Controls.Add(this.columnsComboBox);
+            this.workWithPrHouseGroupBox.Controls.Add(this.columnsLabel);
             this.workWithPrHouseGroupBox.Controls.Add(this.changeButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.resetChangeButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.infoChangeLabel);
@@ -153,7 +163,7 @@ namespace PublishingHouse
             this.resetChangeButton.Name = "resetChangeButton";
             this.resetChangeButton.Size = new System.Drawing.Size(210, 57);
             this.resetChangeButton.TabIndex = 29;
-            this.resetChangeButton.Text = "Отменить выбор для изменения";
+            this.resetChangeButton.Text = "Отменить выбор для добавления/изменения";
             this.resetChangeButton.UseVisualStyleBackColor = true;
             this.resetChangeButton.Click += new System.EventHandler(this.resetChangeButton_Click);
             // 
@@ -239,6 +249,55 @@ namespace PublishingHouse
             this.searchTab.Text = "Поиск";
             this.searchTab.Click += new System.EventHandler(this.searchTab_Click);
             // 
+            // columnsLabel
+            // 
+            this.columnsLabel.AutoSize = true;
+            this.columnsLabel.Location = new System.Drawing.Point(378, 64);
+            this.columnsLabel.Name = "columnsLabel";
+            this.columnsLabel.Size = new System.Drawing.Size(236, 20);
+            this.columnsLabel.TabIndex = 31;
+            this.columnsLabel.Text = "Столбец для поиска типографии";
+            this.columnsLabel.Visible = false;
+            // 
+            // columnsComboBox
+            // 
+            this.columnsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.columnsComboBox.FormattingEnabled = true;
+            this.columnsComboBox.Location = new System.Drawing.Point(378, 92);
+            this.columnsComboBox.Name = "columnsComboBox";
+            this.columnsComboBox.Size = new System.Drawing.Size(236, 28);
+            this.columnsComboBox.TabIndex = 32;
+            this.columnsComboBox.Visible = false;
+            // 
+            // fashionButton
+            // 
+            this.fashionButton.Location = new System.Drawing.Point(128, 162);
+            this.fashionButton.Name = "fashionButton";
+            this.fashionButton.Size = new System.Drawing.Size(211, 56);
+            this.fashionButton.TabIndex = 33;
+            this.fashionButton.Text = "Мода типографий";
+            this.fashionButton.UseVisualStyleBackColor = true;
+            this.fashionButton.Visible = false;
+            // 
+            // searchDataLabel
+            // 
+            this.searchDataLabel.AutoSize = true;
+            this.searchDataLabel.Location = new System.Drawing.Point(378, 162);
+            this.searchDataLabel.Name = "searchDataLabel";
+            this.searchDataLabel.Size = new System.Drawing.Size(233, 20);
+            this.searchDataLabel.TabIndex = 34;
+            this.searchDataLabel.Text = "Данные для поиска типографии";
+            this.searchDataLabel.Visible = false;
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(378, 189);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(233, 27);
+            this.searchTextBox.TabIndex = 35;
+            this.searchTextBox.Visible = false;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
+            // 
             // PrintingHouseMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -288,5 +347,10 @@ namespace PublishingHouse
         private System.Windows.Forms.Button resetChangeButton;
         private System.Windows.Forms.Label infoChangeLabel;
         private System.Windows.Forms.Button changeButton;
+        private System.Windows.Forms.ComboBox columnsComboBox;
+        private System.Windows.Forms.Label columnsLabel;
+        private System.Windows.Forms.Button fashionButton;
+        private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.Label searchDataLabel;
     }
 }
