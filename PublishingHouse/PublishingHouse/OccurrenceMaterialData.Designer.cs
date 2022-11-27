@@ -150,6 +150,7 @@ namespace PublishingHouse
             this.countTypeTextBox.Name = "countTypeTextBox";
             this.countTypeTextBox.Size = new System.Drawing.Size(238, 27);
             this.countTypeTextBox.TabIndex = 3;
+            this.countTypeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // label2
             // 
@@ -213,6 +214,7 @@ namespace PublishingHouse
             this.countColorTextBox.Name = "countColorTextBox";
             this.countColorTextBox.Size = new System.Drawing.Size(238, 27);
             this.countColorTextBox.TabIndex = 3;
+            this.countColorTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // label3
             // 
@@ -302,6 +304,7 @@ namespace PublishingHouse
             this.countSizeTextBox.Name = "countSizeTextBox";
             this.countSizeTextBox.Size = new System.Drawing.Size(238, 27);
             this.countSizeTextBox.TabIndex = 3;
+            this.countSizeTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // label7
             // 
@@ -391,6 +394,7 @@ namespace PublishingHouse
             this.countCostTextBox.Name = "countCostTextBox";
             this.countCostTextBox.Size = new System.Drawing.Size(238, 27);
             this.countCostTextBox.TabIndex = 3;
+            this.countCostTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_KeyPress);
             // 
             // label5
             // 

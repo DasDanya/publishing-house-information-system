@@ -14,9 +14,9 @@ namespace PublishingHouse
     {
         string name, numberPhone, email, typeState, nameState, city, typeStreet, nameStreet, numberHouse;
 
-        public string Name { get { return name; } } 
-        public string NumberPhone { get { return  numberPhone; } }
-        public string Email { get { return email; } } 
+        public string Name { get { return name; } }
+        public string NumberPhone { get { return numberPhone; } }
+        public string Email { get { return email; } }
         public string TypeState { get { return typeState; } }
         public string NameState { get { return nameState; } }
         public string City { get { return city; } }
@@ -59,7 +59,7 @@ namespace PublishingHouse
         /// Метод добавления типографии в бд
         /// </summary>
         /// <returns>Количество добавленных записей</returns>
-        public int AddPrintingHouse() 
+        public int AddPrintingHouse()
         {
             int count = 0;
 
@@ -87,7 +87,7 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch 
+            catch
             {
                 throw new Exception("Ошибка добавления типографии");
             }
@@ -95,12 +95,12 @@ namespace PublishingHouse
             return count;
         }
 
-        public static void LoadPrintingHouse(DataGridView dataGridView) 
+        public static void LoadPrintingHouse(DataGridView dataGridView)
         {
             try
             {
                 DataTable dt = new DataTable();
-                
+
                 ConnectionToDb.Open();
 
                 // Запрос на вывод всех типографий
@@ -113,7 +113,7 @@ namespace PublishingHouse
                 dt.Load(dataReader);
                 dataGridView.DataSource = dt;
 
-                
+
 
                 ConnectionToDb.Close();
             }
@@ -148,10 +148,10 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="email">Электронная почта</param>
         /// <returns>Список номеров заказов</returns>
-        public static List<string> GetNumbersOfOrdersThisPrintingHouse(string email) 
+        public static List<string> GetNumbersOfOrdersThisPrintingHouse(string email)
         {
             List<string> orders = new List<string>();
-          
+
             try
             {
                 // Получаем id типографии
@@ -159,10 +159,10 @@ namespace PublishingHouse
 
                 ConnectionToDb.Open();
 
-                // Создаём запрос на получение номеров заказов
+                // Создаём запрос на получение номеров заказов и получаем их
                 SqlCommand command = new SqlCommand($"SELECT * FROM booking, printingHouse WHERE booking.fphId = {id} AND printingHouse.phId = {id}", ConnectionToDb.Connection);
                 SqlDataReader dataReader = command.ExecuteReader();
-                
+
 
                 // Считываем данные из ридера и записываем в список
                 while (dataReader.Read())
@@ -181,7 +181,39 @@ namespace PublishingHouse
             }
 
 
-            return orders; 
+            return orders;
+        }
+
+        /// <summary>
+        /// Метод получения списка с id
+        /// </summary>
+        /// <returns>Список с id</returns>
+        private static List<int> GetListId() 
+        {
+            List<int> listId = new List<int>();
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Получаем id записей о типографиях
+                SqlCommand command = new SqlCommand("SELECT phId FROM printingHouse", ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                while (dataReader.Read()) 
+                {
+                    // Добавляем id в список                    
+                    listId.Add(Convert.ToInt32(dataReader["phId"]));
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения списка уникальных номеров записей о типографиях");
+            }
+
+            return listId;
         }
 
         /// <summary>
@@ -189,7 +221,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="email">Электронная почта</param>
         /// <returns>id записи</returns>
-        private static int GetIdPrintingHouse(string email) 
+        private static int GetIdPrintingHouse(string email)
         {
             int id = 0;
 
@@ -198,7 +230,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Создаём запрос на получение id записи о типографии
-                SqlCommand command = new SqlCommand("Select phId FROM printingHouse WHERE phEmail = N'"+email+"'", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("Select phId FROM printingHouse WHERE phEmail = N'" + email + "'", ConnectionToDb.Connection);
                 // Получаем id записи
                 id = Convert.ToInt32(command.ExecuteScalar());
                 ConnectionToDb.Close();
@@ -211,21 +243,21 @@ namespace PublishingHouse
             return id;
         }
 
-        public static int DeletePrintingHouses(int[] arrayId) 
+        public static int DeletePrintingHouses(int[] arrayId)
         {
             int countDeleteRows = 0;
 
             //try
             //{
-                ConnectionToDb.Open();
-                               
-                for (int i = 0; i < arrayId.Length; i++)
-                {
-                    SqlCommand command = new SqlCommand($"DELETE FROM printingHouse WHERE phId = {arrayId[i]}", ConnectionToDb.Connection);
-                    countDeleteRows += command.ExecuteNonQuery();
-                }
+            ConnectionToDb.Open();
 
-                ConnectionToDb.Close();
+            for (int i = 0; i < arrayId.Length; i++)
+            {
+                SqlCommand command = new SqlCommand($"DELETE FROM printingHouse WHERE phId = {arrayId[i]}", ConnectionToDb.Connection);
+                countDeleteRows += command.ExecuteNonQuery();
+            }
+
+            ConnectionToDb.Close();
             //}
             //catch(Exception ex)
             //{
@@ -235,7 +267,7 @@ namespace PublishingHouse
         }
 
 
-        public static int[] GetArrayIdPrintingHouse(DataGridView dataGridView, List<int> selectedRows) 
+        public static int[] GetArrayIdPrintingHouse(DataGridView dataGridView, List<int> selectedRows)
         {
             int indexArray = 0;
             int[] arrayId = new int[selectedRows.Count];
@@ -243,21 +275,21 @@ namespace PublishingHouse
             SqlCommand command = new SqlCommand();
             //try
             //{
-                ConnectionToDb.Open();
+            ConnectionToDb.Open();
 
-                for (int i = 0; i < dataGridView.Rows.Count; i++)
+            for (int i = 0; i < dataGridView.Rows.Count; i++)
+            {
+                // Если список содержит индекс
+                if (selectedRows.Contains(i))
                 {
-                    // Если список содержит индекс
-                    if (selectedRows.Contains(i)) 
-                    {
-                        string email = dataGridView.Rows[i].Cells["Электронная почта"].Value.ToString();
+                    string email = dataGridView.Rows[i].Cells["Электронная почта"].Value.ToString();
 
-                        command = new SqlCommand("SELECT phId FROM printingHouse WHERE phEmail = '"+email+"'", ConnectionToDb.Connection);                       
-                        arrayId[indexArray++] = Convert.ToInt32(command.ExecuteScalar());
-                    }
+                    command = new SqlCommand("SELECT phId FROM printingHouse WHERE phEmail = '" + email + "'", ConnectionToDb.Connection);
+                    arrayId[indexArray++] = Convert.ToInt32(command.ExecuteScalar());
                 }
+            }
 
-                ConnectionToDb.Close();
+            ConnectionToDb.Close();
             //}
             //catch(Exception ex)
             //{
@@ -265,6 +297,68 @@ namespace PublishingHouse
             //}
 
             return arrayId;
+        }
+
+
+        /// <summary>
+        /// Метод получения количества записей
+        /// </summary>
+        /// <returns>Количество записей</returns>
+        public static int GetCountRecords() 
+        {
+            int count = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение количества записей и выполняем его
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM printingHouse", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                count = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения количества типографий");
+            }
+
+            return count;
+        }
+
+        /// <summary>
+        /// Метод получения данных о типографии по определенному порядку фильтрации
+        /// </summary>
+        /// <param name="order">Порядок фильтрации</param>
+        /// <param name="outStringCount">Количество выводимых строк</param>
+        /// <returns>DataTable с отсортированными данными</returns>
+        public static DataTable GetTableByOccurrence(string order, int outStringCount) 
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем, выполняем запрос на получения данных о типографии в определенном порядке
+                string query = String.Format("SELECT TOP {0} printingHouse.phName AS N'Название компании', COUNT(booking.fphId) AS N'Количество' FROM printingHouse LEFT JOIN booking ON printingHouse.phId = booking.fphId GROUP BY printingHouse.phName ORDER BY COUNT(booking.fphId) {1} ", outStringCount, order);
+                SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+                
+                // Загружаем полученные данные в DataTable
+                dt.Load(dataReader);
+
+            
+
+            ConnectionToDb.Close();
+            }
+            catch
+            { 
+               throw new Exception("Ошибка получения данных о типографиях");
+            }
+
+            return dt;
         }
     }
 }

@@ -180,5 +180,22 @@ namespace PublishingHouse
                 }    
             }
         }
+
+        /// <summary>
+        /// Метод,возвращающий порядок фильтрации 
+        /// </summary>
+        /// <param name="desc">RadioButton "По убыванию"</param>
+        /// <param name="asc">RadioButton "По возрастанию"</param>
+        /// <returns>Порядок фильтрации</returns>
+        public static string GetOrderFilter(RadioButton desc, RadioButton asc)
+        {
+            string order = "";
+            if (desc.Checked)
+                order = "DESC";
+            else if (asc.Checked)
+                order = "ASC";
+
+            return order;
+        }
     }
 }

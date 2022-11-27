@@ -107,7 +107,7 @@ namespace PublishingHouse
             }
             catch
             {
-                MessageBox.Show("Некорректный ввод данных", "Добавление материала", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка добавления материала", "Добавление материала", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -425,7 +425,7 @@ namespace PublishingHouse
 
                 catch
                 {
-                    MessageBox.Show("Неккоректный ввод данных", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Ошибка поиска материала по стоимости. Убедитесь, что вы заполнили нужные текстовые поля, и повторите попытку", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
            
@@ -446,7 +446,7 @@ namespace PublishingHouse
         private void popDataAbMaterialButton_Click(object sender, EventArgs e)
         {
             // Если есть записи в таблице, то открываем форму с популярными данными
-            if (materialDataGridView.Rows.Count != 0)
+            if (materialDataGridView.Rows.Count > 0)
             {
                 //PopularDataMaterialMenu popularDataMaterialMenu = new PopularDataMaterialMenu();
                 //Transition.TransitionByForms(this, popularDataMaterialMenu);
@@ -483,6 +483,17 @@ namespace PublishingHouse
             else
                 WorkWithDataDgv.SelectOrCancelSelectAllRows(materialDataGridView, false);
             
+        }
+
+
+        private void costTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Получаем символ, который ввёл пользователь
+            char number = e.KeyChar;
+
+            // Если пользователь ввёл не цифру,запятую и не нажал на Backspace, то не отображаем символ в textbox
+            if (!Char.IsDigit(number) && number != 44 && number != 8)
+                e.Handled = true;
         }
     }
 }

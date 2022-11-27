@@ -279,7 +279,7 @@ namespace PublishingHouse
         /// <param name="columnName">Название столбца</param>
         /// <param name="order">Порядок вывода</param>
         /// <param name="countString">Количество строк</param>
-        /// <returns>Таблица</returns>
+        /// <returns>DataTable с отсортированными данными</returns>
         public static DataTable GetTableByOccurrence(string columnName, string order, int countString)
         {
             string nameColumnDb = "";

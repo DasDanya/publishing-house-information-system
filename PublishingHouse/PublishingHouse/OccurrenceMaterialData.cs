@@ -34,7 +34,7 @@ namespace PublishingHouse
 
         private void backTab_Click(object sender, EventArgs e)
         {
-            // Переход к меню материалов
+            // Переход в меню материалов
             MaterialMenu materialMenu = new MaterialMenu();
             Transition.TransitionByForms(this, materialMenu);
         }
@@ -67,13 +67,13 @@ namespace PublishingHouse
                 else
                 {
                     // Получаем таблицу и выводим её
-                    FillingTable(dataGridView, columnName, GetOrderFilter(descRadioButton, ascRadioButton), inputCount);
-                    MessageBox.Show("Данные изменены", "Получение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    FillingTable(dataGridView, columnName, WorkWithDataDgv.GetOrderFilter(descRadioButton, ascRadioButton), inputCount);
+                    MessageBox.Show("Запрос успешно выполнен!", "Получение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch
             {
-                MessageBox.Show("Некорректный ввод данных", "Получение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка получения данных. Убедитесь, что вы заполнили нужные текстовые поля, и повторите попытку", "Получение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -88,13 +88,12 @@ namespace PublishingHouse
         {
             try
             {
-                // Заполняем таблицы полностью по убыванию повторяемости
+                // Заполняем таблицу полностью по определенному порядку
                 dataGridView.DataSource = Material.GetTableByOccurrence(columnName, order, count);
 
                 // Устанавливаем ширину столбцов и делаем первую строку без выделения
                 dataGridView.Columns[0].Width = 200;
                 dataGridView.Columns[1].Width = 110;
-
                 dataGridView.ClearSelection();
             }
             catch 
@@ -114,22 +113,6 @@ namespace PublishingHouse
             descCostRadioButton.Checked = true;
         }
 
-        /// <summary>
-        /// Метод,возвращающий порядок фильтрации 
-        /// </summary>
-        /// <param name="desc">RadioButton "По убыванию"</param>
-        /// <param name="asc">RadioButton "По возрастанию"</param>
-        /// <returns>Порядок фильтрации</returns>
-        private string GetOrderFilter(RadioButton desc, RadioButton asc) 
-        {
-            string order = "";
-            if (desc.Checked)
-                order = "DESC";
-            else if (asc.Checked)
-                order = "ASC";
-
-            return order;
-        }
 
         private void getTypesButton_Click(object sender, EventArgs e)
         {
@@ -154,6 +137,16 @@ namespace PublishingHouse
         private void DataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+        }
+
+        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Получаем символ, который ввёл пользователь
+            char number = e.KeyChar;
+
+            // Если пользователь ввёл не цифру и не нажал на Backspace, то не отображаем символ в textbox
+            if (!Char.IsDigit(number) && number != 8)
+                e.Handled = true;
         }
 
         //private void FillingTable(DataGridView dataGridView, string columnName, string order) 

@@ -286,5 +286,17 @@ namespace PublishingHouse
             // Ищём запрашиваемые данные в таблице
             WorkWithDataDgv.GetLikeString(printingHouseDataGridView, columnsComboBox, searchTextBox);
         }
+
+        private void fashionButton_Click(object sender, EventArgs e)
+        {
+            if (printingHouseDataGridView.Rows.Count > 0) 
+            {
+                FashionDataPrHouseMenu fashionDataPrHouseMenu = new FashionDataPrHouseMenu();
+                Transition.TransitionByForms(this, fashionDataPrHouseMenu);
+
+            }
+            else
+                MessageBox.Show("Невозможно вывести моду данных о типографиях, так они отсутствуют!", "Вывод моды данных о типографиях", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

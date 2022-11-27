@@ -294,6 +294,7 @@ namespace PublishingHouse
             this.toTextBox.Size = new System.Drawing.Size(120, 27);
             this.toTextBox.TabIndex = 30;
             this.toTextBox.Text = "1000";
+            this.toTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.costTextBox_KeyPress);
             // 
             // label16
             // 
@@ -312,6 +313,7 @@ namespace PublishingHouse
             this.fromTextBox.Size = new System.Drawing.Size(120, 27);
             this.fromTextBox.TabIndex = 28;
             this.fromTextBox.Text = "1";
+            this.fromTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.costTextBox_KeyPress);
             // 
             // label15
             // 
@@ -451,6 +453,7 @@ namespace PublishingHouse
             this.costTextBox.Name = "costTextBox";
             this.costTextBox.Size = new System.Drawing.Size(314, 27);
             this.costTextBox.TabIndex = 14;
+            this.costTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.costTextBox_KeyPress);
             // 
             // label8
             // 
@@ -532,8 +535,7 @@ namespace PublishingHouse
             "Офсетная бумага",
             "Самокопирующаяся бумага",
             "Типографская бумага",
-            "Форзацная бумага",
-            ""});
+            "Форзацная бумага"});
             this.typeComboBox.Location = new System.Drawing.Point(144, 70);
             this.typeComboBox.Name = "typeComboBox";
             this.typeComboBox.Size = new System.Drawing.Size(268, 28);
