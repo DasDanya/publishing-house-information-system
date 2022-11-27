@@ -213,7 +213,7 @@ namespace PublishingHouse
             this.resetChangeButton.Name = "resetChangeButton";
             this.resetChangeButton.Size = new System.Drawing.Size(210, 57);
             this.resetChangeButton.TabIndex = 29;
-            this.resetChangeButton.Text = "Отменить выбор для добавления/изменения";
+            this.resetChangeButton.Text = "Отменить добавление/изменение";
             this.resetChangeButton.UseVisualStyleBackColor = true;
             this.resetChangeButton.Click += new System.EventHandler(this.resetChangeButton_Click);
             // 

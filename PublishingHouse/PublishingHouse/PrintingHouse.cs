@@ -43,17 +43,6 @@ namespace PublishingHouse
             return $"{name}\n {numberPhone}\n {email}\n {typeState}\n {nameState}\n {city}\n {typeStreet}\n {nameStreet}\n {numberHouse}";
         }
 
-        ///// <summary>
-        ///// Метод, определяющий заполнены ли поля класса
-        ///// </summary>
-        ///// <returns>Заполнены ли поля класса</returns>
-        //public bool IsFilled() 
-        //{
-        //    if (name != "" && numberPhone != "" && email != "" && typeState != "" && nameState != "" && city != "" && typeStreet != "" && nameStreet != "" && numberHouse != "")
-        //        return true;
-        //    else
-        //        return false;
-        //}
 
         /// <summary>
         /// Метод добавления типографии в бд
@@ -123,26 +112,6 @@ namespace PublishingHouse
             }
         }
 
-        //private static void GetListPerformedOrders(DataGridView dataGridView)
-        //{
-        //    DataGridViewComboBoxColumn column = new DataGridViewComboBoxColumn();
-
-        //    column.HeaderText = "Заказы";
-        //    column.Name = "Orders";
-
-        //    dataGridView.Columns.Add(column.Name, column.HeaderText);
-
-        //    column.Items.Add("555");
-        //    column.Items.Add("666");
-
-        //    for (int i = 0; i < dataGridView.Rows.Count; i++)
-        //    {
-
-        //    }   
-        //}
-
-        //
-
         /// <summary>
         /// Метод получения списка номеров заказов конкретной типографии
         /// </summary>
@@ -155,7 +124,7 @@ namespace PublishingHouse
             try
             {
                 // Получаем id типографии
-                int id = GetIdPrintingHouse(email);
+                int id = GetIdPrintingHouseByEmail(email);
 
                 ConnectionToDb.Open();
 
@@ -217,11 +186,11 @@ namespace PublishingHouse
         }
 
         /// <summary>
-        /// Метод получения id записи о типографии
+        /// Метод получения id записи о типографии по электронной почте
         /// </summary>
         /// <param name="email">Электронная почта</param>
         /// <returns>id записи</returns>
-        private static int GetIdPrintingHouse(string email)
+        private static int GetIdPrintingHouseByEmail(string email)
         {
             int id = 0;
 
@@ -231,6 +200,60 @@ namespace PublishingHouse
 
                 // Создаём запрос на получение id записи о типографии
                 SqlCommand command = new SqlCommand("Select phId FROM printingHouse WHERE phEmail = N'" + email + "'", ConnectionToDb.Connection);
+                // Получаем id записи
+                id = Convert.ToInt32(command.ExecuteScalar());
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Произошла ошибка получения уникального номера записи о типографии");
+            }
+
+            return id;
+        }
+
+        /// <summary>
+        /// Метод получения id записи о типографии по номеру телефона
+        /// </summary>
+        /// <param name="email">Электронная почта</param>
+        /// <returns>id записи</returns>
+        private static int GetIdPrintingHouseByNumberPhone(string numberPhone)
+        {
+            int id = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Создаём запрос на получение id записи о типографии
+                SqlCommand command = new SqlCommand("Select phId FROM printingHouse WHERE phPhone = N'" + numberPhone + "'", ConnectionToDb.Connection);
+                // Получаем id записи
+                id = Convert.ToInt32(command.ExecuteScalar());
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Произошла ошибка получения уникального номера записи о типографии");
+            }
+
+            return id;
+        }
+
+        /// <summary>
+        /// Метод получения id записи о типографии по названию
+        /// </summary>
+        /// <param name="email">Электронная почта</param>
+        /// <returns>id записи</returns>
+        private static int GetIdPrintingHouseByName(string name)
+        {
+            int id = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Создаём запрос на получение id записи о типографии
+                SqlCommand command = new SqlCommand("Select phId FROM printingHouse WHERE phName = N'" + name + "'", ConnectionToDb.Connection);
                 // Получаем id записи
                 id = Convert.ToInt32(command.ExecuteScalar());
                 ConnectionToDb.Close();
@@ -360,5 +383,154 @@ namespace PublishingHouse
 
             return dt;
         }
+
+        /// <summary>
+        /// Метод, проверяющий существование электронной почты типографии в бд 
+        /// </summary>
+        /// <param name="typeWork">Тип работы с данными</param>
+        /// <param name="pastEmail">Прошлый Email</param>
+        /// <param name="newPhone">Новый Email</param>
+        /// <returns>Существует ли Email типографии в бд</returns>
+        public static bool ExistEmailInDb(char typeWork, string pastEmail, string newPhone) 
+        {
+            bool exist = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+                SqlCommand command = new SqlCommand();
+
+                // Если пользователь добавляет запись
+                if (typeWork == 'A')
+                    // Запрос на существование email
+                    command = new SqlCommand("SELECT COUNT(phEmail) FROM printingHouse WHERE phEmail = '" + newPhone + "'", ConnectionToDb.Connection);
+                
+                // Если пользователь редактирует запись
+                else if (typeWork == 'C') 
+                {
+                    // Получаем id записи
+                    int id = GetIdPrintingHouseByEmail(pastEmail);
+
+                    ConnectionToDb.Open();
+
+                    //Запрос на существование email, не учитывая изменяемую запись 
+                    command = new SqlCommand("SELECT COUNT(phEmail) FROM printingHouse WHERE phEmail = '"+ newPhone +"' AND phId != '"+ id +"' ", ConnectionToDb.Connection);
+
+                }
+ 
+                // Если email найден
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
+                    exist = true;
+
+                ConnectionToDb.Close();
+            }
+
+            catch
+            {               
+                throw new Exception("Ошибка проверки существования Email типографии в базе данных");
+            }
+
+            return exist;
+        }
+
+        /// <summary>
+        /// Метод, проверяющий существование номера телефона типографии в бд 
+        /// </summary>
+        /// <param name="typeWork">Тип работы с данными</param>
+        /// <param name="pastPhone">Прошлый номер телефона</param>
+        /// <param name="newPhone">Новый номер телефона</param>
+        /// <returns>Существует ли номер телефона типографии в бд</returns>
+        public static bool ExistPhoneInDb(char typeWork, string pastPhone, string newPhone)
+        {
+            bool exist = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+                SqlCommand command = new SqlCommand();
+
+                // Если пользователь добавляет запись
+                if (typeWork == 'A')
+                    // Запрос на существование email
+                    command = new SqlCommand("SELECT COUNT(phPhone) FROM printingHouse WHERE phPhone = '" + newPhone + "'", ConnectionToDb.Connection);
+
+                // Если пользователь редактирует запись
+                else if (typeWork == 'C')
+                {
+                    // Получаем id записи
+                    int id = GetIdPrintingHouseByNumberPhone(pastPhone);
+
+                    ConnectionToDb.Open();
+
+                    //Запрос на существование номера телефона, не учитывая изменяемую запись 
+                    command = new SqlCommand("SELECT COUNT(phPhone) FROM printingHouse WHERE phPhone = '" + newPhone + "' AND phId != '" + id + "' ", ConnectionToDb.Connection);
+
+                }
+
+                // Если номер телефона найден
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
+                    exist = true;
+
+                ConnectionToDb.Close();
+            }
+
+            catch
+            {
+                throw new Exception("Ошибка проверки существования номера телефона типографии в базе данных");
+            }
+
+            return exist;
+        }
+
+        /// <summary>
+        /// Метод, проверяющий существование названия типографии в бд 
+        /// </summary>
+        /// <param name="typeWork">Тип работы с данными</param>
+        /// <param name="pastName">Прошлое название типографии</param>
+        /// <param name="newName">Новое название типографии</param>
+        /// <returns>Существует ли номер телефона в бд</returns>
+        public static bool ExistNameOfPrintingHouseInDb(char typeWork, string pastName, string newName)
+        {
+            bool exist = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+                SqlCommand command = new SqlCommand();
+
+                // Если пользователь добавляет запись
+                if (typeWork == 'A')
+                    // Запрос на существование названия типографии
+                    command = new SqlCommand("SELECT COUNT(phName) FROM printingHouse WHERE phName = '" + newName + "'", ConnectionToDb.Connection);
+
+                // Если пользователь редактирует запись
+                else if (typeWork == 'C')
+                {
+                    // Получаем id записи
+                    int id = GetIdPrintingHouseByName(pastName);
+
+                    ConnectionToDb.Open();
+
+                    //Запрос на существование названия типографии, не учитывая изменяемую запись 
+                    command = new SqlCommand("SELECT COUNT(phName) FROM printingHouse WHERE phName = '" + newName + "' AND phId != '" + id + "' ", ConnectionToDb.Connection);
+
+                }
+
+                // Если название типографии найдено
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
+                    exist = true;
+
+                ConnectionToDb.Close();
+            }
+
+            catch
+            {
+                throw new Exception("Ошибка проверки существования названия типографии в базе данных");
+            }
+
+            return exist;
+        }
+
+
     }
 }

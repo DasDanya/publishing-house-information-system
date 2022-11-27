@@ -90,29 +90,49 @@ namespace PublishingHouse
         private void saveInputButton_Click(object sender, EventArgs e)
         {
             try
-            {   
+            {
                 // Если пользователь ввёл корректные данные
                 if (CorrectInputData())
                 {
-                    // Создаём типографию
-                    PrintingHouse printingHouse = new PrintingHouse(nameTextBox.Text, phoneNumberTextBox.Text, emailTextBox.Text, typesOfStateComboBox.Text, CorrectOutput.CorrectStateOrCity(stateTextBox.Text),
-                        CorrectOutput.CorrectStateOrCity(cityTextBox.Text), typesStreetComboBox.Text, streetTextBox.Text, houseTextBox.Text.Replace(" ", ""));
-                    
-                    // Возвращаемся в меню типографий
-                    PrintingHouseMenu printingHouseMenu = new PrintingHouseMenu(printingHouse,state);
-                    Transition.TransitionByForms(this, printingHouseMenu);
-                    
+                    string pastEmail = "";
+                    string pastPhone = "";
+                    string pastName = "";
+
+                    // Если пользователь изменяет данные
+                    if (state == 'C')
+                    {
+                        pastEmail = this.printingHouse.Email;
+                        pastPhone = this.printingHouse.NumberPhone;
+                        pastName = this.printingHouse.Name;
+                    }
+
+                    // Если email, номера телефона и названия не существует в бд
+                    if (!PrintingHouse.ExistEmailInDb(state, pastEmail, emailTextBox.Text) && !PrintingHouse.ExistPhoneInDb(state, pastPhone, phoneNumberTextBox.Text) && !PrintingHouse.ExistNameOfPrintingHouseInDb(state, pastName, nameTextBox.Text))
+                    {
+
+                        // Создаём типографию
+                        PrintingHouse printingHouse = new PrintingHouse(nameTextBox.Text, phoneNumberTextBox.Text, emailTextBox.Text, typesOfStateComboBox.Text, CorrectOutput.CorrectStateOrCity(stateTextBox.Text),
+                            CorrectOutput.CorrectStateOrCity(cityTextBox.Text), typesStreetComboBox.Text, streetTextBox.Text, houseTextBox.Text.Replace(" ", ""));
+
+                        // Возвращаемся в меню типографий
+                        PrintingHouseMenu printingHouseMenu = new PrintingHouseMenu(printingHouse, state);
+                        Transition.TransitionByForms(this, printingHouseMenu);
+                    }
+                    else
+                    {
+                        MessageBox.Show("В базе данных не могут существовать типографии с одинаковым названием или с одинаковым номером телефона или с одинаковой электронной почтой", "Заполнение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+
 
                 }
                 else
                     MessageBox.Show("Все поля должны быть заполнены. Проверьте правильность ввода названия типографии, субъекта, города," +
                         " номера дома или электронной почты", "Заполнение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            catch 
+            catch
             {
-                MessageBox.Show("Проверьте правильность ввода названия типографии, субъекта, города," +
-                        " номера дома или электронной почты", "Заполнение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Произошла ошибка ввода заполения данных о типографии", "Заполнение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);    
             }
-}
+        }
     }
 }
