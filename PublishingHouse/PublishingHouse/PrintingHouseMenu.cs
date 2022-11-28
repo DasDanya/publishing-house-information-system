@@ -5,9 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using System.Net.Mail;
-using System.Linq;
-using System.Text.RegularExpressions;
+
 
 namespace PublishingHouse
 {
@@ -33,7 +31,7 @@ namespace PublishingHouse
         {
             //Загружаем иконки для вкладок
             IconImage.LoadIconBackTab(backTab);
-            PrintingHouse.LoadPrintingHouse(printingHouseDataGridView);
+            LoadTable();
 
             // Если пользователь добавляет запись
             if (printingHouse != null && state == 'A')
@@ -53,6 +51,23 @@ namespace PublishingHouse
 
         }
 
+        private void LoadTable() 
+        {
+            // Загружаем в таблицу данные
+            PrintingHouse.LoadPrintingHouse(printingHouseDataGridView);
+
+            // У первого столбца есть возможность изменения его данных
+            printingHouseDataGridView.Columns[0].ReadOnly = false;
+
+            // Остальные столбцы: только для чтения
+            for (int i = 1; i < printingHouseDataGridView.ColumnCount; i++)
+            {
+                printingHouseDataGridView.Columns[i].ReadOnly = true;
+            }
+
+
+        }
+
         /// <summary>
         /// Метод вывода новых данных из бд
         /// </summary>
@@ -65,7 +80,7 @@ namespace PublishingHouse
             }
 
             // Загружаем новые данные
-            PrintingHouse.LoadPrintingHouse(printingHouseDataGridView);
+            LoadTable();
 
         }
 
