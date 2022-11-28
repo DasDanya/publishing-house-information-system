@@ -13,6 +13,7 @@ namespace PublishingHouse
 
         PrintingHouse printingHouse = null;
         char state = ' ';
+        int id = -1;
         public FillDataPrintingHouse()
         {
             InitializeComponent();
@@ -48,7 +49,8 @@ namespace PublishingHouse
 
             if(printingHouse != null)
             {
-                LoadDataAboutPrintingHouse();    
+                LoadDataAboutPrintingHouse();
+                id = PrintingHouse.GetIdPrintingHouseByName(printingHouse.Name);
             }
         }
 
@@ -89,6 +91,7 @@ namespace PublishingHouse
 
         private void saveInputButton_Click(object sender, EventArgs e)
         {
+            PrintingHouseMenu printingHouseMenu = new PrintingHouseMenu();
             try
             {
                 // Если пользователь ввёл корректные данные
@@ -114,9 +117,14 @@ namespace PublishingHouse
                         PrintingHouse printingHouse = new PrintingHouse(nameTextBox.Text, phoneNumberTextBox.Text, emailTextBox.Text, typesOfStateComboBox.Text, CorrectOutput.CorrectStateOrCity(stateTextBox.Text),
                             CorrectOutput.CorrectStateOrCity(cityTextBox.Text), typesStreetComboBox.Text, streetTextBox.Text, houseTextBox.Text.Replace(" ", ""));
 
-                        // Возвращаемся в меню типографий
-                        PrintingHouseMenu printingHouseMenu = new PrintingHouseMenu(printingHouse, state);
-                        Transition.TransitionByForms(this, printingHouseMenu);
+                        if (state == 'A')
+                            // Возвращаемся в меню типографий
+                            printingHouseMenu = new PrintingHouseMenu(printingHouse, state);
+                        else if (state == 'C')
+                            // Возвращаемся в меню типографий
+                            printingHouseMenu = new PrintingHouseMenu(printingHouse, state, id);
+
+                            Transition.TransitionByForms(this, printingHouseMenu);
                     }
                     else
                     {

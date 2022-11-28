@@ -244,7 +244,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="email">Электронная почта</param>
         /// <returns>id записи</returns>
-        private static int GetIdPrintingHouseByName(string name)
+        public static int GetIdPrintingHouseByName(string name)
         {
             int id = 0;
 
@@ -529,6 +529,57 @@ namespace PublishingHouse
             }
 
             return exist;
+        }
+
+
+        public static bool PrintingHousesIsWorking(int[] arrayIdPrHouse) 
+        {
+            bool isWorking = false;
+
+            try
+            {
+
+                for (int i = 0; i < arrayIdPrHouse.Length; i++)
+                {
+                    if (PrintingHouseIsWorking(arrayIdPrHouse[i])) 
+                    {
+                        isWorking = true;
+                        break;
+                    }
+                }
+                
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения данных о том, работает ли типография над заказом(-ами)");
+            }
+
+
+            return isWorking;
+        }
+
+        public static bool PrintingHouseIsWorking(int idPrHouse) 
+        {
+            bool isWorking = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                SqlCommand command = new SqlCommand("SELECT COUNT(fphId) FROM booking WHERE fphId = '" + idPrHouse + "'", ConnectionToDb.Connection);
+
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)               
+                    isWorking = true;
+                   
+                ConnectionToDb.Close();
+            }
+
+            catch 
+            {
+                throw new Exception("Ошибка получения данных о том, работает ли типография над заказом(-ами)");
+            }
+
+            return isWorking;
         }
 
 

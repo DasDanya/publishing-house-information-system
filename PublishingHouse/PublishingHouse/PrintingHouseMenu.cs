@@ -13,6 +13,7 @@ namespace PublishingHouse
     {
         PrintingHouse printingHouse;
         char state = ' ';
+        int id = -1;
         public PrintingHouseMenu()
         {
             InitializeComponent();
@@ -26,6 +27,13 @@ namespace PublishingHouse
 
         }
 
+        public PrintingHouseMenu(PrintingHouse printingHouse, char state, int id) 
+        {
+            InitializeComponent();
+            this.printingHouse = printingHouse;
+            this.state = state;
+            this.id = id;
+        }
 
         private void PrintingHouseMenu_Load(object sender, EventArgs e)
         {
@@ -221,8 +229,8 @@ namespace PublishingHouse
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 // Если пользователь выбрал 0 или несколько записей
                 if (WorkWithDataDgv.CountSelectedRows(printingHouseDataGridView) < 1)
                     MessageBox.Show("Неодходимо выбрать одну или несколько записей", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);   
@@ -234,24 +242,31 @@ namespace PublishingHouse
                         // Получаем массив id
                         int[] arrayId = PrintingHouse.GetArrayIdPrintingHouse(printingHouseDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(printingHouseDataGridView));
 
-                        // Если мы удалили указанное количество записей
-                        if (PrintingHouse.DeletePrintingHouses(arrayId) == arrayId.Length)
+                        // Если типография(-и) не выполняет(-ют) заказ
+                        if (!PrintingHouse.PrintingHousesIsWorking(arrayId))
                         {
-                            MessageBox.Show("Записи успешно удалены!", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            ReloadData();
+                            // Если мы удалили указанное количество записей
+                            if (PrintingHouse.DeletePrintingHouses(arrayId) == arrayId.Length)
+                            {
+                                MessageBox.Show("Записи успешно удалены!", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                ReloadData();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Количество удаленных записей не совпадает с количеством выбранных записей", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                         else
-                        {
-                            MessageBox.Show("Количество удаленных записей не совпаадает с количеством выбранных записей", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                            MessageBox.Show("Невозможно удалить записи, так как существует заказ(-ы) с выбранной(-ыми) типографиями. Удалите заказ(-ы), где присутствуют выбранные типографии и повторите попытку", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        
                     }
                 }
-            //}
-            //catch(Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            
+            }
+            catch
+            {
+                MessageBox.Show("Произошла ошибка удаления типографий", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void selectForChangeButton_Click(object sender, EventArgs e)
@@ -283,6 +298,7 @@ namespace PublishingHouse
         {
             printingHouse = null;
             state = ' ';
+            id = -1;
         }
 
         private void resetChangeButton_Click(object sender, EventArgs e)
@@ -312,6 +328,23 @@ namespace PublishingHouse
             }
             else
                 MessageBox.Show("Невозможно вывести моду данных о типографиях, так они отсутствуют!", "Вывод моды данных о типографиях", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void changeButton_Click(object sender, EventArgs e)
+        {
+            // Если пользователь изменяет запись
+            if (MessageBox.Show("Вы точно хотите изменить запись?", "Изменение данных о типографии", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+
+                // Если типография(-и) не выполняет(-ют) заказ
+                if (!PrintingHouse.PrintingHouseIsWorking(id))
+                {
+
+                }
+                else
+                    MessageBox.Show("Невозможно изменить запись, так как существует заказ(-ы) с выбранной типографией. Удалите заказ(-ы), где присутствуют выбранные типографии или создайте новую типографию", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
     }
 }

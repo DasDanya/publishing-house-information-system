@@ -329,6 +329,8 @@ namespace PublishingHouse
             return table;
         }
 
+        
+
         //    /// <summary>
         //    /// Метод получения списка популярных данных определенного столбца
         //    /// </summary>

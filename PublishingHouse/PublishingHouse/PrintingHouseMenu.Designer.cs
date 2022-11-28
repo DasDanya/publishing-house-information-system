@@ -66,7 +66,7 @@ namespace PublishingHouse
             this.backTab});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1425, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1363, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -90,7 +90,7 @@ namespace PublishingHouse
             this.printingHouseDataGridView.RowHeadersVisible = false;
             this.printingHouseDataGridView.RowHeadersWidth = 51;
             this.printingHouseDataGridView.RowTemplate.Height = 50;
-            this.printingHouseDataGridView.Size = new System.Drawing.Size(1400, 305);
+            this.printingHouseDataGridView.Size = new System.Drawing.Size(1338, 305);
             this.printingHouseDataGridView.TabIndex = 1;
             this.printingHouseDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.printingHouseDataGridView_ColumnStateChanged);
             // 
@@ -206,6 +206,7 @@ namespace PublishingHouse
             this.changeButton.TabIndex = 30;
             this.changeButton.Text = "Изменить данные о типографии";
             this.changeButton.UseVisualStyleBackColor = true;
+            this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
             // 
             // resetChangeButton
             // 
@@ -303,7 +304,7 @@ namespace PublishingHouse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1425, 596);
+            this.ClientSize = new System.Drawing.Size(1363, 596);
             this.Controls.Add(this.workWithPrHouseGroupBox);
             this.Controls.Add(this.printingHouseDataGridView);
             this.Controls.Add(this.menuStrip1);
