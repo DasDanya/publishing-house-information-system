@@ -190,7 +190,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="email">Электронная почта</param>
         /// <returns>id записи</returns>
-        private static int GetIdPrintingHouseByEmail(string email)
+        public static int GetIdPrintingHouseByEmail(string email)
         {
             int id = 0;
 
@@ -244,7 +244,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="email">Электронная почта</param>
         /// <returns>id записи</returns>
-        public static int GetIdPrintingHouseByName(string name)
+        private static int GetIdPrintingHouseByName(string name)
         {
             int id = 0;
 
@@ -266,58 +266,99 @@ namespace PublishingHouse
             return id;
         }
 
+        /// <summary>
+        /// Метод удаления типографий из бд
+        /// </summary>
+        /// <param name="arrayId">Массив id типографий</param>
+        /// <returns>Количество удаленных записей</returns>
         public static int DeletePrintingHouses(int[] arrayId)
         {
             int countDeleteRows = 0;
 
-            //try
-            //{
-            ConnectionToDb.Open();
+            try
+            {
+                ConnectionToDb.Open();
 
+            // Проходимся по массиву id
             for (int i = 0; i < arrayId.Length; i++)
             {
+                // Удаляем типографию с конкретным id
                 SqlCommand command = new SqlCommand($"DELETE FROM printingHouse WHERE phId = {arrayId[i]}", ConnectionToDb.Connection);
                 countDeleteRows += command.ExecuteNonQuery();
             }
 
             ConnectionToDb.Close();
-            //}
-            //catch(Exception ex)
-            //{
-            //    throw new Exception(ex.Message);
-            //}
+            }
+            catch
+            {
+                throw new Exception("Произошла ошибка удаления типографий");
+            }
             return countDeleteRows;
         }
 
+        /// <summary>
+        /// Метод изменения данных о типографии
+        /// </summary>
+        /// <param name="id">id типографии</param>
+        /// <returns>Количество измененных строк</returns>
+        public int ChangePrintingHouse(int id) 
+        {
+            int countRows = 0;
 
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на изменение данных и выполняем его
+                SqlCommand command = new SqlCommand("UPDATE printingHouse SET phName = N'"+ name +"', phPhone = N'"+ numberPhone +"', phEmail = N'"+ email +"', phTypeState = N'"+ typeState +"', phState = N'"+ nameState +"', phCity = N'"+ city +"', phStreet = N'"+ nameStreet +"', phHouse = N'"+ numberHouse +"', phTypeStreet = N'"+ typeStreet +"' WHERE phId = '"+ id +"'", ConnectionToDb.Connection);
+                
+                // Получаем количество изменненных записей
+                countRows = command.ExecuteNonQuery();
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка изменения данных о типографии");
+            }
+            return countRows;
+        }
+
+        /// <summary>
+        /// Метод получения массива id типографий
+        /// </summary>
+        /// <param name="dataGridView">Таблица с типографиями</param>
+        /// <param name="selectedRows">Список выбранных строк</param>
+        /// <returns>Массив id типографий</returns>
         public static int[] GetArrayIdPrintingHouse(DataGridView dataGridView, List<int> selectedRows)
         {
             int indexArray = 0;
             int[] arrayId = new int[selectedRows.Count];
 
             SqlCommand command = new SqlCommand();
-            //try
-            //{
-            ConnectionToDb.Open();
+            try
+            {
+                ConnectionToDb.Open();
 
             for (int i = 0; i < dataGridView.Rows.Count; i++)
             {
                 // Если список содержит индекс
                 if (selectedRows.Contains(i))
                 {
+                    // Получаем Email
                     string email = dataGridView.Rows[i].Cells["Электронная почта"].Value.ToString();
 
+                    // Получаем id по Email и добавляем в массив
                     command = new SqlCommand("SELECT phId FROM printingHouse WHERE phEmail = '" + email + "'", ConnectionToDb.Connection);
                     arrayId[indexArray++] = Convert.ToInt32(command.ExecuteScalar());
                 }
             }
 
             ConnectionToDb.Close();
-            //}
-            //catch(Exception ex)
-            //{
-            //    throw new Exception(ex.Message);
-            //}
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения массива идентификаторов записей о типографиях");
+            }
 
             return arrayId;
         }

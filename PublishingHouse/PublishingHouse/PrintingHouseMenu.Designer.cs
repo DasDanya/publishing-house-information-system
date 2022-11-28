@@ -223,9 +223,8 @@ namespace PublishingHouse
             this.infoChangeLabel.AutoSize = true;
             this.infoChangeLabel.Location = new System.Drawing.Point(440, 129);
             this.infoChangeLabel.Name = "infoChangeLabel";
-            this.infoChangeLabel.Size = new System.Drawing.Size(16, 20);
+            this.infoChangeLabel.Size = new System.Drawing.Size(0, 20);
             this.infoChangeLabel.TabIndex = 28;
-            this.infoChangeLabel.Text = "c";
             // 
             // selectForChangeButton
             // 

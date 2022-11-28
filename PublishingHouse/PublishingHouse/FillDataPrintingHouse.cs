@@ -50,7 +50,7 @@ namespace PublishingHouse
             if(printingHouse != null)
             {
                 LoadDataAboutPrintingHouse();
-                id = PrintingHouse.GetIdPrintingHouseByName(printingHouse.Name);
+                id = PrintingHouse.GetIdPrintingHouseByEmail(printingHouse.Email);
             }
         }
 
@@ -120,9 +120,11 @@ namespace PublishingHouse
                         if (state == 'A')
                             // Возвращаемся в меню типографий
                             printingHouseMenu = new PrintingHouseMenu(printingHouse, state);
-                        else if (state == 'C')
+
+                        else if (state == 'C')                       
                             // Возвращаемся в меню типографий
                             printingHouseMenu = new PrintingHouseMenu(printingHouse, state, id);
+                           
 
                             Transition.TransitionByForms(this, printingHouseMenu);
                     }

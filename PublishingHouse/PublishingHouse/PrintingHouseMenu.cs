@@ -120,7 +120,7 @@ namespace PublishingHouse
                         
                         // Выводим новые данные и очищаем буффер
                         ReloadData();
-                        ClearBuffer();
+                        DefaultStateOfMenu();
                     }
 
                     else
@@ -250,6 +250,7 @@ namespace PublishingHouse
                             {
                                 MessageBox.Show("Записи успешно удалены!", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 ReloadData();
+                                
                             }
                             else
                             {
@@ -304,6 +305,14 @@ namespace PublishingHouse
         private void resetChangeButton_Click(object sender, EventArgs e)
         {
             // Приводим буфферные данные и компоненты в состояние по умолчанию
+            DefaultStateOfMenu();
+        }
+
+        /// <summary>
+        /// Метод,который приводит компоненты и переменные в состояние по умолчанию
+        /// </summary>
+        private void DefaultStateOfMenu() 
+        {
             ClearBuffer();
             deleteButton.Enabled = true;
             addButton.Enabled = true;
@@ -311,7 +320,6 @@ namespace PublishingHouse
             infoChangeLabel.Text = "";
             infoLabel.Text = "";
         }
-
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
             // Ищём запрашиваемые данные в таблице
@@ -332,18 +340,34 @@ namespace PublishingHouse
 
         private void changeButton_Click(object sender, EventArgs e)
         {
-            // Если пользователь изменяет запись
-            if (MessageBox.Show("Вы точно хотите изменить запись?", "Изменение данных о типографии", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            try
             {
-
-                // Если типография(-и) не выполняет(-ют) заказ
-                if (!PrintingHouse.PrintingHouseIsWorking(id))
+                // Если пользователь изменяет запись
+                if (MessageBox.Show("Вы точно хотите изменить запись?", "Изменение данных о типографии", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
 
-                }
-                else
-                    MessageBox.Show("Невозможно изменить запись, так как существует заказ(-ы) с выбранной типографией. Удалите заказ(-ы), где присутствуют выбранные типографии или создайте новую типографию", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Если типография(-и) не выполняет(-ют) заказ
+                    if (!PrintingHouse.PrintingHouseIsWorking(id))
+                    {
+                        int countChangeRows = printingHouse.ChangePrintingHouse(id);
+                        // Если изменилась только одна запись 
+                        if (countChangeRows == 1)                       
+                            MessageBox.Show("Запись успешно изменена!", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            
+                        else
+                            MessageBox.Show("Количество измененных записей не равно единице", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                        ReloadData();
+                        DefaultStateOfMenu();
+                    }
+                    else
+                        MessageBox.Show("Невозможно изменить запись, так как существует заказ(-ы) с выбранной типографией. Удалите заказ(-ы), где присутствуют выбранные типографии, или создайте новую типографию", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+            }
+            catch
+            {               
+                MessageBox.Show("Ошибка изменения данных о типографии", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
