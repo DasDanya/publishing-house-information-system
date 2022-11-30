@@ -45,10 +45,11 @@ namespace PublishingHouse
             this.label6 = new System.Windows.Forms.Label();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.addButton = new System.Windows.Forms.Button();
+            this.addImageButton = new System.Windows.Forms.Button();
             this.saveDataButton = new System.Windows.Forms.Button();
+            this.employeePictureBox = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.employeePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -58,7 +59,7 @@ namespace PublishingHouse
             this.backTab});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1039, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1042, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -82,16 +83,20 @@ namespace PublishingHouse
             // surnameTextBox
             // 
             this.surnameTextBox.Location = new System.Drawing.Point(13, 80);
+            this.surnameTextBox.MaxLength = 20;
             this.surnameTextBox.Name = "surnameTextBox";
             this.surnameTextBox.Size = new System.Drawing.Size(252, 27);
             this.surnameTextBox.TabIndex = 2;
+            this.surnameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.surnameTextBox_KeyPress);
             // 
             // nameTextBox
             // 
             this.nameTextBox.Location = new System.Drawing.Point(13, 184);
+            this.nameTextBox.MaxLength = 20;
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(252, 27);
             this.nameTextBox.TabIndex = 4;
+            this.nameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.surnameTextBox_KeyPress);
             // 
             // label2
             // 
@@ -114,9 +119,11 @@ namespace PublishingHouse
             // middleNameTextBox
             // 
             this.middleNameTextBox.Location = new System.Drawing.Point(12, 289);
+            this.middleNameTextBox.MaxLength = 20;
             this.middleNameTextBox.Name = "middleNameTextBox";
             this.middleNameTextBox.Size = new System.Drawing.Size(252, 27);
             this.middleNameTextBox.TabIndex = 6;
+            this.middleNameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.surnameTextBox_KeyPress);
             // 
             // label4
             // 
@@ -153,6 +160,7 @@ namespace PublishingHouse
             // emailTextBox
             // 
             this.emailTextBox.Location = new System.Drawing.Point(309, 184);
+            this.emailTextBox.MaxLength = 65;
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(252, 27);
             this.emailTextBox.TabIndex = 10;
@@ -186,45 +194,49 @@ namespace PublishingHouse
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(670, 46);
+            this.label7.Location = new System.Drawing.Point(676, 46);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(97, 20);
             this.label7.TabIndex = 13;
             this.label7.Text = "Фотография:";
             // 
-            // panel1
+            // addImageButton
             // 
-            this.panel1.Location = new System.Drawing.Point(605, 80);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(236, 236);
-            this.panel1.TabIndex = 14;
-            // 
-            // addButton
-            // 
-            this.addButton.Location = new System.Drawing.Point(862, 80);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(165, 53);
-            this.addButton.TabIndex = 15;
-            this.addButton.Text = "Добавить фото";
-            this.addButton.UseVisualStyleBackColor = true;
+            this.addImageButton.Location = new System.Drawing.Point(859, 80);
+            this.addImageButton.Name = "addImageButton";
+            this.addImageButton.Size = new System.Drawing.Size(165, 53);
+            this.addImageButton.TabIndex = 15;
+            this.addImageButton.Text = "Добавить фото";
+            this.addImageButton.UseVisualStyleBackColor = true;
+            this.addImageButton.Click += new System.EventHandler(this.addImageButton_Click);
             // 
             // saveDataButton
             // 
-            this.saveDataButton.Location = new System.Drawing.Point(862, 263);
+            this.saveDataButton.Location = new System.Drawing.Point(859, 263);
             this.saveDataButton.Name = "saveDataButton";
             this.saveDataButton.Size = new System.Drawing.Size(165, 53);
             this.saveDataButton.TabIndex = 16;
             this.saveDataButton.Text = "Сохранить данные";
             this.saveDataButton.UseVisualStyleBackColor = true;
             // 
+            // employeePictureBox
+            // 
+            this.employeePictureBox.Image = ((System.Drawing.Image)(resources.GetObject("employeePictureBox.Image")));
+            this.employeePictureBox.Location = new System.Drawing.Point(605, 80);
+            this.employeePictureBox.Name = "employeePictureBox";
+            this.employeePictureBox.Size = new System.Drawing.Size(236, 236);
+            this.employeePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.employeePictureBox.TabIndex = 17;
+            this.employeePictureBox.TabStop = false;
+            // 
             // FillEmployeeMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1039, 336);
+            this.ClientSize = new System.Drawing.Size(1042, 336);
+            this.Controls.Add(this.employeePictureBox);
             this.Controls.Add(this.saveDataButton);
-            this.Controls.Add(this.addButton);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.addImageButton);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.label6);
@@ -249,6 +261,7 @@ namespace PublishingHouse
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FillEmployeeMenu_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.employeePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -271,8 +284,8 @@ namespace PublishingHouse
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.Button addImageButton;
         private System.Windows.Forms.Button saveDataButton;
+        private System.Windows.Forms.PictureBox employeePictureBox;
     }
 }

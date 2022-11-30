@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace PublishingHouse
@@ -140,6 +141,23 @@ namespace PublishingHouse
             catch
             {
                 MessageBox.Show("Произошла ошибка ввода заполения данных о типографии", "Заполнение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);    
+            }
+        }
+
+        private void stateTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Если пользователь не ввел русскую букву, тире или не нажал на кнопку Backspace
+            if (!Regex.Match(e.KeyChar.ToString(), @"[а-яА-Я-]").Success && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void streetTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Regex.Match(e.KeyChar.ToString(), @"[а-яА-Я-0-9]").Success && e.KeyChar != 8)
+            {
+                e.Handled = true;
             }
         }
     }

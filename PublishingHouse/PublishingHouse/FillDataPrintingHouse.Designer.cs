@@ -125,6 +125,7 @@ namespace PublishingHouse
             this.streetTextBox.Name = "streetTextBox";
             this.streetTextBox.Size = new System.Drawing.Size(213, 27);
             this.streetTextBox.TabIndex = 39;
+            this.streetTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.streetTextBox_KeyPress);
             // 
             // label10
             // 
@@ -151,6 +152,7 @@ namespace PublishingHouse
             this.cityTextBox.Name = "cityTextBox";
             this.cityTextBox.Size = new System.Drawing.Size(213, 27);
             this.cityTextBox.TabIndex = 36;
+            this.cityTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.stateTextBox_KeyPress);
             // 
             // label8
             // 
@@ -177,6 +179,7 @@ namespace PublishingHouse
             this.stateTextBox.Name = "stateTextBox";
             this.stateTextBox.Size = new System.Drawing.Size(208, 27);
             this.stateTextBox.TabIndex = 33;
+            this.stateTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.stateTextBox_KeyPress);
             // 
             // label6
             // 

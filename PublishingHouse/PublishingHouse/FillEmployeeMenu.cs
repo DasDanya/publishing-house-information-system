@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace PublishingHouse
@@ -25,6 +26,26 @@ namespace PublishingHouse
             // Переходим в главное меню администратора
             AdminMenu adminMenu = new AdminMenu();
             Transition.TransitionByForms(this, adminMenu);
+        }
+
+        private void surnameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Если пользователь не ввел русскую букву, тире или не нажал на кнопку Backspace
+            if (!Regex.Match(e.KeyChar.ToString(), @"[а-яА-Я-]").Success && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void addImageButton_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openDialog = new OpenFileDialog();
+            openDialog.Filter = "ImageFiles(*.BMP; *.JPG; *.JPEG; *.PNG)| *.BMP; *.JPG; *.JPEG; *.PNG";
+
+            if (openDialog.ShowDialog() == DialogResult.OK) 
+            {
+                employeePictureBox.Image = new Bitmap(openDialog.FileName);
+            }
         }
     }
 }
