@@ -19,5 +19,11 @@ namespace PublishingHouse
         {
             System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
+
+        private void inputButton_Click(object sender, EventArgs e)
+        {
+            FillEmployeeMenu fillEmployeeMenu = new FillEmployeeMenu();
+            Transition.TransitionByForms(this, fillEmployeeMenu);
+        }
     }
 }
