@@ -18,9 +18,7 @@ namespace PublishingHouse
         string color = "";
         private void MaterialMenu_Load(object sender, EventArgs e)
         {
-            //Загружаем иконки для вкладок
-            IconImage.LoadIconBackTab(backTab);
-
+            
             //Загружаем данные из бд в таблицу
             LoadData();
 

@@ -52,22 +52,25 @@ namespace PublishingHouse
             // 
             // employeeTab
             // 
+            this.employeeTab.Image = ((System.Drawing.Image)(resources.GetObject("employeeTab.Image")));
             this.employeeTab.Name = "employeeTab";
-            this.employeeTab.Size = new System.Drawing.Size(105, 24);
+            this.employeeTab.Size = new System.Drawing.Size(125, 24);
             this.employeeTab.Text = "Сотрудники";
             this.employeeTab.Click += new System.EventHandler(this.employeeTab_Click);
             // 
             // materialTab
             // 
+            this.materialTab.Image = ((System.Drawing.Image)(resources.GetObject("materialTab.Image")));
             this.materialTab.Name = "materialTab";
-            this.materialTab.Size = new System.Drawing.Size(103, 24);
+            this.materialTab.Size = new System.Drawing.Size(123, 24);
             this.materialTab.Text = "Материалы";
             this.materialTab.Click += new System.EventHandler(this.materialTab_Click);
             // 
             // printingHouseTab
             // 
+            this.printingHouseTab.Image = ((System.Drawing.Image)(resources.GetObject("printingHouseTab.Image")));
             this.printingHouseTab.Name = "printingHouseTab";
-            this.printingHouseTab.Size = new System.Drawing.Size(109, 24);
+            this.printingHouseTab.Size = new System.Drawing.Size(129, 24);
             this.printingHouseTab.Text = "Типографии";
             this.printingHouseTab.Click += new System.EventHandler(this.printingHouseTab_Click);
             // 

@@ -18,8 +18,7 @@ namespace PublishingHouse
         
         private void PopularDataMaterialMenu_Load(object sender, EventArgs e)
         {
-            //Загружаем иконки для вкладок
-            IconImage.LoadIconBackTab(backTab);
+            
 
             // Списки лейблов
             List<Label> popularType = new List<Label>{ firstTypeLabel, secondTypeLabel, thirdTypeLabel };

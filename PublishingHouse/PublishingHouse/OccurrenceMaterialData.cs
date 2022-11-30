@@ -18,8 +18,7 @@ namespace PublishingHouse
 
         private void PopularMaterialData_Load(object sender, EventArgs e)
         {
-            //Загружаем иконки для вкладок
-            IconImage.LoadIconBackTab(backTab);
+
 
             // Заполняем таблицы
             FillingTable(typeDataGridView, "Тип", "DESC", Material.GetCountUniqueRecords("matType"));

@@ -44,9 +44,7 @@ namespace PublishingHouse
 
         private void FillDataPrintingHouse_Load(object sender, EventArgs e)
         {
-            //Загружаем иконки для вкладок
-            IconImage.LoadIconBackTab(backTab);
-
+           
             if(printingHouse != null)
             {
                 LoadDataAboutPrintingHouse();

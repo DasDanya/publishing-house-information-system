@@ -72,8 +72,9 @@ namespace PublishingHouse
             // 
             // backTab
             // 
+            this.backTab.Image = ((System.Drawing.Image)(resources.GetObject("backTab.Image")));
             this.backTab.Name = "backTab";
-            this.backTab.Size = new System.Drawing.Size(65, 24);
+            this.backTab.Size = new System.Drawing.Size(85, 24);
             this.backTab.Text = "Назад";
             this.backTab.Click += new System.EventHandler(this.backTab_Click);
             // 

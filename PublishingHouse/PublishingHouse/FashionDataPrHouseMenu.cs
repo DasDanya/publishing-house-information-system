@@ -17,8 +17,7 @@ namespace PublishingHouse
 
         private void FashionDataPrHouseMenu_Load(object sender, EventArgs e)
         {
-            //Загружаем иконки для вкладок
-            IconImage.LoadIconBackTab(backTab);
+           
 
             // Выводим все типографии по убыванию их использования и делаем RadioButton для сортировки по убыванию выбранным
             descRadioButton.Checked = true;

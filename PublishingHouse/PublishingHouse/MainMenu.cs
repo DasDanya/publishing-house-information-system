@@ -21,7 +21,7 @@ namespace PublishingHouse
        
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            IconImage.LoadIconsOfMainTab(employeeTab, materialTab, printingHouseTab); // загружаем иконки на вкладки
+            
             
         }
 

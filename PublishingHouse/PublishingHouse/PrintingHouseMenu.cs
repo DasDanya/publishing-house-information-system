@@ -37,8 +37,7 @@ namespace PublishingHouse
 
         private void PrintingHouseMenu_Load(object sender, EventArgs e)
         {
-            //Загружаем иконки для вкладок
-            IconImage.LoadIconBackTab(backTab);
+ 
             LoadTable();
 
             // Если пользователь добавляет запись
