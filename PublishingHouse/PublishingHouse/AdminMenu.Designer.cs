@@ -36,6 +36,7 @@ namespace PublishingHouse
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.inputButton = new System.Windows.Forms.Button();
             this.employeeImage = new System.Windows.Forms.PictureBox();
+            this.addEmployeeButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -72,6 +73,7 @@ namespace PublishingHouse
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.addEmployeeButton);
             this.groupBox1.Controls.Add(this.inputButton);
             this.groupBox1.Location = new System.Drawing.Point(13, 409);
             this.groupBox1.Name = "groupBox1";
@@ -97,6 +99,16 @@ namespace PublishingHouse
             this.employeeImage.Size = new System.Drawing.Size(236, 236);
             this.employeeImage.TabIndex = 3;
             this.employeeImage.TabStop = false;
+            // 
+            // addEmployeeButton
+            // 
+            this.addEmployeeButton.Location = new System.Drawing.Point(216, 26);
+            this.addEmployeeButton.Name = "addEmployeeButton";
+            this.addEmployeeButton.Size = new System.Drawing.Size(172, 49);
+            this.addEmployeeButton.TabIndex = 1;
+            this.addEmployeeButton.Text = "Добавить сотрудника";
+            this.addEmployeeButton.UseVisualStyleBackColor = true;
+            this.addEmployeeButton.Click += new System.EventHandler(this.addEmployeeButton_Click);
             // 
             // AdminMenu
             // 
@@ -133,5 +145,6 @@ namespace PublishingHouse
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button inputButton;
         private System.Windows.Forms.PictureBox employeeImage;
+        private System.Windows.Forms.Button addEmployeeButton;
     }
 }

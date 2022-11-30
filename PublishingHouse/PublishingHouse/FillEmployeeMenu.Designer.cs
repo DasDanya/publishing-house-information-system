@@ -43,7 +43,7 @@ namespace PublishingHouse
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.phoneTextBox = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.addImageButton = new System.Windows.Forms.Button();
             this.saveDataButton = new System.Windows.Forms.Button();
@@ -183,13 +183,13 @@ namespace PublishingHouse
             this.label6.TabIndex = 11;
             this.label6.Text = "Номер телефона:";
             // 
-            // maskedTextBox1
+            // phoneTextBox
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(309, 289);
-            this.maskedTextBox1.Mask = "+7-###-###-##-##";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(252, 27);
-            this.maskedTextBox1.TabIndex = 12;
+            this.phoneTextBox.Location = new System.Drawing.Point(309, 289);
+            this.phoneTextBox.Mask = "+7-###-###-##-##";
+            this.phoneTextBox.Name = "phoneTextBox";
+            this.phoneTextBox.Size = new System.Drawing.Size(252, 27);
+            this.phoneTextBox.TabIndex = 12;
             // 
             // label7
             // 
@@ -218,6 +218,7 @@ namespace PublishingHouse
             this.saveDataButton.TabIndex = 16;
             this.saveDataButton.Text = "Сохранить данные";
             this.saveDataButton.UseVisualStyleBackColor = true;
+            this.saveDataButton.Click += new System.EventHandler(this.saveDataButton_Click);
             // 
             // employeePictureBox
             // 
@@ -238,7 +239,7 @@ namespace PublishingHouse
             this.Controls.Add(this.saveDataButton);
             this.Controls.Add(this.addImageButton);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.maskedTextBox1);
+            this.Controls.Add(this.phoneTextBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.label5);
@@ -282,7 +283,7 @@ namespace PublishingHouse
         private System.Windows.Forms.TextBox emailTextBox;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox phoneTextBox;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button addImageButton;
         private System.Windows.Forms.Button saveDataButton;

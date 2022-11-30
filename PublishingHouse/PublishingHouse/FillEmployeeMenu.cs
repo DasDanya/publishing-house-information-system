@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -46,6 +47,65 @@ namespace PublishingHouse
             {
                 employeePictureBox.Image = new Bitmap(openDialog.FileName);
             }
+        }
+
+        /// <summary>
+        /// Метод проверки правильности введённых данных
+        /// </summary>
+        /// <returns>Правильно ли пользователь </returns>
+        private bool CorrectInputData() 
+        {
+            if (surnameTextBox.Text == "" || nameTextBox.Text == "" || typeComboBox.Text == "" || !phoneTextBox.MaskFull || !CorrectInput.IsCorrectEmail(emailTextBox.Text))
+                return false;
+            else
+                return true;
+        }
+
+        private void saveDataButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (CorrectInputData())
+                {
+                    // Создаём сотрудника
+                    Employee employee = new Employee(nameTextBox.Text, surnameTextBox.Text, middleNameTextBox.Text, typeComboBox.Text, emailTextBox.Text, phoneTextBox.Text, GetBytePhoto());
+
+                    // Переходим в главное меню администратора
+                    AdminMenu adminMenu = new AdminMenu(employee);
+                    Transition.TransitionByForms(this, adminMenu);
+
+                }
+                else
+                    MessageBox.Show("Текстовые поля, за исключением отчества, должны быть заполнены! Если текстовые поля заполнены, то проверьте правильность Email", "Сохранение данных о сотруднике", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка ввода данных о сотруднике", "Сохранение данных о сотруднике", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Метод, возвращающий изображение в виде массива байтов
+        /// </summary>
+        /// <returns>Изображение в виде массива байтов </returns>
+        private byte[] GetBytePhoto() 
+        {
+            byte[] photo = null;
+
+            try
+            {
+                // Получаем изображение как массив байт
+                MemoryStream stream = new MemoryStream();
+                employeePictureBox.Image.Save(stream, employeePictureBox.Image.RawFormat);
+                photo = stream.ToArray();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка преобразования изображения для его дальнейшего хранения");
+            }
+
+
+            return photo;
         }
     }
 }

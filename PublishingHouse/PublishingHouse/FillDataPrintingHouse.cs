@@ -140,7 +140,7 @@ namespace PublishingHouse
             }
             catch
             {
-                MessageBox.Show("Произошла ошибка ввода заполения данных о типографии", "Заполнение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);    
+                MessageBox.Show("Произошла ошибка ввода данных о типографии", "Ввод данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);    
             }
         }
 
