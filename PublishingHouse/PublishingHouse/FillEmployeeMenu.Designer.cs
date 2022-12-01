@@ -48,6 +48,8 @@ namespace PublishingHouse
             this.addImageButton = new System.Windows.Forms.Button();
             this.saveDataButton = new System.Windows.Forms.Button();
             this.employeePictureBox = new System.Windows.Forms.PictureBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.birthDayTimePicker = new System.Windows.Forms.DateTimePicker();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeePictureBox)).BeginInit();
             this.SuspendLayout();
@@ -230,11 +232,29 @@ namespace PublishingHouse
             this.employeePictureBox.TabIndex = 17;
             this.employeePictureBox.TabStop = false;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(13, 360);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(119, 20);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Дата рождения:";
+            // 
+            // birthDayTimePicker
+            // 
+            this.birthDayTimePicker.Location = new System.Drawing.Point(138, 360);
+            this.birthDayTimePicker.Name = "birthDayTimePicker";
+            this.birthDayTimePicker.Size = new System.Drawing.Size(423, 27);
+            this.birthDayTimePicker.TabIndex = 19;
+            // 
             // FillEmployeeMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1042, 336);
+            this.ClientSize = new System.Drawing.Size(1042, 421);
+            this.Controls.Add(this.birthDayTimePicker);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.employeePictureBox);
             this.Controls.Add(this.saveDataButton);
             this.Controls.Add(this.addImageButton);
@@ -288,5 +308,7 @@ namespace PublishingHouse
         private System.Windows.Forms.Button addImageButton;
         private System.Windows.Forms.Button saveDataButton;
         private System.Windows.Forms.PictureBox employeePictureBox;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DateTimePicker birthDayTimePicker;
     }
 }

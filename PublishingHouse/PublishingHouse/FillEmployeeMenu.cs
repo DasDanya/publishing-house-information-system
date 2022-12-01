@@ -73,7 +73,8 @@ namespace PublishingHouse
         /// <returns>Правильно ли пользователь </returns>
         private bool CorrectInputData() 
         {
-            if (surnameTextBox.Text == "" || nameTextBox.Text == "" || typeComboBox.Text == "" || !phoneTextBox.MaskFull || !CorrectInput.IsCorrectEmail(emailTextBox.Text))
+
+            if (surnameTextBox.Text == "" || nameTextBox.Text == "" || typeComboBox.Text == "" || !phoneTextBox.MaskFull || !CorrectInput.IsCorrectEmail(emailTextBox.Text) || DateTime.Compare(birthDayTimePicker.Value.Date, DateTime.Now.Date) >= 0)
                 return false;
             else
                 return true;
@@ -86,7 +87,7 @@ namespace PublishingHouse
                 if (CorrectInputData())
                 {
                     // Создаём сотрудника
-                    Employee employee = new Employee(nameTextBox.Text, surnameTextBox.Text, middleNameTextBox.Text, typeComboBox.Text, emailTextBox.Text, phoneTextBox.Text, GetBytePhoto());
+                    Employee employee = new Employee(nameTextBox.Text, surnameTextBox.Text, middleNameTextBox.Text, typeComboBox.Text, emailTextBox.Text, phoneTextBox.Text,birthDayTimePicker.Value.Date, GetBytePhoto());
 
                     if (state == 'A')
                         // Переходим в главное меню администратора
@@ -101,7 +102,7 @@ namespace PublishingHouse
 
                 }
                 else
-                    MessageBox.Show("Текстовые поля, за исключением отчества, должны быть заполнены! Если текстовые поля заполнены, то проверьте правильность Email", "Сохранение данных о сотруднике", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Текстовые поля, за исключением отчества, должны быть заполнены! Если текстовые поля заполнены, то проверьте правильность Email. Дата рождения сотрудника должна быть меньше текущей даты", "Сохранение данных о сотруднике", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch 
             {

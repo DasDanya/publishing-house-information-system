@@ -11,9 +11,11 @@ namespace PublishingHouse
     {
         string name, surname, middlename, type, email, phone;
 
+        DateTime birthday;
+
         byte[] photo = null;
 
-        public Employee(string name, string surname, string middlename, string type, string email, string phone, byte[] photo)
+        public Employee(string name, string surname, string middlename, string type, string email, string phone, DateTime birthday, byte[] photo)
         {
             this.name = name;
             this.surname = surname;
@@ -21,6 +23,7 @@ namespace PublishingHouse
             this.type = type;
             this.email = email;
             this.phone = phone;
+            this.birthday = birthday;
             this.photo = photo;
         }
 
@@ -37,8 +40,9 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Создаём запрос на добавление сотрудника и выполняем его
-                SqlCommand command = new SqlCommand("INSERT INTO employee (empSurname, empFirstname, empMiddlename, empType, empPhone, empEmail, empVisual) VALUES (N'"+ surname +"', N'"+ name +"', N'"+ middlename +"', N'"+ type +"', N'"+ phone +"', N'"+ email +"', @visual)", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("INSERT INTO employee (empSurname, empFirstname, empMiddlename, empType, empPhone, empEmail, empVisual, empBirthday) VALUES (N'"+ surname +"', N'"+ name +"', N'"+ middlename +"', N'"+ type +"', N'"+ phone +"', N'"+ email +"', @visual, @birthday)", ConnectionToDb.Connection);
                 command.Parameters.Add("@visual", SqlDbType.Image).Value = photo;
+                command.Parameters.Add("@birthday", SqlDbType.Date).Value = birthday;
                 countEmployee = command.ExecuteNonQuery();
 
                 ConnectionToDb.Close();
@@ -63,7 +67,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Запрос на получение сотрудников
-                SqlCommand command = new SqlCommand("SELECT empSurname AS N'Фамилия', empFirstname AS N'Имя', empMiddlename AS N'Отчество',empType AS N'Должность сотрудника', empPhone AS N'Номер телефона', empEmail AS 'Электронная почта' FROM employee ORDER BY empSurname", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("SELECT empSurname AS 'Фамилия', empFirstname AS 'Имя', empMiddlename AS 'Отчество', empBirthday AS 'Дата рождения', empType AS 'Должность сотрудника', empPhone AS 'Номер телефона', empEmail AS 'Электронная почта' FROM employee ORDER BY empSurname", ConnectionToDb.Connection);
                 command.CommandType = CommandType.Text;
                 SqlDataReader dataReader = command.ExecuteReader();
 

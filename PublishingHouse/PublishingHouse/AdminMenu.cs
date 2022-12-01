@@ -62,6 +62,7 @@ namespace PublishingHouse
                         // Выводим новые данные и делаем комноненты и переменные в состояние по умолчанию
                         ReloadData();
                         DefaultStateOfMenu();
+                        DisplayStartPhoto();
 
                     }
                     else
@@ -87,11 +88,7 @@ namespace PublishingHouse
             LoadTable();
 
             // Отображаем изображение первого сотрудника
-            if (employeeDataGridView.RowCount > 0) 
-            {
-                DisplayEmployeePhoto(0);
-                employeeDataGridView.CurrentCell = employeeDataGridView.Rows[0].Cells["Фамилия"];
-            }
+            DisplayStartPhoto();
 
             if (employee != null && state == 'A')        
                 addLabel.Visible = true;
@@ -171,6 +168,17 @@ namespace PublishingHouse
 
             // Загружаем новые данные
             LoadTable();
+
+        }
+
+        private void DisplayStartPhoto() 
+        {
+            // Отображаем изображение первого сотрудника
+            if (employeeDataGridView.RowCount >= 1)
+            {
+                DisplayEmployeePhoto(0);
+                employeeDataGridView.CurrentCell = employeeDataGridView.Rows[0].Cells["Фамилия"];
+            }
 
         }
     }
