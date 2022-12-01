@@ -112,6 +112,7 @@ namespace PublishingHouse
             // 
             // AuthorizationMenu
             // 
+            this.AcceptButton = this.authorizationButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(409, 241);

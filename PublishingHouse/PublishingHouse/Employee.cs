@@ -4,6 +4,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace PublishingHouse
 {
@@ -12,8 +13,19 @@ namespace PublishingHouse
         string name, surname, middlename, type, email, phone;
 
         DateTime birthday;
-
+        Image photoAsImage;
         byte[] photo = null;
+
+        public string Name { get { return name; } }
+        public string Surname { get { return surname; } }
+        public string Middlename { get { return middlename; } }
+        public string Type { get { return type; } }
+        public string Email { get { return email; } }
+        public string Phone { get { return phone; } }
+        public DateTime Birthday { get { return birthday; } }
+        public Image PhotoAsImage { get { return photoAsImage; } }
+        public byte[] Photo { get { return photo; } }
+
 
         public Employee(string name, string surname, string middlename, string type, string email, string phone, DateTime birthday, byte[] photo)
         {
@@ -26,6 +38,19 @@ namespace PublishingHouse
             this.birthday = birthday;
             this.photo = photo;
         }
+
+        public Employee(string name, string surname, string middlename, string type, string email, string phone, DateTime birthday, Image photoAsImage)
+        {
+            this.name = name;
+            this.surname = surname;
+            this.middlename = middlename;
+            this.type = type;
+            this.email = email;
+            this.phone = phone;
+            this.birthday = birthday;
+            this.photoAsImage = photoAsImage;
+        }
+
 
         /// <summary>
         /// Метод добавления сотрудника

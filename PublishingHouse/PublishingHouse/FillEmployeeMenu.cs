@@ -13,7 +13,7 @@ namespace PublishingHouse
     public partial class FillEmployeeMenu : Form
     {
 
-        AdminMenu adminMenu = null;
+        Employee employee = null;
         char state = ' ';
         int id = -1;
 
@@ -28,10 +28,10 @@ namespace PublishingHouse
             this.state = state;
         }
 
-        public FillEmployeeMenu(AdminMenu adminMenu, char state) 
+        public FillEmployeeMenu(Employee employee, char state) 
         {
             InitializeComponent();
-            this.adminMenu = adminMenu;
+            this.employee = employee;
             this.state = state;
         }
 
@@ -82,6 +82,8 @@ namespace PublishingHouse
 
         private void saveDataButton_Click(object sender, EventArgs e)
         {
+            AdminMenu adminMenu = new AdminMenu();
+
             try
             {
                 if (CorrectInputData())
@@ -132,6 +134,31 @@ namespace PublishingHouse
 
 
             return photo;
+        }
+
+        /// <summary>
+        /// Метод для загрузки данных о сотруднике в соответствующие компоненты
+        /// </summary>
+        private void LoadDataAboutEmployee()
+        {
+            nameTextBox.Text = employee.Name;
+            surnameTextBox.Text = employee.Surname;
+            middleNameTextBox.Text = employee.Middlename;
+            birthDayTimePicker.Value = employee.Birthday;
+            typeComboBox.Text = employee.Type;
+            emailTextBox.Text = employee.Email;
+            phoneTextBox.Text = employee.Phone;
+            employeePictureBox.Image = employee.PhotoAsImage;
+        }
+
+        private void FillEmployeeMenu_Load(object sender, EventArgs e)
+        {
+            if (employee != null && state == 'C') 
+            {
+                LoadDataAboutEmployee();
+                
+            
+            }
         }
     }
 }

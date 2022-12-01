@@ -60,30 +60,30 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="hidePasswordButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAIZSURBVFhH7ZY7TxVRFEYvIgLRgCRWYgca8B8o/AYoqHx0
-        1Ngoja0GK4mtGEJhRF4BtEOoaBASoKNAGyUGO2rerjUyCZqZM/eVa+H9knUzc24y38ze++x9clVV9T/o
-        EsxBf3RXYWn+AU5h1oVSdR164Am8hNcwAq/gKfTBVVDnzeehDopSGzyHLTiBPViBGRg7YxqWQaPLUBbz
-        mzAFR7AOj+E21EBIJZv7gGewDwtwF/JVkvlFWIIh8P+gbsBn+AHmOk2+lCn4BuNgVEJf3g1fYRVaXUiS
-        4d2BRbjmQooegWkxPQ8h35w3w0f4Dh0unJf5/glvwZClyS8/BI1j5WMeqxZGYRfaXVBumy8wCRdcCMiw
-        G/JYSeZZRer/PmMboi2r8QY0eJMhw3fv92Wi+RV4D1nSS0/TGP24zeq9yZAPD+X8AViYWWqETYhewDAY
-        jneQT/hCOfcFbUohmWaNTXvcNaOCsDDegIWSppC5hWmB3onukmWBW+gWvIX/hzrBbahBkwt/KS3n98Gi
-        0nwA0uTWtiHp4ZZPlI1oDQxPlwtnSjI3HRNgzg176Mt7weZmk9MjKM1egA3JdITCniX7xic4ANu7zypI
-        hZobFcPr4HJnHYMFdwsKVpK5W9BrR69hj8exDcoR7ah2ZDu6HeGO8qKU9uUt4KHDw4eHEA8jMgyD4ADz
-        0FKyPMMVk/OyyQOkZ7h/Yl5VVRVULvcLEziO9nLBQXUAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
+        cwAAEnMBjCK5BwAAAhlJREFUWEftljtPFVEURi8iAtGAJFZiBxrwHyj8BiiofHTU2CiNrQYria0YQmFE
+        XgG0Q6hoEBKgo0AbJQY7at6uNTIJmpkz95Vr4f2SdTNzbjLfzN777H1yVVX1P+gSzEF/dFdhaf4BTmHW
+        hVJ1HXrgCbyE1zACr+Ap9MFVUOfN56EOilIbPIctOIE9WIEZGDtjGpZBo8tQFvObMAVHsA6P4TbUQEgl
+        m/uAZ7APC3AX8lWS+UVYgiHw/6BuwGf4AeY6Tb6UKfgG42BUQl/eDV9hFVpdSJLh3YFFuOZCih6BaTE9
+        DyHfnDfDR/gOHS6cl/n+CW/BkKXJLz8EjWPlYx6rFkZhF9pdUG6bLzAJF1wIyLAb8lhJ5llF6v8+Yxui
+        LavxBjR4kyHDd+/3ZaL5FXgPWdJLT9MY/bjN6r3JkA8P5fwBWJhZaoRNiF7AMBiOd5BP+EI59wVtSiGZ
+        Zo1Ne9w1o4KwMN6AhZKmkLmFaYHeie6SZYFb6Ba8hf+HOsFtqEGTC38pLef3waLSfADS5Na2Ienhlk+U
+        jWgNDE+XC2dKMjcdE2DODXvoy3vB5maT0yMozV6ADcl0hMKeJfvGJzgA27vPKkiFmhsVw+vgcmcdgwV3
+        CwpWkrlb0GtHr2GPx7ENyhHtqHZkO7od4Y7yopT25S3gocPDh4cQDyMyDIPgAPPQUrI8wxWT87LJA6Rn
+        uH9iXlVVFVQu9wsTOI72csFBdQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="openPasswordButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAGXSURBVFhH7Za/LgRBHICPiESnUKEiGp5APAEFNe9Agxeg
-        9gAqEhr/XkA8gIpOo0IkSo1Cgvi+MyPucrN7N+cikv2S7zL729nf73ZmdmdrFRUV/41RXMQN3MHdoG1j
-        nrPPrzKB23iDH/iMl3iG+0HbxjxnH/t6zSRmM4XH+IZXuI4z2IcpPGcf+3qN15rDXG0ziFv4iuc4h7l4
-        rTnMZU5zFzKODuUjLhlIMIsneBe0bSyFucxpbmu0ZBof8AJHDCRYRe9oD1eCto2tYQpzmtsa1mrAOXrC
-        QxwwkMC7tNBC/agRY54rGglzH6C1vtfFMN7iEfYbKMCh9m4jY8GI506/mkmsYS1rWrt+cI1DHpTgfDvk
-        YuGXYPwTy2ifMqzlU+ITUv/xoJs/EBdW1h/odgp+ruqsKZC4CF0guYtwHrMWYaTdx9BHzULerUOuto1l
-        P4aRTl5EDrXzfR/aRXfuJlX6Ior86av4J85R82bk0JVtRvaJm9E7drwZNeOWmtqOnXvtyXbcivhBsonN
-        HyTGevJBUlFR0UNqtU9Uz30AlmU3agAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAS
+        cwAAEnMBjCK5BwAAAZdJREFUWEftlr8uBEEcgI+IRKdQoSIankA8AQU170CDF6D2ACoSGv9eQDyAik6j
+        QiRKjUKC+L4zI+5ys3s35yKS/ZLvMvvb2d/vdmZ2Z2sVFRX/jVFcxA3cwd2gbWOes8+vMoHbeIMf+IyX
+        eIb7QdvGPGcf+3rNJGYzhcf4hle4jjPYhyk8Zx/7eo3XmsNcbTOIW/iK5ziHuXitOcxlTnMXMo4O5SMu
+        GUgwiyd4F7RtLIW5zGlua7RkGh/wAkcMJFhF72gPV4K2ja1hCnOa2xrWasA5esJDHDCQwLu00EL9qBFj
+        nisaCXMfoLW+18Uw3uIR9hsowKH2biNjwYjnTr+aSaxhLWtau35wjUMelOB8O+Ri4Zdg/BPLaJ8yrOVT
+        4hNS//Ggmz8QF1bWH+h2Cn6u6qwpkLgIXSC5i3AesxZhpN3H0EfNQt6tQ662jWU/hpFOXkQOtfN9H9pF
+        d+4mVfoiivzpq/gnzlHzZuTQlW1G9omb0Tt2vBk145aa2o6de+3JdtyK+EGyic0fJMZ68kFSUVHRQ2q1
+        T1TPfQCWZTdqAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
