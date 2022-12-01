@@ -288,15 +288,17 @@ namespace PublishingHouse
             // 
             // processingTab
             // 
+            this.processingTab.Image = ((System.Drawing.Image)(resources.GetObject("processingTab.Image")));
             this.processingTab.Name = "processingTab";
-            this.processingTab.Size = new System.Drawing.Size(99, 24);
+            this.processingTab.Size = new System.Drawing.Size(119, 24);
             this.processingTab.Text = "Обработка";
             this.processingTab.Click += new System.EventHandler(this.processingTab_Click);
             // 
             // searchTab
             // 
+            this.searchTab.Image = ((System.Drawing.Image)(resources.GetObject("searchTab.Image")));
             this.searchTab.Name = "searchTab";
-            this.searchTab.Size = new System.Drawing.Size(66, 24);
+            this.searchTab.Size = new System.Drawing.Size(86, 24);
             this.searchTab.Text = "Поиск";
             this.searchTab.Click += new System.EventHandler(this.searchTab_Click);
             // 

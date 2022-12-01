@@ -66,6 +66,13 @@ namespace PublishingHouse
         private void AdminMenu_Load(object sender, EventArgs e)
         {
             LoadTable();
+
+            // Отображаем изображение первого сотрудника
+            if (employeeDataGridView.RowCount > 0) 
+            {
+                DisplayEmployeePhoto(0);
+                employeeDataGridView.CurrentCell = employeeDataGridView.Rows[0].Cells["Фамилия"];
+            }
         }
 
         private void employeeDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
@@ -77,10 +84,11 @@ namespace PublishingHouse
         {
             try
             {
-                // Получаем фотографию сотрудника из бд и отображаем её в PictureBox
-                byte[] photo = Employee.GetPhotoEmployeeByPhone(employeeDataGridView.Rows[e.RowIndex].Cells["Номер телефона"].Value.ToString());
-                employeePictureBox.BackColor = SystemColors.Control;
-                DisplayEmployeePhoto(photo);
+                // Исключаем заголовок DataGridView
+                if (e.RowIndex > -1)
+                    // Получаем фотографию сотрудника из бд и отображаем её в PictureBox
+                    DisplayEmployeePhoto(e.RowIndex);
+                
             }
             catch 
             {
@@ -88,19 +96,20 @@ namespace PublishingHouse
             }
         }
 
-        /// <summary>
-        /// Метод перевода изображения из массива байт в Image и отображения полученного Image на форме
-        /// </summary>
-        /// <param name="photo">Изображение в виде массива байт</param>
-        private void DisplayEmployeePhoto(byte[]photo) 
+       
+        private void DisplayEmployeePhoto(int rowIndex) 
         {
             try
             {
+                // Получаем фотографию пользователя из бд
+                byte[] photo = Employee.GetPhotoEmployeeByPhone(employeeDataGridView.Rows[rowIndex].Cells["Номер телефона"].Value.ToString());
+                employeePictureBox.BackColor = SystemColors.Control;
+
                 // Переводим изображение из массива байт в Image и отображаем в PictureBox
                 MemoryStream stream = new MemoryStream(photo);
                 employeePictureBox.Image = Image.FromStream(stream);
             }
-            catch 
+            catch
             {
                 throw new Exception("Ошибка получения изображения");
             }
