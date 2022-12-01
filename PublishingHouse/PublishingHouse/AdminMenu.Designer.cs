@@ -35,7 +35,7 @@ namespace PublishingHouse
             this.employeeDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.changeLabel = new System.Windows.Forms.Label();
             this.deleteButton = new System.Windows.Forms.Button();
             this.resetaddChangeButton = new System.Windows.Forms.Button();
             this.changeButton = new System.Windows.Forms.Button();
@@ -100,7 +100,7 @@ namespace PublishingHouse
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.changeLabel);
             this.groupBox1.Controls.Add(this.deleteButton);
             this.groupBox1.Controls.Add(this.resetaddChangeButton);
             this.groupBox1.Controls.Add(this.changeButton);
@@ -116,15 +116,15 @@ namespace PublishingHouse
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
             // 
-            // label2
+            // changeLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(588, 121);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(209, 20);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Вы можете изменить запись";
-            this.label2.Visible = false;
+            this.changeLabel.AutoSize = true;
+            this.changeLabel.Location = new System.Drawing.Point(588, 121);
+            this.changeLabel.Name = "changeLabel";
+            this.changeLabel.Size = new System.Drawing.Size(209, 20);
+            this.changeLabel.TabIndex = 8;
+            this.changeLabel.Text = "Вы можете изменить запись";
+            this.changeLabel.Visible = false;
             // 
             // deleteButton
             // 
@@ -143,6 +143,7 @@ namespace PublishingHouse
             this.resetaddChangeButton.TabIndex = 6;
             this.resetaddChangeButton.Text = "Отменить добавление/изменение";
             this.resetaddChangeButton.UseVisualStyleBackColor = true;
+            this.resetaddChangeButton.Click += new System.EventHandler(this.resetaddChangeButton_Click);
             // 
             // changeButton
             // 
@@ -152,6 +153,7 @@ namespace PublishingHouse
             this.changeButton.TabIndex = 5;
             this.changeButton.Text = "Изменить данные о сотруднике";
             this.changeButton.UseVisualStyleBackColor = true;
+            this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
             // 
             // selectForChangeButton
             // 
@@ -285,7 +287,7 @@ namespace PublishingHouse
         private System.Windows.Forms.ToolStripMenuItem processingTab;
         private System.Windows.Forms.ToolStripMenuItem поискToolStripMenuItem;
         private System.Windows.Forms.Label addLabel;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label changeLabel;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button resetaddChangeButton;
         private System.Windows.Forms.Button changeButton;

@@ -53,7 +53,7 @@ namespace PublishingHouse
 
 
         /// <summary>
-        /// Метод добавления сотрудника
+        /// Метод добавления сотрудника в бд
         /// </summary>
         /// <returns>Количество добавленных сотрудников</returns>
         public int AddEmployee() 
@@ -137,6 +137,91 @@ namespace PublishingHouse
 
             return photo;
         }
-        
+
+        /// <summary>
+        /// Метод получения id записи о сотруднике, зная его номер телефона
+        /// </summary>
+        /// <param name="phone">Номер телефона</param>
+        /// <returns>id записи о сотруднике</returns>
+        public static int GetIdEmployeeByPhone(string phone) 
+        {
+            int id = -1;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение id сотрудника и выполняем его
+                SqlCommand command = new SqlCommand("SELECT empId FROM employee WHERE empPhone = '"+ phone +"'", ConnectionToDb.Connection);
+                id = Convert.ToInt32(command.ExecuteScalar());
+
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения уникального номера записи о сотруднике");
+            }
+            
+
+            return id;
+        }
+
+        /// <summary>
+        /// Метод получения id записи о сотруднике, зная его электронную почту
+        /// </summary>
+        /// <param name="email">Электронная почта</param>
+        /// <returns>id записи о сотруднике</returns>
+        public static int GetIdEmployeeByEmail(string email)
+        {
+            int id = -1;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение id сотрудника и выполняем его
+                SqlCommand command = new SqlCommand("SELECT empId FROM employee WHERE empEmail = '" + email + "'", ConnectionToDb.Connection);
+                id = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения уникального номера записи о сотруднике");
+            }
+
+            return id;
+        }
+
+        /// <summary>
+        /// Метод изменения данных о сотруднике
+        /// </summary>
+        /// <param name="id">id записи о сотруднике</param>
+        /// <returns>Количество измененных записей</returns>
+        public int ChangeEmployee(int id) 
+        {
+            int countChangedRows = -1;
+
+            try 
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на изменение данных о сотруднике и выполняем его
+                SqlCommand command = new SqlCommand("UPDATE employee SET empSurname = N'"+surname+"', empFirstname = N'"+name+"', empMiddlename = N'"+middlename+"',empType = N'"+type+"', empPhone = N'"+phone+"', empEmail = N'"+email+"', empVisual = @photo, empBirthday = @birthday WHERE empId = '"+id+"' ", ConnectionToDb.Connection);
+                command.Parameters.Add("@photo", SqlDbType.Image).Value = photo;
+                command.Parameters.Add("@birthday", SqlDbType.Date).Value = birthday;
+                countChangedRows = command.ExecuteNonQuery();
+               
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка изменения данных о сотруднике"); 
+            }
+
+            return countChangedRows;
+        }
+
     }
 }

@@ -90,8 +90,11 @@ namespace PublishingHouse
             // Отображаем изображение первого сотрудника
             DisplayStartPhoto();
 
-            if (employee != null && state == 'A')        
+            // Выводим сообщение о доступности действия в зависимости от действия
+            if (employee != null && state == 'A')
                 addLabel.Visible = true;
+            else if (employee != null && state == 'C')
+                changeLabel.Visible = true;
             
         }
 
@@ -142,6 +145,7 @@ namespace PublishingHouse
         {
             ClearBuffer();
             addLabel.Visible = false;
+            changeLabel.Visible = false;
             
         }
 
@@ -200,6 +204,42 @@ namespace PublishingHouse
 
 
             }
+        }
+
+        private void changeButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Если пользователь изменяет запись
+                if (MessageBox.Show("Вы точно хотите изменить запись?", "Изменение данных о сотруднике", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+
+                    // Написать условие для проверки того, что сотрудник выполняет заказ
+
+                    // Если изменилась только выбранная запись
+                    if (employee.ChangeEmployee(id) == 1)
+                        MessageBox.Show("Запись успешно изменена!", "Изменение данных о сотруднике", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show("Количество измененных записей не равно единице", "Изменение данных о сотруднике", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                    // Выводим новые данные и делаем комноненты и переменные в состояние по умолчанию
+                    ReloadData();
+                    DefaultStateOfMenu();
+                    DisplayStartPhoto();
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка изменения данных о сотруднике", "Изменение данных о сотруднике", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void resetaddChangeButton_Click(object sender, EventArgs e)
+        {
+            // Приводим буфферные данные и компоненты в состояние по умолчанию
+            DefaultStateOfMenu();
         }
     }
 }

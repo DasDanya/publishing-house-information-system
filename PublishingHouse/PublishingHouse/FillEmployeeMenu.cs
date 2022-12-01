@@ -156,6 +156,7 @@ namespace PublishingHouse
             if (employee != null && state == 'C') 
             {
                 LoadDataAboutEmployee();
+                id = Employee.GetIdEmployeeByPhone(employee.Phone);
                 
             
             }
