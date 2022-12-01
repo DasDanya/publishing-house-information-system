@@ -12,16 +12,28 @@ namespace PublishingHouse
     public partial class AdminMenu : Form
     {
         Employee employee = null;
+        char state = ' ';
+        int id = -1;
+
         public AdminMenu()
         {
             InitializeComponent();
         }
 
-        public AdminMenu(Employee employee) 
+        public AdminMenu(Employee employee, char state) 
         {
             InitializeComponent();
             this.employee = employee;
+            this.state = state;
 
+        }
+
+        public AdminMenu(Employee employee, char state, int id) 
+        {
+            InitializeComponent();
+            this.employee = employee;
+            this.state = state;
+            this.id = id;      
         }
 
         private void AdminMenu_FormClosing(object sender, FormClosingEventArgs e)
@@ -31,7 +43,7 @@ namespace PublishingHouse
 
         private void inputButton_Click(object sender, EventArgs e)
         {
-            FillEmployeeMenu fillEmployeeMenu = new FillEmployeeMenu();
+            FillEmployeeMenu fillEmployeeMenu = new FillEmployeeMenu('A');
             Transition.TransitionByForms(this, fillEmployeeMenu);
         }
 
@@ -39,12 +51,19 @@ namespace PublishingHouse
         {
             try
             {
-                if (employee == null)
+                if (employee == null || state != 'A')
                     MessageBox.Show("Перед добавлением сотрудника необходимо ввести данные о нём", "Добавление сотрудника", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 else 
                 {
                     if (employee.AddEmployee() == 1)
+                    {
                         MessageBox.Show("Запись успешно добавлена!", "Добавление сотрудника", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        // Выводим новые данные и делаем комноненты и переменные в состояние по умолчанию
+                        ReloadData();
+                        DefaultStateOfMenu();
+
+                    }
                     else
                         MessageBox.Show("Количество добавленных записей не равно единице", "Добавление сотрудника", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     
@@ -73,6 +92,10 @@ namespace PublishingHouse
                 DisplayEmployeePhoto(0);
                 employeeDataGridView.CurrentCell = employeeDataGridView.Rows[0].Cells["Фамилия"];
             }
+
+            if (employee != null && state == 'A')        
+                addLabel.Visible = true;
+            
         }
 
         private void employeeDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
@@ -113,6 +136,42 @@ namespace PublishingHouse
             {
                 throw new Exception("Ошибка получения изображения");
             }
+        }
+
+        /// <summary>
+        /// Метод,который приводит компоненты и переменные в состояние по умолчанию
+        /// </summary>
+        private void DefaultStateOfMenu()
+        {
+            ClearBuffer();
+            addLabel.Visible = false;
+            
+        }
+
+        /// <summary>
+        /// Метод очистки значений для буфферных переменных
+        /// </summary>
+        private void ClearBuffer()
+        {
+            employee = null;
+            state = ' ';
+            id = -1;
+        }
+
+        /// <summary>
+        /// Метод вывода новых данных из бд
+        /// </summary>
+        private void ReloadData()
+        {
+            // Удаляем все строки из таблицы
+            while (employeeDataGridView.Rows.Count != 0)
+            {
+                employeeDataGridView.Rows.Remove(employeeDataGridView.Rows[employeeDataGridView.Rows.Count - 1]);
+            }
+
+            // Загружаем новые данные
+            LoadTable();
+
         }
     }
 }

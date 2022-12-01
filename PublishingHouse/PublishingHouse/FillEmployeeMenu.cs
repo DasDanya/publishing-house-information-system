@@ -12,9 +12,27 @@ namespace PublishingHouse
 {
     public partial class FillEmployeeMenu : Form
     {
+
+        AdminMenu adminMenu = null;
+        char state = ' ';
+        int id = -1;
+
         public FillEmployeeMenu()
         {
             InitializeComponent();
+        }
+
+        public FillEmployeeMenu(char state) 
+        {
+            InitializeComponent();
+            this.state = state;
+        }
+
+        public FillEmployeeMenu(AdminMenu adminMenu, char state) 
+        {
+            InitializeComponent();
+            this.adminMenu = adminMenu;
+            this.state = state;
         }
 
         private void FillEmployeeMenu_FormClosing(object sender, FormClosingEventArgs e)
@@ -70,8 +88,15 @@ namespace PublishingHouse
                     // Создаём сотрудника
                     Employee employee = new Employee(nameTextBox.Text, surnameTextBox.Text, middleNameTextBox.Text, typeComboBox.Text, emailTextBox.Text, phoneTextBox.Text, GetBytePhoto());
 
-                    // Переходим в главное меню администратора
-                    AdminMenu adminMenu = new AdminMenu(employee);
+                    if (state == 'A')
+                        // Переходим в главное меню администратора
+                        adminMenu = new AdminMenu(employee, state);
+
+                    else if (state == 'C')
+                        // Переходим в главное меню администратора
+                        adminMenu = new AdminMenu(employee, state, id);
+
+                    
                     Transition.TransitionByForms(this, adminMenu);
 
                 }

@@ -98,16 +98,15 @@ namespace PublishingHouse
             try
             {
                 // Если пользователь не ввёл данные о типографии
-                if (printingHouse == null && state != 'A')
+                if (printingHouse == null || state != 'A')
                     MessageBox.Show("Перед добавлением данных о типографии необходимо ввести их", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 else
                 {
                     if (printingHouse.AddPrintingHouse() == 1)
                     {
                         MessageBox.Show("Запись успешно добавлена!", "Добавление типографии", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        infoLabel.Text = "";
-                        
-                        // Выводим новые данные и очищаем буффер
+
+                        // Выводим новые данные и делаем комноненты и переменные в состояние по умолчанию
                         ReloadData();
                         DefaultStateOfMenu();
                     }

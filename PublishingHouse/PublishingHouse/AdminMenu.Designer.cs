@@ -37,16 +37,17 @@ namespace PublishingHouse
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.addEmployeeButton = new System.Windows.Forms.Button();
             this.inputButton = new System.Windows.Forms.Button();
-            this.employeePictureBox = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
             this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.employeePictureBox = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.addLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeeDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.employeePictureBox)).BeginInit();
             this.menuStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.employeePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -94,6 +95,7 @@ namespace PublishingHouse
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.addLabel);
             this.groupBox1.Controls.Add(this.addEmployeeButton);
             this.groupBox1.Controls.Add(this.inputButton);
             this.groupBox1.Controls.Add(this.menuStrip2);
@@ -124,25 +126,6 @@ namespace PublishingHouse
             this.inputButton.UseVisualStyleBackColor = true;
             this.inputButton.Click += new System.EventHandler(this.inputButton_Click);
             // 
-            // employeePictureBox
-            // 
-            this.employeePictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.employeePictureBox.Location = new System.Drawing.Point(907, 59);
-            this.employeePictureBox.Name = "employeePictureBox";
-            this.employeePictureBox.Size = new System.Drawing.Size(236, 236);
-            this.employeePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.employeePictureBox.TabIndex = 3;
-            this.employeePictureBox.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(961, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 20);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Фото сотрудника:";
-            // 
             // menuStrip2
             // 
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -169,6 +152,35 @@ namespace PublishingHouse
             this.поискToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
             this.поискToolStripMenuItem.Text = "Поиск";
             // 
+            // employeePictureBox
+            // 
+            this.employeePictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.employeePictureBox.Location = new System.Drawing.Point(907, 59);
+            this.employeePictureBox.Name = "employeePictureBox";
+            this.employeePictureBox.Size = new System.Drawing.Size(236, 236);
+            this.employeePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.employeePictureBox.TabIndex = 3;
+            this.employeePictureBox.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(961, 36);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(130, 20);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Фото сотрудника:";
+            // 
+            // addLabel
+            // 
+            this.addLabel.AutoSize = true;
+            this.addLabel.Location = new System.Drawing.Point(35, 121);
+            this.addLabel.Name = "addLabel";
+            this.addLabel.Size = new System.Drawing.Size(207, 20);
+            this.addLabel.TabIndex = 3;
+            this.addLabel.Text = "Вы можете добавить запись";
+            this.addLabel.Visible = false;
+            // 
             // AdminMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -193,9 +205,9 @@ namespace PublishingHouse
             ((System.ComponentModel.ISupportInitialize)(this.employeeDataGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.employeePictureBox)).EndInit();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.employeePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,5 +227,6 @@ namespace PublishingHouse
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem processingTab;
         private System.Windows.Forms.ToolStripMenuItem поискToolStripMenuItem;
+        private System.Windows.Forms.Label addLabel;
     }
 }
