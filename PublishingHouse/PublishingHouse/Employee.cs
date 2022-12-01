@@ -38,7 +38,7 @@ namespace PublishingHouse
 
                 // Создаём запрос на добавление сотрудника и выполняем его
                 SqlCommand command = new SqlCommand("INSERT INTO employee (empSurname, empFirstname, empMiddlename, empType, empPhone, empEmail, empVisual) VALUES (N'"+ surname +"', N'"+ name +"', N'"+ middlename +"', N'"+ type +"', N'"+ phone +"', N'"+ email +"', @visual)", ConnectionToDb.Connection);
-                command.Parameters.Add("@visual", SqlDbType.Image, 8000).Value = photo;
+                command.Parameters.Add("@visual", SqlDbType.Image).Value = photo;
                 countEmployee = command.ExecuteNonQuery();
 
                 ConnectionToDb.Close();
@@ -79,6 +79,34 @@ namespace PublishingHouse
                 throw new Exception("Ошибка получения данных о сотрудниках");
             }
 
+        }
+
+        /// <summary>
+        /// Метод получения фотографии сотрудника, зная его номер телефона
+        /// </summary>
+        /// <param name="phone">Номер телефона сотрудника</param>
+        /// <returns>Фотография сотрудника в виде массива байт</returns>
+        public static byte[] GetPhotoEmployeeByPhone(string phone) 
+        {
+            byte[] photo = null;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение фотографии сотрудника и выполняем его
+                SqlCommand command = new SqlCommand("SELECT empVisual FROM employee WHERE empPhone = '"+ phone +"'", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                photo = (byte[])command.ExecuteScalar();
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения фотографии сотрудника");
+            }
+
+            return photo;
         }
         
     }

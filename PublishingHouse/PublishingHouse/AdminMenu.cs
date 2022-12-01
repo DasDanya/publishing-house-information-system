@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -65,6 +66,44 @@ namespace PublishingHouse
         private void AdminMenu_Load(object sender, EventArgs e)
         {
             LoadTable();
+        }
+
+        private void employeeDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+        }
+
+        private void employeeDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                // Получаем фотографию сотрудника из бд и отображаем её в PictureBox
+                byte[] photo = Employee.GetPhotoEmployeeByPhone(employeeDataGridView.Rows[e.RowIndex].Cells["Номер телефона"].Value.ToString());
+                employeePictureBox.BackColor = SystemColors.Control;
+                DisplayEmployeePhoto(photo);
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка отображения фотографии сотрудника", "Отображение фотографии сотрудника", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Метод перевода изображения из массива байт в Image и отображения полученного Image на форме
+        /// </summary>
+        /// <param name="photo">Изображение в виде массива байт</param>
+        private void DisplayEmployeePhoto(byte[]photo) 
+        {
+            try
+            {
+                // Переводим изображение из массива байт в Image и отображаем в PictureBox
+                MemoryStream stream = new MemoryStream(photo);
+                employeePictureBox.Image = Image.FromStream(stream);
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения изображения");
+            }
         }
     }
 }

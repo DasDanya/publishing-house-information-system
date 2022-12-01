@@ -75,6 +75,8 @@ namespace PublishingHouse
             this.employeeDataGridView.RowTemplate.Height = 50;
             this.employeeDataGridView.Size = new System.Drawing.Size(715, 347);
             this.employeeDataGridView.TabIndex = 1;
+            this.employeeDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.employeeDataGridView_CellClick);
+            this.employeeDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.employeeDataGridView_ColumnStateChanged);
             // 
             // groupBox1
             // 
@@ -120,7 +122,7 @@ namespace PublishingHouse
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(812, 36);
+            this.label1.Location = new System.Drawing.Point(809, 36);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(130, 20);
             this.label1.TabIndex = 4;
