@@ -84,6 +84,10 @@ namespace PublishingHouse
             return count;
         }
 
+        /// <summary>
+        /// Метод добавления данных о типографиях в таблицу
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
         public static void LoadPrintingHouse(DataGridView dataGridView)
         {
             try

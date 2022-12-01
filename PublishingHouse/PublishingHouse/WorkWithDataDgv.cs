@@ -197,5 +197,20 @@ namespace PublishingHouse
 
             return order;
         }
+
+        /// <summary>
+        /// Метод, устанавливающий для столбцов нужное значение свойства ReadOnly
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        public static void SetReadOnlyColumns(DataGridView dataGridView) 
+        {
+            dataGridView.Columns[0].ReadOnly = false;
+
+            for (int i = 1; i < dataGridView.Columns.Count; i++)
+            {
+                dataGridView.Columns[i].ReadOnly = true;
+            }
+        
+        }
     }
 }

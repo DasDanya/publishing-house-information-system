@@ -128,11 +128,11 @@ namespace PublishingHouse
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(372, 46);
+            this.label4.Location = new System.Drawing.Point(349, 46);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(121, 20);
+            this.label4.Size = new System.Drawing.Size(172, 20);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Тип сотрудника:";
+            this.label4.Text = "Должность сотрудника:";
             // 
             // typeComboBox
             // 

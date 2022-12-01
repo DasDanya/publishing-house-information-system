@@ -62,17 +62,7 @@ namespace PublishingHouse
         {
             // Загружаем в таблицу данные
             PrintingHouse.LoadPrintingHouse(printingHouseDataGridView);
-
-            // У первого столбца есть возможность изменения его данных
-            printingHouseDataGridView.Columns[0].ReadOnly = false;
-
-            // Остальные столбцы: только для чтения
-            for (int i = 1; i < printingHouseDataGridView.ColumnCount; i++)
-            {
-                printingHouseDataGridView.Columns[i].ReadOnly = true;
-            }
-
-
+            WorkWithDataDgv.SetReadOnlyColumns(printingHouseDataGridView);
         }
 
         /// <summary>

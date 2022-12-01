@@ -49,11 +49,22 @@ namespace PublishingHouse
                     
                 }
             }
-            catch (Exception ex)
+            catch 
             {
-                MessageBox.Show(ex.Message, "Добавление сотрудника", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //MessageBox.Show("Ошибка добавления сотрудника", "Добавление сотрудника", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка добавления сотрудника", "Добавление сотрудника", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void LoadTable() 
+        {
+            // Загружаем данные о сотрудниках в таблицу
+            Employee.LoadEmployees(employeeDataGridView);
+            WorkWithDataDgv.SetReadOnlyColumns(employeeDataGridView);
+        }
+
+        private void AdminMenu_Load(object sender, EventArgs e)
+        {
+            LoadTable();
         }
     }
 }
