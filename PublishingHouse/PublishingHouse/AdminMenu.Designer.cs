@@ -35,6 +35,10 @@ namespace PublishingHouse
             this.employeeDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.dataForSearchLabel = new System.Windows.Forms.Label();
+            this.columnsComboBox = new System.Windows.Forms.ComboBox();
+            this.columnLabel = new System.Windows.Forms.Label();
             this.changeLabel = new System.Windows.Forms.Label();
             this.deleteButton = new System.Windows.Forms.Button();
             this.resetaddChangeButton = new System.Windows.Forms.Button();
@@ -45,7 +49,7 @@ namespace PublishingHouse
             this.inputButton = new System.Windows.Forms.Button();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.поискToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
             this.employeePictureBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
@@ -100,6 +104,10 @@ namespace PublishingHouse
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.searchTextBox);
+            this.groupBox1.Controls.Add(this.dataForSearchLabel);
+            this.groupBox1.Controls.Add(this.columnsComboBox);
+            this.groupBox1.Controls.Add(this.columnLabel);
             this.groupBox1.Controls.Add(this.changeLabel);
             this.groupBox1.Controls.Add(this.deleteButton);
             this.groupBox1.Controls.Add(this.resetaddChangeButton);
@@ -115,6 +123,45 @@ namespace PublishingHouse
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(6, 166);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(271, 27);
+            this.searchTextBox.TabIndex = 12;
+            this.searchTextBox.Visible = false;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
+            // 
+            // dataForSearchLabel
+            // 
+            this.dataForSearchLabel.AutoSize = true;
+            this.dataForSearchLabel.Location = new System.Drawing.Point(28, 144);
+            this.dataForSearchLabel.Name = "dataForSearchLabel";
+            this.dataForSearchLabel.Size = new System.Drawing.Size(228, 20);
+            this.dataForSearchLabel.TabIndex = 11;
+            this.dataForSearchLabel.Text = "Данные для поиска сотрудника";
+            this.dataForSearchLabel.Visible = false;
+            // 
+            // columnsComboBox
+            // 
+            this.columnsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.columnsComboBox.FormattingEnabled = true;
+            this.columnsComboBox.Location = new System.Drawing.Point(6, 86);
+            this.columnsComboBox.Name = "columnsComboBox";
+            this.columnsComboBox.Size = new System.Drawing.Size(271, 28);
+            this.columnsComboBox.TabIndex = 10;
+            this.columnsComboBox.Visible = false;
+            // 
+            // columnLabel
+            // 
+            this.columnLabel.AutoSize = true;
+            this.columnLabel.Location = new System.Drawing.Point(28, 63);
+            this.columnLabel.Name = "columnLabel";
+            this.columnLabel.Size = new System.Drawing.Size(231, 20);
+            this.columnLabel.TabIndex = 9;
+            this.columnLabel.Text = "Столбец для поиска сотрудника";
+            this.columnLabel.Visible = false;
             // 
             // changeLabel
             // 
@@ -200,7 +247,7 @@ namespace PublishingHouse
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.processingTab,
-            this.поискToolStripMenuItem});
+            this.searchTab});
             this.menuStrip2.Location = new System.Drawing.Point(3, 23);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(837, 28);
@@ -213,13 +260,15 @@ namespace PublishingHouse
             this.processingTab.Name = "processingTab";
             this.processingTab.Size = new System.Drawing.Size(119, 24);
             this.processingTab.Text = "Обработка";
+            this.processingTab.Click += new System.EventHandler(this.processingTab_Click);
             // 
-            // поискToolStripMenuItem
+            // searchTab
             // 
-            this.поискToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("поискToolStripMenuItem.Image")));
-            this.поискToolStripMenuItem.Name = "поискToolStripMenuItem";
-            this.поискToolStripMenuItem.Size = new System.Drawing.Size(86, 24);
-            this.поискToolStripMenuItem.Text = "Поиск";
+            this.searchTab.Image = ((System.Drawing.Image)(resources.GetObject("searchTab.Image")));
+            this.searchTab.Name = "searchTab";
+            this.searchTab.Size = new System.Drawing.Size(86, 24);
+            this.searchTab.Text = "Поиск";
+            this.searchTab.Click += new System.EventHandler(this.searchTab_Click);
             // 
             // employeePictureBox
             // 
@@ -285,12 +334,16 @@ namespace PublishingHouse
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem processingTab;
-        private System.Windows.Forms.ToolStripMenuItem поискToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem searchTab;
         private System.Windows.Forms.Label addLabel;
         private System.Windows.Forms.Label changeLabel;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button resetaddChangeButton;
         private System.Windows.Forms.Button changeButton;
         private System.Windows.Forms.Button selectForChangeButton;
+        private System.Windows.Forms.ComboBox columnsComboBox;
+        private System.Windows.Forms.Label columnLabel;
+        private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.Label dataForSearchLabel;
     }
 }

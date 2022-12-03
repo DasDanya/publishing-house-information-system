@@ -241,5 +241,44 @@ namespace PublishingHouse
             // Приводим буфферные данные и компоненты в состояние по умолчанию
             DefaultStateOfMenu();
         }
+
+        private void searchTab_Click(object sender, EventArgs e)
+        {
+            // Отображаем необходимые компоненты для поиска
+            inputButton.Visible = false;
+            addEmployeeButton.Visible = false;
+            selectForChangeButton.Visible = false;
+            changeButton.Visible = false;
+            deleteButton.Visible = false;
+            resetaddChangeButton.Visible = false;
+            columnLabel.Visible = true;
+            columnsComboBox.Visible = true;
+            dataForSearchLabel.Visible = true;
+            searchTextBox.Visible = true;
+
+            // Устанавливаем значения и свойства полям для поиска
+            WorkWithDataDgv.SetElementsForSearchStringData(employeeDataGridView, columnsComboBox, searchTextBox);
+        }
+
+        private void processingTab_Click(object sender, EventArgs e)
+        {
+            // Отображаем необходимые компоненты для обработки данных
+            inputButton.Visible = true;
+            addEmployeeButton.Visible = true;
+            selectForChangeButton.Visible = true;
+            changeButton.Visible = true;
+            deleteButton.Visible = true;
+            resetaddChangeButton.Visible = true;
+            columnLabel.Visible = false;
+            columnsComboBox.Visible = false;
+            dataForSearchLabel.Visible = false;
+            searchTextBox.Visible = false;
+        }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            // Ищём запрашиваемые данные в таблице
+            WorkWithDataDgv.GetLikeString(employeeDataGridView, columnsComboBox, searchTextBox);
+        }
     }
 }
