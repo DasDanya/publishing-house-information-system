@@ -129,17 +129,30 @@ namespace PublishingHouse
         /// <param name="column">Столбец</param>
         /// <param name="from">Левое пороговое значение</param>
         /// <param name="to">Правое пороговое значение</param>
-        public static void GetLikeCost(DataGridView dataGridView, string column, double from, double to) 
+        public static void SearchByDifference(DataGridView dataGridView, string column, double from, double to) 
         {
 
             (dataGridView.DataSource as DataTable).DefaultView.RowFilter = "["+column+"] >= '" + from.ToString() + "' AND ["+column+"] <= '" + to.ToString() + "'";
         }
 
         /// <summary>
-        /// Сброс поиска данных по стоимости
+        /// Метод поиска данных по диапазону
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
-        public static void ResetSearchCost(DataGridView dataGridView) 
+        /// <param name="column">Столбец</param>
+        /// <param name="from">Левое пороговое значение</param>
+        /// <param name="to">Правое пороговое значение</param>
+        public static void SearchByDifference(DataGridView dataGridView, string column, DateTime from, DateTime to)
+        {
+
+            (dataGridView.DataSource as DataTable).DefaultView.RowFilter = "[" + column + "] >= '" + from.ToString() + "' AND [" + column + "] <= '" + to.ToString() + "'";
+        }
+
+        /// <summary>
+        /// Сброс поиска данных
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        public static void ResetSearch(DataGridView dataGridView) 
         {
             (dataGridView.DataSource as DataTable).DefaultView.RowFilter = string.Empty;
         }

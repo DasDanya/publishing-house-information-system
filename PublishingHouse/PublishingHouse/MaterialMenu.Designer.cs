@@ -293,7 +293,7 @@ namespace PublishingHouse
             this.toTextBox.Name = "toTextBox";
             this.toTextBox.Size = new System.Drawing.Size(120, 27);
             this.toTextBox.TabIndex = 30;
-            this.toTextBox.Text = "1000";
+            this.toTextBox.Text = "100";
             this.toTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.costTextBox_KeyPress);
             // 
             // label16

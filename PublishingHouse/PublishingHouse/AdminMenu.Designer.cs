@@ -35,6 +35,13 @@ namespace PublishingHouse
             this.employeeDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.resetSearchDataButton = new System.Windows.Forms.Button();
+            this.searchDataButton = new System.Windows.Forms.Button();
+            this.toLabel = new System.Windows.Forms.Label();
+            this.fromLabel = new System.Windows.Forms.Label();
+            this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.startDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.selectDatelabel = new System.Windows.Forms.Label();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.dataForSearchLabel = new System.Windows.Forms.Label();
             this.columnsComboBox = new System.Windows.Forms.ComboBox();
@@ -104,6 +111,13 @@ namespace PublishingHouse
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.resetSearchDataButton);
+            this.groupBox1.Controls.Add(this.searchDataButton);
+            this.groupBox1.Controls.Add(this.toLabel);
+            this.groupBox1.Controls.Add(this.fromLabel);
+            this.groupBox1.Controls.Add(this.endDateTimePicker);
+            this.groupBox1.Controls.Add(this.startDateTimePicker);
+            this.groupBox1.Controls.Add(this.selectDatelabel);
             this.groupBox1.Controls.Add(this.searchTextBox);
             this.groupBox1.Controls.Add(this.dataForSearchLabel);
             this.groupBox1.Controls.Add(this.columnsComboBox);
@@ -123,6 +137,74 @@ namespace PublishingHouse
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
+            // 
+            // resetSearchDataButton
+            // 
+            this.resetSearchDataButton.Location = new System.Drawing.Point(528, 144);
+            this.resetSearchDataButton.Name = "resetSearchDataButton";
+            this.resetSearchDataButton.Size = new System.Drawing.Size(158, 49);
+            this.resetSearchDataButton.TabIndex = 5;
+            this.resetSearchDataButton.Text = "Сбросить поиск";
+            this.resetSearchDataButton.UseVisualStyleBackColor = true;
+            this.resetSearchDataButton.Visible = false;
+            this.resetSearchDataButton.Click += new System.EventHandler(this.resetSearchDataButton_Click);
+            // 
+            // searchDataButton
+            // 
+            this.searchDataButton.Location = new System.Drawing.Point(316, 144);
+            this.searchDataButton.Name = "searchDataButton";
+            this.searchDataButton.Size = new System.Drawing.Size(158, 49);
+            this.searchDataButton.TabIndex = 18;
+            this.searchDataButton.Text = "Поиск по дате";
+            this.searchDataButton.UseVisualStyleBackColor = true;
+            this.searchDataButton.Visible = false;
+            this.searchDataButton.Click += new System.EventHandler(this.searchDataButton_Click);
+            // 
+            // toLabel
+            // 
+            this.toLabel.AutoSize = true;
+            this.toLabel.Location = new System.Drawing.Point(490, 89);
+            this.toLabel.Name = "toLabel";
+            this.toLabel.Size = new System.Drawing.Size(32, 20);
+            this.toLabel.TabIndex = 17;
+            this.toLabel.Text = "По:";
+            this.toLabel.Visible = false;
+            // 
+            // fromLabel
+            // 
+            this.fromLabel.AutoSize = true;
+            this.fromLabel.Location = new System.Drawing.Point(289, 89);
+            this.fromLabel.Name = "fromLabel";
+            this.fromLabel.Size = new System.Drawing.Size(21, 20);
+            this.fromLabel.TabIndex = 16;
+            this.fromLabel.Text = "С:";
+            this.fromLabel.Visible = false;
+            // 
+            // endDateTimePicker
+            // 
+            this.endDateTimePicker.Location = new System.Drawing.Point(528, 86);
+            this.endDateTimePicker.Name = "endDateTimePicker";
+            this.endDateTimePicker.Size = new System.Drawing.Size(158, 27);
+            this.endDateTimePicker.TabIndex = 15;
+            this.endDateTimePicker.Visible = false;
+            // 
+            // startDateTimePicker
+            // 
+            this.startDateTimePicker.Location = new System.Drawing.Point(316, 86);
+            this.startDateTimePicker.Name = "startDateTimePicker";
+            this.startDateTimePicker.Size = new System.Drawing.Size(158, 27);
+            this.startDateTimePicker.TabIndex = 14;
+            this.startDateTimePicker.Visible = false;
+            // 
+            // selectDatelabel
+            // 
+            this.selectDatelabel.AutoSize = true;
+            this.selectDatelabel.Location = new System.Drawing.Point(416, 63);
+            this.selectDatelabel.Name = "selectDatelabel";
+            this.selectDatelabel.Size = new System.Drawing.Size(138, 20);
+            this.selectDatelabel.TabIndex = 13;
+            this.selectDatelabel.Text = "Период рождения";
+            this.selectDatelabel.Visible = false;
             // 
             // searchTextBox
             // 
@@ -345,5 +427,12 @@ namespace PublishingHouse
         private System.Windows.Forms.Label columnLabel;
         private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.Label dataForSearchLabel;
+        private System.Windows.Forms.DateTimePicker endDateTimePicker;
+        private System.Windows.Forms.DateTimePicker startDateTimePicker;
+        private System.Windows.Forms.Label selectDatelabel;
+        private System.Windows.Forms.Label toLabel;
+        private System.Windows.Forms.Label fromLabel;
+        private System.Windows.Forms.Button resetSearchDataButton;
+        private System.Windows.Forms.Button searchDataButton;
     }
 }

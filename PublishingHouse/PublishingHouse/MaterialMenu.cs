@@ -409,14 +409,14 @@ namespace PublishingHouse
                     double to = double.Parse(toTextBox.Text);
 
                     // Если некорректный ввод данных
-                    if (from < 1 || to < 1 || from >= to)
+                    if (from <= 0 || to <= 0 || from >= to)
                     {
                         MessageBox.Show("Диапазон должен содержать числа больше нуля. Значение правого текстового поля должно быть больше левого", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else
                     {
-                        // Производим поиск по определенному столбцу
-                        WorkWithDataDgv.GetLikeCost(materialDataGridView, "Стоимость", from, to);
+                        // Производим поиск по стоимости
+                        WorkWithDataDgv.SearchByDifference(materialDataGridView, "Стоимость", from, to);
                         //WorkWithDataDgv.SetHeightRows(materialDataGridView);
                     }
                 }
@@ -431,14 +431,14 @@ namespace PublishingHouse
 
         private void resetCostButton_Click(object sender, EventArgs e)
         {
-            if (materialDataGridView.Rows.Count < 1)
-                MessageBox.Show("Отсутствуют строки для сброса поиска по стоимости", "Сброс поиска по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else
-            {
-                // Сбрасываем поиск по стоимости
-                WorkWithDataDgv.ResetSearchCost(materialDataGridView);
+            
+                // Сбрасываем поиск
+                WorkWithDataDgv.ResetSearch(materialDataGridView);
+                searchTextBox.Text = "";
+                fromTextBox.Text = "1";
+                toTextBox.Text = "100";
                 //WorkWithDataDgv.SetHeightRows(materialDataGridView);
-            }
+            
         }
 
         private void popDataAbMaterialButton_Click(object sender, EventArgs e)

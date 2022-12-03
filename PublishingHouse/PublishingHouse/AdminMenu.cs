@@ -255,6 +255,13 @@ namespace PublishingHouse
             columnsComboBox.Visible = true;
             dataForSearchLabel.Visible = true;
             searchTextBox.Visible = true;
+            selectDatelabel.Visible = true;
+            fromLabel.Visible = true;
+            toLabel.Visible = true;
+            startDateTimePicker.Visible = true;
+            endDateTimePicker.Visible = true;
+            searchDataButton.Visible = true;
+            resetSearchDataButton.Visible = true;
 
             // Устанавливаем значения и свойства полям для поиска
             WorkWithDataDgv.SetElementsForSearchStringData(employeeDataGridView, columnsComboBox, searchTextBox);
@@ -273,12 +280,40 @@ namespace PublishingHouse
             columnsComboBox.Visible = false;
             dataForSearchLabel.Visible = false;
             searchTextBox.Visible = false;
+            selectDatelabel.Visible = false;
+            fromLabel.Visible = false;
+            toLabel.Visible = false;
+            startDateTimePicker.Visible = false;
+            endDateTimePicker.Visible = false;
+            searchDataButton.Visible = false;
+            resetSearchDataButton.Visible = false;
         }
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
             // Ищём запрашиваемые данные в таблице
             WorkWithDataDgv.GetLikeString(employeeDataGridView, columnsComboBox, searchTextBox);
+        }
+
+        private void resetSearchDataButton_Click(object sender, EventArgs e)
+        {
+            // Сбрасываем поиск
+            WorkWithDataDgv.ResetSearch(employeeDataGridView);
+            searchTextBox.Text = "";
+            startDateTimePicker.Value = DateTime.Now;
+            endDateTimePicker.Value = DateTime.Now;
+        }
+
+        private void searchDataButton_Click(object sender, EventArgs e)
+        {
+            DateTime from = startDateTimePicker.Value.Date;
+            DateTime to = endDateTimePicker.Value.Date;
+
+            if (from >= to || from > DateTime.Now.Date || to > DateTime.Now.Date)
+                MessageBox.Show("Дата \"с\", дата \"по\" не должны превышать сегодняшний день. Дата \"с\" должна быть мешьше даты \"по\"", "Поиск по дате", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            // Производим поиск по стоимости
+            WorkWithDataDgv.SearchByDifference(employeeDataGridView, "Дата рождения", from, to);
         }
     }
 }
