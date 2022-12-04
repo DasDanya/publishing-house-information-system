@@ -158,6 +158,7 @@ namespace PublishingHouse
             this.fashionButton.Text = "Мода сотрудников";
             this.fashionButton.UseVisualStyleBackColor = true;
             this.fashionButton.Visible = false;
+            this.fashionButton.Click += new System.EventHandler(this.fashionButton_Click);
             // 
             // searchEmployeeOrdersButton
             // 

@@ -79,6 +79,7 @@ namespace PublishingHouse
             this.fashionPrHouseDataGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.fashionPrHouseDataGridView.Size = new System.Drawing.Size(434, 309);
             this.fashionPrHouseDataGridView.TabIndex = 1;
+            this.fashionPrHouseDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.fashionPrHouseDataGridView_ColumnStateChanged);
             // 
             // groupBox1
             // 

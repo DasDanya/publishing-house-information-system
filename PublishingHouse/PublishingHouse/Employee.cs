@@ -479,5 +479,66 @@ namespace PublishingHouse
             return isWorking;
         }
 
+        /// <summary>
+        /// Метод получения количества записей
+        /// </summary>
+        /// <returns>Количество записей</returns>
+        public static int GetCountRecords() 
+        {
+            int count = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение количества записей и выполняем его
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM employee", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                count = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения количества сотрудников");
+            }
+
+            return count;
+
+        }
+
+        /// <summary>
+        /// Метод получения данных о сотрудниках по определенному порядку фильтрации
+        /// </summary>
+        /// <param name="order">Порядок фильтрации</param>
+        /// <param name="outStringCount">Количество выводимых строк</param>
+        /// <returns>DataTable с отсортированными данными</returns>
+        public static DataTable GetTableByOccurrence(string order, int outStringCount)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем, выполняем запрос на получения данных о сотрудниках в определенном порядке
+                string query = String.Format("SELECT TOP {0} employee.empSurname AS N'Фамилия', employee.empFirstname AS N'Имя', employee.empMiddlename AS N'Отчество', employee.empType AS N'Должность', COUNT(bookingEmployee.fempId) AS N'Количество' FROM employee LEFT JOIN bookingEmployee ON employee.empId = bookingEmployee.fempId GROUP BY employee.empSurname, employee.empFirstname, employee.empMiddlename, employee.empType ORDER BY COUNT(bookingEmployee.fempId) {1} ", outStringCount, order);
+                SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Загружаем полученные данные в DataTable
+                dt.Load(dataReader);
+
+                ConnectionToDb.Close();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+                //throw new Exception("Ошибка получения данных о сотрудниках");
+            }
+
+            return dt;
+        }
+
     }
 }

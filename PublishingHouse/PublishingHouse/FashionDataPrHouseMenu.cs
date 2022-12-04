@@ -17,8 +17,6 @@ namespace PublishingHouse
 
         private void FashionDataPrHouseMenu_Load(object sender, EventArgs e)
         {
-           
-
             // Выводим все типографии по убыванию их использования и делаем RadioButton для сортировки по убыванию выбранным
             descRadioButton.Checked = true;
             FillTable("DESC", PrintingHouse.GetCountRecords());
@@ -45,7 +43,7 @@ namespace PublishingHouse
                 int inputCount = int.Parse(countTextBox.Text);
 
                 if (inputCount < 1 || inputCount > count)
-                    MessageBox.Show(String.Format("Количество отображаемых записей болжно быть больше нуля и не больше максимального значения: {0}", count), "Получение типографий", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show(String.Format("Количество отображаемых записей должно быть больше нуля и не больше максимального значения: {0}", count), "Получение типографий", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 else 
                 {
                     FillTable(WorkWithDataDgv.GetOrderFilter(descRadioButton, ascRadioButton), inputCount);
@@ -90,6 +88,11 @@ namespace PublishingHouse
             // Если пользователь ввёл не цифру и не нажал на Backspace, то не отображаем символ в textbox
             if (!Char.IsDigit(number) && number != 8)
                 e.Handled = true;
+        }
+
+        private void fashionPrHouseDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
     }
 }

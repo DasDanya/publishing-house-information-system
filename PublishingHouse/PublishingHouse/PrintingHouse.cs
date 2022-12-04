@@ -396,7 +396,7 @@ namespace PublishingHouse
         }
 
         /// <summary>
-        /// Метод получения данных о типографии по определенному порядку фильтрации
+        /// Метод получения данных о типографих по определенному порядку фильтрации
         /// </summary>
         /// <param name="order">Порядок фильтрации</param>
         /// <param name="outStringCount">Количество выводимых строк</param>
@@ -409,7 +409,7 @@ namespace PublishingHouse
             {
                 ConnectionToDb.Open();
 
-                // Формируем, выполняем запрос на получения данных о типографии в определенном порядке
+                // Формируем, выполняем запрос на получения данных о типографиях в определенном порядке
                 string query = String.Format("SELECT TOP {0} printingHouse.phName AS N'Название компании', COUNT(booking.fphId) AS N'Количество' FROM printingHouse LEFT JOIN booking ON printingHouse.phId = booking.fphId GROUP BY printingHouse.phName ORDER BY COUNT(booking.fphId) {1} ", outStringCount, order);
                 SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
                 SqlDataReader dataReader = command.ExecuteReader();

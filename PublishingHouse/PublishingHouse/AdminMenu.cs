@@ -440,5 +440,17 @@ namespace PublishingHouse
         {
 
         }
+
+        private void fashionButton_Click(object sender, EventArgs e)
+        {
+            if (employeeDataGridView.Rows.Count > 0)
+            {
+                FashionDataEmployee fashionDataEmployee = new FashionDataEmployee();
+                Transition.TransitionByForms(this, fashionDataEmployee);
+
+            }
+            else
+                MessageBox.Show("Невозможно вывести моду данных о сотрудниках, так они отсутствуют!", "Вывод моды данных о сотрудниках", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }
