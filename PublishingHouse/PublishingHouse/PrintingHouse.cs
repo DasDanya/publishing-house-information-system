@@ -434,9 +434,9 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="typeWork">Тип работы с данными</param>
         /// <param name="pastEmail">Прошлый Email</param>
-        /// <param name="newPhone">Новый Email</param>
+        /// <param name="newEmail">Новый Email</param>
         /// <returns>Существует ли Email типографии в бд</returns>
-        public static bool ExistEmailInDb(char typeWork, string pastEmail, string newPhone) 
+        public static bool ExistEmailInDb(char typeWork, string pastEmail, string newEmail) 
         {
             bool exist = false;
 
@@ -448,7 +448,7 @@ namespace PublishingHouse
                 // Если пользователь добавляет запись
                 if (typeWork == 'A')
                     // Запрос на существование email
-                    command = new SqlCommand("SELECT COUNT(phEmail) FROM printingHouse WHERE phEmail = '" + newPhone + "'", ConnectionToDb.Connection);
+                    command = new SqlCommand("SELECT COUNT(phEmail) FROM printingHouse WHERE phEmail = '" + newEmail + "'", ConnectionToDb.Connection);
                 
                 // Если пользователь редактирует запись
                 else if (typeWork == 'C') 
@@ -459,7 +459,7 @@ namespace PublishingHouse
                     ConnectionToDb.Open();
 
                     //Запрос на существование email, не учитывая изменяемую запись 
-                    command = new SqlCommand("SELECT COUNT(phEmail) FROM printingHouse WHERE phEmail = '"+ newPhone +"' AND phId != '"+ id +"' ", ConnectionToDb.Connection);
+                    command = new SqlCommand("SELECT COUNT(phEmail) FROM printingHouse WHERE phEmail = '"+ newEmail +"' AND phId != '"+ id +"' ", ConnectionToDb.Connection);
 
                 }
  
@@ -576,7 +576,11 @@ namespace PublishingHouse
             return exist;
         }
 
-
+        /// <summary>
+        /// Метод,определяющий работают ли типографии над заказом
+        /// </summary>
+        /// <param name="arrayIdPrHouse">Массив id типографий</param>
+        /// <returns>Типографии работают</returns>
         public static bool PrintingHousesIsWorking(int[] arrayIdPrHouse) 
         {
             bool isWorking = false;
@@ -603,6 +607,11 @@ namespace PublishingHouse
             return isWorking;
         }
 
+        /// <summary>
+        /// Метод, определяющий работает ли типография над заказом
+        /// </summary>
+        /// <param name="idPrHouse">id типографии</param>
+        /// <returns>Работает ли типография</returns>
         public static bool PrintingHouseIsWorking(int idPrHouse) 
         {
             bool isWorking = false;
@@ -611,6 +620,7 @@ namespace PublishingHouse
             {
                 ConnectionToDb.Open();
 
+                // Получаем количество заказов, над которыми работает типография
                 SqlCommand command = new SqlCommand("SELECT COUNT(fphId) FROM booking WHERE fphId = '" + idPrHouse + "'", ConnectionToDb.Connection);
 
                 if (Convert.ToInt32(command.ExecuteScalar()) > 0)               

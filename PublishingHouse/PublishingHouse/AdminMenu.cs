@@ -85,16 +85,28 @@ namespace PublishingHouse
 
         private void AdminMenu_Load(object sender, EventArgs e)
         {
-            LoadTable();
+            try
+            {
+                LoadTable();
 
-            // Отображаем изображение первого сотрудника
-            DisplayStartPhoto();
+                // Отображаем изображение первого сотрудника
+                DisplayStartPhoto();
 
-            // Выводим сообщение о доступности действия в зависимости от действия
-            if (employee != null && state == 'A')
-                addLabel.Visible = true;
-            else if (employee != null && state == 'C')
-                changeLabel.Visible = true;
+                // Выводим сообщение о доступности действия в зависимости от действия
+                if (employee != null && state == 'A')
+                    addLabel.Visible = true;
+                else if (employee != null && state == 'C')
+                {
+                    changeLabel.Visible = true;
+                    addEmployeeButton.Enabled = false;
+                    deleteButton.Enabled = false;
+                    changeButton.Enabled = true;
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка отображения стартовых данных", "Отображение стартовых данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             
         }
 
@@ -119,7 +131,10 @@ namespace PublishingHouse
             }
         }
 
-       
+       /// <summary>
+       /// Метод отображения фото сотрудника
+       /// </summary>
+       /// <param name="rowIndex">Номер строки в таблице</param>
         private void DisplayEmployeePhoto(int rowIndex) 
         {
             try
@@ -146,7 +161,10 @@ namespace PublishingHouse
             ClearBuffer();
             addLabel.Visible = false;
             changeLabel.Visible = false;
-            
+            addEmployeeButton.Enabled = true;
+            deleteButton.Enabled = true;
+            changeButton.Enabled = false;
+
         }
 
         /// <summary>
@@ -175,13 +193,23 @@ namespace PublishingHouse
 
         }
 
+        /// <summary>
+        /// Метод отображения фото первого сотрудника
+        /// </summary>
         private void DisplayStartPhoto() 
         {
-            // Отображаем изображение первого сотрудника
-            if (employeeDataGridView.RowCount >= 1)
+            try
             {
-                DisplayEmployeePhoto(0);
-                employeeDataGridView.CurrentCell = employeeDataGridView.Rows[0].Cells["Фамилия"];
+                // Отображаем изображение первого сотрудника
+                if (employeeDataGridView.RowCount >= 1)
+                {
+                    DisplayEmployeePhoto(0);
+                    employeeDataGridView.CurrentCell = employeeDataGridView.Rows[0].Cells["Фамилия"];
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка отображения стартого изображения", "Отображение стартового изображения", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -264,6 +292,9 @@ namespace PublishingHouse
             resetSearchDataButton.Visible = true;
             selectAllButton.Visible = false;
             resetSelectAllButton.Visible = false;
+            ordersTreeView.Visible = true;
+            searchEmployeeOrdersButton.Visible = true;
+            fashionButton.Visible = true;
 
             // Устанавливаем значения и свойства полям для поиска
             WorkWithDataDgv.SetElementsForSearchStringData(employeeDataGridView, columnsComboBox, searchTextBox);
@@ -291,6 +322,9 @@ namespace PublishingHouse
             resetSearchDataButton.Visible = false;
             selectAllButton.Visible = false;
             resetSelectAllButton.Visible = false;
+            ordersTreeView.Visible = false;
+            searchEmployeeOrdersButton.Visible = false;
+            fashionButton.Visible = false;
         }
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
@@ -341,6 +375,9 @@ namespace PublishingHouse
             endDateTimePicker.Visible = false;
             searchDataButton.Visible = false;
             resetSearchDataButton.Visible = false;
+            ordersTreeView.Visible = false;
+            searchEmployeeOrdersButton.Visible = false;
+            fashionButton.Visible = false;
         }
 
         private void selectAllButton_Click(object sender, EventArgs e)
@@ -357,6 +394,11 @@ namespace PublishingHouse
                 MessageBox.Show("Отсутствуют строки", "Отменить выбор строк", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
                 WorkWithDataDgv.SelectOrCancelSelectAllRows(employeeDataGridView, false);
+        }
+
+        private void searchEmployeeOrdersButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

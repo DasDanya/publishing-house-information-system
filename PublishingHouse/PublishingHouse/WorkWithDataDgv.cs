@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Windows.Forms;
+using System.IO;
+using System.Drawing;
 
 namespace PublishingHouse
 {
@@ -224,6 +226,31 @@ namespace PublishingHouse
                 dataGridView.Columns[i].ReadOnly = true;
             }
         
+        }
+
+       /// <summary>
+       /// Метод, возвращающий изображение в виде массива байт
+       /// </summary>
+       /// <param name="image">Изображение</param>
+       /// <returns>Изображение в виде массива байт</returns>
+        public static byte[] GetBytePhoto(Image image)
+        {
+            byte[] photo = null;
+
+            try
+            {
+                // Получаем изображение как массив байт
+                MemoryStream stream = new MemoryStream();
+                image.Save(stream, image.RawFormat);
+                photo = stream.ToArray();
+            }
+            catch
+            {
+                throw new Exception("Ошибка преобразования изображения для его дальнейшего хранения");
+            }
+
+
+            return photo;
         }
     }
 }

@@ -88,19 +88,36 @@ namespace PublishingHouse
             {
                 if (CorrectInputData())
                 {
-                    // Создаём сотрудника
-                    Employee employee = new Employee(nameTextBox.Text, surnameTextBox.Text, middleNameTextBox.Text, typeComboBox.Text, emailTextBox.Text, phoneTextBox.Text,birthDayTimePicker.Value.Date, GetBytePhoto());
 
-                    if (state == 'A')
-                        // Переходим в главное меню администратора
-                        adminMenu = new AdminMenu(employee, state);
+                    string email = "";
+                    string phone = "";
 
-                    else if (state == 'C')
-                        // Переходим в главное меню администратора
-                        adminMenu = new AdminMenu(employee, state, id);
-
+                    if (state == 'C') 
+                    {   
+                        // Текущие данные о сотруднике
+                        email = this.employee.Email;
+                        phone = this.employee.Phone;
+                    }
                     
-                    Transition.TransitionByForms(this, adminMenu);
+                    // Если существует сотрудник с введенной электронной почтой или номером телефона
+                    if (!Employee.ExistEmailInDb(state, email, emailTextBox.Text) && !Employee.ExistPhoneInDb(state, phone, phoneTextBox.Text)) 
+                    {
+                        // Создаём сотрудника
+                        Employee employee = new Employee(nameTextBox.Text, surnameTextBox.Text, middleNameTextBox.Text, typeComboBox.Text, emailTextBox.Text, phoneTextBox.Text, birthDayTimePicker.Value.Date, WorkWithDataDgv.GetBytePhoto(employeePictureBox.Image));
+
+                        if (state == 'A')
+                            // Переходим в главное меню администратора
+                            adminMenu = new AdminMenu(employee, state);
+
+                        else if (state == 'C')
+                            // Переходим в главное меню администратора
+                            adminMenu = new AdminMenu(employee, state, id);
+
+
+                        Transition.TransitionByForms(this, adminMenu);
+                    }
+                    else
+                        MessageBox.Show("В базе данных не могут существовать сотрудники с одинаковым номером или с одинаковой электронной почтой", "Сохранение данных о сотруднике", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 }
                 else
@@ -112,30 +129,7 @@ namespace PublishingHouse
             }
         }
 
-        /// <summary>
-        /// Метод, возвращающий изображение в виде массива байтов
-        /// </summary>
-        /// <returns>Изображение в виде массива байтов </returns>
-        private byte[] GetBytePhoto() 
-        {
-            byte[] photo = null;
-
-            try
-            {
-                // Получаем изображение как массив байт
-                MemoryStream stream = new MemoryStream();
-                employeePictureBox.Image.Save(stream, employeePictureBox.Image.RawFormat);
-                photo = stream.ToArray();
-            }
-            catch 
-            {
-                throw new Exception("Ошибка преобразования изображения для его дальнейшего хранения");
-            }
-
-
-            return photo;
-        }
-
+       
         /// <summary>
         /// Метод для загрузки данных о сотруднике в соответствующие компоненты
         /// </summary>

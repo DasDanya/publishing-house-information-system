@@ -35,6 +35,9 @@ namespace PublishingHouse
             this.employeeDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.fashionButton = new System.Windows.Forms.Button();
+            this.searchEmployeeOrdersButton = new System.Windows.Forms.Button();
+            this.ordersTreeView = new System.Windows.Forms.TreeView();
             this.resetSelectAllButton = new System.Windows.Forms.Button();
             this.selectAllButton = new System.Windows.Forms.Button();
             this.resetSearchDataButton = new System.Windows.Forms.Button();
@@ -114,6 +117,9 @@ namespace PublishingHouse
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.fashionButton);
+            this.groupBox1.Controls.Add(this.searchEmployeeOrdersButton);
+            this.groupBox1.Controls.Add(this.ordersTreeView);
             this.groupBox1.Controls.Add(this.resetSelectAllButton);
             this.groupBox1.Controls.Add(this.selectAllButton);
             this.groupBox1.Controls.Add(this.resetSearchDataButton);
@@ -138,10 +144,39 @@ namespace PublishingHouse
             this.groupBox1.Controls.Add(this.menuStrip2);
             this.groupBox1.Location = new System.Drawing.Point(20, 443);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(843, 203);
+            this.groupBox1.Size = new System.Drawing.Size(1123, 203);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
+            // 
+            // fashionButton
+            // 
+            this.fashionButton.Location = new System.Drawing.Point(908, 144);
+            this.fashionButton.Name = "fashionButton";
+            this.fashionButton.Size = new System.Drawing.Size(197, 49);
+            this.fashionButton.TabIndex = 23;
+            this.fashionButton.Text = "Мода сотрудников";
+            this.fashionButton.UseVisualStyleBackColor = true;
+            this.fashionButton.Visible = false;
+            // 
+            // searchEmployeeOrdersButton
+            // 
+            this.searchEmployeeOrdersButton.Location = new System.Drawing.Point(908, 63);
+            this.searchEmployeeOrdersButton.Name = "searchEmployeeOrdersButton";
+            this.searchEmployeeOrdersButton.Size = new System.Drawing.Size(197, 49);
+            this.searchEmployeeOrdersButton.TabIndex = 22;
+            this.searchEmployeeOrdersButton.Text = "Поиск заказов";
+            this.searchEmployeeOrdersButton.UseVisualStyleBackColor = true;
+            this.searchEmployeeOrdersButton.Visible = false;
+            this.searchEmployeeOrdersButton.Click += new System.EventHandler(this.searchEmployeeOrdersButton_Click);
+            // 
+            // ordersTreeView
+            // 
+            this.ordersTreeView.Location = new System.Drawing.Point(692, 63);
+            this.ordersTreeView.Name = "ordersTreeView";
+            this.ordersTreeView.Size = new System.Drawing.Size(210, 130);
+            this.ordersTreeView.TabIndex = 21;
+            this.ordersTreeView.Visible = false;
             // 
             // resetSelectAllButton
             // 
@@ -303,6 +338,7 @@ namespace PublishingHouse
             // 
             // changeButton
             // 
+            this.changeButton.Enabled = false;
             this.changeButton.Location = new System.Drawing.Point(560, 144);
             this.changeButton.Name = "changeButton";
             this.changeButton.Size = new System.Drawing.Size(271, 49);
@@ -360,7 +396,7 @@ namespace PublishingHouse
             this.selectTab});
             this.menuStrip2.Location = new System.Drawing.Point(3, 23);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(837, 28);
+            this.menuStrip2.Size = new System.Drawing.Size(1117, 28);
             this.menuStrip2.TabIndex = 2;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -473,5 +509,8 @@ namespace PublishingHouse
         private System.Windows.Forms.Button resetSelectAllButton;
         private System.Windows.Forms.Button selectAllButton;
         private System.Windows.Forms.ToolStripMenuItem selectTab;
+        private System.Windows.Forms.Button searchEmployeeOrdersButton;
+        private System.Windows.Forms.TreeView ordersTreeView;
+        private System.Windows.Forms.Button fashionButton;
     }
 }
