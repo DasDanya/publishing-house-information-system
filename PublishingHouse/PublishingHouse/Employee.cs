@@ -416,7 +416,68 @@ namespace PublishingHouse
             }
 
             return listIds;
-        } 
+        }
+
+        /// <summary>
+        /// Метод, определяющий работает ли сотрудник над заказом
+        /// </summary>
+        /// <param name="idEmployee">id сотрудника</param>
+        /// <returns>Работает ли сотрудник</returns>
+        public static bool EmployeeIsWorking(int idEmployee)
+        {
+            bool isWorking = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Получаем количество заказов, над которыми работает сотрудник
+                SqlCommand command = new SqlCommand("SELECT COUNT(fempId) FROM bookingEmployee WHERE fempId = '" + idEmployee + "'", ConnectionToDb.Connection);
+
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
+                    isWorking = true;
+
+                ConnectionToDb.Close();
+            }
+
+            catch
+            {
+                throw new Exception("Ошибка получения данных о том, работает ли сотрудник над заказом(-ами)");
+            }
+
+            return isWorking;
+        }
+
+        /// <summary>
+        /// Метод,определяющий работают ли сотрудники над заказом
+        /// </summary>
+        /// <param name="arrayIdemployees">Массив id сотрудников</param>
+        /// <returns>Сотрудники работают</returns>
+        public static bool EmployeesIsWorking(int[] arrayIdemployees)
+        {
+            bool isWorking = false;
+
+            try
+            {
+
+                for (int i = 0; i < arrayIdemployees.Length; i++)
+                {
+                    if (EmployeeIsWorking(arrayIdemployees[i]))
+                    {
+                        isWorking = true;
+                        break;
+                    }
+                }
+
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о том, работают ли сотрудники над заказом(-ами)");
+            }
+
+
+            return isWorking;
+        }
 
     }
 }
