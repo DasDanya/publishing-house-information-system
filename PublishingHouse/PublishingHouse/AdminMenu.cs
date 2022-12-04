@@ -396,7 +396,36 @@ namespace PublishingHouse
 
         private void searchEmployeeOrdersButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                ordersTreeView.Nodes.Clear();
+                // Если пользователь выбрал 0 или несколько записей
+                if (WorkWithDataDgv.CountSelectedRows(employeeDataGridView) != 1)
+                    MessageBox.Show("Неодходимо выбрать одну запись", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    // Получаем список заказов
+                    List<int> orders = Employee.GetNumbersOfOrdersThisEmployee(employeeDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(employeeDataGridView)].Cells["Электронная почта"].Value.ToString());
 
+                    // Если список пуст
+                    if (orders.Count == 0)
+                        MessageBox.Show("Выбранный сотрудник не выполняет заказы", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                    {
+                        // Выводим номера заказов
+                        foreach (int order in orders)
+                        {
+                            ordersTreeView.Nodes.Add(order.ToString());
+                        }
+                    }
+
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка поиска заказов", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

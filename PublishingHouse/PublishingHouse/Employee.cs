@@ -349,5 +349,74 @@ namespace PublishingHouse
             return image;
         }
 
+
+        /// <summary>
+        /// Метод получения списка заказов, выполняемых сотрудником
+        /// </summary>
+        /// <param name="email">Электронная почта сотрудника</param>
+        /// <returns>Список заказов</returns>
+        public static List<int> GetNumbersOfOrdersThisEmployee(string email) 
+        {
+            List<int> orders = new List<int>();
+            try
+            {
+                // Получаем список id заказов
+                List<int> ids = GiveListEmployeeOrders(GetIdEmployeeByEmail(email));
+
+                ConnectionToDb.Open();
+
+                for (int i = 0; i < ids.Count; i++)
+                {
+                    // Получаем номера заказов и добавляем в список
+                    SqlCommand command = new SqlCommand("SELECT bkNumber FROM booking WHERE bkId = '"+ids[i]+"'",ConnectionToDb.Connection);
+                    orders.Add(Convert.ToInt32(command.ExecuteScalar()));
+                    
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения списка номеров заказов");
+            }
+
+            return orders;
+        }
+
+        /// <summary>
+        /// Метод получения списка id заказов сотрудника
+        /// </summary>
+        /// <param name="idEmployee">id сотрудника</param>
+        /// <returns>Список id заказов</returns>
+        private static List<int> GiveListEmployeeOrders(int idEmployee) 
+        {
+            List<int> listIds = new List<int>();
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Выполняем запрос на получения списка id заказов и выполняем его
+                SqlCommand command = new SqlCommand("SELECT fbkId FROM bookingEmployee WHERE fempId = '"+idEmployee+"'", ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Считываем данные из ридера и записываем в список
+                while (dataReader.Read())
+                {
+                    // Получаем id заказа
+                    int idOrder = Convert.ToInt32(dataReader["fbkId"]);
+                    listIds.Add(idOrder);
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения списка уникальных номеров заказов сотрудника");
+            }
+
+            return listIds;
+        } 
+
     }
 }

@@ -250,7 +250,7 @@ namespace PublishingHouse
                             }
                         }
                         else
-                            MessageBox.Show("Невозможно удалить записи, так как существует заказ(-ы) с выбранной(-ыми) типографиями. Удалите заказ(-ы), где присутствуют выбранные типографии и повторите попытку", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Невозможно удалить записи, так как существует заказ(-ы) с выбранной(-ыми) типографиями. Удалите заказ(-ы), где присутствуют выбранные типографии и повторите попытку", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         
                     }
                 }
@@ -270,16 +270,23 @@ namespace PublishingHouse
             
             else 
             {
-                // Получаем номер выбранной записи и создаём объект типографии
                 int numberRow = WorkWithDataDgv.NumberSelectedRows(printingHouseDataGridView);
-                PrintingHouse printingHouse = new PrintingHouse(printingHouseDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Электронная почта"].Value.ToString(),
-                    printingHouseDataGridView.Rows[numberRow].Cells["Тип субъекта"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Название субъекта"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Город"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Тип улицы"].Value.ToString(),
-                    printingHouseDataGridView.Rows[numberRow].Cells["Название улицы"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Дом №"].Value.ToString());
 
-                // Переходим в меню ввода данных для изменения этих самых данных
-                FillDataPrintingHouse fillDataPrintingHouse = new FillDataPrintingHouse(printingHouse, 'C');
-                Transition.TransitionByForms(this, fillDataPrintingHouse);
-                
+                // Если типография(-и) не выполняет(-ют) заказ
+                if (!PrintingHouse.PrintingHouseIsWorking(PrintingHouse.GetIdPrintingHouseByEmail(printingHouseDataGridView.Rows[numberRow].Cells["Электронная почта"].Value.ToString())))
+                {
+                    // Создаём объект типографии
+                    PrintingHouse printingHouse = new PrintingHouse(printingHouseDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Электронная почта"].Value.ToString(),
+                        printingHouseDataGridView.Rows[numberRow].Cells["Тип субъекта"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Название субъекта"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Город"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Тип улицы"].Value.ToString(),
+                        printingHouseDataGridView.Rows[numberRow].Cells["Название улицы"].Value.ToString(), printingHouseDataGridView.Rows[numberRow].Cells["Дом №"].Value.ToString());
+
+                    // Переходим в меню ввода данных для изменения этих самых данных
+                    FillDataPrintingHouse fillDataPrintingHouse = new FillDataPrintingHouse(printingHouse, 'C');
+                    Transition.TransitionByForms(this, fillDataPrintingHouse);
+                }
+                else
+                    MessageBox.Show("Невозможно изменить запись, так как существует заказ(-ы) с выбранной типографией. Удалите заказ(-ы), где присутствуют выбранная типография, или создайте новую типографию", "Выбор для изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
 
             }
         }
@@ -337,24 +344,19 @@ namespace PublishingHouse
                 // Если пользователь изменяет запись
                 if (MessageBox.Show("Вы точно хотите изменить запись?", "Изменение данных о типографии", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-
-                    // Если типография(-и) не выполняет(-ют) заказ
-                    if (!PrintingHouse.PrintingHouseIsWorking(id))
-                    {
+                  
                         int countChangeRows = printingHouse.ChangePrintingHouse(id);
-                        // Если изменилась только одна запись 
-                        if (countChangeRows == 1)                       
-                            MessageBox.Show("Запись успешно изменена!", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            
-                        else
-                            MessageBox.Show("Количество измененных записей не равно единице", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Если изменилась только одна запись 
+                    if (countChangeRows == 1)
+                        MessageBox.Show("Запись успешно изменена!", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    else
+                        MessageBox.Show("Количество измененных записей не равно единице", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error); 
+
 
                         ReloadData();
                         DefaultStateOfMenu();
-                    }
-                    else
-                        MessageBox.Show("Невозможно изменить запись, так как существует заказ(-ы) с выбранной типографией. Удалите заказ(-ы), где присутствуют выбранные типографии, или создайте новую типографию", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                    
                 }
             }
             catch
