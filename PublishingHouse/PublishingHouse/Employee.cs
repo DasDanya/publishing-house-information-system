@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 namespace PublishingHouse
 {
@@ -115,7 +116,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="phone">Номер телефона сотрудника</param>
         /// <returns>Фотография сотрудника в виде массива байт</returns>
-        public static byte[] GetPhotoEmployeeByPhone(string phone) 
+        private static byte[] GetPhotoEmployeeByPhone(string phone) 
         {
             byte[] photo = null;
 
@@ -320,6 +321,32 @@ namespace PublishingHouse
             }
 
             return exist;
+        }
+
+        /// <summary>
+        /// Метод получения фотографии сотрудника
+        /// </summary>
+        /// <param name="phone">Номер телефона</param>
+        /// <returns>Фотография сотрудника</returns>
+        public static Image GetPhotoAsImage(string phone) 
+        {
+            Image image = null;
+            try
+            {
+                // Получаем фотографию пользователя из бд
+                byte[] photo = GetPhotoEmployeeByPhone(phone);
+
+
+                // Переводим изображение из массива байт в Image 
+                MemoryStream stream = new MemoryStream(photo);
+                image = Image.FromStream(stream);
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения изображения");
+            }
+
+            return image;
         }
 
     }

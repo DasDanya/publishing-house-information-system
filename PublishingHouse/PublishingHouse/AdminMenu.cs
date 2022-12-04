@@ -139,19 +139,17 @@ namespace PublishingHouse
         {
             try
             {
-                // Получаем фотографию пользователя из бд
-                byte[] photo = Employee.GetPhotoEmployeeByPhone(employeeDataGridView.Rows[rowIndex].Cells["Номер телефона"].Value.ToString());
-                employeePictureBox.BackColor = SystemColors.Control;
 
-                // Переводим изображение из массива байт в Image и отображаем в PictureBox
-                MemoryStream stream = new MemoryStream(photo);
-                employeePictureBox.Image = Image.FromStream(stream);
+                employeePictureBox.BackColor = SystemColors.Control;
+                employeePictureBox.Image = Employee.GetPhotoAsImage(employeeDataGridView.Rows[rowIndex].Cells["Номер телефона"].Value.ToString());
             }
             catch
             {
                 throw new Exception("Ошибка получения изображения");
             }
         }
+
+        
 
         /// <summary>
         /// Метод,который приводит компоненты и переменные в состояние по умолчанию
@@ -224,7 +222,7 @@ namespace PublishingHouse
                 // Получаем номер выбранной записи и создаём объект типографии
                 int numberRow = WorkWithDataDgv.NumberSelectedRows(employeeDataGridView);
                 Employee employee = new Employee(employeeDataGridView.Rows[numberRow].Cells["Имя"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Фамилия"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Отчество"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Должность сотрудника"].Value.ToString(),
-                    employeeDataGridView.Rows[numberRow].Cells["Электронная почта"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString(), (DateTime)employeeDataGridView.Rows[numberRow].Cells["Дата рождения"].Value, employeePictureBox.Image);
+                    employeeDataGridView.Rows[numberRow].Cells["Электронная почта"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString(), (DateTime)employeeDataGridView.Rows[numberRow].Cells["Дата рождения"].Value, Employee.GetPhotoAsImage(employeeDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(employeeDataGridView)].Cells["Номер телефона"].Value.ToString()));
 
                 // Переходим в меню ввода данных для изменения этих самых данных
                 FillEmployeeMenu fillEmployeeMenu = new FillEmployeeMenu(employee, 'C');
