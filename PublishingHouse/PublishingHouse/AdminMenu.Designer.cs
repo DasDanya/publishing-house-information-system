@@ -324,7 +324,7 @@ namespace PublishingHouse
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(271, 49);
             this.deleteButton.TabIndex = 7;
-            this.deleteButton.Text = "Удалить сотрудника";
+            this.deleteButton.Text = "Удалить сотрудников";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 

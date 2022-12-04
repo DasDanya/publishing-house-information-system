@@ -223,7 +223,7 @@ namespace PublishingHouse
         {
             try
             {
-                // Если пользователь выбрал 0 или несколько записей
+                // Если пользователь выбрал 0 записей
                 if (WorkWithDataDgv.CountSelectedRows(printingHouseDataGridView) < 1)
                     MessageBox.Show("Неодходимо выбрать одну или несколько записей", "Удаление типографий", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);   
                 else 

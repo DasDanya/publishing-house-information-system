@@ -28,9 +28,16 @@ namespace PublishingHouse
 
         private void FashionDataEmployee_Load(object sender, EventArgs e)
         {
-            // Выводим всех сотрудников по убыванию количества выполняемых заказов и делаем RadioButton для сортировки по убыванию выбранным
-            descRadioButton.Checked = true;
-            FillTable("DESC", Employee.GetCountRecords());
+            try
+            {
+                // Выводим всех сотрудников по убыванию количества выполняемых заказов и делаем RadioButton для сортировки по убыванию выбранным
+                descRadioButton.Checked = true;
+                FillTable("DESC", Employee.GetCountRecords());
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка загрузки моды данных о сотрудниках", "Загрузка моды данных о сотрудниках", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void countTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -82,10 +89,9 @@ namespace PublishingHouse
                 fashionEmployeesDataGridView.ClearSelection();
             }
 
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-                //throw new Exception("Ошибка загрузки таблицы");
+            catch
+            {               
+                throw new Exception("Ошибка загрузки таблицы");
             }
         }
 

@@ -438,7 +438,45 @@ namespace PublishingHouse
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Если пользователь выбрал 0 записей
+                if (WorkWithDataDgv.CountSelectedRows(employeeDataGridView) < 1)
+                    MessageBox.Show("Неодходимо выбрать одну или несколько записей", "Удаление сотрудников", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    // Если пользователь соглашается на удаление записи(-ей)
+                    if (MessageBox.Show("Вы точно хотите удалить эту(-и) запись(-и)?", "Удаление сотрудников", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        // Получаем массив id
+                        int[] arrayId = Employee.GetArrayIdEmployees(employeeDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(employeeDataGridView));
 
+                        // Если сотрудник(-и) не выполняет(-ют) заказ
+                        if (!Employee.EmployeesIsWorking(arrayId))
+                        {
+                            // Если мы удалили указанное количество записей
+                            if (Employee.DeleteEmployees(arrayId) == arrayId.Length)
+                            {
+                                MessageBox.Show("Записи успешно удалены!", "Удаление сотрудников", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                ReloadData();
+                                DisplayStartPhoto();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Количество удаленных записей не совпадает с количеством выбранных записей", "Удаление сотрудников", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                            MessageBox.Show("Невозможно удалить запись(-и), так как существует заказ(-ы), над которым(-и) работает сотрудник. Удалите заказ(-ы), над которым(-и) работает сотрудник, и повторите попытку", "Удаление сотрудников", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            //    MessageBox.Show("Произошла ошибка удаления сотрудников", "Удаление сотрудников", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void fashionButton_Click(object sender, EventArgs e)

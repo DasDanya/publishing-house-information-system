@@ -17,9 +17,16 @@ namespace PublishingHouse
 
         private void FashionDataPrHouseMenu_Load(object sender, EventArgs e)
         {
-            // Выводим все типографии по убыванию их использования и делаем RadioButton для сортировки по убыванию выбранным
-            descRadioButton.Checked = true;
-            FillTable("DESC", PrintingHouse.GetCountRecords());
+            try
+            {
+                // Выводим все типографии по убыванию их использования и делаем RadioButton для сортировки по убыванию выбранным
+                descRadioButton.Checked = true;
+                FillTable("DESC", PrintingHouse.GetCountRecords());
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка загрузки моды данных о типографиях", "Загрузка моды данных о типографиях", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void backTab_Click(object sender, EventArgs e)
