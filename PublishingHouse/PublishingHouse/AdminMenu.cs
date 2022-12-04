@@ -262,6 +262,8 @@ namespace PublishingHouse
             endDateTimePicker.Visible = true;
             searchDataButton.Visible = true;
             resetSearchDataButton.Visible = true;
+            selectAllButton.Visible = false;
+            resetSelectAllButton.Visible = false;
 
             // Устанавливаем значения и свойства полям для поиска
             WorkWithDataDgv.SetElementsForSearchStringData(employeeDataGridView, columnsComboBox, searchTextBox);
@@ -287,6 +289,8 @@ namespace PublishingHouse
             endDateTimePicker.Visible = false;
             searchDataButton.Visible = false;
             resetSearchDataButton.Visible = false;
+            selectAllButton.Visible = false;
+            resetSelectAllButton.Visible = false;
         }
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
@@ -314,6 +318,45 @@ namespace PublishingHouse
             else
             // Производим поиск по стоимости
             WorkWithDataDgv.SearchByDifference(employeeDataGridView, "Дата рождения", from, to);
+        }
+
+        private void selectTab_Click(object sender, EventArgs e)
+        {
+            selectAllButton.Visible = true;
+            resetSelectAllButton.Visible = true;
+            inputButton.Visible = false;
+            addEmployeeButton.Visible = false;
+            selectForChangeButton.Visible = false;
+            changeButton.Visible = false;
+            deleteButton.Visible = false;
+            resetaddChangeButton.Visible = false;
+            columnLabel.Visible = false;
+            columnsComboBox.Visible = false;
+            dataForSearchLabel.Visible = false;
+            searchTextBox.Visible = false;
+            selectDatelabel.Visible = false;
+            fromLabel.Visible = false;
+            toLabel.Visible = false;
+            startDateTimePicker.Visible = false;
+            endDateTimePicker.Visible = false;
+            searchDataButton.Visible = false;
+            resetSearchDataButton.Visible = false;
+        }
+
+        private void selectAllButton_Click(object sender, EventArgs e)
+        {
+            if (employeeDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки для выбора", "Выбрать всё", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(employeeDataGridView, true);
+        }
+
+        private void resetSelectAllButton_Click(object sender, EventArgs e)
+        {
+            if (employeeDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки", "Отменить выбор строк", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(employeeDataGridView, false);
         }
     }
 }

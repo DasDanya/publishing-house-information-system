@@ -35,6 +35,8 @@ namespace PublishingHouse
             this.employeeDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.resetSelectAllButton = new System.Windows.Forms.Button();
+            this.selectAllButton = new System.Windows.Forms.Button();
             this.resetSearchDataButton = new System.Windows.Forms.Button();
             this.searchDataButton = new System.Windows.Forms.Button();
             this.toLabel = new System.Windows.Forms.Label();
@@ -57,6 +59,7 @@ namespace PublishingHouse
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
             this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectTab = new System.Windows.Forms.ToolStripMenuItem();
             this.employeePictureBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
@@ -111,6 +114,8 @@ namespace PublishingHouse
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.resetSelectAllButton);
+            this.groupBox1.Controls.Add(this.selectAllButton);
             this.groupBox1.Controls.Add(this.resetSearchDataButton);
             this.groupBox1.Controls.Add(this.searchDataButton);
             this.groupBox1.Controls.Add(this.toLabel);
@@ -137,6 +142,28 @@ namespace PublishingHouse
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
+            // 
+            // resetSelectAllButton
+            // 
+            this.resetSelectAllButton.Location = new System.Drawing.Point(6, 144);
+            this.resetSelectAllButton.Name = "resetSelectAllButton";
+            this.resetSelectAllButton.Size = new System.Drawing.Size(271, 49);
+            this.resetSelectAllButton.TabIndex = 20;
+            this.resetSelectAllButton.Text = "Отменить выбор строк";
+            this.resetSelectAllButton.UseVisualStyleBackColor = true;
+            this.resetSelectAllButton.Visible = false;
+            this.resetSelectAllButton.Click += new System.EventHandler(this.resetSelectAllButton_Click);
+            // 
+            // selectAllButton
+            // 
+            this.selectAllButton.Location = new System.Drawing.Point(6, 63);
+            this.selectAllButton.Name = "selectAllButton";
+            this.selectAllButton.Size = new System.Drawing.Size(271, 51);
+            this.selectAllButton.TabIndex = 19;
+            this.selectAllButton.Text = "Выбрать всё";
+            this.selectAllButton.UseVisualStyleBackColor = true;
+            this.selectAllButton.Visible = false;
+            this.selectAllButton.Click += new System.EventHandler(this.selectAllButton_Click);
             // 
             // resetSearchDataButton
             // 
@@ -329,7 +356,8 @@ namespace PublishingHouse
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.processingTab,
-            this.searchTab});
+            this.searchTab,
+            this.selectTab});
             this.menuStrip2.Location = new System.Drawing.Point(3, 23);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(837, 28);
@@ -351,6 +379,14 @@ namespace PublishingHouse
             this.searchTab.Size = new System.Drawing.Size(86, 24);
             this.searchTab.Text = "Поиск";
             this.searchTab.Click += new System.EventHandler(this.searchTab_Click);
+            // 
+            // selectTab
+            // 
+            this.selectTab.Image = ((System.Drawing.Image)(resources.GetObject("selectTab.Image")));
+            this.selectTab.Name = "selectTab";
+            this.selectTab.Size = new System.Drawing.Size(90, 24);
+            this.selectTab.Text = "Выбор";
+            this.selectTab.Click += new System.EventHandler(this.selectTab_Click);
             // 
             // employeePictureBox
             // 
@@ -434,5 +470,8 @@ namespace PublishingHouse
         private System.Windows.Forms.Label fromLabel;
         private System.Windows.Forms.Button resetSearchDataButton;
         private System.Windows.Forms.Button searchDataButton;
+        private System.Windows.Forms.Button resetSelectAllButton;
+        private System.Windows.Forms.Button selectAllButton;
+        private System.Windows.Forms.ToolStripMenuItem selectTab;
     }
 }

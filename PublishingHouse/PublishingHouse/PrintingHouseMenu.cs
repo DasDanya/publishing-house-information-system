@@ -154,6 +154,8 @@ namespace PublishingHouse
             fashionButton.Visible = true;
             searchDataLabel.Visible = true;
             searchTextBox.Visible = true;
+            selectAllButton.Visible = false;
+            resetSelectButton.Visible = false;
 
             // Устанавливаем значения и свойства полям для поиска
             WorkWithDataDgv.SetElementsForSearchStringData(printingHouseDataGridView, columnsComboBox, searchTextBox);
@@ -178,7 +180,9 @@ namespace PublishingHouse
             fashionButton.Visible = false;
             searchTextBox.Visible = false;
             searchDataLabel.Visible = false;
-    
+            selectAllButton.Visible = false;
+            resetSelectButton.Visible = false;
+
         }
 
         private void searchOrdersButton_Click(object sender, EventArgs e)
@@ -357,6 +361,43 @@ namespace PublishingHouse
             {               
                 MessageBox.Show("Ошибка изменения данных о типографии", "Изменение данных о типографии", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void selectTab_Click(object sender, EventArgs e)
+        {
+            selectAllButton.Visible = true;
+            resetSelectButton.Visible = true;
+            ordersTreeView.Visible = false;
+            searchOrdersButton.Visible = false;
+            addButton.Visible = false;
+            inputButton.Visible = false;
+            deleteButton.Visible = false;
+            selectForChangeButton.Visible = false;
+            resetChangeButton.Visible = false;
+            changeButton.Visible = false;
+            infoChangeLabel.Visible = false;
+            infoLabel.Visible = false;
+            columnsLabel.Visible = false;
+            columnsComboBox.Visible = false;
+            fashionButton.Visible = false;
+            searchDataLabel.Visible = false;
+            searchTextBox.Visible = false;
+        }
+
+        private void selectAllButton_Click(object sender, EventArgs e)
+        {
+            if (printingHouseDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки для выбора", "Выбрать всё", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(printingHouseDataGridView, true);
+        }
+
+        private void resetSelectButton_Click(object sender, EventArgs e)
+        {
+            if (printingHouseDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки", "Отменить выбор строк", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(printingHouseDataGridView, false);
         }
     }
 }

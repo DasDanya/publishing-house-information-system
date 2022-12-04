@@ -37,8 +37,11 @@ namespace PublishingHouse
             this.inputButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.workWithPrHouseGroupBox = new System.Windows.Forms.GroupBox();
+            this.resetSelectButton = new System.Windows.Forms.Button();
+            this.selectAllButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.searchDataLabel = new System.Windows.Forms.Label();
+            this.ordersTreeView = new System.Windows.Forms.TreeView();
             this.fashionButton = new System.Windows.Forms.Button();
             this.columnsComboBox = new System.Windows.Forms.ComboBox();
             this.columnsLabel = new System.Windows.Forms.Label();
@@ -49,10 +52,10 @@ namespace PublishingHouse
             this.deleteButton = new System.Windows.Forms.Button();
             this.searchOrdersButton = new System.Windows.Forms.Button();
             this.infoLabel = new System.Windows.Forms.Label();
-            this.ordersTreeView = new System.Windows.Forms.TreeView();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
             this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectTab = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.printingHouseDataGridView)).BeginInit();
             this.workWithPrHouseGroupBox.SuspendLayout();
@@ -125,8 +128,11 @@ namespace PublishingHouse
             // 
             // workWithPrHouseGroupBox
             // 
+            this.workWithPrHouseGroupBox.Controls.Add(this.resetSelectButton);
+            this.workWithPrHouseGroupBox.Controls.Add(this.selectAllButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.searchTextBox);
             this.workWithPrHouseGroupBox.Controls.Add(this.searchDataLabel);
+            this.workWithPrHouseGroupBox.Controls.Add(this.ordersTreeView);
             this.workWithPrHouseGroupBox.Controls.Add(this.fashionButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.columnsComboBox);
             this.workWithPrHouseGroupBox.Controls.Add(this.columnsLabel);
@@ -137,7 +143,6 @@ namespace PublishingHouse
             this.workWithPrHouseGroupBox.Controls.Add(this.deleteButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.searchOrdersButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.infoLabel);
-            this.workWithPrHouseGroupBox.Controls.Add(this.ordersTreeView);
             this.workWithPrHouseGroupBox.Controls.Add(this.menuStrip2);
             this.workWithPrHouseGroupBox.Controls.Add(this.addButton);
             this.workWithPrHouseGroupBox.Controls.Add(this.inputButton);
@@ -147,6 +152,28 @@ namespace PublishingHouse
             this.workWithPrHouseGroupBox.TabIndex = 23;
             this.workWithPrHouseGroupBox.TabStop = false;
             this.workWithPrHouseGroupBox.Text = "Работа с данными";
+            // 
+            // resetSelectButton
+            // 
+            this.resetSelectButton.Location = new System.Drawing.Point(7, 152);
+            this.resetSelectButton.Name = "resetSelectButton";
+            this.resetSelectButton.Size = new System.Drawing.Size(210, 57);
+            this.resetSelectButton.TabIndex = 36;
+            this.resetSelectButton.Text = "Отменить выбор строк";
+            this.resetSelectButton.UseVisualStyleBackColor = true;
+            this.resetSelectButton.Visible = false;
+            this.resetSelectButton.Click += new System.EventHandler(this.resetSelectButton_Click);
+            // 
+            // selectAllButton
+            // 
+            this.selectAllButton.Location = new System.Drawing.Point(6, 64);
+            this.selectAllButton.Name = "selectAllButton";
+            this.selectAllButton.Size = new System.Drawing.Size(211, 56);
+            this.selectAllButton.TabIndex = 24;
+            this.selectAllButton.Text = "Выбрать всё";
+            this.selectAllButton.UseVisualStyleBackColor = true;
+            this.selectAllButton.Visible = false;
+            this.selectAllButton.Click += new System.EventHandler(this.selectAllButton_Click);
             // 
             // searchTextBox
             // 
@@ -166,6 +193,14 @@ namespace PublishingHouse
             this.searchDataLabel.TabIndex = 34;
             this.searchDataLabel.Text = "Данные для поиска типографии";
             this.searchDataLabel.Visible = false;
+            // 
+            // ordersTreeView
+            // 
+            this.ordersTreeView.Location = new System.Drawing.Point(7, 64);
+            this.ordersTreeView.Name = "ordersTreeView";
+            this.ordersTreeView.Size = new System.Drawing.Size(116, 154);
+            this.ordersTreeView.TabIndex = 23;
+            this.ordersTreeView.Visible = false;
             // 
             // fashionButton
             // 
@@ -266,20 +301,13 @@ namespace PublishingHouse
             this.infoLabel.Size = new System.Drawing.Size(0, 20);
             this.infoLabel.TabIndex = 24;
             // 
-            // ordersTreeView
-            // 
-            this.ordersTreeView.Location = new System.Drawing.Point(6, 64);
-            this.ordersTreeView.Name = "ordersTreeView";
-            this.ordersTreeView.Size = new System.Drawing.Size(116, 154);
-            this.ordersTreeView.TabIndex = 23;
-            this.ordersTreeView.Visible = false;
-            // 
             // menuStrip2
             // 
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.processingTab,
-            this.searchTab});
+            this.searchTab,
+            this.selectTab});
             this.menuStrip2.Location = new System.Drawing.Point(3, 23);
             this.menuStrip2.Name = "menuStrip2";
             this.menuStrip2.Size = new System.Drawing.Size(698, 28);
@@ -301,6 +329,14 @@ namespace PublishingHouse
             this.searchTab.Size = new System.Drawing.Size(86, 24);
             this.searchTab.Text = "Поиск";
             this.searchTab.Click += new System.EventHandler(this.searchTab_Click);
+            // 
+            // selectTab
+            // 
+            this.selectTab.Image = ((System.Drawing.Image)(resources.GetObject("selectTab.Image")));
+            this.selectTab.Name = "selectTab";
+            this.selectTab.Size = new System.Drawing.Size(90, 24);
+            this.selectTab.Text = "Выбор";
+            this.selectTab.Click += new System.EventHandler(this.selectTab_Click);
             // 
             // PrintingHouseMenu
             // 
@@ -356,5 +392,8 @@ namespace PublishingHouse
         private System.Windows.Forms.Button fashionButton;
         private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.Label searchDataLabel;
+        private System.Windows.Forms.Button resetSelectButton;
+        private System.Windows.Forms.Button selectAllButton;
+        private System.Windows.Forms.ToolStripMenuItem selectTab;
     }
 }
