@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using System.Windows.Forms;
 
 namespace PublishingHouse
 {
@@ -49,6 +51,36 @@ namespace PublishingHouse
             }
 
             return countCustomers;
+        }
+
+        /// <summary>
+        /// Метод добавления данных о заказчиках в таблицу
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        public static void LoadCustomers(DataGridView dataGridView)
+        {
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение заказчиков
+                SqlCommand command = new SqlCommand("SELECT custName AS 'Наименование заказчика', custPhone AS 'Номер телефона', custEmail AS 'Электронная почта' FROM customer ORDER BY custName", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Загружаем данные о заказчиках в таблицу
+                DataTable dt = new DataTable();
+                dt.Load(dataReader);
+                dataGridView.DataSource = dt;
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о заказчиках");
+            }
+
         }
     }
 }

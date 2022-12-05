@@ -96,6 +96,7 @@ namespace PublishingHouse
             this.customersDataGridView.RowTemplate.Height = 50;
             this.customersDataGridView.Size = new System.Drawing.Size(776, 285);
             this.customersDataGridView.TabIndex = 1;
+            this.customersDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.customersDataGridView_ColumnStateChanged);
             // 
             // Select
             // 
@@ -138,7 +139,6 @@ namespace PublishingHouse
             this.changeCustomerLabel.Name = "changeCustomerLabel";
             this.changeCustomerLabel.Size = new System.Drawing.Size(0, 20);
             this.changeCustomerLabel.TabIndex = 18;
-            this.changeCustomerLabel.Visible = true;
             // 
             // addCustomerLabel
             // 
@@ -147,7 +147,6 @@ namespace PublishingHouse
             this.addCustomerLabel.Name = "addCustomerLabel";
             this.addCustomerLabel.Size = new System.Drawing.Size(0, 20);
             this.addCustomerLabel.TabIndex = 17;
-            this.addCustomerLabel.Visible = true;
             // 
             // searchTextBox
             // 
@@ -241,6 +240,7 @@ namespace PublishingHouse
             // 
             // changeButton
             // 
+            this.changeButton.Enabled = false;
             this.changeButton.Location = new System.Drawing.Point(492, 136);
             this.changeButton.Name = "changeButton";
             this.changeButton.Size = new System.Drawing.Size(225, 48);
@@ -248,7 +248,6 @@ namespace PublishingHouse
             this.changeButton.Text = "Изменить данные о заказчике";
             this.changeButton.UseVisualStyleBackColor = true;
             this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
-            this.changeButton.Enabled = false;
             // 
             // deleteButton
             // 

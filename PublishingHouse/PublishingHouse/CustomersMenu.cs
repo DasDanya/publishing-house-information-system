@@ -136,8 +136,8 @@ namespace PublishingHouse
                 customersDataGridView.Rows.Remove(customersDataGridView.Rows[customersDataGridView.Rows.Count - 1]);
             }
 
-            //// Загружаем новые данные
-            //LoadTable();
+            // Загружаем новые данные
+            LoadTable();
 
         }
 
@@ -148,7 +148,8 @@ namespace PublishingHouse
 
         private void resetAddOrChangeButton_Click(object sender, EventArgs e)
         {
-
+            // Приводим буфферные данные и компоненты в состояние по умолчанию
+            DefaultStateOfMenu();
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -219,9 +220,34 @@ namespace PublishingHouse
 
         private void CustomersMenu_Load(object sender, EventArgs e)
         {
-            // Выводим сообщение о доступности действия в зависимости от действия
-            if (customer != null && state == 'A')
-                addCustomerLabel.Text = "Вы можете добавить запись";
+            try
+            {
+                LoadTable();
+
+                // Выводим сообщение о доступности действия в зависимости от действия
+                if (customer != null && state == 'A')
+                    addCustomerLabel.Text = "Вы можете добавить запись";
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка отображения стартовых данных", "Отображение стартовых данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadTable()
+        {
+            // Загружаем данные о заказчиках в таблицу
+            Customer.LoadCustomers(customersDataGridView);
+            WorkWithDataDgv.SetReadOnlyColumns(customersDataGridView);
+
+            customersDataGridView.Columns["Наименование заказчика"].Width = 230;
+            customersDataGridView.Columns["Номер телефона"].Width = 195;
+            customersDataGridView.Columns["Электронная почта"].Width = 230;
+        }
+
+        private void customersDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
     }
 }
