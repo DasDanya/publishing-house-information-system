@@ -94,10 +94,10 @@ namespace PublishingHouse
 
                 // Выводим сообщение о доступности действия в зависимости от действия
                 if (employee != null && state == 'A')
-                    addLabel.Visible = true;
+                    addLabel.Text = "Вы можете добавить запись";
                 else if (employee != null && state == 'C')
                 {
-                    changeLabel.Visible = true;
+                    changeLabel.Text = "Вы можете изменить запись";
                     addEmployeeButton.Enabled = false;
                     deleteButton.Enabled = false;
                     changeButton.Enabled = true;
@@ -157,8 +157,8 @@ namespace PublishingHouse
         private void DefaultStateOfMenu()
         {
             ClearBuffer();
-            addLabel.Visible = false;
-            changeLabel.Visible = false;
+            addLabel.Text = "";
+            changeLabel.Text = "";
             addEmployeeButton.Enabled = true;
             deleteButton.Enabled = true;
             changeButton.Enabled = false;
@@ -301,6 +301,8 @@ namespace PublishingHouse
             ordersTreeView.Visible = true;
             searchEmployeeOrdersButton.Visible = true;
             fashionButton.Visible = true;
+            addLabel.Visible = false;
+            changeLabel.Visible = false;
 
             // Устанавливаем значения и свойства полям для поиска
             WorkWithDataDgv.SetElementsForSearchStringData(employeeDataGridView, columnsComboBox, searchTextBox);
@@ -331,6 +333,8 @@ namespace PublishingHouse
             ordersTreeView.Visible = false;
             searchEmployeeOrdersButton.Visible = false;
             fashionButton.Visible = false;
+            addLabel.Visible = true;
+            changeLabel.Visible = true;
         }
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
@@ -384,6 +388,8 @@ namespace PublishingHouse
             ordersTreeView.Visible = false;
             searchEmployeeOrdersButton.Visible = false;
             fashionButton.Visible = false;
+            addLabel.Visible = false;
+            changeLabel.Visible = false;
         }
 
         private void selectAllButton_Click(object sender, EventArgs e)

@@ -73,6 +73,7 @@ namespace PublishingHouse
             // nameTextBox
             // 
             this.nameTextBox.Location = new System.Drawing.Point(12, 84);
+            this.nameTextBox.MaxLength = 50;
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(374, 27);
             this.nameTextBox.TabIndex = 2;
@@ -106,6 +107,7 @@ namespace PublishingHouse
             // emailTextBox
             // 
             this.emailTextBox.Location = new System.Drawing.Point(12, 262);
+            this.emailTextBox.MaxLength = 64;
             this.emailTextBox.Name = "emailTextBox";
             this.emailTextBox.Size = new System.Drawing.Size(374, 27);
             this.emailTextBox.TabIndex = 7;
@@ -118,6 +120,7 @@ namespace PublishingHouse
             this.saveDataButton.TabIndex = 8;
             this.saveDataButton.Text = "Сохранить введённые данные";
             this.saveDataButton.UseVisualStyleBackColor = true;
+            this.saveDataButton.Click += new System.EventHandler(this.saveDataButton_Click);
             // 
             // FillDataCustomerMenu
             // 

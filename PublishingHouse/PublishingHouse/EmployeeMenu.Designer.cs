@@ -316,8 +316,8 @@ namespace PublishingHouse
             this.changeLabel.Name = "changeLabel";
             this.changeLabel.Size = new System.Drawing.Size(209, 20);
             this.changeLabel.TabIndex = 8;
-            this.changeLabel.Text = "Вы можете изменить запись";
-            this.changeLabel.Visible = false;
+            this.changeLabel.Text = "";
+            this.changeLabel.Visible = true;
             // 
             // deleteButton
             // 
@@ -367,8 +367,8 @@ namespace PublishingHouse
             this.addLabel.Name = "addLabel";
             this.addLabel.Size = new System.Drawing.Size(207, 20);
             this.addLabel.TabIndex = 3;
-            this.addLabel.Text = "Вы можете добавить запись";
-            this.addLabel.Visible = false;
+            this.addLabel.Text = "";
+            this.addLabel.Visible = true;
             // 
             // addEmployeeButton
             // 

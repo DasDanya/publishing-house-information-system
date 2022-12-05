@@ -35,6 +35,12 @@ namespace PublishingHouse
             this.customersDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.changeCustomerLabel = new System.Windows.Forms.Label();
+            this.addCustomerLabel = new System.Windows.Forms.Label();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.dataAboutCustomerLabel = new System.Windows.Forms.Label();
+            this.columnsComboBox = new System.Windows.Forms.ComboBox();
+            this.columnLabel = new System.Windows.Forms.Label();
             this.fashionCustomersButton = new System.Windows.Forms.Button();
             this.getOrdersButton = new System.Windows.Forms.Button();
             this.ordersTreeView = new System.Windows.Forms.TreeView();
@@ -50,10 +56,6 @@ namespace PublishingHouse
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
             this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
             this.selectTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.columnLabel = new System.Windows.Forms.Label();
-            this.columnsComboBox = new System.Windows.Forms.ComboBox();
-            this.dataAboutCustomerLabel = new System.Windows.Forms.Label();
-            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customersDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -104,6 +106,8 @@ namespace PublishingHouse
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.changeCustomerLabel);
+            this.groupBox1.Controls.Add(this.addCustomerLabel);
             this.groupBox1.Controls.Add(this.searchTextBox);
             this.groupBox1.Controls.Add(this.dataAboutCustomerLabel);
             this.groupBox1.Controls.Add(this.columnsComboBox);
@@ -126,6 +130,62 @@ namespace PublishingHouse
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
+            // 
+            // changeCustomerLabel
+            // 
+            this.changeCustomerLabel.AutoSize = true;
+            this.changeCustomerLabel.Location = new System.Drawing.Point(498, 112);
+            this.changeCustomerLabel.Name = "changeCustomerLabel";
+            this.changeCustomerLabel.Size = new System.Drawing.Size(0, 20);
+            this.changeCustomerLabel.TabIndex = 18;
+            this.changeCustomerLabel.Visible = true;
+            // 
+            // addCustomerLabel
+            // 
+            this.addCustomerLabel.AutoSize = true;
+            this.addCustomerLabel.Location = new System.Drawing.Point(15, 112);
+            this.addCustomerLabel.Name = "addCustomerLabel";
+            this.addCustomerLabel.Size = new System.Drawing.Size(0, 20);
+            this.addCustomerLabel.TabIndex = 17;
+            this.addCustomerLabel.Visible = true;
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(492, 157);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(224, 27);
+            this.searchTextBox.TabIndex = 16;
+            this.searchTextBox.Visible = false;
+            // 
+            // dataAboutCustomerLabel
+            // 
+            this.dataAboutCustomerLabel.AutoSize = true;
+            this.dataAboutCustomerLabel.Location = new System.Drawing.Point(495, 136);
+            this.dataAboutCustomerLabel.Name = "dataAboutCustomerLabel";
+            this.dataAboutCustomerLabel.Size = new System.Drawing.Size(218, 20);
+            this.dataAboutCustomerLabel.TabIndex = 15;
+            this.dataAboutCustomerLabel.Text = "Данные для поиска заказчика";
+            this.dataAboutCustomerLabel.Visible = false;
+            // 
+            // columnsComboBox
+            // 
+            this.columnsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.columnsComboBox.FormattingEnabled = true;
+            this.columnsComboBox.Location = new System.Drawing.Point(492, 84);
+            this.columnsComboBox.Name = "columnsComboBox";
+            this.columnsComboBox.Size = new System.Drawing.Size(224, 28);
+            this.columnsComboBox.TabIndex = 14;
+            this.columnsComboBox.Visible = false;
+            // 
+            // columnLabel
+            // 
+            this.columnLabel.AutoSize = true;
+            this.columnLabel.Location = new System.Drawing.Point(495, 63);
+            this.columnLabel.Name = "columnLabel";
+            this.columnLabel.Size = new System.Drawing.Size(221, 20);
+            this.columnLabel.TabIndex = 13;
+            this.columnLabel.Text = "Столбец для поиска заказчика";
+            this.columnLabel.Visible = false;
             // 
             // fashionCustomersButton
             // 
@@ -188,6 +248,7 @@ namespace PublishingHouse
             this.changeButton.Text = "Изменить данные о заказчике";
             this.changeButton.UseVisualStyleBackColor = true;
             this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
+            this.changeButton.Enabled = false;
             // 
             // deleteButton
             // 
@@ -276,44 +337,6 @@ namespace PublishingHouse
             this.selectTab.Text = "Выбор";
             this.selectTab.Click += new System.EventHandler(this.selectTab_Click);
             // 
-            // columnLabel
-            // 
-            this.columnLabel.AutoSize = true;
-            this.columnLabel.Location = new System.Drawing.Point(495, 63);
-            this.columnLabel.Name = "columnLabel";
-            this.columnLabel.Size = new System.Drawing.Size(221, 20);
-            this.columnLabel.TabIndex = 13;
-            this.columnLabel.Text = "Столбец для поиска заказчика";
-            this.columnLabel.Visible = false;
-            // 
-            // columnsComboBox
-            // 
-            this.columnsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.columnsComboBox.FormattingEnabled = true;
-            this.columnsComboBox.Location = new System.Drawing.Point(492, 84);
-            this.columnsComboBox.Name = "columnsComboBox";
-            this.columnsComboBox.Size = new System.Drawing.Size(224, 28);
-            this.columnsComboBox.TabIndex = 14;
-            this.columnsComboBox.Visible = false;
-            // 
-            // dataAboutCustomerLabel
-            // 
-            this.dataAboutCustomerLabel.AutoSize = true;
-            this.dataAboutCustomerLabel.Location = new System.Drawing.Point(495, 136);
-            this.dataAboutCustomerLabel.Name = "dataAboutCustomerLabel";
-            this.dataAboutCustomerLabel.Size = new System.Drawing.Size(218, 20);
-            this.dataAboutCustomerLabel.TabIndex = 15;
-            this.dataAboutCustomerLabel.Text = "Данные для поиска заказчика";
-            this.dataAboutCustomerLabel.Visible = false;
-            // 
-            // searchTextBox
-            // 
-            this.searchTextBox.Location = new System.Drawing.Point(492, 157);
-            this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(224, 27);
-            this.searchTextBox.TabIndex = 16;
-            this.searchTextBox.Visible = false;
-            // 
             // CustomersMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -330,6 +353,7 @@ namespace PublishingHouse
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Заказчики";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CustomersMenu_FormClosing);
+            this.Load += new System.EventHandler(this.CustomersMenu_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.customersDataGridView)).EndInit();
@@ -368,5 +392,7 @@ namespace PublishingHouse
         private System.Windows.Forms.ComboBox columnsComboBox;
         private System.Windows.Forms.Label columnLabel;
         private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.Label changeCustomerLabel;
+        private System.Windows.Forms.Label addCustomerLabel;
     }
 }

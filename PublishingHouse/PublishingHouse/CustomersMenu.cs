@@ -10,9 +10,21 @@ namespace PublishingHouse
 {
     public partial class CustomersMenu : Form
     {
+
+        Customer customer = null;
+        char state = ' ';
+        int id = -1;
+
         public CustomersMenu()
         {
             InitializeComponent();
+        }
+
+        public CustomersMenu(Customer customer, char state) 
+        {
+            InitializeComponent();
+            this.customer = customer;
+            this.state = state;
         }
 
         private void backTab_Click(object sender, EventArgs e)
@@ -43,6 +55,8 @@ namespace PublishingHouse
             columnsComboBox.Visible = false;
             dataAboutCustomerLabel.Visible = false;
             searchTextBox.Visible = false;
+            addCustomerLabel.Visible = true;
+            changeCustomerLabel.Visible = true;
         }
 
         private void searchTab_Click(object sender, EventArgs e)
@@ -62,6 +76,8 @@ namespace PublishingHouse
             columnsComboBox.Visible = true;
             dataAboutCustomerLabel.Visible = true;
             searchTextBox.Visible = true;
+            addCustomerLabel.Visible = false;
+            changeCustomerLabel.Visible = false;
         }
 
         private void selectTab_Click(object sender, EventArgs e)
@@ -81,6 +97,48 @@ namespace PublishingHouse
             columnsComboBox.Visible = false;
             dataAboutCustomerLabel.Visible = false;
             searchTextBox.Visible = false;
+            addCustomerLabel.Visible = false;
+            changeCustomerLabel.Visible = false;
+        }
+
+        /// <summary>
+        /// Метод,который приводит компоненты и переменные в состояние по умолчанию
+        /// </summary>
+        private void DefaultStateOfMenu()
+        {
+            ClearBuffer();
+            addCustomerLabel.Text = "";
+            changeCustomerLabel.Text = "";
+            addButton.Enabled = true;
+            deleteButton.Enabled = true;
+            changeButton.Enabled = false;
+
+        }
+
+        /// <summary>
+        /// Метод очистки значений для буфферных переменных
+        /// </summary>
+        private void ClearBuffer()
+        {
+            customer = null;
+            state = ' ';
+            id = -1;
+        }
+
+        /// <summary>
+        /// Метод вывода новых данных из бд
+        /// </summary>
+        private void ReloadData()
+        {
+            // Удаляем все строки из таблицы
+            while (customersDataGridView.Rows.Count != 0)
+            {
+                customersDataGridView.Rows.Remove(customersDataGridView.Rows[customersDataGridView.Rows.Count - 1]);
+            }
+
+            //// Загружаем новые данные
+            //LoadTable();
+
         }
 
         private void selectForChangeButton_Click(object sender, EventArgs e)
@@ -122,7 +180,31 @@ namespace PublishingHouse
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (customer == null || state != 'A')
+                    MessageBox.Show("Перед добавлением заказчика необходимо ввести данные о нём", "Добавление заказчика", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    if (customer.AddCustomer() == 1)
+                    {
+                        MessageBox.Show("Запись успешно добавлена!", "Добавление заказчика", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                        // Выводим новые данные и делаем комноненты и переменные в состояние по умолчанию
+                        ReloadData();
+                        DefaultStateOfMenu();
+                       
+
+                    }
+                    else
+                        MessageBox.Show("Количество добавленных записей не равно единице", "Добавление заказчика", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка добавления заказчика", "Добавление заказчика", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void getOrdersButton_Click(object sender, EventArgs e)
@@ -133,6 +215,13 @@ namespace PublishingHouse
         private void fashionCustomersButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void CustomersMenu_Load(object sender, EventArgs e)
+        {
+            // Выводим сообщение о доступности действия в зависимости от действия
+            if (customer != null && state == 'A')
+                addCustomerLabel.Text = "Вы можете добавить запись";
         }
     }
 }

@@ -40,5 +40,48 @@ namespace PublishingHouse
             CustomersMenu customerMenu = new CustomersMenu();
             Transition.TransitionByForms(this, customerMenu);
         }
+
+        /// <summary>
+        /// Метод проверки введённых данных
+        /// </summary>
+        /// <returns>Правильно ли введены данные</returns>
+        private bool CorrectInputData()
+        {
+            if (nameTextBox.Text == "" || !phoneTextBox.MaskFull || emailTextBox.Text == "" || !CorrectInput.IsCorrectEmail(emailTextBox.Text))
+            {
+                return false;
+            }
+            else
+                return true;
+        }
+
+        private void saveDataButton_Click(object sender, EventArgs e)
+        {
+            CustomersMenu customersMenu = new CustomersMenu();
+
+            try
+            {
+                // Если пользователь ввёл корректные данные
+                if (CorrectInputData())
+                {
+                    // Создаём заказчика
+                    Customer customer = new Customer(nameTextBox.Text, emailTextBox.Text, phoneTextBox.Text);
+
+                    if (state == 'A')
+                        // Возвращаемся в меню заказчиков
+                        customersMenu = new CustomersMenu(customer, state);
+
+
+
+                    Transition.TransitionByForms(this, customersMenu);
+                }
+                else
+                    MessageBox.Show("Текстовые поля должны быть заполнены! Проверьте правильность ввода электронной почты", "Сохранение данных о заказчике", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка сохранения данных о заказчике", "Сохранение данных о заказчике", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

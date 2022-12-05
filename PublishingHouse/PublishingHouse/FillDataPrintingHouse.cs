@@ -84,8 +84,6 @@ namespace PublishingHouse
             }
             else
                 return true;
-
-
         }
 
         private void saveInputButton_Click(object sender, EventArgs e)
