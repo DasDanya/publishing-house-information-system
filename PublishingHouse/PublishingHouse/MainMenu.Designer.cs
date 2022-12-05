@@ -34,6 +34,7 @@ namespace PublishingHouse
             this.employeeTab = new System.Windows.Forms.ToolStripMenuItem();
             this.materialTab = new System.Windows.Forms.ToolStripMenuItem();
             this.printingHouseTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.customersTab = new System.Windows.Forms.ToolStripMenuItem();
             this.Tabs.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +44,8 @@ namespace PublishingHouse
             this.Tabs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.employeeTab,
             this.materialTab,
-            this.printingHouseTab});
+            this.printingHouseTab,
+            this.customersTab});
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
             this.Tabs.Size = new System.Drawing.Size(800, 28);
@@ -74,6 +76,14 @@ namespace PublishingHouse
             this.printingHouseTab.Text = "Типографии";
             this.printingHouseTab.Click += new System.EventHandler(this.printingHouseTab_Click);
             // 
+            // customersTab
+            // 
+            this.customersTab.Image = ((System.Drawing.Image)(resources.GetObject("customersTab.Image")));
+            this.customersTab.Name = "customersTab";
+            this.customersTab.Size = new System.Drawing.Size(114, 24);
+            this.customersTab.Text = "Заказчики";
+            this.customersTab.Click += new System.EventHandler(this.customersTab_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -102,6 +112,7 @@ namespace PublishingHouse
         private System.Windows.Forms.ToolStripMenuItem employeeTab;
         private System.Windows.Forms.ToolStripMenuItem materialTab;
         private System.Windows.Forms.ToolStripMenuItem printingHouseTab;
+        private System.Windows.Forms.ToolStripMenuItem customersTab;
     }
 }
 

@@ -63,6 +63,10 @@ namespace PublishingHouse
             // Загружаем в таблицу данные
             PrintingHouse.LoadPrintingHouse(printingHouseDataGridView);
             WorkWithDataDgv.SetReadOnlyColumns(printingHouseDataGridView);
+            printingHouseDataGridView.Columns["Номер телефона"].Width = 148;
+            printingHouseDataGridView.Columns["Электронная почта"].Width = 210;
+            printingHouseDataGridView.Columns["Название субъекта"].Width = 150;
+            printingHouseDataGridView.Columns["Дом №"].Width = 90;
         }
 
         /// <summary>

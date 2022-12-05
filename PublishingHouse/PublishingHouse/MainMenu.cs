@@ -49,5 +49,11 @@ namespace PublishingHouse
             PrintingHouseMenu printingHouseMenu = new PrintingHouseMenu();
             Transition.TransitionByForms(this, printingHouseMenu); // Переход между формами
         }
+
+        private void customersTab_Click(object sender, EventArgs e)
+        {
+            CustomersMenu customersMenu = new CustomersMenu();
+            Transition.TransitionByForms(this, customersMenu);
+        }
     }
 }

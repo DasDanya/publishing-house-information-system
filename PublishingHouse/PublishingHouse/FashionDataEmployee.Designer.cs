@@ -34,11 +34,11 @@ namespace PublishingHouse
             this.backTab = new System.Windows.Forms.ToolStripMenuItem();
             this.fashionEmployeesDataGridView = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ascRadioButton = new System.Windows.Forms.RadioButton();
-            this.descRadioButton = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.countTextBox = new System.Windows.Forms.TextBox();
             this.getEmployeesButton = new System.Windows.Forms.Button();
+            this.countTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.descRadioButton = new System.Windows.Forms.RadioButton();
+            this.ascRadioButton = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fashionEmployeesDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -95,16 +95,32 @@ namespace PublishingHouse
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
             // 
-            // ascRadioButton
+            // getEmployeesButton
             // 
-            this.ascRadioButton.AutoSize = true;
-            this.ascRadioButton.Location = new System.Drawing.Point(7, 44);
-            this.ascRadioButton.Name = "ascRadioButton";
-            this.ascRadioButton.Size = new System.Drawing.Size(146, 24);
-            this.ascRadioButton.TabIndex = 0;
-            this.ascRadioButton.TabStop = true;
-            this.ascRadioButton.Text = "По возрастанию";
-            this.ascRadioButton.UseVisualStyleBackColor = true;
+            this.getEmployeesButton.Location = new System.Drawing.Point(7, 197);
+            this.getEmployeesButton.Name = "getEmployeesButton";
+            this.getEmployeesButton.Size = new System.Drawing.Size(286, 123);
+            this.getEmployeesButton.TabIndex = 4;
+            this.getEmployeesButton.Text = "Получить сотрудников";
+            this.getEmployeesButton.UseVisualStyleBackColor = true;
+            this.getEmployeesButton.Click += new System.EventHandler(this.getEmployeesButton_Click);
+            // 
+            // countTextBox
+            // 
+            this.countTextBox.Location = new System.Drawing.Point(7, 148);
+            this.countTextBox.Name = "countTextBox";
+            this.countTextBox.Size = new System.Drawing.Size(286, 27);
+            this.countTextBox.TabIndex = 3;
+            this.countTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.countTextBox_KeyPress);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(38, 125);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(221, 20);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Количество выводимых строк:";
             // 
             // descRadioButton
             // 
@@ -117,32 +133,16 @@ namespace PublishingHouse
             this.descRadioButton.Text = "По убыванию";
             this.descRadioButton.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // ascRadioButton
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(38, 125);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 20);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Количество выводимых строк:";
-            // 
-            // countTextBox
-            // 
-            this.countTextBox.Location = new System.Drawing.Point(7, 148);
-            this.countTextBox.Name = "countTextBox";
-            this.countTextBox.Size = new System.Drawing.Size(286, 27);
-            this.countTextBox.TabIndex = 3;
-            this.countTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.countTextBox_KeyPress);
-            // 
-            // getEmployeesButton
-            // 
-            this.getEmployeesButton.Location = new System.Drawing.Point(7, 197);
-            this.getEmployeesButton.Name = "getEmployeesButton";
-            this.getEmployeesButton.Size = new System.Drawing.Size(286, 123);
-            this.getEmployeesButton.TabIndex = 4;
-            this.getEmployeesButton.Text = "Получить сотрудников";
-            this.getEmployeesButton.UseVisualStyleBackColor = true;
-            this.getEmployeesButton.Click += new System.EventHandler(this.getEmployeesButton_Click);
+            this.ascRadioButton.AutoSize = true;
+            this.ascRadioButton.Location = new System.Drawing.Point(7, 44);
+            this.ascRadioButton.Name = "ascRadioButton";
+            this.ascRadioButton.Size = new System.Drawing.Size(146, 24);
+            this.ascRadioButton.TabIndex = 0;
+            this.ascRadioButton.TabStop = true;
+            this.ascRadioButton.Text = "По возрастанию";
+            this.ascRadioButton.UseVisualStyleBackColor = true;
             // 
             // FashionDataEmployee
             // 
