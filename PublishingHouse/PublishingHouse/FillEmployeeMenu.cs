@@ -43,7 +43,7 @@ namespace PublishingHouse
         private void backTab_Click(object sender, EventArgs e)
         {
             // Переходим в главное меню администратора
-            AdminMenu adminMenu = new AdminMenu();
+            EmployeeMenu adminMenu = new EmployeeMenu();
             Transition.TransitionByForms(this, adminMenu);
         }
 
@@ -82,7 +82,7 @@ namespace PublishingHouse
 
         private void saveDataButton_Click(object sender, EventArgs e)
         {
-            AdminMenu adminMenu = new AdminMenu();
+            EmployeeMenu adminMenu = new EmployeeMenu();
 
             try
             {
@@ -107,11 +107,11 @@ namespace PublishingHouse
 
                         if (state == 'A')
                             // Переходим в главное меню администратора
-                            adminMenu = new AdminMenu(employee, state);
+                            adminMenu = new EmployeeMenu(employee, state);
 
                         else if (state == 'C')
                             // Переходим в главное меню администратора
-                            adminMenu = new AdminMenu(employee, state, id);
+                            adminMenu = new EmployeeMenu(employee, state, id);
 
 
                         Transition.TransitionByForms(this, adminMenu);

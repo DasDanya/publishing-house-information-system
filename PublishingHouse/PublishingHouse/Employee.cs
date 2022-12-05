@@ -571,10 +571,9 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch(Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
-                //throw new Exception("Ошибка получения массива идентификаторов записей о сотрудниках");
+                throw new Exception("Ошибка получения массива идентификаторов записей о сотрудниках");
             }
 
             return arrayId;
@@ -603,10 +602,9 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-                //throw new Exception("Произошла ошибка удаления типографий");
+            catch
+            {            
+                throw new Exception("Произошла ошибка удаления типографий");
             }
             return countDeleteRows;
         }

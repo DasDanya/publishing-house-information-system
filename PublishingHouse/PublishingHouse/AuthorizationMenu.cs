@@ -28,12 +28,7 @@ namespace PublishingHouse
                 {
                     MainMenu mainMenu = new MainMenu();
                     Transition.TransitionByForms(this, mainMenu);
-                }
-                else if (login == "admin")
-                {
-                    AdminMenu adminMenu = new AdminMenu();
-                    Transition.TransitionByForms(this, adminMenu);
-                }
+                }                
                 else
                     MessageBox.Show("Неправильный логин или пароль!", "Авторизация", MessageBoxButtons.OK, MessageBoxIcon.Error);
 

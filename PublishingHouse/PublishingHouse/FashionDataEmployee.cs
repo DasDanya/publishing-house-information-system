@@ -22,7 +22,7 @@ namespace PublishingHouse
 
         private void backTab_Click(object sender, EventArgs e)
         {
-            AdminMenu adminMenu = new AdminMenu();
+            EmployeeMenu adminMenu = new EmployeeMenu();
             Transition.TransitionByForms(this, adminMenu);
         }
 

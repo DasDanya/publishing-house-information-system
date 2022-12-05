@@ -14,7 +14,6 @@ C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHou
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.dll
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.pdb
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.genruntimeconfig.cache
-C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.EmployeesMenu.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
@@ -23,13 +22,12 @@ C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHou
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.csproj.CopyComplete
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.MaterialMenu.resources
-C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.PopularDataMaterialMenu.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.PrintingHouseMenu.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.OccurrenceMaterialData.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FillDataPrintingHouse.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FashionDataPrHouseMenu.resources
-C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.AdminMenu.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.AuthorizationMenu.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.Properties.Resources.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FillEmployeeMenu.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FashionDataEmployee.resources
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.EmployeeMenu.resources

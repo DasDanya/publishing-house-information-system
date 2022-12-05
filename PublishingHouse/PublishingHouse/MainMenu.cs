@@ -27,8 +27,8 @@ namespace PublishingHouse
 
         private void employeeTab_Click(object sender, EventArgs e)
         {
-            EmployeesMenu employeesMenu = new EmployeesMenu();
-            Transition.TransitionByForms(this, employeesMenu); // Переход между формами
+            EmployeeMenu employeeMenu = new EmployeeMenu();
+            Transition.TransitionByForms(this, employeeMenu); // Переход между формами
            
         }
 
