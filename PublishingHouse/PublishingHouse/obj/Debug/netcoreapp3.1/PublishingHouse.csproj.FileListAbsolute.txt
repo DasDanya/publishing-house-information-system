@@ -32,3 +32,4 @@ C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHou
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FashionDataEmployee.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.EmployeeMenu.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.CustomersMenu.resources
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FillDataCustomerMenu.resources

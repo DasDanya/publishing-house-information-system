@@ -115,7 +115,9 @@ namespace PublishingHouse
 
         private void inputDataButton_Click(object sender, EventArgs e)
         {
-
+            // Переходим в меню для ввода данных
+            FillDataCustomerMenu fillDataCustomerMenu = new FillDataCustomerMenu('A');
+            Transition.TransitionByForms(this, fillDataCustomerMenu);
         }
 
         private void addButton_Click(object sender, EventArgs e)
