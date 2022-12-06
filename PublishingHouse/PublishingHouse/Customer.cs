@@ -82,5 +82,102 @@ namespace PublishingHouse
             }
 
         }
+
+      
+        /// <summary>
+        /// Метод получения списка id заказов заказчика
+        /// </summary>
+        /// <param name="idCustomer">id заказчика</param>
+        /// <returns>Список id заказов</returns>
+        public static List<int> GetNumbersOfOrdersThisCustomer(string email)
+        {
+            List<int> listIds = new List<int>();
+
+            try
+            {
+
+                // Получаем id заказчика
+                int id = GetIdCustomerByEmail(email);
+
+                ConnectionToDb.Open();
+
+                // Выполняем запрос на получения списка id заказов и выполняем его
+                SqlCommand command = new SqlCommand("SELECT * FROM booking, customer WHERE booking.fcustId = '"+id+"' AND customer.custId = '"+id+"'", ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Считываем данные из ридера и записываем в список
+                while (dataReader.Read())
+                {
+                    // Получаем id заказа
+                    int idOrder = Convert.ToInt32(dataReader["bkNumber"]);
+                    listIds.Add(idOrder);
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения списка уникальных номеров заказов заказчика");
+            }
+
+            return listIds;
+        }
+
+
+        /// <summary>
+        /// Метод получения id записи о заказчике, зная его номер телефона
+        /// </summary>
+        /// <param name="phone">Номер телефона</param>
+        /// <returns>id записи о заказчике</returns>
+        public static int GetIdCustomerByPhone(string phone)
+        {
+            int id = -1;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение id заказчика и выполняем его
+                SqlCommand command = new SqlCommand("SELECT custId FROM customer WHERE custPhone = '" + phone + "'", ConnectionToDb.Connection);
+                id = Convert.ToInt32(command.ExecuteScalar());
+
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения уникального номера записи о заказчике");
+            }
+
+
+            return id;
+        }
+
+        /// <summary>
+        /// Метод получения id записи о заказчике, зная его электронную почту
+        /// </summary>
+        /// <param name="email">Электронная почта</param>
+        /// <returns>id записи о заказчике</returns>
+        public static int GetIdCustomerByEmail(string email)
+        {
+            int id = -1;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение id заказчика и выполняем его
+                SqlCommand command = new SqlCommand("SELECT custId FROM customer WHERE custEmail = '" + email + "'", ConnectionToDb.Connection);
+                id = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения уникального номера записи о заказчике");
+            }
+
+            return id;
+        }
     }
 }

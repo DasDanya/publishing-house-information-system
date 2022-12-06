@@ -155,6 +155,7 @@ namespace PublishingHouse
             this.searchTextBox.Size = new System.Drawing.Size(224, 27);
             this.searchTextBox.TabIndex = 16;
             this.searchTextBox.Visible = false;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
             // 
             // dataAboutCustomerLabel
             // 

@@ -78,6 +78,9 @@ namespace PublishingHouse
             searchTextBox.Visible = true;
             addCustomerLabel.Visible = false;
             changeCustomerLabel.Visible = false;
+
+            // Устанавливаем значения и свойства полям для поиска
+            WorkWithDataDgv.SetElementsForSearchStringData(customersDataGridView, columnsComboBox, searchTextBox);
         }
 
         private void selectTab_Click(object sender, EventArgs e)
@@ -164,12 +167,18 @@ namespace PublishingHouse
 
         private void selectAllRowsButton_Click(object sender, EventArgs e)
         {
-
+            if (customersDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки для выбора", "Выбрать всё", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(customersDataGridView, true);
         }
 
         private void resetSelectRowsButton_Click(object sender, EventArgs e)
         {
-
+            if (customersDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки", "Отменить выбор строк", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(customersDataGridView, false);
         }
 
         private void inputDataButton_Click(object sender, EventArgs e)
@@ -210,6 +219,36 @@ namespace PublishingHouse
 
         private void getOrdersButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                ordersTreeView.Nodes.Clear();
+                // Если пользователь выбрал 0 или несколько записей
+                if (WorkWithDataDgv.CountSelectedRows(customersDataGridView) != 1)
+                    MessageBox.Show("Неодходимо выбрать одну запись", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    // Получаем список заказов
+                    List<int> orders = Customer.GetNumbersOfOrdersThisCustomer(customersDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(customersDataGridView)].Cells["Электронная почта"].Value.ToString());
+
+                    // Если список пуст
+                    if (orders.Count == 0)
+                        MessageBox.Show("У выбранного заказчика нет заказов", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                    {
+                        // Выводим номера заказов
+                        foreach (int order in orders)
+                        {
+                            ordersTreeView.Nodes.Add(order.ToString());
+                        }
+                    }
+
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка поиска заказов", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
@@ -249,5 +288,13 @@ namespace PublishingHouse
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            // Ищём запрашиваемые данные в таблице
+            WorkWithDataDgv.GetLikeString(customersDataGridView, columnsComboBox, searchTextBox);
+        }
+
+
     }
 }
