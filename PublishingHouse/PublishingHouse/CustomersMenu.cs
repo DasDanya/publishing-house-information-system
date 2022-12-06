@@ -27,6 +27,14 @@ namespace PublishingHouse
             this.state = state;
         }
 
+        public CustomersMenu(Customer customer, char state, int id) 
+        {
+            InitializeComponent();
+            this.customer = customer;
+            this.state = state;
+            this.id = id;
+        }
+
         private void backTab_Click(object sender, EventArgs e)
         {
             MainMenu mainMenu = new MainMenu();

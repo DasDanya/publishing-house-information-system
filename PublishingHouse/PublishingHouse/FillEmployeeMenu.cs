@@ -106,11 +106,11 @@ namespace PublishingHouse
                         Employee employee = new Employee(nameTextBox.Text, surnameTextBox.Text, middleNameTextBox.Text, typeComboBox.Text, emailTextBox.Text, phoneTextBox.Text, birthDayTimePicker.Value.Date, WorkWithDataDgv.GetBytePhoto(employeePictureBox.Image));
 
                         if (state == 'A')
-                            // Переходим в главное меню администратора
+                            // Переходим в меню сотрудников
                             adminMenu = new EmployeeMenu(employee, state);
 
                         else if (state == 'C')
-                            // Переходим в главное меню администратора
+                            // Переходим в меню сотрудников
                             adminMenu = new EmployeeMenu(employee, state, id);
 
 

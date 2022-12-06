@@ -92,16 +92,35 @@ namespace PublishingHouse
                 // Если пользователь ввёл корректные данные
                 if (CorrectInputData())
                 {
-                    // Создаём заказчика
-                    Customer customer = new Customer(nameTextBox.Text, emailTextBox.Text, phoneTextBox.Text);
 
-                    if (state == 'A')
-                        // Возвращаемся в меню заказчиков
-                        customersMenu = new CustomersMenu(customer, state);
+                    string email = "";
+                    string phone = "";
+
+                    if (state == 'C') 
+                    {
+                        // Текущие данные о заказчике
+                        email = this.customer.Email;
+                        phone = this.customer.Phone;
+                    }
+                    // Если существует сотрудник с введенной электронной почтой или номером телефона
+                    if (!Customer.ExistEmailInDb(state, email, emailTextBox.Text) && !Customer.ExistPhoneInDb(state, phone, phoneTextBox.Text))
+                    {
+                        // Создаём заказчика
+                        Customer customer = new Customer(nameTextBox.Text, emailTextBox.Text, phoneTextBox.Text);
+
+                        if (state == 'A')
+                            // Возвращаемся в меню заказчиков
+                            customersMenu = new CustomersMenu(customer, state);
+                        else if (state == 'C')
+                            // Возвращаемся в меню заказчиков
+                            customersMenu = new CustomersMenu(customer, state, id);
 
 
 
-                    Transition.TransitionByForms(this, customersMenu);
+                        Transition.TransitionByForms(this, customersMenu);
+                    }
+                    else
+                        MessageBox.Show("В базе данных не могут существовать заказчики с одинаковым номером или с одинаковой электронной почтой", "Сохранение данных о заказчике", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                     MessageBox.Show("Текстовые поля должны быть заполнены! Проверьте правильность ввода электронной почты", "Сохранение данных о заказчике", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);

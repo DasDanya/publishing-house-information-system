@@ -270,5 +270,104 @@ namespace PublishingHouse
 
             return has;
         }
+
+
+        /// <summary>
+        /// Метод, проверяющий существование электронной почты заказчика в бд 
+        /// </summary>
+        /// <param name="typeWork">Тип работы с данными</param>
+        /// <param name="pastEmail">Прошлый Email</param>
+        /// <param name="newEmail">Новый Email</param>
+        /// <returns>Существует ли Email заказчика в бд</returns>
+        public static bool ExistEmailInDb(char typeWork, string pastEmail, string newEmail)
+        {
+            bool exist = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+                SqlCommand command = new SqlCommand();
+
+                // Если пользователь добавляет запись
+                if (typeWork == 'A')
+                    // Запрос на существование email
+                    command = new SqlCommand("SELECT COUNT(custEmail) FROM customer WHERE custEmail = '" + newEmail + "'", ConnectionToDb.Connection);
+
+                // Если пользователь редактирует запись
+                else if (typeWork == 'C')
+                {
+                    // Получаем id записи
+                    int id = GetIdCustomerByEmail(pastEmail);
+
+                    ConnectionToDb.Open();
+
+                    //Запрос на существование email, не учитывая изменяемую запись 
+                    command = new SqlCommand("SELECT COUNT(custEmail) FROM customer WHERE custEmail = '" + newEmail + "' AND custId != '" + id + "' ", ConnectionToDb.Connection);
+
+                }
+
+                // Если email найден
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
+                    exist = true;
+
+                ConnectionToDb.Close();
+            }
+
+            catch
+            {
+                throw new Exception("Ошибка проверки существования Email заказчика в базе данных");
+            }
+
+            return exist;
+        }
+
+        /// <summary>
+        /// Метод, проверяющий существование номера телефона заказчика в бд 
+        /// </summary>
+        /// <param name="typeWork">Тип работы с данными</param>
+        /// <param name="pastPhone">Прошлый номер телефона</param>
+        /// <param name="newPhone">Новый номер телефона</param>
+        /// <returns>Существует ли номер телефона заказчика в бд</returns>
+        public static bool ExistPhoneInDb(char typeWork, string pastPhone, string newPhone)
+        {
+            bool exist = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+                SqlCommand command = new SqlCommand();
+
+                // Если пользователь добавляет запись
+                if (typeWork == 'A')
+                    // Запрос на существование номера телефона
+                    command = new SqlCommand("SELECT COUNT(custPhone) FROM customer WHERE custPhone = '" + newPhone + "'", ConnectionToDb.Connection);
+
+                // Если пользователь редактирует запись
+                else if (typeWork == 'C')
+                {
+                    // Получаем id записи
+                    int id = GetIdCustomerByPhone(pastPhone);
+
+                    ConnectionToDb.Open();
+
+                    //Запрос на существование номера телефона, не учитывая изменяемую запись 
+                    command = new SqlCommand("SELECT COUNT(custPhone) FROM customer WHERE custPhone = '" + newPhone + "' AND custId != '" + id + "' ", ConnectionToDb.Connection);
+
+                }
+
+                // Если email найден
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
+                    exist = true;
+
+                ConnectionToDb.Close();
+            }
+
+            catch
+            {
+                throw new Exception("Ошибка проверки существования номера телефона заказчика в базе данных");
+            }
+
+            return exist;
+        }
     }
 }
