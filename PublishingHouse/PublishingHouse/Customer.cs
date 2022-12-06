@@ -369,5 +369,37 @@ namespace PublishingHouse
 
             return exist;
         }
+
+        public int ChangeCustomer(int id)
+        {
+            int countChangedRows = -1;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Указываем, что команда является хранимой процедурой
+                const string SQLPROCEDURE = "changeCustomer";
+                SqlCommand command = new SqlCommand(SQLPROCEDURE, ConnectionToDb.Connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Передаём данные для изменения записи
+                command.Parameters.Add("@name", SqlDbType.NVarChar).Value = name;
+                command.Parameters.Add("@phone", SqlDbType.NVarChar).Value = phone;
+                command.Parameters.Add("@email", SqlDbType.NVarChar).Value = email;
+                command.Parameters.Add("@idCust", SqlDbType.Int).Value = id;
+
+                // Получаем количество измененных записей
+                countChangedRows = command.ExecuteNonQuery();
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка изменения данных о заказчике");
+            }
+
+            return countChangedRows;
+        }
     }
 }

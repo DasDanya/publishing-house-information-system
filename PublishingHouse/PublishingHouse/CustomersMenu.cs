@@ -189,7 +189,29 @@ namespace PublishingHouse
 
         private void changeButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Если пользователь изменяет запись
+                if (MessageBox.Show("Вы точно хотите изменить запись?", "Изменение данных о заказчике", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
 
+                    // Если изменилась только одна запись 
+                    if (customer.ChangeCustomer(id) == 1)
+                        MessageBox.Show("Запись успешно изменена!", "Изменение данных о заказчике", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    else
+                        MessageBox.Show("Количество измененных записей не равно единице", "Изменение данных о заказчике", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                    ReloadData();
+                    DefaultStateOfMenu();
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка изменения данных о заказчике", "Изменение данных о заказчике", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void selectAllRowsButton_Click(object sender, EventArgs e)
@@ -300,9 +322,19 @@ namespace PublishingHouse
             {
                 LoadTable();
 
-                // Выводим сообщение о доступности действия в зависимости от действия
+                // Если пользователь добавляет запись
                 if (customer != null && state == 'A')
                     addCustomerLabel.Text = "Вы можете добавить запись";
+
+                // Если пользователь изменяет запись
+                else if (customer != null && state == 'C')
+                {
+                    addButton.Enabled = false;
+                    deleteButton.Enabled = false;
+                    changeButton.Enabled = true;
+
+                    changeCustomerLabel.Text = "Вы можете изменить запись";
+                }
             }
             catch 
             {
