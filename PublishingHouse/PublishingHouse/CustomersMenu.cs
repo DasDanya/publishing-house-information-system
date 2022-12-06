@@ -185,6 +185,45 @@ namespace PublishingHouse
         private void deleteButton_Click(object sender, EventArgs e)
         {
 
+            try
+            {
+                // Если пользователь выбрал 0 записей
+                if (WorkWithDataDgv.CountSelectedRows(customersDataGridView) < 1)
+                    MessageBox.Show("Неодходимо выбрать одну или несколько записей", "Удаление заказчиков", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    // Если пользователь соглашается на удаление записи(-ей)
+                    if (MessageBox.Show("Вы точно хотите удалить эту(-и) запись(-и)?", "Удаление заказчиков", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        // Получаем массив id
+                        int[] arrayId = Customer.GetArrayIdCustomers(customersDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(customersDataGridView));
+
+                        // Если у заказчика(-ов) нет заказа(-ов)
+                        if (!Customer.CustomersHaveBooking(arrayId))
+                        {
+                            // Если мы удалили указанное количество записей
+                            if (Customer.DeleteCustomers(arrayId) == arrayId.Length)
+                            {
+                                MessageBox.Show("Записи успешно удалены!", "Удаление заказчиков", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                ReloadData();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Количество удаленных записей не совпадает с количеством выбранных записей", "Удаление заказчиков", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                            MessageBox.Show("Невозможно удалить запись(-и), так как у заказчика(-ов) существует заказ. Удалите все заказы заказчика и повторите попытку", "Удаление заказчиков", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    }
+                }
+            }
+            catch
+            {
+
+                MessageBox.Show("Произошла ошибка удаления сотрудников", "Удаление сотрудников", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void changeButton_Click(object sender, EventArgs e)

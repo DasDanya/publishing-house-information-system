@@ -604,7 +604,7 @@ namespace PublishingHouse
             }
             catch
             {            
-                throw new Exception("Произошла ошибка удаления типографий");
+                throw new Exception("Произошла ошибка удаления сотрудников");
             }
             return countDeleteRows;
         }

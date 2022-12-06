@@ -248,7 +248,7 @@ namespace PublishingHouse
         /// <returns>Есть ли у заказчика заказ</returns>
         public static bool CustomerHasBooking(int idCustomer)
         {
-            bool has = false;
+            bool haveBooking = false;
 
             try
             {
@@ -258,7 +258,7 @@ namespace PublishingHouse
                 SqlCommand command = new SqlCommand("SELECT COUNT(fcustId) FROM booking WHERE fcustId = '" + idCustomer + "'", ConnectionToDb.Connection);
 
                 if (Convert.ToInt32(command.ExecuteScalar()) > 0)
-                    has = true;
+                    haveBooking = true;
 
                 ConnectionToDb.Close();
             }
@@ -268,7 +268,38 @@ namespace PublishingHouse
                 throw new Exception("Ошибка получения данных о том, имеет ли заказчик заказ(-ы)");
             }
 
-            return has;
+            return haveBooking;
+        }
+
+        /// <summary>
+        /// Метод,определяющий есть ли у заказчиков заказы
+        /// </summary>
+        /// <param name="arrayIdCustomers">Массив id заказчиков</param>
+        /// <returns>У заказчиков есть заказ</returns>
+        public static bool CustomersHaveBooking(int[] arrayIdCustomers)
+        {
+            bool haveBooking = false;
+
+            try
+            {
+
+                for (int i = 0; i < arrayIdCustomers.Length; i++)
+                {
+                    if (CustomerHasBooking(arrayIdCustomers[i]))
+                    {
+                        haveBooking = true;
+                        break;
+                    }
+                }
+
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о том, есть ли у заказчиков заказ(-ы)");
+            }
+
+
+            return haveBooking;
         }
 
 
@@ -400,6 +431,76 @@ namespace PublishingHouse
             }
 
             return countChangedRows;
+        }
+
+        /// <summary>
+        /// Метод получения массива id заказчиков
+        /// </summary>
+        /// <param name="dataGridView">Таблица с заказчиками</param>
+        /// <param name="selectedRows">Список выбранных строк</param>
+        /// <returns>Массив id заказчиков</returns>
+        public static int[] GetArrayIdCustomers(DataGridView dataGridView, List<int> selectedRows)
+        {
+            int indexArray = 0;
+            int[] arrayId = new int[selectedRows.Count];
+
+            SqlCommand command = new SqlCommand();
+            try
+            {
+                ConnectionToDb.Open();
+
+                for (int i = 0; i < dataGridView.Rows.Count; i++)
+                {
+                    // Если список содержит индекс
+                    if (selectedRows.Contains(i))
+                    {
+                        // Получаем Email
+                        string email = dataGridView.Rows[i].Cells["Электронная почта"].Value.ToString();
+
+                        // Получаем id по Email и добавляем в массив
+                        command = new SqlCommand("SELECT custId FROM customer WHERE custEmail = '" + email + "'", ConnectionToDb.Connection);
+                        arrayId[indexArray++] = Convert.ToInt32(command.ExecuteScalar());
+                    }
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения массива идентификаторов записей о заказчиках");
+            }
+
+            return arrayId;
+        }
+
+        /// <summary>
+        /// Метод удаления заказчиков из бд
+        /// </summary>
+        /// <param name="arrayId">Массив id заказчиков</param>
+        /// <returns>Количество удаленных записей</returns>
+        public static int DeleteCustomers(int[] arrayId)
+        {
+            int countDeleteRows = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Проходимся по массиву id
+                for (int i = 0; i < arrayId.Length; i++)
+                {
+                    // Удаляем заказчика с конкретным id
+                    SqlCommand command = new SqlCommand("DELETE FROM customer WHERE custId = '" + arrayId[i] + "'", ConnectionToDb.Connection);
+                    countDeleteRows += command.ExecuteNonQuery();
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Произошла ошибка удаления заказчиков");
+            }
+            return countDeleteRows;
         }
     }
 }
