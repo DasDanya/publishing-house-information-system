@@ -147,12 +147,17 @@ namespace PublishingHouse
 
         private void FillEmployeeMenu_Load(object sender, EventArgs e)
         {
-            if (employee != null && state == 'C') 
+            try
             {
-                LoadDataAboutEmployee();
-                id = Employee.GetIdEmployeeByPhone(employee.Phone);
-                
-            
+                if (employee != null && state == 'C')
+                {
+                    LoadDataAboutEmployee();
+                    id = Employee.GetIdEmployeeByPhone(employee.Phone);
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Произошла ошибка открытия формы для ввода данных о сотруднике", "Ввод данных о сотруднике", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

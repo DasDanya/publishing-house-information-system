@@ -10,7 +10,7 @@ namespace PublishingHouse
 {
     public partial class FillDataCustomerMenu : Form
     {
-
+        Customer customer = null;
         int id = -1;
         char state = ' ';
 
@@ -25,9 +25,37 @@ namespace PublishingHouse
             this.state = state;
         }
 
+        public FillDataCustomerMenu(Customer customer, char state) 
+        {
+            InitializeComponent();
+            this.customer = customer;
+            this.state = state;
+        }
+
         private void FillDataCustomerMenu_Load(object sender, EventArgs e)
         {
+            try
+            {
+                if (customer != null && state == 'C')
+                {
+                    LoadDataAboutCustomer();
+                    id = Customer.GetIdCustomerByPhone(customer.Phone);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Произошла ошибка открытия формы для ввода данных о заказчике", "Ввод данных о заказчике", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        /// <summary>
+        /// Метод для загрузки данных о заказчике в соответствующие компоненты
+        /// </summary>
+        private void LoadDataAboutCustomer()
+        {
+            nameTextBox.Text = customer.Name;
+            phoneTextBox.Text = customer.Phone;
+            emailTextBox.Text = customer.Email;
         }
 
         private void FillDataCustomerMenu_FormClosing(object sender, FormClosingEventArgs e)

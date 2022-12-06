@@ -146,7 +146,26 @@ namespace PublishingHouse
 
         private void selectForChangeButton_Click(object sender, EventArgs e)
         {
+            // Если количество выбранный записей не равно 1
+            if (WorkWithDataDgv.CountSelectedRows(customersDataGridView) != 1)
+                MessageBox.Show("Неодходимо выбрать одну запись", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                int numberRow = WorkWithDataDgv.NumberSelectedRows(customersDataGridView);
 
+                if (!Customer.CustomerHasBooking(Customer.GetIdCustomerByPhone(customersDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString())))
+                {
+
+                    //Cоздаём объект заказчика               
+                    Customer customer = new Customer(customersDataGridView.Rows[numberRow].Cells["Наименование заказчика"].Value.ToString(), customersDataGridView.Rows[numberRow].Cells["Электронная почта"].Value.ToString(), customersDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString());
+
+                    // Переходим в меню ввода данных для изменения этих самых данных
+                    FillDataCustomerMenu fillDataCustomerMenu = new FillDataCustomerMenu(customer, 'C');
+                    Transition.TransitionByForms(this, fillDataCustomerMenu);
+                }
+                else
+                    MessageBox.Show("Невозможно изменить запись, так как у выбранного заказчика имеются заказы. Удалите заказы, в которых фигурируется выбранный заказчик, или создайте нового заказчика", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void resetAddOrChangeButton_Click(object sender, EventArgs e)

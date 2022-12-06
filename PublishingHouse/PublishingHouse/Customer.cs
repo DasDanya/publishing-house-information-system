@@ -240,5 +240,35 @@ namespace PublishingHouse
 
             return dt;
         }
+
+        /// <summary>
+        /// Метод, определяющий есть ли у заказчика заказ
+        /// </summary>
+        /// <param name="idCustomer">id заказчика</param>
+        /// <returns>Есть ли у заказчика заказ</returns>
+        public static bool CustomerHasBooking(int idCustomer)
+        {
+            bool has = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Получаем количество заказов заказчика
+                SqlCommand command = new SqlCommand("SELECT COUNT(fcustId) FROM booking WHERE fcustId = '" + idCustomer + "'", ConnectionToDb.Connection);
+
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
+                    has = true;
+
+                ConnectionToDb.Close();
+            }
+
+            catch
+            {
+                throw new Exception("Ошибка получения данных о том, имеет ли заказчик заказ(-ы)");
+            }
+
+            return has;
+        }
     }
 }
