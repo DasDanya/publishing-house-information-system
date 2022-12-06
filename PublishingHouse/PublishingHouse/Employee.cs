@@ -522,7 +522,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Формируем, выполняем запрос на получения данных о сотрудниках в определенном порядке
-                string query = String.Format("SELECT TOP {0} employee.empSurname AS N'Фамилия', employee.empFirstname AS N'Имя', employee.empMiddlename AS N'Отчество', employee.empType AS N'Должность', COUNT(bookingEmployee.fempId) AS N'Количество' FROM employee LEFT JOIN bookingEmployee ON employee.empId = bookingEmployee.fempId GROUP BY employee.empSurname, employee.empFirstname, employee.empMiddlename, employee.empType ORDER BY COUNT(bookingEmployee.fempId) {1} ", outStringCount, order);
+                string query = String.Format("SELECT TOP {0} employee.empSurname AS N'Фамилия', employee.empFirstname AS N'Имя', employee.empMiddlename AS N'Отчество', employee.empType AS N'Должность', COUNT(bookingEmployee.fempId) AS N'Количество заказов' FROM employee LEFT JOIN bookingEmployee ON employee.empId = bookingEmployee.fempId GROUP BY employee.empSurname, employee.empFirstname, employee.empMiddlename, employee.empType ORDER BY COUNT(bookingEmployee.fempId) {1} ", outStringCount, order);
                 SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
                 SqlDataReader dataReader = command.ExecuteReader();
 

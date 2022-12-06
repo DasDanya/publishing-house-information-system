@@ -257,7 +257,14 @@ namespace PublishingHouse
 
         private void fashionCustomersButton_Click(object sender, EventArgs e)
         {
+            if (customersDataGridView.Rows.Count > 0)
+            {
+                FashionCustomersMenu fashionCustomersMenu = new FashionCustomersMenu();
+                Transition.TransitionByForms(this, fashionCustomersMenu);
 
+            }
+            else
+                MessageBox.Show("Невозможно вывести моду данных о заказчиках, так они отсутствуют!", "Вывод моды данных о заказчиках", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void CustomersMenu_Load(object sender, EventArgs e)

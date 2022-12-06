@@ -179,5 +179,66 @@ namespace PublishingHouse
 
             return id;
         }
+
+        /// <summary>
+        /// Метод получения количества записей
+        /// </summary>
+        /// <returns>Количество записей</returns>
+        public static int GetCountRecords()
+        {
+            int count = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение количества записей и выполняем его
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM customer", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                count = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения количества заказчиков");
+            }
+
+            return count;
+        }
+
+        /// <summary>
+        /// Метод получения данных о заказчиках по определенному порядку фильтрации
+        /// </summary>
+        /// <param name="order">Порядок фильтрации</param>
+        /// <param name="outStringCount">Количество выводимых строк</param>
+        /// <returns>DataTable с отсортированными данными</returns>
+        public static DataTable GetTableByOccurrence(string order, int outStringCount)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем, выполняем запрос на получение данных о заказчиках в определенном порядке
+                string query = String.Format("SELECT TOP {0} customer.custName AS N'Наименование заказчика', customer.custPhone AS N'Номер телефона', COUNT(booking.fcustId) AS N'Количество заказов' FROM customer LEFT JOIN booking ON customer.custId = booking.fcustId GROUP BY customer.custName, customer.custPhone ORDER BY COUNT(booking.fcustId) {1} ", outStringCount, order);
+                SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Загружаем полученные данные в DataTable
+                dt.Load(dataReader);
+
+
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о заказчиках");
+            }
+
+            return dt;
+        }
     }
 }

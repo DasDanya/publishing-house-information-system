@@ -108,6 +108,7 @@ namespace PublishingHouse
             // countTextBox
             // 
             this.countTextBox.Location = new System.Drawing.Point(7, 153);
+            this.countTextBox.MaxLength = 5;
             this.countTextBox.Name = "countTextBox";
             this.countTextBox.Size = new System.Drawing.Size(264, 27);
             this.countTextBox.TabIndex = 3;

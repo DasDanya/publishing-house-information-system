@@ -409,8 +409,8 @@ namespace PublishingHouse
             {
                 ConnectionToDb.Open();
 
-                // Формируем, выполняем запрос на получения данных о типографиях в определенном порядке
-                string query = String.Format("SELECT TOP {0} printingHouse.phName AS N'Название компании', COUNT(booking.fphId) AS N'Количество' FROM printingHouse LEFT JOIN booking ON printingHouse.phId = booking.fphId GROUP BY printingHouse.phName ORDER BY COUNT(booking.fphId) {1} ", outStringCount, order);
+                // Формируем, выполняем запрос на получение данных о типографиях в определенном порядке
+                string query = String.Format("SELECT TOP {0} printingHouse.phName AS N'Название компании', COUNT(booking.fphId) AS N'Количество заказов' FROM printingHouse LEFT JOIN booking ON printingHouse.phId = booking.fphId GROUP BY printingHouse.phName ORDER BY COUNT(booking.fphId) {1} ", outStringCount, order);
                 SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
                 SqlDataReader dataReader = command.ExecuteReader();
                 
