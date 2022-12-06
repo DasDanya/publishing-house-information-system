@@ -207,6 +207,10 @@ namespace PublishingHouse
                         MessageBox.Show("Выбранная типография не выполняет заказы", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                     {
+
+                        // Выводим наименование типографии
+                        ordersTreeView.Nodes.Add(printingHouseDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(printingHouseDataGridView)].Cells[1].Value.ToString());
+
                         // Выводим номера заказов
                         foreach (string order in orders)
                         {

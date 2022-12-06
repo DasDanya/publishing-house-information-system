@@ -235,6 +235,9 @@ namespace PublishingHouse
                         MessageBox.Show("У выбранного заказчика нет заказов", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                     {
+                        // Выводим наименование заказчика
+                        ordersTreeView.Nodes.Add(customersDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(customersDataGridView)].Cells["Наименование заказчика"].Value.ToString());
+
                         // Выводим номера заказов
                         foreach (int order in orders)
                         {

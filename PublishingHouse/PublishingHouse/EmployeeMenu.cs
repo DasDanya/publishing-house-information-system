@@ -426,6 +426,13 @@ namespace PublishingHouse
                         MessageBox.Show("Выбранный сотрудник не выполняет заказы", "Поиск заказов", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     else
                     {
+
+                        string fio = employeeDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(employeeDataGridView)].Cells["Фамилия"].Value.ToString() + " " + employeeDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(employeeDataGridView)].Cells["Имя"].Value.ToString() +
+                            " " + employeeDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(employeeDataGridView)].Cells["Отчество"].Value.ToString();
+
+                        // Выводим ФИО сотрудника
+                        ordersTreeView.Nodes.Add(fio);
+
                         // Выводим номера заказов
                         foreach (int order in orders)
                         {
