@@ -34,13 +34,13 @@ namespace PublishingHouse
         //        size = value;
         //}
 
-        
+
         public Material(string type, string color, string size, double cost)
         {
             this.type = type;
             this.color = color;
             this.size = size;
-            this.cost = Math.Round(cost,2);
+            this.cost = Math.Round(cost, 2);
         }
 
         /// <summary>
@@ -118,6 +118,7 @@ namespace PublishingHouse
                 {
                     for (int i = 0; i < dataGridView.Rows.Count; i++)
                     {
+
                         if (dataGridView.Rows[i].Cells["Тип"].Value.ToString() == type && dataGridView.Rows[i].Cells["Цвет"].Value.ToString() == color && dataGridView.Rows[i].Cells["Размер"].Value.ToString() == size && Convert.ToDouble(dataGridView.Rows[i].Cells["Стоимость"].Value) == cost)
                         {
                             exist = true;
@@ -139,7 +140,7 @@ namespace PublishingHouse
         /// Метод получения id материала
         /// </summary>
         /// <returns>id материала</returns>
-        public int GetIdMaterial() 
+        public int GetIdMaterial()
         {
             int id = -1;
             try
@@ -147,15 +148,15 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Составим запрос на получение id материала и выполним его
-                SqlCommand command = new SqlCommand("SELECT matId FROM material WHERE matType = N'"+ type + "' AND matColor = N'"+ color +"' AND matSize = N'"+ size +"' AND matCost = @cost", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("SELECT matId FROM material WHERE matType = N'" + type + "' AND matColor = N'" + color + "' AND matSize = N'" + size + "' AND matCost = @cost", ConnectionToDb.Connection);
                 command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
                 id = Convert.ToInt32(command.ExecuteScalar());
 
                 ConnectionToDb.Close();
             }
-            catch 
+            catch
             {
-                throw new Exception("Ошибка получения id материала");            
+                throw new Exception("Ошибка получения id материала");
             }
 
             return id;
@@ -165,7 +166,7 @@ namespace PublishingHouse
         /// Метод добавления материала в базу данных
         /// </summary>
         /// <returns>Количество добавленных записей в базу данных</returns>
-        public int AddMaterial() 
+        public int AddMaterial()
         {
             int count = 0;
             try
@@ -179,7 +180,7 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch 
+            catch
             {
                 throw new Exception("Ошибка добавления материала");
             }
@@ -193,7 +194,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="materials">Массив материалов</param>
         /// <returns>Количество удалённых записей</returns>
-        public static int DeleteMaterial(Material[] materials) 
+        public static int DeleteMaterial(Material[] materials)
         {
             int count = 0;
             try
@@ -208,7 +209,7 @@ namespace PublishingHouse
                     count += command.ExecuteNonQuery();
 
                 }
-                
+
                 ConnectionToDb.Close();
             }
             catch
@@ -223,7 +224,7 @@ namespace PublishingHouse
         /// Метод изменения данных материала 
         /// </summary>
         /// <returns>Количество изменённых данных</returns>
-        public int ChangeMaterial(int id) 
+        public int ChangeMaterial(int id)
         {
             int count = 0;
             try
@@ -231,7 +232,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Создаём запрос на изменение данных и выполняем запрос
-                SqlCommand command = new SqlCommand("UPDATE material SET matType = N'"+ type +"', matColor = N'"+ color +"', matSize = N'"+ size +"', matCost = @cost WHERE matId = '"+ id +"'", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("UPDATE material SET matType = N'" + type + "', matColor = N'" + color + "', matSize = N'" + size + "', matCost = @cost WHERE matId = '" + id + "'", ConnectionToDb.Connection);
                 command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
                 count = command.ExecuteNonQuery();
 
@@ -245,15 +246,15 @@ namespace PublishingHouse
             return count;
         }
 
-      /// <summary>
-      /// Метод получения количества уникальных записей
-      /// </summary>
-      /// <param name="columnNameInDb">Название столбца</param>
-      /// <returns>Количество уникальных записей</returns>
-      public static int GetCountUniqueRecords(string columnNameInDb)
+        /// <summary>
+        /// Метод получения количества уникальных записей
+        /// </summary>
+        /// <param name="columnNameInDb">Название столбца</param>
+        /// <returns>Количество уникальных записей</returns>
+        public static int GetCountUniqueRecords(string columnNameInDb)
         {
             int count = -1;
-            try 
+            try
             {
                 ConnectionToDb.Open();
 
@@ -265,11 +266,11 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch 
+            catch
             {
                 throw new Exception("Ошибка получения количества строк");
             }
-        
+
             return count;
         }
 
@@ -321,64 +322,152 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch  
+            catch
             {
-                throw new Exception(string.Format("Ошибка получения таблицы - {0}",columnName));
+                throw new Exception(string.Format("Ошибка получения таблицы - {0}", columnName));
             }
 
             return table;
         }
 
-        
 
-        //    /// <summary>
-        //    /// Метод получения списка популярных данных определенного столбца
-        //    /// </summary>
-        //    /// <param name="columnName">Столбец</param>
-        //    /// <returns>Список популярных данных</returns>
-        //    public static List<string> PopularDataAboutMaterial(string columnName) 
-        //    {
-        //        string nameColumnDb = "";
-        //        List<string> popularData = new List<string>();
+        /// <summary>
+        /// Метод получения id материала
+        /// </summary>
+        /// <param name="type">Тип материала</param>
+        /// <param name="color">Цвет материала</param>
+        /// <param name="size">Размер материала</param>
+        /// <param name="cost">Стоимость материала</param>
+        /// <returns>id материала</returns>
+        public static int GetIdMaterial(string type, string color, string size, double cost) 
+        {
+            int id = -1;
 
-                //try
-                //{
-                //    ConnectionToDb.Open();
+            try
+            {
+                ConnectionToDb.Open();
 
-                //    // В зависимости от названия столбца
-                //    switch (columnName)
-                //    {
-                //        // Получаем соответствующие названия столбцов бд
-                //        case "Тип":
-                //            nameColumnDb = "matType";
-                //            break;
-                //        case "Цвет":
-                //            nameColumnDb = "matColor";
-                //            break;
-                //        case "Размер":
-                //            nameColumnDb = "matSize";
-                //            break;
+                // Формируем запрос на получение id и получаем его
+                SqlCommand command = new SqlCommand("SELECT matId FROM material WHERE matType = '"+type+"' AND matColor = '"+color+"' AND matSize = '"+size+"' AND matCost = @cost", ConnectionToDb.Connection);
+                command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
+                id = Convert.ToInt32(command.ExecuteScalar());
 
-                //    }
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения уникального номера материала");
+            }
 
-    //            // Создаём запрос на получение популярных данных и получаем их 
-    //            string query = string.Format("select TOP 3 {0} FROM material GROUP BY {1} ORDER BY COUNT({2}) DESC", nameColumnDb, nameColumnDb, nameColumnDb);
-    //            SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
-    //            SqlDataReader reader = command.ExecuteReader();
+            return id;
 
-    //            // Считываем данные из ридера и записываем в список
-    //            while (reader.Read()) 
-    //            {
-    //                popularData.Add((string)reader[""+ nameColumnDb + ""]);
-    //            }
+        }
 
-    //        }
-    //        catch
-    //        {
-    //            throw new Exception(string.Format("Ошибка получения данных столбца {0}", columnName));
-    //        }
+        /// <summary>
+        /// Метод получения массива id материалов
+        /// </summary>
+        /// <param name="dataGridView">Таблица с материалами</param>
+        /// <param name="selectedRows">Список выбранных строк</param>
+        /// <returns>Массив id материалов</returns>
+        public static int[] GetArrayIdMaterials(DataGridView dataGridView, List<int> selectedRows)
+        {
+            int indexArray = 0;
+            int[] arrayId = new int[selectedRows.Count];
 
-    //        return popularData;
-    //    }
+            SqlCommand command = new SqlCommand();
+            try
+            {
+                ConnectionToDb.Open();
+
+                for (int i = 0; i < dataGridView.Rows.Count; i++)
+                {
+                    // Если список содержит индекс
+                    if (selectedRows.Contains(i))
+                    {
+                        // Получаем данные
+                        string type = dataGridView.Rows[i].Cells["Тип"].Value.ToString();
+                        string color = dataGridView.Rows[i].Cells["Цвет"].Value.ToString();
+                        string size = dataGridView.Rows[i].Cells["Размер"].Value.ToString();
+                        double cost = Convert.ToDouble(dataGridView.Rows[i].Cells["Стоимость"].Value);
+
+                        // Получаем id и добавляем в массив
+                        command = new SqlCommand("SELECT matId FROM material WHERE matType = '" + type + "' AND matColor = '" + color + "' AND matSize = '" + size + "' AND matCost = @cost", ConnectionToDb.Connection);
+                        command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
+                        arrayId[indexArray++] = Convert.ToInt32(command.ExecuteScalar());
+                    }
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения массива идентификаторов записей о материалах");
+            }
+
+            return arrayId;
+        }
+
+
+        /// <summary>
+        /// Метод, определяющий используется ли материал
+        /// </summary>
+        /// <param name="idMaterial">id материала</param>
+        /// <returns>Используется ли материал</returns>
+        public static bool MaterialIsUsed(int idMaterial)
+        {
+            bool isUsed = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Получаем количество заказов заказчика
+                SqlCommand command = new SqlCommand("SELECT COUNT(fmatId) FROM productMaterial WHERE fmatId = '" + idMaterial + "'", ConnectionToDb.Connection);
+
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
+                    isUsed = true;
+
+                ConnectionToDb.Close();
+            }
+
+            catch
+            {
+                throw new Exception("Ошибка получения данных о том, используется ли материал");
+            }
+
+            return isUsed;
+        }
+
+
+        /// <summary>
+        /// Метод,определяющий используются ли материалы
+        /// </summary>
+        /// <param name="arrayIdMaterials">Массив id материалов</param>
+        /// <returns>Используются ли материалы</returns>
+        public static bool MaterialsAreUsed(int[] arrayIdMaterials)
+        {
+            bool areUsed = false;
+
+            try
+            {
+
+                for (int i = 0; i < arrayIdMaterials.Length; i++)
+                {
+                    if (MaterialIsUsed(arrayIdMaterials[i]))
+                    {
+                        areUsed = true;
+                        break;
+                    }
+                }
+
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о том, используются ли материалы");
+            }
+
+
+            return areUsed;
+        }
     }
 }

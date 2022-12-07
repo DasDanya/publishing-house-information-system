@@ -261,26 +261,36 @@ namespace PublishingHouse
                 {
                     if (MessageBox.Show("Вы точно хотите удалить эту(-и) запись(-и)?", "Удаление материалов", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     {
-                        // Создаём массив выбранных материалов
-                        Material[] materials = Material.GetArrayMaterials(materialDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(materialDataGridView));
 
-                        // Удаляем материалы из базы данных
-                        if (Material.DeleteMaterial(materials) == materials.Length)
+                        // Получаем массив id
+                        int[] arrayId = Material.GetArrayIdMaterials(materialDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(materialDataGridView));
+
+                        // Если материалы не используются
+                        if (!Material.MaterialsAreUsed(arrayId))
                         {
-                            MessageBox.Show("Запись(-и) успешно удалена(-ы)!", "Удаление материалов", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Создаём массив выбранных материалов
+                            Material[] materials = Material.GetArrayMaterials(materialDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(materialDataGridView));
 
-                            // Выводим новые данные и очищаем текстовые поля
-                            ReloadData();
-                            ClearBoxes();
+                            // Удаляем материалы из базы данных
+                            if (Material.DeleteMaterial(materials) == materials.Length)
+                            {
+                                MessageBox.Show("Запись(-и) успешно удалена(-ы)!", "Удаление материалов", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                            // Устанавливаем значения и свойства полям для поиска
-                            WorkWithDataDgv.SetElementsForSearchStringData(materialDataGridView, columnComboBox, searchTextBox);
+                                // Выводим новые данные и очищаем текстовые поля
+                                ReloadData();
+                                ClearBoxes();
 
+                                // Устанавливаем значения и свойства полям для поиска
+                                WorkWithDataDgv.SetElementsForSearchStringData(materialDataGridView, columnComboBox, searchTextBox);
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ошибка удаления материала(-ов)", "Удаление материалов", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                         else
-                        {
-                            MessageBox.Show("Ошибка удаления материала(-ов)", "Удаление материалов", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                            MessageBox.Show("Невозможно удалить материал, так как он используется в печатных продукциях. Удалите печатные продукции, в которых используется выбранный материал, и повторите попытку", "Удаления материалов", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
             }
@@ -300,14 +310,23 @@ namespace PublishingHouse
                 }
                 else
                 {
-                    // Заполняем поля для ввода данными, выбранными пользователем
-                    GetDataSelectedMaterial(WorkWithDataDgv.NumberSelectedRows(materialDataGridView));
+                    // Номер выбранной записи
+                    int numberRow = WorkWithDataDgv.NumberSelectedRows(materialDataGridView);
 
-                    changeButton.Enabled = true;
-                    selectForChangeButton.Enabled = false;
-                    addButton.Enabled = false;
-                    deleteButton.Enabled = false;
-                    resetChangeButton.Enabled = true;
+                    // Если материал не используется
+                    if (!Material.MaterialIsUsed(Material.GetIdMaterial(materialDataGridView.Rows[numberRow].Cells["Тип"].Value.ToString(), materialDataGridView.Rows[numberRow].Cells["Цвет"].Value.ToString(), materialDataGridView.Rows[numberRow].Cells["Размер"].Value.ToString(), Convert.ToDouble(materialDataGridView.Rows[numberRow].Cells["Стоимость"].Value))))
+                    {
+                        // Заполняем поля для ввода данными, выбранными пользователем
+                        GetDataSelectedMaterial(WorkWithDataDgv.NumberSelectedRows(materialDataGridView));
+
+                        changeButton.Enabled = true;
+                        selectForChangeButton.Enabled = false;
+                        addButton.Enabled = false;
+                        deleteButton.Enabled = false;
+                        resetChangeButton.Enabled = true;
+                    }
+                    else
+                        MessageBox.Show("Невозможно удалить материал, так как он используется в печатных продукциях. Удалите печатные продукции, в которых используется выбранный материал, или создайте новый материал", "Выбор материала для изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             catch (Exception ex)
@@ -337,7 +356,7 @@ namespace PublishingHouse
                     }
                     else
                     {
-                        if (MessageBox.Show("Вы точно хотите изменить эту запись?", "Изменение материала", MessageBoxButtons.OK, MessageBoxIcon.Exclamation) == DialogResult.OK)
+                        if (MessageBox.Show("Вы точно хотите изменить эту запись?", "Изменение материала", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
                         {
                             // Изменяем данные выбранного материала
                             if (material.ChangeMaterial(id) == 1)
