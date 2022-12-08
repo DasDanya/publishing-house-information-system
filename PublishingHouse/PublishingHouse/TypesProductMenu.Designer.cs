@@ -309,7 +309,7 @@ namespace PublishingHouse
             // changeTypeLabel
             // 
             this.changeTypeLabel.AutoSize = true;
-            this.changeTypeLabel.Location = new System.Drawing.Point(524, 121);
+            this.changeTypeLabel.Location = new System.Drawing.Point(521, 121);
             this.changeTypeLabel.Name = "changeTypeLabel";
             this.changeTypeLabel.Size = new System.Drawing.Size(0, 20);
             this.changeTypeLabel.TabIndex = 8;
@@ -317,7 +317,7 @@ namespace PublishingHouse
             // addTypeLabel
             // 
             this.addTypeLabel.AutoSize = true;
-            this.addTypeLabel.Location = new System.Drawing.Point(7, 121);
+            this.addTypeLabel.Location = new System.Drawing.Point(4, 121);
             this.addTypeLabel.Name = "addTypeLabel";
             this.addTypeLabel.Size = new System.Drawing.Size(0, 20);
             this.addTypeLabel.TabIndex = 7;

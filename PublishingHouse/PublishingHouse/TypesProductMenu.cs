@@ -108,6 +108,26 @@ namespace PublishingHouse
         private void selectForChangeButton_Click(object sender, EventArgs e)
         {
 
+            // Если количество выбранный записей не равно 1
+            if (WorkWithDataDgv.CountSelectedRows(typesProductDataGridView) != 1)
+                MessageBox.Show("Неодходимо выбрать одну запись", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                int numberRow = WorkWithDataDgv.NumberSelectedRows(typesProductDataGridView);
+
+                if (!TypeProduct.TypeProductIsIndicated(TypeProduct.GetIdTypeProduct(typesProductDataGridView.Rows[numberRow].Cells["Тип печатной продукции"].Value.ToString(), Convert.ToDouble(typesProductDataGridView.Rows[numberRow].Cells["Наценка в %"].Value))))
+                {
+
+                    //Cоздаём объект типа печатной продукции              
+                    TypeProduct typeProduct = new TypeProduct(typesProductDataGridView.Rows[numberRow].Cells["Тип печатной продукции"].Value.ToString(), Convert.ToDouble(typesProductDataGridView.Rows[numberRow].Cells["Наценка в %"].Value));
+
+                    // Переходим в меню ввода данных для изменения этих самых данных
+                    FillDataTypeProduct fillDataTypeProduct = new FillDataTypeProduct(typeProduct, 'C');
+                    Transition.TransitionByForms(this, fillDataTypeProduct);
+                }
+                else
+                    MessageBox.Show("Невозможно изменить запись, так как выбранный тип печатной продукции указан в печатной продукции. Удалите печатные продукции, в которых указан выбранный тип печатной продукции, или создайте новый тип печатной продукции", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
 
         private void restAddOrChangeButton_Click(object sender, EventArgs e)
@@ -124,7 +144,29 @@ namespace PublishingHouse
 
         private void changeButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Если пользователь изменяет запись
+                if (MessageBox.Show("Вы точно хотите изменить запись?", "Изменение данных о типе печатной продукции", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
 
+                    // Если изменилась только одна запись 
+                    if (typeProduct.ChangeTypeProduct(id) == 1)
+                        MessageBox.Show("Запись успешно изменена!", "Изменение данных о типе печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    else
+                        MessageBox.Show("Количество измененных записей не равно единице", "Изменение данных о типе печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                    ReloadData();
+                    DefaultStateOfMenu();
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка изменения данных о типе печатной продукции", "Изменение данных о типе печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void processingTab_Click(object sender, EventArgs e)

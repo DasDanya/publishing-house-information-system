@@ -21,7 +21,15 @@ namespace PublishingHouse
             this.margin = margin;
         }
 
-        public static int GetIdByName(string name) 
+       
+
+        /// <summary>
+        /// Метод получения id типа печатной продукции
+        /// </summary>
+        /// <param name="name">Название типа печатной продукции</param>
+        /// <param name="margin">Наценка типа печатной продукции</param>
+        /// <returns>id типа печатной продукции</returns>
+        public static int GetIdTypeProduct(string name,double margin)
         {
             int id = -1;
 
@@ -31,37 +39,38 @@ namespace PublishingHouse
 
                 //Указываем,что команда является хранимой процедурой
                 const string SQLPROCEDURE = "GetIdTypeProduct";
-                SqlCommand command = new SqlCommand(SQLPROCEDURE, ConnectionToDb.Connection); 
+                SqlCommand command = new SqlCommand(SQLPROCEDURE, ConnectionToDb.Connection);
                 command.CommandType = CommandType.StoredProcedure;
 
-                //Передаём название типа печатной продукции
+                //Передаём данные типа печатной продукции
                 command.Parameters.AddWithValue("@name", name);
+                command.Parameters.AddWithValue("@margin", margin);
 
-                //Получаем id 
-                var result = new SqlParameter("@idTypeProduct", SqlDbType.Int);
-                result.Direction = ParameterDirection.Output;
-                id = Convert.ToInt32(result.Value);
-
+                //Получаем id                 
+                id = Convert.ToInt32(command.ExecuteScalar());
 
                 ConnectionToDb.Close();
             }
-            catch 
+            catch
             {
                 throw new Exception("Ошибка получения уникального номера записи о типе печатной продукции");
             }
 
+
             return id;
         }
 
-
+       
         /// <summary>
-        /// Метод, проверяющий существование названия типа печатной продукции в бд 
+        /// Метод проверки существования типа печатной продукции в бд
         /// </summary>
         /// <param name="typeWork">Тип работы с данными</param>
-        /// <param name="pastName">Прошлое название типа печатной продукции</param>
-        /// <param name="newName">Новое название типа печатной продукции</param>
-        /// <returns>Существует ли название типа печатной продукции в бд</returns>
-        public static bool ExistNameInDb(char typeWork, string pastName, string newName)
+        /// <param name="pastMargin">Старая наценка</param>
+        /// <param name="newMargin">Новая наценка</param>
+        /// <param name="pastName">Прошлое название</param>
+        /// <param name="newName">Новое название</param>
+        /// <returns>Существует ли тип печатной продукции в бд</returns>
+        public static bool ExistTypeProductInDb(char typeWork, double pastMargin, double newMargin, string pastName, string newName)
         {
             bool exist = false;
 
@@ -72,37 +81,42 @@ namespace PublishingHouse
 
                 // Если пользователь добавляет запись
                 if (typeWork == 'A')
-                    // Запрос на существование названия
-                    command = new SqlCommand("SELECT COUNT(typeProdName) FROM typeProduct WHERE typeProdName = N'" + newName + "'", ConnectionToDb.Connection);
+                {
+                    // Запрос на существование типа печатной продукции
+                    command = new SqlCommand("SELECT typeProdId FROM typeProduct WHERE typeProdName = N'" + newName + "' AND typeProdMargin = @margin", ConnectionToDb.Connection);
+                    command.Parameters.Add("@margin", SqlDbType.Float).Value = newMargin;
+                }
 
 
                 // Если пользователь редактирует запись
                 else if (typeWork == 'C')
                 {
                     // Получаем id записи
-                    int id = GetIdByName(pastName);
+                    int id = GetIdTypeProduct(pastName, pastMargin);
                     ConnectionToDb.Open();
 
-                    //Запрос на существование названия, не учитывая изменяемую запись 
-                    command = new SqlCommand("SELECT COUNT(typeProdName) FROM typeProduct WHERE typeProdName = N'" + newName + "' AND typeProdId != '" + id + "' ", ConnectionToDb.Connection);
+                    //Запрос на существование типа печатной продукции, не учитывая изменяемую запись 
+                    command = new SqlCommand("SELECT COUNT(typeProdId) FROM typeProduct WHERE typeProdMargin = @newMargin AND typeProdName = N'" + newName + "' AND typeProdId != '" + id + "' ", ConnectionToDb.Connection);
+                    command.Parameters.Add("@newMargin", SqlDbType.Float).Value = newMargin;
 
                 }
 
-                // Если название найдено
-                if (Convert.ToInt32(command.ExecuteScalar()) > 0)  
+                // Если тип печатной продукции найден
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
                     exist = true;
-                
+
 
                 ConnectionToDb.Close();
             }
 
             catch
             {
-                throw new Exception("Ошибка проверки существования названия типа печатной продукции в базе данных");
+                throw new Exception("Ошибка проверки существования типа печатной продукции в базе данных");
             }
 
             return exist;
         }
+
 
         /// <summary>
         /// Метод добавления типа печатной продукции в бд
@@ -160,5 +174,65 @@ namespace PublishingHouse
             }
 
         }
+
+
+        /// <summary>
+        /// Метод, определяющий указан ли тип печатной продукции
+        /// </summary>
+        /// <param name="idTypeProduct">id типа печатной продукции</param>
+        /// <returns>Указан ли тип печатной продукции</returns>
+        public static bool TypeProductIsIndicated(int idTypeProduct)
+        {
+            bool isIndicated = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Получаем количество использований
+                SqlCommand command = new SqlCommand("SELECT COUNT(ftypeProdId) FROM product WHERE ftypeProdId = '" + idTypeProduct + "'", ConnectionToDb.Connection);
+
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
+                    isIndicated = true;
+
+                ConnectionToDb.Close();
+            }
+
+            catch
+            {
+                throw new Exception("Ошибка получения данных о том, указан ли тип печатной продукции");
+            }
+
+            return isIndicated;
+        }
+
+        /// <summary>
+        /// Метод изменения данных о типе печатной продукции
+        /// </summary>
+        /// <param name="id">id записи о типе печатной продукции</param>
+        /// <returns>Количество измененных записей</returns>
+        public int ChangeTypeProduct(int id)
+        {
+            int countChangedRows = -1;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на изменение данных о типе печатной продукции и выполняем его
+                SqlCommand command = new SqlCommand("UPDATE typeProduct SET typeProdName = N'" + name + "', typeProdMargin = @margin WHERE typeProdId = '" + id + "' ", ConnectionToDb.Connection);
+                command.Parameters.Add("@margin", SqlDbType.Float).Value = margin;
+                countChangedRows = command.ExecuteNonQuery();
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка изменения данных о типе печатной продукции");
+            }
+
+            return countChangedRows;
+        }
+
     }
 }

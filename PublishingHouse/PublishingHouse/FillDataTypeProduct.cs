@@ -60,7 +60,7 @@ namespace PublishingHouse
                 if (typeProduct != null && state == 'C')
                 {
                     LoadDataAboutTypeProduct();
-                    id = TypeProduct.GetIdByName(typeProduct.Name);
+                    id = TypeProduct.GetIdTypeProduct(typeProduct.Name, typeProduct.Margin);
                 }
             }
             catch
@@ -102,15 +102,17 @@ namespace PublishingHouse
                 if (CorrectInputData())
                 {
                     string name = "";
+                    double margin = 0;
 
                     if (state == 'C')
                     {
                         // Текущие данные о названии типа печатной продукции
                         name = this.typeProduct.Name;
+                        margin = this.typeProduct.Margin;
                     }
 
-                    // Если существует тип печатной продукции с введенным названием
-                    if (!TypeProduct.ExistNameInDb(state, name, nameTextBox.Text))
+                    // Если существует тип печатной продукции с введенными данными
+                    if (!TypeProduct.ExistTypeProductInDb(state,margin,Convert.ToDouble(marginTextBox.Text), name, nameTextBox.Text))
                     {
 
                         // Создаём тип печатной продукции
@@ -128,7 +130,7 @@ namespace PublishingHouse
                         Transition.TransitionByForms(this, typesProductMenu);
                     }
                     else
-                        MessageBox.Show("В базе данных не могут существовать типы печатной продукции с одинаковым названием", "Сохранение данных о типе печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("В базе данных не могут существовать типы печатной продукции с одинаковым названием и одинаковой наценкой", "Сохранение данных о типе печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
                     MessageBox.Show("Текстовые поля должны быть заполнены! Название типа печатной продукции может в себе содержать только русские буквы и пробелы", "Сохранение данных о типе печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
