@@ -25,6 +25,9 @@
     <Compile Update="FillDataPrintingHouse.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FillDataTypeProduct.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FillEmployeeMenu.cs">
       <SubType>Form</SubType>
     </Compile>
