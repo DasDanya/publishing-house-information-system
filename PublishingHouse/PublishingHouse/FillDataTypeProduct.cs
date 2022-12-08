@@ -48,7 +48,7 @@ namespace PublishingHouse
             // Получаем символ, который ввёл пользователь
             char number = e.KeyChar;
 
-            // Если пользователь ввёл не цифру и не нажал на Backspace, то не отображаем символ в textbox
+            // Если пользователь ввёл не цифру, не нажал на Backspace или запятую, то не отображаем символ в textbox
             if (!Char.IsDigit(number) && number != 8 && number != 44)
                 e.Handled = true;
         }

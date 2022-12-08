@@ -354,14 +354,19 @@ namespace PublishingHouse
 
         private void searchDataButton_Click(object sender, EventArgs e)
         {
-            DateTime from = startDateTimePicker.Value.Date;
-            DateTime to = endDateTimePicker.Value.Date;
-
-            if (from >= to || from > DateTime.Now.Date || to > DateTime.Now.Date)
-                MessageBox.Show("Дата \"с\", дата \"по\" не должны превышать сегодняшний день. Дата \"с\" должна быть мешьше даты \"по\"", "Поиск по дате", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            if (employeeDataGridView.RowCount < 1)
+                MessageBox.Show("Отсутствуют строки для поиска", "Поиск по дате", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             else
-            // Производим поиск по стоимости
-            WorkWithDataDgv.SearchByDifference(employeeDataGridView, "Дата рождения", from, to);
+            {
+                DateTime from = startDateTimePicker.Value.Date;
+                DateTime to = endDateTimePicker.Value.Date;
+
+                if (from >= to || from > DateTime.Now.Date || to > DateTime.Now.Date)
+                    MessageBox.Show("Дата \"с\", дата \"по\" не должны превышать сегодняшний день. Дата \"с\" должна быть мешьше даты \"по\"", "Поиск по дате", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                    // Производим поиск по стоимости
+                    WorkWithDataDgv.SearchByDifference(employeeDataGridView, "Дата рождения", from, to);
+            }
         }
 
         private void selectTab_Click(object sender, EventArgs e)

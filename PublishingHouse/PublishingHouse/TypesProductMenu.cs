@@ -144,8 +144,15 @@ namespace PublishingHouse
             columnsComboBox.Visible = false;
             searchTypeLabel.Visible = false;
             searchTextBox.Visible = false;
-            selectAllRowsButton.Visible = false;
-            resetSelectRowsButton.Visible = false;
+            selectAllRowsButton.Visible = true;
+            resetSelectRowsButton.Visible = true;
+            rangeLabel.Visible = false;
+            fromLabel.Visible = false;
+            toLabel.Visible = false;
+            toTextBox.Visible = false;
+            fromTextBox.Visible = false;
+            searchMarginButton.Visible = false;
+            resetSearchButton.Visible = false;
         }
 
         private void searchTab_Click(object sender, EventArgs e)
@@ -167,31 +174,19 @@ namespace PublishingHouse
             searchTextBox.Visible = true;
             selectAllRowsButton.Visible = false;
             resetSelectRowsButton.Visible = false;
+            rangeLabel.Visible = true;
+            fromLabel.Visible = true;
+            toLabel.Visible = true;
+            toTextBox.Visible = true;
+            fromTextBox.Visible = true;
+            searchMarginButton.Visible = true;
+            resetSearchButton.Visible = true;
 
             // Устанавливаем значения и свойства полям для поиска
             WorkWithDataDgv.SetElementsForSearchStringData(typesProductDataGridView, columnsComboBox, searchTextBox);
         }
 
-        private void selectTab_Click(object sender, EventArgs e)
-        {
-            addButton.Visible = false;
-            inputDataButton.Visible = false;
-            addTypeLabel.Visible = false;
-            changeTypeLabel.Visible = false;
-            selectForChangeButton.Visible = false;
-            restAddOrChangeButton.Visible = false;
-            deleteButton.Visible = false;
-            changeButton.Visible = false;
-            productsTreeView.Visible = false;
-            getProductsButton.Visible = false;
-            fashionTypesButton.Visible = false;
-            columnsLabel.Visible = false;
-            columnsComboBox.Visible = false;
-            searchTypeLabel.Visible = false;
-            searchTextBox.Visible = false;
-            selectAllRowsButton.Visible = true;
-            resetSelectRowsButton.Visible = true;
-        }
+       
 
         private void TypesProductMenu_Load(object sender, EventArgs e)
         {
@@ -246,14 +241,88 @@ namespace PublishingHouse
             TypeProduct.LoadTypesProducts(typesProductDataGridView);
             WorkWithDataDgv.SetReadOnlyColumns(typesProductDataGridView);
 
+            typesProductDataGridView.Columns["Select"].Width = 200;
             typesProductDataGridView.Columns["Тип печатной продукции"].Width = 440;
-            typesProductDataGridView.Columns["Наценка в %"].Width = 220;
+            typesProductDataGridView.Columns["Наценка в %"].Width = 320;
 
         }
 
         private void typesProductDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+        }
+
+        private void selectAllRowsButton_Click(object sender, EventArgs e)
+        {
+            if (typesProductDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки для выбора", "Выбрать всё", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(typesProductDataGridView, true);
+        }
+
+        private void resetSelectRowsButton_Click(object sender, EventArgs e)
+        {
+            if (typesProductDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки", "Отменить выбор строк", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(typesProductDataGridView, false);
+        }
+
+        private void searchMarginButton_Click(object sender, EventArgs e)
+        {
+            if (typesProductDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки для поиска", "Поиск по наценке", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                try
+                {
+                    // Получаем данные из текстовых полей
+                    double from = double.Parse(fromTextBox.Text);
+                    double to = double.Parse(toTextBox.Text);
+
+                    // Если некорректный ввод данных
+                    if (from >= to)
+                    {
+                        MessageBox.Show("Значение правого текстового поля должно быть больше левого", "Поиск по наценке", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+                    else
+                    {
+                        // Производим поиск по наценке
+                        WorkWithDataDgv.SearchByDifference(typesProductDataGridView, "Наценка в %", from, to);
+                        //WorkWithDataDgv.SetHeightRows(materialDataGridView);
+                    }
+                }
+
+                catch
+                {
+                    MessageBox.Show("Ошибка поиска материала по стоимости. Убедитесь, что вы заполнили нужные текстовые поля, и повторите попытку", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void resetSearchButton_Click(object sender, EventArgs e)
+        {
+            WorkWithDataDgv.ResetSearch(typesProductDataGridView);
+            searchTextBox.Text = "";
+            fromTextBox.Text = "0";
+            toTextBox.Text = "100";
+
+        }
+
+        private void fromTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Получаем символ, который ввёл пользователь
+            char number = e.KeyChar;
+
+            // Если пользователь ввёл не цифру, не нажал на Backspace или запятую, то не отображаем символ в textbox
+            if (!Char.IsDigit(number) && number != 8 && number != 44)
+                e.Handled = true;
+        }
+
+        private void searchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            // Ищём запрашиваемые данные в таблице
+            WorkWithDataDgv.GetLikeString(typesProductDataGridView, columnsComboBox, searchTextBox);
         }
     }
 }

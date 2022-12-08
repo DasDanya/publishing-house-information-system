@@ -35,6 +35,13 @@ namespace PublishingHouse
             this.typesProductDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.resetSearchButton = new System.Windows.Forms.Button();
+            this.searchMarginButton = new System.Windows.Forms.Button();
+            this.toLabel = new System.Windows.Forms.Label();
+            this.fromLabel = new System.Windows.Forms.Label();
+            this.toTextBox = new System.Windows.Forms.TextBox();
+            this.fromTextBox = new System.Windows.Forms.TextBox();
+            this.rangeLabel = new System.Windows.Forms.Label();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.searchTypeLabel = new System.Windows.Forms.Label();
             this.columnsComboBox = new System.Windows.Forms.ComboBox();
@@ -55,7 +62,6 @@ namespace PublishingHouse
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
             this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectTab = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.typesProductDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -69,7 +75,7 @@ namespace PublishingHouse
             this.backTab});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1073, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -94,7 +100,7 @@ namespace PublishingHouse
             this.typesProductDataGridView.RowHeadersVisible = false;
             this.typesProductDataGridView.RowHeadersWidth = 51;
             this.typesProductDataGridView.RowTemplate.Height = 50;
-            this.typesProductDataGridView.Size = new System.Drawing.Size(776, 271);
+            this.typesProductDataGridView.Size = new System.Drawing.Size(950, 271);
             this.typesProductDataGridView.TabIndex = 1;
             this.typesProductDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.typesProductDataGridView_ColumnStateChanged);
             // 
@@ -107,6 +113,13 @@ namespace PublishingHouse
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.resetSearchButton);
+            this.groupBox1.Controls.Add(this.searchMarginButton);
+            this.groupBox1.Controls.Add(this.toLabel);
+            this.groupBox1.Controls.Add(this.fromLabel);
+            this.groupBox1.Controls.Add(this.toTextBox);
+            this.groupBox1.Controls.Add(this.fromTextBox);
+            this.groupBox1.Controls.Add(this.rangeLabel);
             this.groupBox1.Controls.Add(this.searchTextBox);
             this.groupBox1.Controls.Add(this.searchTypeLabel);
             this.groupBox1.Controls.Add(this.columnsComboBox);
@@ -127,10 +140,84 @@ namespace PublishingHouse
             this.groupBox1.Controls.Add(this.menuStrip2);
             this.groupBox1.Location = new System.Drawing.Point(12, 335);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(776, 208);
+            this.groupBox1.Size = new System.Drawing.Size(1049, 208);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
+            // 
+            // resetSearchButton
+            // 
+            this.resetSearchButton.Location = new System.Drawing.Point(805, 156);
+            this.resetSearchButton.Name = "resetSearchButton";
+            this.resetSearchButton.Size = new System.Drawing.Size(218, 36);
+            this.resetSearchButton.TabIndex = 24;
+            this.resetSearchButton.Text = "Сброс поиска";
+            this.resetSearchButton.UseVisualStyleBackColor = true;
+            this.resetSearchButton.Visible = false;
+            this.resetSearchButton.Click += new System.EventHandler(this.resetSearchButton_Click);
+            // 
+            // searchMarginButton
+            // 
+            this.searchMarginButton.Location = new System.Drawing.Point(805, 119);
+            this.searchMarginButton.Name = "searchMarginButton";
+            this.searchMarginButton.Size = new System.Drawing.Size(218, 31);
+            this.searchMarginButton.TabIndex = 23;
+            this.searchMarginButton.Text = "Поиск по наценке";
+            this.searchMarginButton.UseVisualStyleBackColor = true;
+            this.searchMarginButton.Visible = false;
+            this.searchMarginButton.Click += new System.EventHandler(this.searchMarginButton_Click);
+            // 
+            // toLabel
+            // 
+            this.toLabel.AutoSize = true;
+            this.toLabel.Location = new System.Drawing.Point(918, 86);
+            this.toLabel.Name = "toLabel";
+            this.toLabel.Size = new System.Drawing.Size(31, 20);
+            this.toLabel.TabIndex = 22;
+            this.toLabel.Text = "До:";
+            this.toLabel.Visible = false;
+            // 
+            // fromLabel
+            // 
+            this.fromLabel.AutoSize = true;
+            this.fromLabel.Location = new System.Drawing.Point(805, 86);
+            this.fromLabel.Name = "fromLabel";
+            this.fromLabel.Size = new System.Drawing.Size(29, 20);
+            this.fromLabel.TabIndex = 21;
+            this.fromLabel.Text = "От:";
+            this.fromLabel.Visible = false;
+            // 
+            // toTextBox
+            // 
+            this.toTextBox.Location = new System.Drawing.Point(953, 86);
+            this.toTextBox.MaxLength = 5;
+            this.toTextBox.Name = "toTextBox";
+            this.toTextBox.Size = new System.Drawing.Size(70, 27);
+            this.toTextBox.TabIndex = 20;
+            this.toTextBox.Text = "100";
+            this.toTextBox.Visible = false;
+            this.toTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.fromTextBox_KeyPress);
+            // 
+            // fromTextBox
+            // 
+            this.fromTextBox.Location = new System.Drawing.Point(840, 86);
+            this.fromTextBox.MaxLength = 5;
+            this.fromTextBox.Name = "fromTextBox";
+            this.fromTextBox.Size = new System.Drawing.Size(70, 27);
+            this.fromTextBox.TabIndex = 19;
+            this.fromTextBox.Text = "0";
+            this.fromTextBox.Visible = false;
+            this.fromTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.fromTextBox_KeyPress);
+            // 
+            // rangeLabel
+            // 
+            this.rangeLabel.AutoSize = true;
+            this.rangeLabel.Location = new System.Drawing.Point(845, 63);
+            this.rangeLabel.Name = "rangeLabel";
+            this.rangeLabel.Size = new System.Drawing.Size(144, 20);
+            this.rangeLabel.TabIndex = 18;
+            this.rangeLabel.Text = "Диапазон наценок:";
+            this.rangeLabel.Visible = false;
             // 
             // searchTextBox
             // 
@@ -139,6 +226,7 @@ namespace PublishingHouse
             this.searchTextBox.Size = new System.Drawing.Size(246, 27);
             this.searchTextBox.TabIndex = 17;
             this.searchTextBox.Visible = false;
+            this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
             // 
             // searchTypeLabel
             // 
@@ -200,23 +288,23 @@ namespace PublishingHouse
             // 
             // resetSelectRowsButton
             // 
-            this.resetSelectRowsButton.Location = new System.Drawing.Point(6, 143);
+            this.resetSelectRowsButton.Location = new System.Drawing.Point(783, 143);
             this.resetSelectRowsButton.Name = "resetSelectRowsButton";
             this.resetSelectRowsButton.Size = new System.Drawing.Size(203, 49);
             this.resetSelectRowsButton.TabIndex = 10;
             this.resetSelectRowsButton.Text = "Отменить выбор строк";
             this.resetSelectRowsButton.UseVisualStyleBackColor = true;
-            this.resetSelectRowsButton.Visible = false;
+            this.resetSelectRowsButton.Click += new System.EventHandler(this.resetSelectRowsButton_Click);
             // 
             // selectAllRowsButton
             // 
-            this.selectAllRowsButton.Location = new System.Drawing.Point(7, 65);
+            this.selectAllRowsButton.Location = new System.Drawing.Point(783, 65);
             this.selectAllRowsButton.Name = "selectAllRowsButton";
             this.selectAllRowsButton.Size = new System.Drawing.Size(203, 49);
             this.selectAllRowsButton.TabIndex = 9;
             this.selectAllRowsButton.Text = "Выбрать всё";
             this.selectAllRowsButton.UseVisualStyleBackColor = true;
-            this.selectAllRowsButton.Visible = false;
+            this.selectAllRowsButton.Click += new System.EventHandler(this.selectAllRowsButton_Click);
             // 
             // changeTypeLabel
             // 
@@ -300,11 +388,10 @@ namespace PublishingHouse
             this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.processingTab,
-            this.searchTab,
-            this.selectTab});
+            this.searchTab});
             this.menuStrip2.Location = new System.Drawing.Point(3, 23);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(770, 28);
+            this.menuStrip2.Size = new System.Drawing.Size(1043, 28);
             this.menuStrip2.TabIndex = 0;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -324,19 +411,11 @@ namespace PublishingHouse
             this.searchTab.Text = "Поиск";
             this.searchTab.Click += new System.EventHandler(this.searchTab_Click);
             // 
-            // selectTab
-            // 
-            this.selectTab.Image = ((System.Drawing.Image)(resources.GetObject("selectTab.Image")));
-            this.selectTab.Name = "selectTab";
-            this.selectTab.Size = new System.Drawing.Size(90, 24);
-            this.selectTab.Text = "Выбор";
-            this.selectTab.Click += new System.EventHandler(this.selectTab_Click);
-            // 
             // TypesProductMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 555);
+            this.ClientSize = new System.Drawing.Size(1073, 555);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.typesProductDataGridView);
             this.Controls.Add(this.menuStrip1);
@@ -370,7 +449,6 @@ namespace PublishingHouse
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem processingTab;
         private System.Windows.Forms.ToolStripMenuItem searchTab;
-        private System.Windows.Forms.ToolStripMenuItem selectTab;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Select;
         private System.Windows.Forms.Button changeButton;
         private System.Windows.Forms.Button deleteButton;
@@ -389,5 +467,12 @@ namespace PublishingHouse
         private System.Windows.Forms.Label searchTypeLabel;
         private System.Windows.Forms.ComboBox columnsComboBox;
         private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.TextBox fromTextBox;
+        private System.Windows.Forms.Label rangeLabel;
+        private System.Windows.Forms.Label toLabel;
+        private System.Windows.Forms.Label fromLabel;
+        private System.Windows.Forms.TextBox toTextBox;
+        private System.Windows.Forms.Button resetSearchButton;
+        private System.Windows.Forms.Button searchMarginButton;
     }
 }

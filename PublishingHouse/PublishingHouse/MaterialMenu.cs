@@ -33,6 +33,7 @@ namespace PublishingHouse
         /// <returns>Правильный ли ввод</returns>
         private bool CorrectInputSize() 
         {
+            
             //if ((!string.IsNullOrWhiteSpace(bComboBox.Text) && !string.IsNullOrWhiteSpace(cComboBox.Text)) || (!string.IsNullOrWhiteSpace(aComboBox.Text) && !string.IsNullOrWhiteSpace(cComboBox.Text)) || (!string.IsNullOrWhiteSpace(aComboBox.Text) || !string.IsNullOrWhiteSpace(cComboBox.Text)) || (!string.IsNullOrWhiteSpace(aComboBox.Text) && !string.IsNullOrWhiteSpace(bComboBox.Text) && !string.IsNullOrWhiteSpace(cComboBox.Text)) || (string.IsNullOrWhiteSpace(aComboBox.Text) && string.IsNullOrWhiteSpace(bComboBox.Text) && string.IsNullOrWhiteSpace(cComboBox.Text)))
             if((!string.IsNullOrEmpty(aComboBox.Text) && string.IsNullOrEmpty(bComboBox.Text) && string.IsNullOrEmpty(cComboBox.Text)) | (string.IsNullOrEmpty(aComboBox.Text) && !string.IsNullOrEmpty(bComboBox.Text) && string.IsNullOrEmpty(cComboBox.Text)) | (string.IsNullOrEmpty(aComboBox.Text) && string.IsNullOrEmpty(bComboBox.Text) && !string.IsNullOrEmpty(cComboBox.Text)))
                 return true;
@@ -208,6 +209,7 @@ namespace PublishingHouse
         /// <returns>Корректны ли данные</returns>
         private bool CorrectInputData()
         {
+           
             if (typeComboBox.Text == "" || color == ""  || !CorrectInputSize() || costTextBox.Text == "" || double.Parse(costTextBox.Text) <= 0)
             {
                 return false;
@@ -428,9 +430,9 @@ namespace PublishingHouse
                     double to = double.Parse(toTextBox.Text);
 
                     // Если некорректный ввод данных
-                    if (from <= 0 || to <= 0 || from >= to)
+                    if (from >= to)
                     {
-                        MessageBox.Show("Диапазон должен содержать числа больше нуля. Значение правого текстового поля должно быть больше левого", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Значение правого текстового поля должно быть больше левого", "Поиск материала по стоимости", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else
                     {
