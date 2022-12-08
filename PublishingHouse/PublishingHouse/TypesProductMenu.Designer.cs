@@ -96,6 +96,7 @@ namespace PublishingHouse
             this.typesProductDataGridView.RowTemplate.Height = 50;
             this.typesProductDataGridView.Size = new System.Drawing.Size(776, 271);
             this.typesProductDataGridView.TabIndex = 1;
+            this.typesProductDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.typesProductDataGridView_ColumnStateChanged);
             // 
             // Select
             // 
@@ -235,6 +236,7 @@ namespace PublishingHouse
             // 
             // changeButton
             // 
+            this.changeButton.Enabled = false;
             this.changeButton.Location = new System.Drawing.Point(524, 143);
             this.changeButton.Name = "changeButton";
             this.changeButton.Size = new System.Drawing.Size(203, 49);
@@ -346,6 +348,7 @@ namespace PublishingHouse
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Типы печатной продукции";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TypesProductMenu_FormClosing);
+            this.Load += new System.EventHandler(this.TypesProductMenu_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.typesProductDataGridView)).EndInit();

@@ -52,9 +52,57 @@ namespace PublishingHouse
             Transition.TransitionByForms(this, fillDataTypeProduct);
         }
 
+        /// <summary>
+        /// Метод очистки значений для буфферных переменных
+        /// </summary>
+        private void ClearBuffer()
+        {
+            typeProduct = null;
+            state = ' ';
+            id = -1;
+        }
+
+        /// <summary>
+        /// Метод,который приводит компоненты и переменные в состояние по умолчанию
+        /// </summary>
+        private void DefaultStateOfMenu()
+        {
+            ClearBuffer();
+            addTypeLabel.Text = "";
+            changeTypeLabel.Text = "";
+            addButton.Enabled = true;
+            deleteButton.Enabled = true;
+            changeButton.Enabled = false;
+
+        }
+
         private void addButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (typeProduct == null || state != 'A')
+                    MessageBox.Show("Перед добавлением типа печатной продукции необходимо ввести данные о нём", "Добавление типа печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    if (typeProduct.AddTypeProduct() == 1)
+                    {
+                        MessageBox.Show("Запись успешно добавлена!", "Добавление типа печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                        // Выводим новые данные и делаем комноненты и переменные в состояние по умолчанию
+                        ReloadData();
+                        DefaultStateOfMenu();
+
+
+                    }
+                    else
+                        MessageBox.Show("Количество добавленных записей не равно единице", "Добавление типа печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка добавления типа печатной продукции", "Добавление типа печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void selectForChangeButton_Click(object sender, EventArgs e)
@@ -64,6 +112,8 @@ namespace PublishingHouse
 
         private void restAddOrChangeButton_Click(object sender, EventArgs e)
         {
+            // Приводим буфферные данные и компоненты в состояние по умолчанию
+            DefaultStateOfMenu();
 
         }
 
@@ -141,6 +191,69 @@ namespace PublishingHouse
             searchTextBox.Visible = false;
             selectAllRowsButton.Visible = true;
             resetSelectRowsButton.Visible = true;
+        }
+
+        private void TypesProductMenu_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadTable();
+
+                // Если пользователь добавляет запись
+                if (typeProduct != null && state == 'A')
+                    addTypeLabel.Text = "Вы можете добавить запись";
+
+                // Если пользователь изменяет запись
+                else if (typeProduct != null && state == 'C')
+                {
+                    addButton.Enabled = false;
+                    deleteButton.Enabled = false;
+                    changeButton.Enabled = true;
+
+                    changeTypeLabel.Text = "Вы можете изменить запись";
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка отображения стартовых данных", "Отображение стартовых данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+
+        /// <summary>
+        /// Метод вывода новых данных из бд
+        /// </summary>
+        private void ReloadData()
+        {
+            // Удаляем все строки из таблицы
+            while (typesProductDataGridView.Rows.Count != 0)
+            {
+                typesProductDataGridView.Rows.Remove(typesProductDataGridView.Rows[typesProductDataGridView.Rows.Count - 1]);
+            }
+
+            // Загружаем новые данные
+            LoadTable();
+
+        }
+
+        /// <summary>
+        /// Метод загрузки данных
+        /// </summary>
+        private void LoadTable()
+        {
+            // Загружаем данные о типах печатной продукции в таблицу
+            TypeProduct.LoadTypesProducts(typesProductDataGridView);
+            WorkWithDataDgv.SetReadOnlyColumns(typesProductDataGridView);
+
+            typesProductDataGridView.Columns["Тип печатной продукции"].Width = 440;
+            typesProductDataGridView.Columns["Наценка в %"].Width = 220;
+
+        }
+
+        private void typesProductDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
     }
 }

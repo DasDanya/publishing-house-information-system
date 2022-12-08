@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using System.Windows.Forms;
 
 namespace PublishingHouse
 {
@@ -72,24 +73,25 @@ namespace PublishingHouse
                 // Если пользователь добавляет запись
                 if (typeWork == 'A')
                     // Запрос на существование названия
-                    command = new SqlCommand("SELECT COUNT(typeProdName) FROM typeProduct WHERE typeProdName = '" + newName + "'", ConnectionToDb.Connection);
+                    command = new SqlCommand("SELECT COUNT(typeProdName) FROM typeProduct WHERE typeProdName = N'" + newName + "'", ConnectionToDb.Connection);
+
 
                 // Если пользователь редактирует запись
                 else if (typeWork == 'C')
                 {
                     // Получаем id записи
                     int id = GetIdByName(pastName);
-
                     ConnectionToDb.Open();
 
                     //Запрос на существование названия, не учитывая изменяемую запись 
-                    command = new SqlCommand("SELECT COUNT(typeProdName) FROM typeProduct WHERE typeProdName = '" + newName + "' AND typeProdId != '" + id + "' ", ConnectionToDb.Connection);
+                    command = new SqlCommand("SELECT COUNT(typeProdName) FROM typeProduct WHERE typeProdName = N'" + newName + "' AND typeProdId != '" + id + "' ", ConnectionToDb.Connection);
 
                 }
 
                 // Если название найдено
-                if (Convert.ToInt32(command.ExecuteScalar()) > 0)
+                if (Convert.ToInt32(command.ExecuteScalar()) > 0)  
                     exist = true;
+                
 
                 ConnectionToDb.Close();
             }
@@ -100,6 +102,63 @@ namespace PublishingHouse
             }
 
             return exist;
+        }
+
+        /// <summary>
+        /// Метод добавления типа печатной продукции в бд
+        /// </summary>
+        /// <returns>Количество добавленных типов печатной продукции</returns>
+        public int AddTypeProduct()
+        {
+            int countTypesProducts = -1;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Создаём запрос на добавление типа печатной продукции и выполняем его
+                SqlCommand command = new SqlCommand("INSERT INTO typeProduct (typeProdName, typeProdMargin) VALUES (N'" + name + "', @margin)", ConnectionToDb.Connection);
+                command.Parameters.Add("@margin", SqlDbType.Float).Value = margin;
+                countTypesProducts = command.ExecuteNonQuery();
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка добавления типа печатной продукции");
+            }
+
+            return countTypesProducts;
+        }
+
+        /// <summary>
+        /// Метод добавления данных о типах печатной продукции в таблицу
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        public static void LoadTypesProducts(DataGridView dataGridView)
+        {
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение типов печатной продукции
+                SqlCommand command = new SqlCommand("SELECT typeProdName AS 'Тип печатной продукции', typeProdMargin AS 'Наценка в %' FROM typeProduct ORDER BY typeProdName", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Загружаем данные о типах печатной продукции в таблицу
+                DataTable dt = new DataTable();
+                dt.Load(dataReader);
+                dataGridView.DataSource = dt;
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о типах печатной продукции");
+            }
+
         }
     }
 }

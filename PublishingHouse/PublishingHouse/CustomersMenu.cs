@@ -381,6 +381,9 @@ namespace PublishingHouse
             }
         }
 
+        /// <summary>
+        /// Метод загрузки данных
+        /// </summary>
         private void LoadTable()
         {
             // Загружаем данные о заказчиках в таблицу

@@ -108,9 +108,11 @@ namespace PublishingHouse
                         // Текущие данные о названии типа печатной продукции
                         name = this.typeProduct.Name;
                     }
+
                     // Если существует тип печатной продукции с введенным названием
                     if (!TypeProduct.ExistNameInDb(state, name, nameTextBox.Text))
                     {
+
                         // Создаём тип печатной продукции
                         TypeProduct typeProduct = new TypeProduct(nameTextBox.Text, Convert.ToDouble(marginTextBox.Text));
 
