@@ -17,7 +17,7 @@ namespace PublishingHouse
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AuthorizationMenu());
+            Application.Run(new TypesProductMenu());
         }
     }
 }

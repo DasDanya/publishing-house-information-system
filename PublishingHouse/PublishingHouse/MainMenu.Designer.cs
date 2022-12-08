@@ -35,6 +35,7 @@ namespace PublishingHouse
             this.materialTab = new System.Windows.Forms.ToolStripMenuItem();
             this.printingHouseTab = new System.Windows.Forms.ToolStripMenuItem();
             this.customersTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.productTab = new System.Windows.Forms.ToolStripMenuItem();
             this.Tabs.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,7 +46,8 @@ namespace PublishingHouse
             this.employeeTab,
             this.materialTab,
             this.printingHouseTab,
-            this.customersTab});
+            this.customersTab,
+            this.productTab});
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
             this.Tabs.Size = new System.Drawing.Size(800, 28);
@@ -84,6 +86,14 @@ namespace PublishingHouse
             this.customersTab.Text = "Заказчики";
             this.customersTab.Click += new System.EventHandler(this.customersTab_Click);
             // 
+            // productTab
+            // 
+            this.productTab.Image = ((System.Drawing.Image)(resources.GetObject("productTab.Image")));
+            this.productTab.Name = "productTab";
+            this.productTab.Size = new System.Drawing.Size(188, 24);
+            this.productTab.Text = "Печатная продукция";
+            this.productTab.Click += new System.EventHandler(this.productTab_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -113,6 +123,7 @@ namespace PublishingHouse
         private System.Windows.Forms.ToolStripMenuItem materialTab;
         private System.Windows.Forms.ToolStripMenuItem printingHouseTab;
         private System.Windows.Forms.ToolStripMenuItem customersTab;
+        private System.Windows.Forms.ToolStripMenuItem productTab;
     }
 }
 

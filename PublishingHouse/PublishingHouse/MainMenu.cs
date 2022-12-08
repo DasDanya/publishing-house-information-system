@@ -53,7 +53,13 @@ namespace PublishingHouse
         private void customersTab_Click(object sender, EventArgs e)
         {
             CustomersMenu customersMenu = new CustomersMenu();
-            Transition.TransitionByForms(this, customersMenu);
+            Transition.TransitionByForms(this, customersMenu); // Переход между формами
+        }
+
+        private void productTab_Click(object sender, EventArgs e)
+        {
+            ProductMenu productMenu = new ProductMenu();
+            Transition.TransitionByForms(this, productMenu); // Переход между формами
         }
     }
 }

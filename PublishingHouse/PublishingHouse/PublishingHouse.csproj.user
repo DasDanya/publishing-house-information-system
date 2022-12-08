@@ -40,5 +40,11 @@
     <Compile Update="PrintingHouseMenu.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ProductMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TypesProductMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

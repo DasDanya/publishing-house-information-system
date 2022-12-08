@@ -34,3 +34,5 @@ C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHou
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.CustomersMenu.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FillDataCustomerMenu.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FashionCustomersMenu.resources
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.ProductMenu.resources
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.TypesProductMenu.resources
