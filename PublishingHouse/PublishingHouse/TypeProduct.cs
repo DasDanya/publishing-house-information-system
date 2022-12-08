@@ -149,7 +149,7 @@ namespace PublishingHouse
         /// Метод добавления данных о типах печатной продукции в таблицу
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
-        public static void LoadTypesProducts(DataGridView dataGridView)
+        public static void LoadTypesProduct(DataGridView dataGridView)
         {
 
             try
@@ -207,6 +207,38 @@ namespace PublishingHouse
         }
 
         /// <summary>
+        /// Метод,определяющий указаны ли типы печатной продукции
+        /// </summary>
+        /// <param name="arrayIdTypesProduct">Массив id типов печатной продукции</param>
+        /// <returns>Указан ли хоть один тип печатной продукции</returns>
+        public static bool TypeProductAreIndicated(int[] arrayIdTypesProduct)
+        {
+            bool areIndicated = false;
+
+            try
+            {
+
+                for (int i = 0; i < arrayIdTypesProduct.Length; i++)
+                {
+                    if (TypeProductIsIndicated(arrayIdTypesProduct[i]))
+                    {
+                        areIndicated = true;
+                        break;
+                    }
+                }
+
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о том, указаны ли типы печатной продукции");
+            }
+
+
+            return areIndicated;
+        }
+
+
+        /// <summary>
         /// Метод изменения данных о типе печатной продукции
         /// </summary>
         /// <param name="id">id записи о типе печатной продукции</param>
@@ -232,6 +264,72 @@ namespace PublishingHouse
             }
 
             return countChangedRows;
+        }
+
+        /// <summary>
+        /// Метод получения массива id типов печатной продукции
+        /// </summary>
+        /// <param name="dataGridView">Таблица с типами печатной продукции</param>
+        /// <param name="selectedRows">Список выбранных строк</param>
+        /// <returns>Массив id типов печатной продукции</returns>
+        public static int[] GetArrayIdTypesProduct(DataGridView dataGridView, List<int> selectedRows)
+        {
+            int indexArray = 0;
+            int[] arrayId = new int[selectedRows.Count];
+
+            SqlCommand command = new SqlCommand();
+            try
+            {
+                ConnectionToDb.Open();
+
+                for (int i = 0; i < dataGridView.Rows.Count; i++)
+                {
+                    // Если список содержит индекс
+                    if (selectedRows.Contains(i))
+                    {
+                        // Получаем id и добавляем в список
+                        arrayId[indexArray++] = GetIdTypeProduct(dataGridView.Rows[i].Cells["Тип печатной продукции"].Value.ToString(), Convert.ToDouble(dataGridView.Rows[i].Cells["Наценка в %"].Value));
+                    }
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения массива идентификаторов записей о заказчиках");
+            }
+
+            return arrayId;
+        }
+
+        /// <summary>
+        /// Метод удаления типов печатной продукции из бд
+        /// </summary>
+        /// <param name="arrayId">Массив id типов печатной продукции</param>
+        /// <returns>Количество удаленных записей</returns>
+        public static int DeleteTypesProduct(int[] arrayId)
+        {
+            int countDeleteRows = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Проходимся по массиву id
+                for (int i = 0; i < arrayId.Length; i++)
+                {
+                    // Удаляем тип печатной продукции с конкретным id
+                    SqlCommand command = new SqlCommand("DELETE FROM typeProduct WHERE typeProdId = '" + arrayId[i] + "'", ConnectionToDb.Connection);
+                    countDeleteRows += command.ExecuteNonQuery();
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Произошла ошибка удаления типов печатной продукции");
+            }
+            return countDeleteRows;
         }
 
     }

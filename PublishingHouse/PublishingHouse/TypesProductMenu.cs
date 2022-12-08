@@ -139,7 +139,44 @@ namespace PublishingHouse
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                // Если пользователь выбрал 0 записей
+                if (WorkWithDataDgv.CountSelectedRows(typesProductDataGridView) < 1)
+                    MessageBox.Show("Неодходимо выбрать одну или несколько записей", "Удаление типов печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    // Если пользователь соглашается на удаление записи(-ей)
+                    if (MessageBox.Show("Вы точно хотите удалить эту(-и) запись(-и)?", "Удаление типов печатной продукции", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        // Получаем массив id
+                        int[] arrayId = TypeProduct.GetArrayIdTypesProduct(typesProductDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(typesProductDataGridView));
 
+                        // Если все типы печатной продукции не указаны
+                        if (!TypeProduct.TypeProductAreIndicated(arrayId))
+                        {
+                            // Если мы удалили указанное количество записей
+                            if (TypeProduct.DeleteTypesProduct(arrayId) == arrayId.Length)
+                            {
+                                MessageBox.Show("Записи успешно удалены!", "Удаление типов печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                ReloadData();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Количество удаленных записей не совпадает с количеством выбранных записей", "Удаление типов печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                            MessageBox.Show("Невозможно удалить тип печатной продукции, так как он указан в печатной продукции. Удалите все печатные продукции, где указан выбранный тип печатной продукции, и повторите попытку", "Удаление типов печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    }
+                }
+            }
+            catch
+            {
+
+                MessageBox.Show("Произошла ошибка удаления типов печатной продукции", "Удаление типов печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void changeButton_Click(object sender, EventArgs e)
@@ -280,7 +317,7 @@ namespace PublishingHouse
         private void LoadTable()
         {
             // Загружаем данные о типах печатной продукции в таблицу
-            TypeProduct.LoadTypesProducts(typesProductDataGridView);
+            TypeProduct.LoadTypesProduct(typesProductDataGridView);
             WorkWithDataDgv.SetReadOnlyColumns(typesProductDataGridView);
 
             typesProductDataGridView.Columns["Select"].Width = 200;
