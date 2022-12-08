@@ -102,6 +102,7 @@ namespace PublishingHouse
             this.saveInputDataButton.TabIndex = 5;
             this.saveInputDataButton.Text = "Сохранить введённые данные";
             this.saveInputDataButton.UseVisualStyleBackColor = true;
+            this.saveInputDataButton.Click += new System.EventHandler(this.saveInputDataButton_Click);
             // 
             // FillDataTypeProduct
             // 
@@ -122,6 +123,7 @@ namespace PublishingHouse
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ввод данных о типе печатной продукции";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FillDataTypeProduct_FormClosing);
+            this.Load += new System.EventHandler(this.FillDataTypeProduct_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

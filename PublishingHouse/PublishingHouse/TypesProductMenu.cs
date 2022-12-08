@@ -10,9 +10,28 @@ namespace PublishingHouse
 {
     public partial class TypesProductMenu : Form
     {
+        TypeProduct typeProduct = null;
+        char state = ' ';
+        int id = -1;
+
         public TypesProductMenu()
         {
             InitializeComponent();
+        }
+
+        public TypesProductMenu(TypeProduct typeProduct, char state)
+        {
+            InitializeComponent();
+            this.typeProduct = typeProduct;
+            this.state = state;
+        }
+
+        public TypesProductMenu(TypeProduct typeProduct, char state, int id)
+        {
+            InitializeComponent();
+            this.typeProduct = typeProduct;
+            this.state = state;
+            this.id = id;
         }
 
         private void backTab_Click(object sender, EventArgs e)

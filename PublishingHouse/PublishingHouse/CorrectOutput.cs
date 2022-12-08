@@ -33,16 +33,6 @@ namespace PublishingHouse
             }
 
             return new string(letters);
-        }
-
-        /// <summary>
-        /// Метод удаления пробелов в строке
-        /// </summary>
-        /// <param name="str">Строка</param>
-        /// <returns>Строка без пробелов</returns>
-        public static string DeleteSpaces(string str) 
-        {
-            return str.Replace(" ", "");
-        }
+        }        
     }
 }
