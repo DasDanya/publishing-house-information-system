@@ -332,5 +332,99 @@ namespace PublishingHouse
             return countDeleteRows;
         }
 
+      
+        public static List<Product> GetListProductsThisTypeProduct(string name, double margin)
+        {
+            List<Product> products = new List<Product>();
+
+            try
+            {
+
+                // Получаем id типа печатной продукции
+                int id = GetIdTypeProduct(name, margin);
+
+                ConnectionToDb.Open();
+
+                // Выполняем запрос на получения списка печатных продукций
+                SqlCommand command = new SqlCommand("SELECT * FROM typeProduct, product WHERE product.ftypeProdId = '" + id + "' AND typeProduct.typeProdId = '" + id + "'", ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Считываем данные из ридера и записываем в список
+                while (dataReader.Read())
+                {
+                    // Получаем данные о печатной продукции и добавляем в список
+                    string nameProduct = dataReader["prodName"].ToString();
+                    int numberEdition = Convert.ToInt32(dataReader["prodNumEdition"]);
+                    products.Add(new Product(nameProduct, numberEdition));
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения списка печатных продукций конкретного типа печатной продукции");
+            }
+
+            return products;
+        }
+
+        /// <summary>
+        /// Метод получения количества записей
+        /// </summary>
+        /// <returns>Количество записей</returns>
+        public static int GetCountRecords()
+        {
+            int count = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение количества записей и выполняем его
+                SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM typeProduct", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                count = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения количества типов печатной продукции");
+            }
+
+            return count;
+        }
+
+        /// <summary>
+        /// Метод получения данных о типах печатной продукции по определенному порядку фильтрации
+        /// </summary>
+        /// <param name="order">Порядок фильтрации</param>
+        /// <param name="outStringCount">Количество выводимых строк</param>
+        /// <returns>DataTable с отсортированными данными</returns>
+        public static DataTable GetTableByOccurrence(string order, int outStringCount)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем, выполняем запрос на получение данных о типах печатной продукции в определенном порядке
+                string query = String.Format("SELECT TOP {0} typeProduct.typeProdName AS N'Название типа печатной продукции', typeProduct.typeProdMargin AS N'Наценка в %', COUNT(product.ftypeProdId) AS N'Количество упоминаний' FROM typeProduct LEFT JOIN product ON typeProduct.typeProdId = product.ftypeProdId GROUP BY typeProduct.typeProdName, typeProduct.typeProdMargin ORDER BY COUNT(product.ftypeProdId) {1} ", outStringCount, order);
+                SqlCommand command = new SqlCommand(query, ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Загружаем полученные данные в DataTable
+                dt.Load(dataReader);
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о типах печатной продукции");
+            }
+
+            return dt;
+        }
     }
 }

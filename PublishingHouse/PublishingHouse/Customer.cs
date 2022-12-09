@@ -85,13 +85,13 @@ namespace PublishingHouse
 
       
         /// <summary>
-        /// Метод получения списка id заказов заказчика
+        /// Метод получения номеров заказов заказчика
         /// </summary>
         /// <param name="idCustomer">id заказчика</param>
-        /// <returns>Список id заказов</returns>
+        /// <returns>Список номеров заказов</returns>
         public static List<int> GetNumbersOfOrdersThisCustomer(string email)
         {
-            List<int> listIds = new List<int>();
+            List<int> listNumbers = new List<int>();
 
             try
             {
@@ -109,18 +109,18 @@ namespace PublishingHouse
                 while (dataReader.Read())
                 {
                     // Получаем id заказа
-                    int idOrder = Convert.ToInt32(dataReader["bkNumber"]);
-                    listIds.Add(idOrder);
+                    int numberOrder = Convert.ToInt32(dataReader["bkNumber"]);
+                    listNumbers.Add(numberOrder);
                 }
 
                 ConnectionToDb.Close();
             }
             catch
             {
-                throw new Exception("Ошибка получения списка уникальных номеров заказов заказчика");
+                throw new Exception("Ошибка получения списка номеров заказов заказчика");
             }
 
-            return listIds;
+            return listNumbers;
         }
 
 

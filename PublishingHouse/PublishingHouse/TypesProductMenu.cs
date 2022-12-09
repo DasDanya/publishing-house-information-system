@@ -403,5 +403,54 @@ namespace PublishingHouse
             // Ищём запрашиваемые данные в таблице
             WorkWithDataDgv.GetLikeString(typesProductDataGridView, columnsComboBox, searchTextBox);
         }
+
+        private void getProductsButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                productsTreeView.Nodes.Clear();
+                // Если пользователь выбрал 0 или несколько записей
+                if (WorkWithDataDgv.CountSelectedRows(typesProductDataGridView) != 1)
+                    MessageBox.Show("Неодходимо выбрать одну запись", "Получение печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    // Получаем список заказов
+                    List<Product> products = TypeProduct.GetListProductsThisTypeProduct(typesProductDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(typesProductDataGridView)].Cells["Тип печатной продукции"].Value.ToString(), Convert.ToDouble(typesProductDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(typesProductDataGridView)].Cells["Наценка в %"].Value));
+
+                    // Если список пуст
+                    if (products.Count == 0)
+                        MessageBox.Show("Выбранный тип печатной продукции не указан ни в одной печатной продукции", "Получение печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                    {
+                        // Выводим наименование заказчика
+                        productsTreeView.Nodes.Add($"Название печатной продукции: её номер тиража");
+
+                        // Выводим номера заказов
+                        foreach (Product product in products)
+                        {
+                            productsTreeView.Nodes.Add($"{product.Name}: {product.NumberEdition}");
+                        }
+                    }
+
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка получения печатных продукций", "Получение печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void fashionTypesButton_Click(object sender, EventArgs e)
+        {
+            if (typesProductDataGridView.Rows.Count > 0)
+            {
+                FashionTypeProductMenu fashionTypeProductMenu = new FashionTypeProductMenu();
+                Transition.TransitionByForms(this, fashionTypeProductMenu);
+
+            }
+            else
+                MessageBox.Show("Невозможно вывести моду данных о типах печатной продукции, так они отсутствуют!", "Вывод моды данных о типах печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
 }

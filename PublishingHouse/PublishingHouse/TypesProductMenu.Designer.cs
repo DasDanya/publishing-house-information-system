@@ -267,6 +267,7 @@ namespace PublishingHouse
             this.fashionTypesButton.Text = "Мода типов печатной продукции";
             this.fashionTypesButton.UseVisualStyleBackColor = true;
             this.fashionTypesButton.Visible = false;
+            this.fashionTypesButton.Click += new System.EventHandler(this.fashionTypesButton_Click);
             // 
             // getProductsButton
             // 
@@ -277,6 +278,7 @@ namespace PublishingHouse
             this.getProductsButton.Text = "Получить печатные продукции";
             this.getProductsButton.UseVisualStyleBackColor = true;
             this.getProductsButton.Visible = false;
+            this.getProductsButton.Click += new System.EventHandler(this.getProductsButton_Click);
             // 
             // productsTreeView
             // 
