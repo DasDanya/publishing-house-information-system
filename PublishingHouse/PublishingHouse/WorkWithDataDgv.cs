@@ -25,7 +25,7 @@ namespace PublishingHouse
             for (int i = 0; i < dataGridView.Rows.Count; i++)
             {
                 // Если строка выбрана -> увеличиваем значение переменной количества выбранных строк
-                if (Convert.ToBoolean(dataGridView.Rows[i].Cells["Select"].Value))
+                if (Convert.ToBoolean(dataGridView.Rows[i].Cells[0].Value))
                     count++;
             }
 
@@ -251,6 +251,27 @@ namespace PublishingHouse
 
 
             return photo;
+        }
+
+        /// <summary>
+        /// Метод удаления всех строк из DataGridView
+        /// </summary>
+        /// <param name="dataGridView">DataGridView, у которого надо удалить все строки</param>
+        public static void DeleteAllRowsFromDataGridView(DataGridView dataGridView) 
+        {
+            dataGridView.Rows.Clear();
+            dataGridView.Refresh();
+        }
+
+        public static void DeleteSelectedRowsFromDataGridView(DataGridView dataGridView) 
+        {
+            for (int i = dataGridView.Rows.Count-1; i >= 0; i--)
+            {
+                // Если строка выбрана, то удаляем её
+                if (Convert.ToBoolean(dataGridView.Rows[i].Cells[0].Value))
+                    dataGridView.Rows.RemoveAt(i);
+            }
+
         }
     }
 }

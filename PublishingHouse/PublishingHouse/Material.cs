@@ -78,6 +78,34 @@ namespace PublishingHouse
         }
 
         /// <summary>
+        /// Метод заполнения таблицы данными о материалах
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="materials">Массив материалов</param>
+        public static void FillTableWithMaterials(DataGridView dataGridView, Material[] materials) 
+        {
+                      
+            // Проходимся по массиву материалов
+            for (int i = 0; i < materials.Length; i++)
+            {
+
+                // Создаём строку
+                DataGridViewRow row = new DataGridViewRow();
+                row.CreateCells(dataGridView);
+
+                // Заполняем строку данными и добавляем в таблицу
+                row.Cells[1].Value = materials[i].type;
+                row.Cells[2].Value = materials[i].color;
+                row.Cells[3].Value = materials[i].size;
+                row.Cells[4].Value = materials[i].cost;
+                row.Height = 50;
+                dataGridView.Rows.Add(row);
+
+            }
+           
+        }
+
+        /// <summary>
         /// Метод получения массива выбранных материалов
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
@@ -468,6 +496,70 @@ namespace PublishingHouse
 
 
             return areUsed;
+        }
+
+        /// <summary>
+        /// Метод, проверяющий,что все материалы из массива имеют одинаковый размер
+        /// </summary>
+        /// <param name="materials">Массив материалов</param>
+        /// <returns>Все материалы их масства имеют одинаковый размер</returns>
+        public static bool SameSizeMaterials(Material[] materials) 
+        {
+            if (materials.Length == 1)
+                return true;
+            else
+            {
+                // Получаем данные о материале
+                string size = materials[0].size;
+
+                // Сравниваем первый материал с остальными
+                for (int i = 1; i < materials.Length; i++)
+                {
+                    if (materials[i].size != size)
+                        return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Метод, проверяющий есть ли в массиве материалы с одинаковым типом, цветом и размером
+        /// </summary>
+        /// <param name="materials">Массив материалов</param>
+        /// <returns>Есть ли в массиве материалы с одинаковым типом, цветом и размером</returns>
+        public static bool SameSizeColorTypeMaterial(Material[] materials) 
+        {
+            bool same = false;
+
+            if (materials.Length == 1)
+                return same;
+            else
+            {
+                // Проходимся по массиву
+                for (int i = 0; i < materials.Length - 1; i++)
+                {
+                    string type = materials[i].type;
+                    string color = materials[i].color;
+                    string size = materials[i].size;
+
+                    for (int j = 1; j < materials.Length; j++)
+                    {
+                        // Если материалы имеют разный индекс
+                        if (i != j)
+                        {
+                            // Если существуют материалы с одинаковым типом, цветом и размером
+                            if (type == materials[j].type && color == materials[j].color && size == materials[j].size)
+                            {
+                                same = true;
+                                goto exit;
+                            }
+                        }
+                    }
+                }
+            }
+            exit:
+            return same;
         }
     }
 }

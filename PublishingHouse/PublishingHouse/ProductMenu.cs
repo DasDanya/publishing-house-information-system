@@ -31,5 +31,12 @@ namespace PublishingHouse
             TypesProductMenu typesProductMenu = new TypesProductMenu();
             Transition.TransitionByForms(this, typesProductMenu);
         }
+
+        private void inputDataButton_Click(object sender, EventArgs e)
+        {
+            // Переходим в меню ввода данных о печатной продукции
+            FillDataProduct fillDataProduct = new FillDataProduct('A');
+            Transition.TransitionByForms(this, fillDataProduct);
+        }
     }
 }
