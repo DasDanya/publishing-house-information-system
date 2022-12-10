@@ -4,6 +4,8 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Windows.Forms;
 using System.Data;
+using System.Drawing;
+using System.IO;
 
 namespace PublishingHouse
 {
@@ -18,6 +20,7 @@ namespace PublishingHouse
 
         public string Name { get { return name; } }
         public int NumberEdition { get { return numberEdition; } }
+        public int IdTypeProduct { get { return idTypeProduct; } }
 
         public Product(string name, int numberEdition)
         {
@@ -35,15 +38,15 @@ namespace PublishingHouse
         }
 
 
-        /// <summary>
-        /// Метод проверки существования печатной продукции в бд
-        /// </summary>
-        /// <param name="typeWork">Тип работы с данными</param>
-        /// <param name="pastNumEdition">Старый номер тиража</param>
-        /// <param name="newNumEdition">Новый номер тиража</param>
-        /// <param name="pastName">Прошлое название</param>
-        /// <param name="newName">Новое название</param>
-        /// <returns>Существует ли печатная продукция в бд</returns>
+       /// <summary>
+       /// Метод проверки существования печатной продукции в бд
+       /// </summary>
+       /// <param name="typeWork">Тип работы с данными</param>
+       /// <param name="pastNumEdition">Прошлый номер тиража</param>
+       /// <param name="newNumEdition">Новый номер тиража</param>
+       /// <param name="pastName">Прошлое название</param>
+       /// <param name="newName">Новое название</param>
+       /// <returns></returns>
         public static bool ExistProductInDb(char typeWork, int pastNumEdition, int newNumEdition, string pastName, string newName)
         {
             bool exist = false;
@@ -92,9 +95,10 @@ namespace PublishingHouse
         /// <summary>
         /// Метод получения id печатной продукции
         /// </summary>
-        /// <param name="name">Название печатной продукции</param>
-        /// <param name="numEdition">Номер тиража печатной продукции</param>
-        /// <returns>id печатной продукции</returns>
+        /// <param name="name">Название</param>
+        /// <param name="numEdition">Номер тиража</param>
+        /// <param name="idTypeProduct">id типа печатной продукции</param>
+        /// <returns></returns>
         public static int GetIdProduct(string name, int numEdition)
         {
             int id = -1;
@@ -121,6 +125,13 @@ namespace PublishingHouse
             return id;
         }
 
+        /// <summary>
+        /// Метод подсчёта стоимости печатной продукции
+        /// </summary>
+        /// <param name="dataGridView">Таблица с материалами</param>
+        /// <param name="margin">Наценка</param>
+        /// <param name="countProduct">Количество печатной продукции</param>
+        /// <returns>Стоимость печатной продукции</returns>
         public static double GetCostProduct(DataGridView dataGridView, int margin, int countProduct) 
         {
             double cost = 0;
@@ -147,6 +158,10 @@ namespace PublishingHouse
             return cost;
         }
 
+        /// <summary>
+        /// Метод добавления печатной продукции
+        /// </summary>
+        /// <returns>1- если количество добавленных строк равно ожидаемому количеству добавленных строк</returns>
         public int AddProduct() 
         {
             int countSelectedRows = -1;
@@ -168,10 +183,9 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch(Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
-                //throw new Exception("Ошибка добавления данных о печатной продукции");
+                throw new Exception("Ошибка добавления данных о печатной продукции");
             }
 
             return countSelectedRows;
@@ -204,13 +218,99 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch(Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
-                //throw new Exception("Ошибка добавления данных в таблицу \"Печатная продукция-Материал\"");
+                throw new Exception("Ошибка добавления данных в таблицу \"Печатная продукция-Материал\"");
             }
 
             return success;
         }
+
+    
+        /// <summary>
+        /// Метод загрузки данных о печатных продукциях в таблицу
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        public static void LoadProductsInTable(DataGridView dataGridView) 
+        {
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение печатных продукций
+                SqlCommand command = new SqlCommand("SELECT product.prodName AS N'Название', typeProduct.typeProdName AS N'Тип печ. продукции', product.prodNumEdition AS N'Номер тиража', product.prodEdition AS N'Тираж', product.prodCost AS N'Стоимость' FROM product JOIN typeProduct ON product.ftypeProdId = typeProduct.typeProdId ORDER BY product.prodName", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Загружаем данные о печатных продукциях в таблицу
+                DataTable dt = new DataTable();
+                dt.Load(dataReader);
+                dataGridView.DataSource = dt;
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о печатных продукциях");
+            }
+
+        }
+
+       /// <summary>
+       /// Метод получения макета печатной продукции из бд
+       /// </summary>
+       /// <param name="name">Название печатной продукции</param>
+       /// <param name="numEdition">Номер тиража</param>
+       /// <returns>Макет в виде массива байт</returns>
+        private static byte[] GetPhotoProduct(string name, int numEdition)
+        {
+            byte[] photo = null;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение фотографии печатной продукции и выполняем его
+                SqlCommand command = new SqlCommand("SELECT prodVisual FROM product WHERE prodName = N'" + name + "' AND prodNumEdition = '"+numEdition+"'", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                photo = (byte[])command.ExecuteScalar();
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения фотографии макета печатной продукции");
+            }
+
+            return photo;
+        }
+
+        /// <summary>
+        /// Метод получения изображения макета печатной продукции
+        /// </summary>
+        /// <param name="name">Название печатной продукции</param>
+        /// <param name="idTypeProduct">id типа печатной продукции</param>
+        /// <returns>Макет в виде Image</returns>
+        public static Image GetPhotoAsImage(string name, int numEdition)
+        {
+            Image image = null;
+            try
+            {
+                // Получаем фотографию пользователя из бд
+                byte[] photo = GetPhotoProduct(name, numEdition);
+
+
+                // Переводим изображение из массива байт в Image 
+                MemoryStream stream = new MemoryStream(photo);
+                image = Image.FromStream(stream);
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения изображения");
+            }
+
+            return image;
+        }
+
     }
 }

@@ -76,6 +76,9 @@ namespace PublishingHouse
             }
         }
 
+        /// <summary>
+        /// Метод загрузки данных в таблицу
+        /// </summary>
         private void LoadTable() 
         {
             // Загружаем данные о сотрудниках в таблицу

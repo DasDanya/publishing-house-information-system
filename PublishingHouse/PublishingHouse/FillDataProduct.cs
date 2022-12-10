@@ -182,6 +182,7 @@ namespace PublishingHouse
                         // Текущие данные о печатной продукции
                         name = this.product.Name;
                         numEdition = this.product.NumberEdition;
+
                     }
 
                     // Если существует тип печатной продукции с введенными данными
@@ -209,10 +210,10 @@ namespace PublishingHouse
                         Transition.TransitionByForms(this, productMenu);
                     }
                     else
-                        MessageBox.Show("В базе данных не могут существовать печатные продукции с одинаковым названием и одинаковым номером тиража", "Ввод данных о печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("В базе данных не могут существовать печатные продукции с одинаковым названием и с одинаковым номером тиража", "Ввод данных о печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
-                    MessageBox.Show("Текстовые поля должны быть заполнены. Номер тиража и количество должны быть больше нуля. Необходимо выбрать один тип печатной продукции и хотя бы один материал","Ввод данных о печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Текстовые поля должны быть заполнены, количество материалов должно быть указано. Номер тиража и количество должны быть больше нуля. Необходимо выбрать один тип печатной продукции и хотя бы один материал","Ввод данных о печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch
             {              
