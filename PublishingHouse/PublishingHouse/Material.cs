@@ -15,6 +15,10 @@ namespace PublishingHouse
     {
         string type, color, size;
         double cost;
+        int id, count;
+
+        public int Id { get { return id; } }
+        public int Count { get { return count; } }
 
         //public string Type { get { return type; } }
 
@@ -41,6 +45,12 @@ namespace PublishingHouse
             this.color = color;
             this.size = size;
             this.cost = Math.Round(cost, 2);
+        }
+
+        public Material(int id, int count) 
+        {
+            this.id = id;
+            this.count = count;
         }
 
         /// <summary>
@@ -202,7 +212,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Создаём запрос на добавление данных и выполняем запрос
-                SqlCommand command = new SqlCommand("INSERT INTO material (matType, matColor, matSize, matCost) VALUES (N'" + type + "', N'" + color + "', '" + size + "', @cost) ", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("INSERT INTO material (matType, matColor, matSize, matCost) VALUES (N'" + type + "', N'" + color + "', N'" + size + "', @cost) ", ConnectionToDb.Connection);
                 command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
                 count = command.ExecuteNonQuery();
 
@@ -232,7 +242,7 @@ namespace PublishingHouse
                 for (int i = 0; i < materials.Length; i++)
                 {
                     // Создаём запрос на удаление записи из базы данных и выполняем запрос
-                    SqlCommand command = new SqlCommand("DELETE FROM material WHERE matType = N'" + materials[i].type + "' AND matColor = N'" + materials[i].color + "' AND matSize = '" + materials[i].size + "' AND matCost = @cost ", ConnectionToDb.Connection);
+                    SqlCommand command = new SqlCommand("DELETE FROM material WHERE matType = N'" + materials[i].type + "' AND matColor = N'" + materials[i].color + "' AND matSize = N'" + materials[i].size + "' AND matCost = @cost ", ConnectionToDb.Connection);
                     command.Parameters.Add("@cost", SqlDbType.Float).Value = materials[i].cost;
                     count += command.ExecuteNonQuery();
 
@@ -376,7 +386,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Формируем запрос на получение id и получаем его
-                SqlCommand command = new SqlCommand("SELECT matId FROM material WHERE matType = '"+type+"' AND matColor = '"+color+"' AND matSize = '"+size+"' AND matCost = @cost", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("SELECT matId FROM material WHERE matType = N'"+type+"' AND matColor = N'"+color+"' AND matSize = N'"+size+"' AND matCost = @cost", ConnectionToDb.Connection);
                 command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
                 id = Convert.ToInt32(command.ExecuteScalar());
 
@@ -419,7 +429,7 @@ namespace PublishingHouse
                         double cost = Convert.ToDouble(dataGridView.Rows[i].Cells["Стоимость"].Value);
 
                         // Получаем id и добавляем в массив
-                        command = new SqlCommand("SELECT matId FROM material WHERE matType = '" + type + "' AND matColor = '" + color + "' AND matSize = '" + size + "' AND matCost = @cost", ConnectionToDb.Connection);
+                        command = new SqlCommand("SELECT matId FROM material WHERE matType = N'" + type + "' AND matColor = N'" + color + "' AND matSize = N'" + size + "' AND matCost = @cost", ConnectionToDb.Connection);
                         command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
                         arrayId[indexArray++] = Convert.ToInt32(command.ExecuteScalar());
                     }
@@ -560,6 +570,29 @@ namespace PublishingHouse
             }
             exit:
             return same;
+        }
+
+        /// <summary>
+        /// Метод получения списка материалов
+        /// </summary>
+        /// <param name="dataGridView">Таблица с данными о материалах</param>
+        /// <returns>Список материалов</returns>
+        public static List<Material> GetListMaterials(DataGridView dataGridView) 
+        {
+            List<Material> materials = new List<Material>();
+
+            for (int i = 0; i < dataGridView.Rows.Count; i++)
+            {
+                // Получаем id материала
+                int id = GetIdMaterial(dataGridView.Rows[i].Cells["type"].Value.ToString(), dataGridView.Rows[i].Cells["color"].Value.ToString(), dataGridView.Rows[i].Cells["size"].Value.ToString(), Convert.ToDouble(dataGridView.Rows[i].Cells["cost"].Value));
+                
+                // Создаём материал и добавляем в список
+                Material material = new Material(id, Convert.ToInt32(dataGridView.Rows[i].Cells["Count"].Value));
+                materials.Add(material);
+            }
+
+
+            return materials;
         }
     }
 }

@@ -34,14 +34,23 @@ namespace PublishingHouse
             this.backTab = new System.Windows.Forms.ToolStripMenuItem();
             this.typesProductButton = new System.Windows.Forms.Button();
             this.productDataGridView = new System.Windows.Forms.DataGridView();
+            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.productPictureBox = new System.Windows.Forms.PictureBox();
-            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.inputDataButton = new System.Windows.Forms.Button();
             this.menuStrip2 = new System.Windows.Forms.MenuStrip();
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
             this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.inputDataButton = new System.Windows.Forms.Button();
+            this.addButton = new System.Windows.Forms.Button();
+            this.selectForChangeButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
+            this.selectAllRowsButton = new System.Windows.Forms.Button();
+            this.resetAddOrChangeButton = new System.Windows.Forms.Button();
+            this.changeButton = new System.Windows.Forms.Button();
+            this.resetSelectRowsButton = new System.Windows.Forms.Button();
+            this.addLabel = new System.Windows.Forms.Label();
+            this.changeLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productPictureBox)).BeginInit();
@@ -94,6 +103,13 @@ namespace PublishingHouse
             this.productDataGridView.Size = new System.Drawing.Size(878, 358);
             this.productDataGridView.TabIndex = 2;
             // 
+            // Select
+            // 
+            this.Select.HeaderText = "Выбрать";
+            this.Select.MinimumWidth = 6;
+            this.Select.Name = "Select";
+            this.Select.Width = 125;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -109,18 +125,21 @@ namespace PublishingHouse
             this.productPictureBox.Location = new System.Drawing.Point(920, 68);
             this.productPictureBox.Name = "productPictureBox";
             this.productPictureBox.Size = new System.Drawing.Size(272, 240);
+            this.productPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.productPictureBox.TabIndex = 4;
             this.productPictureBox.TabStop = false;
             // 
-            // Select
-            // 
-            this.Select.HeaderText = "Выбрать";
-            this.Select.MinimumWidth = 6;
-            this.Select.Name = "Select";
-            this.Select.Width = 125;
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.changeLabel);
+            this.groupBox1.Controls.Add(this.addLabel);
+            this.groupBox1.Controls.Add(this.resetSelectRowsButton);
+            this.groupBox1.Controls.Add(this.changeButton);
+            this.groupBox1.Controls.Add(this.resetAddOrChangeButton);
+            this.groupBox1.Controls.Add(this.selectAllRowsButton);
+            this.groupBox1.Controls.Add(this.deleteButton);
+            this.groupBox1.Controls.Add(this.selectForChangeButton);
+            this.groupBox1.Controls.Add(this.addButton);
             this.groupBox1.Controls.Add(this.inputDataButton);
             this.groupBox1.Controls.Add(this.menuStrip2);
             this.groupBox1.Location = new System.Drawing.Point(13, 427);
@@ -129,6 +148,16 @@ namespace PublishingHouse
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
+            // 
+            // inputDataButton
+            // 
+            this.inputDataButton.Location = new System.Drawing.Point(6, 63);
+            this.inputDataButton.Name = "inputDataButton";
+            this.inputDataButton.Size = new System.Drawing.Size(243, 55);
+            this.inputDataButton.TabIndex = 1;
+            this.inputDataButton.Text = "Ввести данные";
+            this.inputDataButton.UseVisualStyleBackColor = true;
+            this.inputDataButton.Click += new System.EventHandler(this.inputDataButton_Click);
             // 
             // menuStrip2
             // 
@@ -156,15 +185,85 @@ namespace PublishingHouse
             this.searchTab.Size = new System.Drawing.Size(86, 24);
             this.searchTab.Text = "Поиск";
             // 
-            // inputDataButton
+            // addButton
             // 
-            this.inputDataButton.Location = new System.Drawing.Point(6, 63);
-            this.inputDataButton.Name = "inputDataButton";
-            this.inputDataButton.Size = new System.Drawing.Size(290, 55);
-            this.inputDataButton.TabIndex = 1;
-            this.inputDataButton.Text = "Ввести данные";
-            this.inputDataButton.UseVisualStyleBackColor = true;
-            this.inputDataButton.Click += new System.EventHandler(this.inputDataButton_Click);
+            this.addButton.Location = new System.Drawing.Point(6, 154);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(243, 55);
+            this.addButton.TabIndex = 2;
+            this.addButton.Text = "Добавить печатную продукцию";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
+            // selectForChangeButton
+            // 
+            this.selectForChangeButton.Location = new System.Drawing.Point(293, 63);
+            this.selectForChangeButton.Name = "selectForChangeButton";
+            this.selectForChangeButton.Size = new System.Drawing.Size(243, 55);
+            this.selectForChangeButton.TabIndex = 3;
+            this.selectForChangeButton.Text = "Выбрать для изменения";
+            this.selectForChangeButton.UseVisualStyleBackColor = true;
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(580, 63);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(243, 55);
+            this.deleteButton.TabIndex = 4;
+            this.deleteButton.Text = "Удалить печатную продукцию";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            // 
+            // selectAllRowsButton
+            // 
+            this.selectAllRowsButton.Location = new System.Drawing.Point(867, 63);
+            this.selectAllRowsButton.Name = "selectAllRowsButton";
+            this.selectAllRowsButton.Size = new System.Drawing.Size(243, 55);
+            this.selectAllRowsButton.TabIndex = 5;
+            this.selectAllRowsButton.Text = "Выбрать всё";
+            this.selectAllRowsButton.UseVisualStyleBackColor = true;
+            // 
+            // resetAddOrChangeButton
+            // 
+            this.resetAddOrChangeButton.Location = new System.Drawing.Point(293, 154);
+            this.resetAddOrChangeButton.Name = "resetAddOrChangeButton";
+            this.resetAddOrChangeButton.Size = new System.Drawing.Size(243, 55);
+            this.resetAddOrChangeButton.TabIndex = 6;
+            this.resetAddOrChangeButton.Text = "Отменить добавление/ изменение";
+            this.resetAddOrChangeButton.UseVisualStyleBackColor = true;
+            // 
+            // changeButton
+            // 
+            this.changeButton.Location = new System.Drawing.Point(580, 154);
+            this.changeButton.Name = "changeButton";
+            this.changeButton.Size = new System.Drawing.Size(243, 55);
+            this.changeButton.TabIndex = 7;
+            this.changeButton.Text = "Изменить печатную продукцию";
+            this.changeButton.UseVisualStyleBackColor = true;
+            // 
+            // resetSelectRowsButton
+            // 
+            this.resetSelectRowsButton.Location = new System.Drawing.Point(867, 154);
+            this.resetSelectRowsButton.Name = "resetSelectRowsButton";
+            this.resetSelectRowsButton.Size = new System.Drawing.Size(243, 55);
+            this.resetSelectRowsButton.TabIndex = 8;
+            this.resetSelectRowsButton.Text = "Отменить выбор строк";
+            this.resetSelectRowsButton.UseVisualStyleBackColor = true;
+            // 
+            // addLabel
+            // 
+            this.addLabel.AutoSize = true;
+            this.addLabel.Location = new System.Drawing.Point(20, 126);
+            this.addLabel.Name = "addLabel";
+            this.addLabel.Size = new System.Drawing.Size(0, 20);
+            this.addLabel.TabIndex = 9;
+            // 
+            // changeLabel
+            // 
+            this.changeLabel.AutoSize = true;
+            this.changeLabel.Location = new System.Drawing.Point(598, 126);
+            this.changeLabel.Name = "changeLabel";
+            this.changeLabel.Size = new System.Drawing.Size(0, 20);
+            this.changeLabel.TabIndex = 10;
             // 
             // ProductMenu
             // 
@@ -185,6 +284,7 @@ namespace PublishingHouse
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Печатная продукция";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProductMenu_FormClosing);
+            this.Load += new System.EventHandler(this.ProductMenu_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productDataGridView)).EndInit();
@@ -212,5 +312,14 @@ namespace PublishingHouse
         private System.Windows.Forms.ToolStripMenuItem processingTab;
         private System.Windows.Forms.ToolStripMenuItem searchTab;
         private System.Windows.Forms.Button inputDataButton;
+        private System.Windows.Forms.Label addLabel;
+        private System.Windows.Forms.Button resetSelectRowsButton;
+        private System.Windows.Forms.Button changeButton;
+        private System.Windows.Forms.Button resetAddOrChangeButton;
+        private System.Windows.Forms.Button selectAllRowsButton;
+        private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.Button selectForChangeButton;
+        private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.Label changeLabel;
     }
 }

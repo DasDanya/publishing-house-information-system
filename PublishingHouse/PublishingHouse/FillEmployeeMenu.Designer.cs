@@ -208,7 +208,7 @@ namespace PublishingHouse
             this.addImageButton.Name = "addImageButton";
             this.addImageButton.Size = new System.Drawing.Size(165, 53);
             this.addImageButton.TabIndex = 15;
-            this.addImageButton.Text = "Добавить фото";
+            this.addImageButton.Text = "Загрузить фото";
             this.addImageButton.UseVisualStyleBackColor = true;
             this.addImageButton.Click += new System.EventHandler(this.addImageButton_Click);
             // 

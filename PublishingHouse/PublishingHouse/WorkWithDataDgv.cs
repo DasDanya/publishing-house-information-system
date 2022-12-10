@@ -44,7 +44,7 @@ namespace PublishingHouse
             for (int i = 0; i < dataGridView.Rows.Count; i++)
             {
                 // Если строка выбрана -> Получаем её порядковый номер
-                if (Convert.ToBoolean(dataGridView.Rows[i].Cells["Select"].Value))
+                if (Convert.ToBoolean(dataGridView.Rows[i].Cells[0].Value))
                     number = i;
             }
             return number;
@@ -63,7 +63,7 @@ namespace PublishingHouse
             for (int i = 0; i < dataGridView.Rows.Count; i++)
             {
                 // Если строка выбрана пользователем -> Добавляем её в список 
-                if (Convert.ToBoolean(dataGridView.Rows[i].Cells["Select"].Value))
+                if (Convert.ToBoolean(dataGridView.Rows[i].Cells[0].Value))
                     indexes.Add(i);
             }
             return indexes;
@@ -191,7 +191,7 @@ namespace PublishingHouse
             {
                 for (int i = 0; i < dataGridView.Rows.Count; i++)
                 {
-                   dataGridView.Rows[i].Cells["Select"].Value = select;
+                   dataGridView.Rows[i].Cells[0].Value = select;
                 }    
             }
         }

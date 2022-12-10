@@ -58,12 +58,19 @@ namespace PublishingHouse
 
         private void addImageButton_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openDialog = new OpenFileDialog();
-            openDialog.Filter = "ImageFiles(*.BMP; *.JPG; *.JPEG; *.PNG)| *.BMP; *.JPG; *.JPEG; *.PNG";
-
-            if (openDialog.ShowDialog() == DialogResult.OK) 
+            try
             {
-                employeePictureBox.Image = new Bitmap(openDialog.FileName);
+                OpenFileDialog openDialog = new OpenFileDialog();
+                openDialog.Filter = "ImageFiles(*.BMP; *.JPG; *.JPEG; *.PNG)| *.BMP; *.JPG; *.JPEG; *.PNG";
+
+                if (openDialog.ShowDialog() == DialogResult.OK)
+                {
+                    employeePictureBox.Image = new Bitmap(openDialog.FileName);
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка загрузки фото", "Загрузка фото", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
