@@ -60,7 +60,34 @@ namespace PublishingHouse
             return id;
         }
 
-       
+        /// <summary>
+        /// Метод получения id типа печатной продукции
+        /// </summary>
+        /// <param name="idProduct">id печатной продукции</param>
+        /// <returns>id типа печатной продукции</returns>
+        public static int GetIdTypeProduct(int idProduct)
+        {
+            int idTypeProduct = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение id типа печатной продукции
+                SqlCommand command = new SqlCommand("SELECT ftypeProdId FROM product WHERE prodId = '"+idProduct+"'", ConnectionToDb.Connection);
+                idTypeProduct = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения id типа печатной продукции");
+            }
+
+            return idTypeProduct;
+        }
+
+
         /// <summary>
         /// Метод проверки существования типа печатной продукции в бд
         /// </summary>
@@ -332,7 +359,12 @@ namespace PublishingHouse
             return countDeleteRows;
         }
 
-      
+        /// <summary>
+        /// Метод получения печатных продукций выбранного типа печатной продукции
+        /// </summary>
+        /// <param name="name">Название типа печатной продукции</param>
+        /// <param name="margin">Наценка</param>
+        /// <returns>Список печатных продукций</returns>
         public static List<Product> GetListProductsThisTypeProduct(string name, double margin)
         {
             List<Product> products = new List<Product>();
@@ -425,6 +457,47 @@ namespace PublishingHouse
             }
 
             return dt;
+        }
+
+        /// <summary>
+        /// Метод поиска строки о типе печатной продукции в таблице
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="idTypeProduct">id типа печатной продукции</param>
+        public static void SelectRowTypeProduct(DataGridView dataGridView, int idTypeProduct)
+        {
+            string name = "";
+            double margin = 0;
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение данных о типе печатной продукции
+                SqlCommand command = new SqlCommand("SELECT typeProdName, typeProdMargin FROM typeProduct WHERE typeProdId = '"+idTypeProduct+"'", ConnectionToDb.Connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Получаем данные о типе печатной продукции
+                while (reader.Read()) 
+                {
+                    name = reader["typeProdName"].ToString();
+                    margin = Convert.ToDouble(reader["typeProdMargin"]);
+                }
+
+                ConnectionToDb.Close();
+
+                for (int i = 0; i < dataGridView.Rows.Count; i++)
+                {
+                    // Если найдена строка с данными о типе печатной продукции
+                    if (dataGridView.Rows[i].Cells["Тип печатной продукции"].Value.ToString() == name && Convert.ToDouble(dataGridView.Rows[i].Cells["Наценка в %"].Value) == margin)
+                        // Выделяем строку о типе печатной продукции
+                        dataGridView.Rows[i].Cells[0].Value = true;
+                        
+                }
+            }
+            catch 
+            {
+                throw new Exception("Ошибка поиска строки о указанном типе печатной продукции");
+            }
         }
     }
 }

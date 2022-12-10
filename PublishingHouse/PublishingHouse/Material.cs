@@ -116,6 +116,62 @@ namespace PublishingHouse
         }
 
         /// <summary>
+        /// Метод заполнения таблицы данными о материалах
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="materials">Список материалов</param>
+        public static void FillTableWithMaterials(DataGridView dataGridView, List<Material> materials) 
+        {
+            string type = "";
+            string color = "";
+            string size = "";   
+            double cost = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                for (int i = 0; i < materials.Count; i++)
+                {
+                    // Запрос на получение данных о материале
+                    SqlCommand command = new SqlCommand("SELECT matType, matColor, matSize, matCost FROM material WHERE matId = '"+materials[i].Id+"'", ConnectionToDb.Connection);
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    // Получаем данные о материалах
+                    while (reader.Read()) 
+                    {
+                        type = reader["matType"].ToString();
+                        color = reader["matColor"].ToString();
+                        size = reader["matSize"].ToString();
+                        cost = Convert.ToDouble(reader["matCost"]);
+                    }
+
+                    // Создаём строку
+                    DataGridViewRow row = new DataGridViewRow();
+                    row.CreateCells(dataGridView);
+
+                    // Заполняем строку данными и добавляем в таблицу
+                    row.Cells[1].Value = type;
+                    row.Cells[2].Value = color;
+                    row.Cells[3].Value = size;
+                    row.Cells[4].Value = cost;
+                    row.Cells[5].Value = materials[i].Count;
+                    row.Height = 50;
+                    dataGridView.Rows.Add(row);
+
+                    reader.Close();
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {    
+                throw new Exception("Ошибка заполнения таблицы данными о материалах");
+            }
+        
+        }
+
+        /// <summary>
         /// Метод получения массива выбранных материалов
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
@@ -591,6 +647,41 @@ namespace PublishingHouse
                 materials.Add(material);
             }
 
+
+            return materials;
+        }
+
+        /// <summary>
+        /// Метод получения списка материалов
+        /// </summary>
+        /// <param name="idProduct">id печатной продукции</param>
+        /// <returns>Список материалов</returns>
+        public static List<Material> GetListMaterials(int idProduct) 
+        {
+            List<Material> materials = new List<Material>();
+
+            try 
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на получение материалов, их количества и выполняем его
+                SqlCommand command = new SqlCommand("SELECT matCount, fmatId FROM productMaterial WHERE fprodId = '"+idProduct+"'", ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Заносим полученные данные в список
+                while (dataReader.Read()) 
+                {
+                    int idMaterial = Convert.ToInt32(dataReader["fmatId"]);
+                    int count = Convert.ToInt32(dataReader["matCount"]);
+                    materials.Add(new Material(idMaterial, count));
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения списка материалов");
+            }
 
             return materials;
         }

@@ -51,17 +51,34 @@ namespace PublishingHouse
                 //Загружаем данные в компоненты
                 LoadStartData();
 
+                // Если пользователь изменяет запись
                 if (product != null && state == 'C')
                 {
-                    //LoadDataAboutEmployee();
+                    LoadDataAboutProduct();
                     id = Product.GetIdProduct(product.Name, product.NumberEdition);
                 }
             }
-            catch 
+            catch
             {
+
                 MessageBox.Show("Ошибка загрузки формы ввода данных о печатной продукции", "Ввод данных о печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        /// <summary>
+        /// Метод заполнения данных о печатной продукции в нужные компоненты
+        /// </summary>
+        private void LoadDataAboutProduct() 
+        {
+            nameTextBox.Text = product.Name;
+            numEditionTextBox.Text = product.NumberEdition.ToString();
+            countTextBox.Text = product.ProdEdition.ToString();
+            productPictureBox.Image = product.DesignAsImage;
+            TypeProduct.SelectRowTypeProduct(typeProductDataGridView, product.IdTypeProduct);
+            Material.FillTableWithMaterials(toDataGridView, product.Materials);
+        }
+
+        
 
         /// <summary>
         ///  Метод заполнения таблицы для выбора материалов
@@ -259,7 +276,7 @@ namespace PublishingHouse
 
             for (int i = 0; i < toDataGridView.RowCount; i++)
             {
-                if (toDataGridView.Rows[i].Cells["Count"].Value == null)
+                if (toDataGridView.Rows[i].Cells["Count"].Value == null || Convert.ToInt32(toDataGridView.Rows[i].Cells["Count"].Value) == 0)
                     return false;
             }
 

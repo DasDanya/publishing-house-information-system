@@ -16,11 +16,16 @@ namespace PublishingHouse
         int numberEdition, prodEdition, idTypeProduct;
         byte[] design;
         double cost;
+        Image designAsImage = null;
         List<Material> materials = new List<Material>();
 
         public string Name { get { return name; } }
         public int NumberEdition { get { return numberEdition; } }
+        public int ProdEdition { get { return prodEdition; } }
         public int IdTypeProduct { get { return idTypeProduct; } }
+        public Image DesignAsImage { get { return designAsImage; } }
+        public List<Material> Materials { get { return materials; } }
+        
 
         public Product(string name, int numberEdition)
         {
@@ -37,16 +42,23 @@ namespace PublishingHouse
             this.materials = materials;
         }
 
+        public Product(string name, int numberEdition, int prodEdition, int idTypeProduct, Image designAsImage, List<Material> materials) : this(name, numberEdition)
+        {
+            this.prodEdition = prodEdition;
+            this.idTypeProduct = idTypeProduct;
+            this.designAsImage = designAsImage;
+            this.materials = materials;
+        }
 
-       /// <summary>
-       /// Метод проверки существования печатной продукции в бд
-       /// </summary>
-       /// <param name="typeWork">Тип работы с данными</param>
-       /// <param name="pastNumEdition">Прошлый номер тиража</param>
-       /// <param name="newNumEdition">Новый номер тиража</param>
-       /// <param name="pastName">Прошлое название</param>
-       /// <param name="newName">Новое название</param>
-       /// <returns></returns>
+        /// <summary>
+        /// Метод проверки существования печатной продукции в бд
+        /// </summary>
+        /// <param name="typeWork">Тип работы с данными</param>
+        /// <param name="pastNumEdition">Прошлый номер тиража</param>
+        /// <param name="newNumEdition">Новый номер тиража</param>
+        /// <param name="pastName">Прошлое название</param>
+        /// <param name="newName">Новое название</param>
+        /// <returns></returns>
         public static bool ExistProductInDb(char typeWork, int pastNumEdition, int newNumEdition, string pastName, string newName)
         {
             bool exist = false;
@@ -310,6 +322,36 @@ namespace PublishingHouse
             }
 
             return image;
+        }
+
+        /// <summary>
+        /// Метод определения того, что печатная продукция указана в заказе
+        /// </summary>
+        /// <param name="idProduct">id печатной продукции</param>
+        /// <returns>Печатная продукция указана в заказе</returns>
+        public static bool ProductIsSpecified(int idProduct)
+        {
+            bool isSpecified = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Получаем количество заказов, где указана печатная продукция
+                SqlCommand command = new SqlCommand("SELECT fbkId FROM product WHERE prodId = '" + idProduct+ "'", ConnectionToDb.Connection);
+
+                if (command.ExecuteScalar() != DBNull.Value)
+                    isSpecified = true;
+
+                ConnectionToDb.Close();
+            }
+
+            catch
+            {
+                throw new Exception("Ошибка получения данных о том, указана ли печатная продукция в заказе");
+            }
+
+            return isSpecified;
         }
 
     }

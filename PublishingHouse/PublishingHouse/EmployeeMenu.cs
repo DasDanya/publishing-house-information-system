@@ -217,29 +217,36 @@ namespace PublishingHouse
 
         private void selectForChangeButton_Click(object sender, EventArgs e)
         {
-            // Если количество выбранный записей не равно 1
-            if (WorkWithDataDgv.CountSelectedRows(employeeDataGridView) != 1)
-                MessageBox.Show("Неодходимо выбрать одну запись", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            else 
+            try
             {
-                int numberRow = WorkWithDataDgv.NumberSelectedRows(employeeDataGridView);
-
-                if (!Employee.EmployeeIsWorking(Employee.GetIdEmployeeByPhone(employeeDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString())))
-                {
-
-                    //Cоздаём объект типографии               
-                    Employee employee = new Employee(employeeDataGridView.Rows[numberRow].Cells["Имя"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Фамилия"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Отчество"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Должность сотрудника"].Value.ToString(),
-                        employeeDataGridView.Rows[numberRow].Cells["Электронная почта"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString(), (DateTime)employeeDataGridView.Rows[numberRow].Cells["Дата рождения"].Value, Employee.GetPhotoAsImage(employeeDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(employeeDataGridView)].Cells["Номер телефона"].Value.ToString()));
-
-                    // Переходим в меню ввода данных для изменения этих самых данных
-                    FillEmployeeMenu fillEmployeeMenu = new FillEmployeeMenu(employee, 'C');
-                    Transition.TransitionByForms(this, fillEmployeeMenu);
-                }
+                // Если количество выбранный записей не равно 1
+                if (WorkWithDataDgv.CountSelectedRows(employeeDataGridView) != 1)
+                    MessageBox.Show("Неодходимо выбрать одну запись", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 else
-                    MessageBox.Show("Невозможно изменить запись, так как существует заказ(-ы), над которым(-и) работает сотрудник. Удалите заказ(-ы), над которым(-и) работает сотрудник, или создайте нового сотрудника", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                {
+                    int numberRow = WorkWithDataDgv.NumberSelectedRows(employeeDataGridView);
+
+                    if (!Employee.EmployeeIsWorking(Employee.GetIdEmployeeByPhone(employeeDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString())))
+                    {
+
+                        //Cоздаём объект типографии               
+                        Employee employee = new Employee(employeeDataGridView.Rows[numberRow].Cells["Имя"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Фамилия"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Отчество"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Должность сотрудника"].Value.ToString(),
+                            employeeDataGridView.Rows[numberRow].Cells["Электронная почта"].Value.ToString(), employeeDataGridView.Rows[numberRow].Cells["Номер телефона"].Value.ToString(), (DateTime)employeeDataGridView.Rows[numberRow].Cells["Дата рождения"].Value, Employee.GetPhotoAsImage(employeeDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(employeeDataGridView)].Cells["Номер телефона"].Value.ToString()));
+
+                        // Переходим в меню ввода данных для изменения этих самых данных
+                        FillEmployeeMenu fillEmployeeMenu = new FillEmployeeMenu(employee, 'C');
+                        Transition.TransitionByForms(this, fillEmployeeMenu);
+                    }
+                    else
+                        MessageBox.Show("Невозможно изменить запись, так как существует заказ(-ы), над которым(-и) работает сотрудник. Удалите заказ(-ы), над которым(-и) работает сотрудник, или создайте нового сотрудника", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
 
 
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка выбора записи для её изменения", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -344,6 +351,7 @@ namespace PublishingHouse
         {
             // Ищём запрашиваемые данные в таблице
             WorkWithDataDgv.GetLikeString(employeeDataGridView, columnsComboBox, searchTextBox);
+            DisplayStartPhoto();
         }
 
         private void resetSearchDataButton_Click(object sender, EventArgs e)
@@ -353,6 +361,7 @@ namespace PublishingHouse
             searchTextBox.Text = "";
             startDateTimePicker.Value = DateTime.Now;
             endDateTimePicker.Value = DateTime.Now;
+            DisplayStartPhoto();
         }
 
         private void searchDataButton_Click(object sender, EventArgs e)
@@ -367,8 +376,11 @@ namespace PublishingHouse
                 if (from >= to || from > DateTime.Now.Date || to > DateTime.Now.Date)
                     MessageBox.Show("Дата \"с\", дата \"по\" не должны превышать сегодняшний день. Дата \"с\" должна быть мешьше даты \"по\"", "Поиск по дате", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 else
-                    // Производим поиск по стоимости
+                {
+                    // Производим поиск по дате рождения
                     WorkWithDataDgv.SearchByDifference(employeeDataGridView, "Дата рождения", from, to);
+                    DisplayStartPhoto();
+                }
             }
         }
 

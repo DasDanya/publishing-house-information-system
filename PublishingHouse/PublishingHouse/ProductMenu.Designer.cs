@@ -175,6 +175,7 @@ namespace PublishingHouse
             this.resetSelectRowsButton.TabIndex = 8;
             this.resetSelectRowsButton.Text = "Отменить выбор строк";
             this.resetSelectRowsButton.UseVisualStyleBackColor = true;
+            this.resetSelectRowsButton.Click += new System.EventHandler(this.resetSelectRowsButton_Click);
             // 
             // changeButton
             // 
@@ -204,6 +205,7 @@ namespace PublishingHouse
             this.selectAllRowsButton.TabIndex = 5;
             this.selectAllRowsButton.Text = "Выбрать всё";
             this.selectAllRowsButton.UseVisualStyleBackColor = true;
+            this.selectAllRowsButton.Click += new System.EventHandler(this.selectAllRowsButton_Click);
             // 
             // deleteButton
             // 
@@ -222,6 +224,7 @@ namespace PublishingHouse
             this.selectForChangeButton.TabIndex = 3;
             this.selectForChangeButton.Text = "Выбрать для изменения";
             this.selectForChangeButton.UseVisualStyleBackColor = true;
+            this.selectForChangeButton.Click += new System.EventHandler(this.selectForChangeButton_Click);
             // 
             // addButton
             // 

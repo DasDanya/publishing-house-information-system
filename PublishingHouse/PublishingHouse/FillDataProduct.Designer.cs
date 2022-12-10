@@ -35,6 +35,12 @@ namespace PublishingHouse
             this.fromDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.toDataGridView = new System.Windows.Forms.DataGridView();
+            this.backSelect = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.color = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.selectMaterialButton = new System.Windows.Forms.Button();
             this.resetSelectMateralButton = new System.Windows.Forms.Button();
             this.label1212 = new System.Windows.Forms.Label();
@@ -50,12 +56,6 @@ namespace PublishingHouse
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
-            this.backSelect = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.color = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.size = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fromDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toDataGridView)).BeginInit();
@@ -129,6 +129,49 @@ namespace PublishingHouse
             this.toDataGridView.TabIndex = 2;
             this.toDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.fromDataGridView_ColumnStateChanged);
             this.toDataGridView.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.toDataGridView_EditingControlShowing);
+            // 
+            // backSelect
+            // 
+            this.backSelect.HeaderText = "Выбрать";
+            this.backSelect.MinimumWidth = 6;
+            this.backSelect.Name = "backSelect";
+            this.backSelect.Width = 125;
+            // 
+            // type
+            // 
+            this.type.HeaderText = "Тип";
+            this.type.MinimumWidth = 6;
+            this.type.Name = "type";
+            this.type.Width = 125;
+            // 
+            // color
+            // 
+            this.color.HeaderText = "Цвет";
+            this.color.MinimumWidth = 6;
+            this.color.Name = "color";
+            this.color.Width = 125;
+            // 
+            // size
+            // 
+            this.size.HeaderText = "Размер";
+            this.size.MinimumWidth = 6;
+            this.size.Name = "size";
+            this.size.Width = 125;
+            // 
+            // cost
+            // 
+            this.cost.HeaderText = "Стоимость";
+            this.cost.MinimumWidth = 6;
+            this.cost.Name = "cost";
+            this.cost.Width = 125;
+            // 
+            // Count
+            // 
+            this.Count.HeaderText = "Количество";
+            this.Count.MaxInputLength = 5;
+            this.Count.MinimumWidth = 6;
+            this.Count.Name = "Count";
+            this.Count.Width = 125;
             // 
             // selectMaterialButton
             // 
@@ -246,11 +289,11 @@ namespace PublishingHouse
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(171, 180);
+            this.label3.Location = new System.Drawing.Point(187, 180);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 20);
+            this.label3.Size = new System.Drawing.Size(54, 20);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Количество";
+            this.label3.Text = "Тираж";
             // 
             // label2
             // 
@@ -279,49 +322,6 @@ namespace PublishingHouse
             this.saveButton.Text = "Сохранить введённые данные";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
-            // backSelect
-            // 
-            this.backSelect.HeaderText = "Выбрать";
-            this.backSelect.MinimumWidth = 6;
-            this.backSelect.Name = "backSelect";
-            this.backSelect.Width = 125;
-            // 
-            // type
-            // 
-            this.type.HeaderText = "Тип";
-            this.type.MinimumWidth = 6;
-            this.type.Name = "type";
-            this.type.Width = 125;
-            // 
-            // color
-            // 
-            this.color.HeaderText = "Цвет";
-            this.color.MinimumWidth = 6;
-            this.color.Name = "color";
-            this.color.Width = 125;
-            // 
-            // size
-            // 
-            this.size.HeaderText = "Размер";
-            this.size.MinimumWidth = 6;
-            this.size.Name = "size";
-            this.size.Width = 125;
-            // 
-            // cost
-            // 
-            this.cost.HeaderText = "Стоимость";
-            this.cost.MinimumWidth = 6;
-            this.cost.Name = "cost";
-            this.cost.Width = 125;
-            // 
-            // Count
-            // 
-            this.Count.HeaderText = "Количество";
-            this.Count.MaxInputLength = 5;
-            this.Count.MinimumWidth = 6;
-            this.Count.Name = "Count";
-            this.Count.Width = 125;
             // 
             // FillDataProduct
             // 

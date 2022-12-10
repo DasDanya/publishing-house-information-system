@@ -233,5 +233,53 @@ namespace PublishingHouse
             }
 
         }
+
+        private void selectAllRowsButton_Click(object sender, EventArgs e)
+        {
+            if (productDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки для выбора", "Выбрать всё", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(productDataGridView, true);
+        }
+
+        private void resetSelectRowsButton_Click(object sender, EventArgs e)
+        {
+            if (productDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки", "Отменить выбор строк", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(productDataGridView, false);
+        }
+
+        private void selectForChangeButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Если количество выбранный записей не равно 1
+                if (WorkWithDataDgv.CountSelectedRows(productDataGridView) != 1)
+                    MessageBox.Show("Неодходимо выбрать одну запись", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    int numberRow = WorkWithDataDgv.NumberSelectedRows(productDataGridView);
+                    int id = Product.GetIdProduct(productDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Номер тиража"].Value));
+                    if (!Product.ProductIsSpecified(id))
+                    {
+
+                        //Cоздаём объект печатной продукции              
+                        Product product = new Product(productDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Номер тиража"].Value), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Тираж"].Value),
+                            TypeProduct.GetIdTypeProduct(id), Product.GetPhotoAsImage(productDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Номер тиража"].Value)), Material.GetListMaterials(id));
+
+                        // Переходим в меню ввода данных для изменения этих самых данных
+                        FillDataProduct fillDataProduct = new FillDataProduct(product, 'C');
+                        Transition.TransitionByForms(this, fillDataProduct);
+                    }
+                    else
+                        MessageBox.Show("Невозможно изменить запись, так как существует заказ(-ы), где указана печатная продукция. Удалите заказ(-ы), где указана печатная продукция, или создайте новую печатную продукцию", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка выбора записи для её изменения", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
