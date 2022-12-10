@@ -281,5 +281,33 @@ namespace PublishingHouse
                 MessageBox.Show("Ошибка выбора записи для её изменения", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void changeButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Если пользователь изменяет запись
+                if (MessageBox.Show("Вы точно хотите изменить запись?", "Изменение данных о печатной продукции", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+             
+                    // Если изменилась только выбранная запись
+                    if (product.ChangeProduct(id) == 1)
+                        MessageBox.Show("Запись успешно изменена!", "Изменение данных о печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show("Количество измененных записей не равно ожидаемому количеству изменяемых записей", "Изменение данных о печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                    // Выводим новые данные и делаем комноненты и переменные в состояние по умолчанию
+                    ReloadData();
+                    DefaultStateOfMenu();
+                    DisplayStartPhoto();
+
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка изменения данных о печатной продукции", "Изменение данных о печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

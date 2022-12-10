@@ -256,10 +256,7 @@ namespace PublishingHouse
             {
                 // Если пользователь изменяет запись
                 if (MessageBox.Show("Вы точно хотите изменить запись?", "Изменение данных о сотруднике", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                {
-
-                    // Написать условие для проверки того, что сотрудник выполняет заказ
-
+                {                  
                     // Если изменилась только выбранная запись
                     if (employee.ChangeEmployee(id) == 1)
                         MessageBox.Show("Запись успешно изменена!", "Изменение данных о сотруднике", MessageBoxButtons.OK, MessageBoxIcon.Information);

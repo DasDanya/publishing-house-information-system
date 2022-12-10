@@ -186,6 +186,7 @@ namespace PublishingHouse
             this.changeButton.TabIndex = 7;
             this.changeButton.Text = "Изменить печатную продукцию";
             this.changeButton.UseVisualStyleBackColor = true;
+            this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
             // 
             // resetAddOrChangeButton
             // 

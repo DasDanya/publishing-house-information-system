@@ -238,6 +238,30 @@ namespace PublishingHouse
             return success;
         }
 
+        /// <summary>
+        /// Метод удаления данных из таблицы "Печатная продукция-Материал"
+        /// </summary>
+        /// <param name="idProduct">id печатной продукции</param>
+        /// <returns>Количество удаленных строк</returns>
+        private int DeleteProductTypeProduct(int idProduct)
+        {
+            int countDeletedRows = -1;
+            try
+            {
+                ConnectionToDb.Open();
+
+                SqlCommand command = new SqlCommand("DELETE FROM productMaterial WHERE fprodId = '"+idProduct+"' ", ConnectionToDb.Connection);
+                countDeletedRows = command.ExecuteNonQuery();
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка удаления данных из таблицы \"Печатная продукция-Материал\"");
+            }
+            return countDeletedRows;
+        }
+
     
         /// <summary>
         /// Метод загрузки данных о печатных продукциях в таблицу
@@ -352,6 +376,37 @@ namespace PublishingHouse
             }
 
             return isSpecified;
+        }
+
+        public int ChangeProduct(int idProduct)
+        {
+            int countChangedRows = -1;
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Формируем запрос на изменение данных о печатной продукции
+                SqlCommand command = new SqlCommand("UPDATE product SET prodName = N'"+name+"', prodNumEdition = '"+numberEdition+"', prodVisual = @visual, prodEdition = '"+prodEdition+"', prodCost = @cost, ftypeProdId = '"+idTypeProduct+"' WHERE prodId = '"+idProduct+"'", ConnectionToDb.Connection);
+                command.Parameters.Add("@visual", SqlDbType.Image).Value = design;
+                command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
+                countChangedRows = command.ExecuteNonQuery();
+
+                // Если строки были удалены
+                if (DeleteProductTypeProduct(idProduct) > 0)
+                {
+                    // Если количество добавленных строк в связующую таблицу равно ожидаемому количеству
+                    if (AddProductTypeProduct(materials, idProduct))
+                        countChangedRows = 1;
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка изменения данных о печатной продукции");
+            }
+
+            return countChangedRows;
         }
 
     }
