@@ -309,5 +309,50 @@ namespace PublishingHouse
                 MessageBox.Show("Ошибка изменения данных о печатной продукции", "Изменение данных о печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Если пользователь выбрал 0 записей
+                if (WorkWithDataDgv.CountSelectedRows(productDataGridView) < 1)
+                    MessageBox.Show("Неодходимо выбрать одну или несколько записей", "Удаление печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    // Если пользователь соглашается на удаление записи(-ей)
+                    if (MessageBox.Show("Вы точно хотите удалить эту(-и) запись(-и)?", "Удаление печатных продукций", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        // Получаем массив id
+                        int[] arrayId = Product.GetArrayIdProducts(productDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(productDataGridView));
+
+                        // Если печатная продукция(-ии) не упоминается(-ются) ни в одном заказе 
+                        if (!Product.ProductsAreSpecified(arrayId))
+                        {
+                            // Если мы удалили указанное количество записей
+                            int check = Product.DeleteProducts(arrayId);
+                            if (check == arrayId.Length)
+                            {
+                                MessageBox.Show("Записи успешно удалены!", "Удаление печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                ReloadData();
+                                DisplayStartPhoto();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Количество удаленных записей не совпадает с ожидаемым количеством", "Удаление печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            MessageBox.Show(check.ToString());
+                        }
+                        else
+                            MessageBox.Show("Невозможно удалить запись(-и), так как существует заказ(-ы), где указана выбранная печатная продукция. Удалите заказ(-ы), где указана выбранная печатная продукция, и повторите попытку", "Удаление печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                    }
+                }
+            }
+            catch
+            {
+
+                MessageBox.Show("Произошла ошибка удаления печатных продукций", "Удаление печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

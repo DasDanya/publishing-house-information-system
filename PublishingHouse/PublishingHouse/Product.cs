@@ -243,7 +243,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="idProduct">id печатной продукции</param>
         /// <returns>Количество удаленных строк</returns>
-        private int DeleteProductTypeProduct(int idProduct)
+        private static int DeleteProductTypeProduct(int idProduct)
         {
             int countDeletedRows = -1;
             try
@@ -378,6 +378,42 @@ namespace PublishingHouse
             return isSpecified;
         }
 
+       /// <summary>
+       /// Метод определения того, что печатные продукции упоминаются хоть в одном заказе
+       /// </summary>
+       /// <param name="arrayIdProducts">Массив id печатных продукций</param>
+       /// <returns>Упоминаются ли печатные продукции хоть в одном заказе</returns>
+        public static bool ProductsAreSpecified(int[] arrayIdProducts)
+        {
+            bool areSpecified = false;
+
+            try
+            {
+
+                for (int i = 0; i < arrayIdProducts.Length; i++)
+                {
+                    // Если заказ упоминается, то выходим из цикла
+                    if (ProductIsSpecified(arrayIdProducts[i]))
+                    {
+                        areSpecified = true;
+                        break;
+                    }
+                }
+
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о том, указаны ли печатные продукции в заказе(-ах)");
+            }
+
+            return areSpecified;
+        }
+
+        /// <summary>
+        /// Метод изменения данных о печатной продукции
+        /// </summary>
+        /// <param name="idProduct">id печатной продукции</param>
+        /// <returns>1 - если изменение прошло успешно</returns>
         public int ChangeProduct(int idProduct)
         {
             int countChangedRows = -1;
@@ -407,6 +443,83 @@ namespace PublishingHouse
             }
 
             return countChangedRows;
+        }
+
+        /// <summary>
+        /// Метод получения массива id печатных продукций
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="selectedRows">Список номеров выбранных строк</param>
+        /// <returns>Массив id печатных продукций</returns>
+        public static int[] GetArrayIdProducts(DataGridView dataGridView, List<int> selectedRows)
+        {
+            int indexArray = 0;
+            int[] arrayId = new int[selectedRows.Count];
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                for (int i = 0; i < dataGridView.Rows.Count; i++)
+                {
+                    // Если список содержит индекс
+                    if (selectedRows.Contains(i))
+                    {
+                        // Получаем данные о печатной продукции
+                        string name = dataGridView.Rows[i].Cells["Название"].Value.ToString();
+                        int numEdition = Convert.ToInt32(dataGridView.Rows[i].Cells["Номер тиража"].Value);
+
+                        arrayId[indexArray++] = GetIdProduct(name, numEdition);
+                    }
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения массива идентификаторов записей о печатных продукциях");
+            }
+
+            return arrayId;
+        }
+
+     
+        /// <summary>
+        /// Метод удаления печатной продукции
+        /// </summary>
+        /// <param name="arrayId">Массив id печатной продукции</param>
+        /// <returns>Количество удаленных строк</returns>
+        public static int DeleteProducts(int[] arrayId)
+        {
+            int countDeleteRows = 0;
+
+            try
+            {
+                
+                // Проходимся по массиву id
+                for (int i = 0; i < arrayId.Length; i++)
+                {
+                    // Сначала удаляем данные из таблицы "Печатная продукция-Материал"
+                    if (DeleteProductTypeProduct(arrayId[i]) <= 0)
+                        break;
+                    else
+                    {
+
+                        ConnectionToDb.Open();
+
+                        // Удаляем печатную продукцию с конкретным id
+                        SqlCommand command = new SqlCommand("DELETE FROM product WHERE prodId = '" + arrayId[i] + "'", ConnectionToDb.Connection);
+                        countDeleteRows += command.ExecuteNonQuery();
+                    }
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Произошла ошибка удаления печатной продукции");
+            }
+            return countDeleteRows;
         }
 
     }

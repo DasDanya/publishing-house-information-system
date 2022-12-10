@@ -475,7 +475,6 @@ namespace PublishingHouse
                 throw new Exception("Ошибка получения данных о том, работают ли сотрудники над заказом(-ами)");
             }
 
-
             return isWorking;
         }
 

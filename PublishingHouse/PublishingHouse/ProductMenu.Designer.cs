@@ -216,6 +216,7 @@ namespace PublishingHouse
             this.deleteButton.TabIndex = 4;
             this.deleteButton.Text = "Удалить печатную продукцию";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // selectForChangeButton
             // 
