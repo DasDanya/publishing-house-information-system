@@ -48,7 +48,7 @@ namespace PublishingHouse
             try
             {
                 //Загружаем данные в компоненты
-                //LoadStartData();
+                LoadStartData();
 
                 // Если пользователь изменяет запись
                 if (booking != null && state == 'C')
@@ -62,6 +62,30 @@ namespace PublishingHouse
 
                 MessageBox.Show("Ошибка загрузки формы ввода данных о заказе", "Ввод данных о заказе", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+        }
+
+        /// <summary>
+        /// Метод загрузки стартовых данных
+        /// </summary>
+        private void LoadStartData() 
+        {
+            // Данные о сотрудниках
+            Employee.LoadEmployees(employeesDataGridView);
+            WorkWithDataDgv.SetReadOnlyColumns(employeesDataGridView);
+
+            // Данные о заказчиках
+            Customer.LoadCustomers(customerDataGridView);
+            WorkWithDataDgv.SetReadOnlyColumns(customerDataGridView);
+
+            // Данные о печатных продукциях (неиспользуемые)
+            Product.LoadProductsWithoutOrdersInTable(productsDataGridView);
+            WorkWithDataDgv.SetReadOnlyColumns(productsDataGridView);
+            productsDataGridView.Columns[1].Width = 200;
+
+            // Данные о типографиях
+            PrintingHouse.LoadNamePrintingHouseIntoComboBox(printingHouseComboBox);
+            printingHouseComboBox.SelectedIndex = 0;
 
         }
 

@@ -43,6 +43,34 @@ namespace PublishingHouse
             return $"{name}\n {numberPhone}\n {email}\n {typeState}\n {nameState}\n {city}\n {typeStreet}\n {nameStreet}\n {numberHouse}";
         }
 
+        /// <summary>
+        /// Метод загрузки названий типографий в выпадающий список
+        /// </summary>
+        /// <param name="comboBox">Выпадающий список</param>
+        public static void LoadNamePrintingHouseIntoComboBox(ComboBox comboBox) 
+        {
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение данных о названиях типографий
+                SqlCommand command = new SqlCommand("SELECT phName FROM printingHouse ORDER BY phName", ConnectionToDb.Connection);
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Заполняем выпадающий список
+                while (dataReader.Read()) 
+                {
+                    comboBox.Items.Add(dataReader["phName"].ToString());
+                }
+
+                dataReader.Close();
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка заполнения выпадающего списка данными о типографиях");
+            }
+        }
 
         /// <summary>
         /// Метод добавления типографии в бд

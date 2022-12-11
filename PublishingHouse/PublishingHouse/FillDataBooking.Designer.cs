@@ -33,14 +33,17 @@ namespace PublishingHouse
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.backTab = new System.Windows.Forms.ToolStripMenuItem();
             this.employeesDataGridView = new System.Windows.Forms.DataGridView();
-            this.productsDataGridView = new System.Windows.Forms.DataGridView();
             this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.productsDataGridView = new System.Windows.Forms.DataGridView();
             this.SelectProduct = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.customerDataGridView = new System.Windows.Forms.DataGridView();
             this.SelectCustomer = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.printingHouseComboBox = new System.Windows.Forms.ComboBox();
             this.saveButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeesDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsDataGridView)).BeginInit();
@@ -75,7 +78,7 @@ namespace PublishingHouse
             this.employeesDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.employeesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Select});
-            this.employeesDataGridView.Location = new System.Drawing.Point(13, 46);
+            this.employeesDataGridView.Location = new System.Drawing.Point(12, 75);
             this.employeesDataGridView.Name = "employeesDataGridView";
             this.employeesDataGridView.RowHeadersVisible = false;
             this.employeesDataGridView.RowHeadersWidth = 51;
@@ -83,6 +86,14 @@ namespace PublishingHouse
             this.employeesDataGridView.Size = new System.Drawing.Size(810, 236);
             this.employeesDataGridView.TabIndex = 1;
             this.employeesDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.employeesDataGridView_ColumnStateChanged);
+            // 
+            // Select
+            // 
+            this.Select.HeaderText = "Выбрать";
+            this.Select.MinimumWidth = 6;
+            this.Select.Name = "Select";
+            this.Select.ReadOnly = true;
+            this.Select.Width = 125;
             // 
             // productsDataGridView
             // 
@@ -93,7 +104,7 @@ namespace PublishingHouse
             this.productsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.productsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectProduct});
-            this.productsDataGridView.Location = new System.Drawing.Point(13, 303);
+            this.productsDataGridView.Location = new System.Drawing.Point(12, 341);
             this.productsDataGridView.Name = "productsDataGridView";
             this.productsDataGridView.RowHeadersVisible = false;
             this.productsDataGridView.RowHeadersWidth = 51;
@@ -101,14 +112,6 @@ namespace PublishingHouse
             this.productsDataGridView.Size = new System.Drawing.Size(810, 236);
             this.productsDataGridView.TabIndex = 2;
             this.productsDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.employeesDataGridView_ColumnStateChanged);
-            // 
-            // Select
-            // 
-            this.Select.HeaderText = "Выбрать";
-            this.Select.MinimumWidth = 6;
-            this.Select.Name = "Select";
-            this.Select.ReadOnly = true;
-            this.Select.Width = 125;
             // 
             // SelectProduct
             // 
@@ -126,7 +129,7 @@ namespace PublishingHouse
             this.customerDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.customerDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SelectCustomer});
-            this.customerDataGridView.Location = new System.Drawing.Point(862, 46);
+            this.customerDataGridView.Location = new System.Drawing.Point(862, 75);
             this.customerDataGridView.Name = "customerDataGridView";
             this.customerDataGridView.RowHeadersVisible = false;
             this.customerDataGridView.RowHeadersWidth = 51;
@@ -145,35 +148,65 @@ namespace PublishingHouse
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1037, 303);
+            this.label1.Location = new System.Drawing.Point(1035, 341);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 20);
+            this.label1.Size = new System.Drawing.Size(94, 20);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Типография:";
+            this.label1.Text = "Типография";
             // 
             // printingHouseComboBox
             // 
             this.printingHouseComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.printingHouseComboBox.FormattingEnabled = true;
-            this.printingHouseComboBox.Location = new System.Drawing.Point(862, 326);
+            this.printingHouseComboBox.Location = new System.Drawing.Point(862, 364);
             this.printingHouseComboBox.Name = "printingHouseComboBox";
             this.printingHouseComboBox.Size = new System.Drawing.Size(433, 28);
             this.printingHouseComboBox.TabIndex = 5;
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(862, 448);
+            this.saveButton.Location = new System.Drawing.Point(862, 486);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(433, 91);
             this.saveButton.TabIndex = 6;
             this.saveButton.Text = "Сохранить введённые данные";
             this.saveButton.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(360, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(91, 20);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Сотрудники";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(332, 318);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(154, 20);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Печатная продукция";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(1035, 52);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(80, 20);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Заказчики";
+            // 
             // FillDataBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1307, 551);
+            this.ClientSize = new System.Drawing.Size(1307, 589);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.printingHouseComboBox);
             this.Controls.Add(this.label1);
@@ -213,5 +246,8 @@ namespace PublishingHouse
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox printingHouseComboBox;
         private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }

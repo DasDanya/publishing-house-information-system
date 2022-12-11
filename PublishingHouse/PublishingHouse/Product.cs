@@ -304,11 +304,40 @@ namespace PublishingHouse
         }
 
        /// <summary>
-       /// Метод получения макета печатной продукции из бд
+       /// Метод загрузки не успользуемых печатных продукций в таблицу
        /// </summary>
-       /// <param name="name">Название печатной продукции</param>
-       /// <param name="numEdition">Номер тиража</param>
-       /// <returns>Макет в виде массива байт</returns>
+       /// <param name="dataGridView">Таблица</param>
+        public static void LoadProductsWithoutOrdersInTable(DataGridView dataGridView)
+        {
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение печатных продукций
+                SqlCommand command = new SqlCommand("SELECT product.prodName AS N'Название', typeProduct.typeProdName AS N'Тип печ. продукции', product.prodNumEdition AS N'Номер тиража', product.prodEdition AS N'Тираж', product.prodCost AS N'Стоимость' FROM product JOIN typeProduct ON product.ftypeProdId = typeProduct.typeProdId WHERE product.fbkId IS NULL ORDER BY product.prodName", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Загружаем данные о печатных продукциях в таблицу
+                DataTable dt = new DataTable();
+                dt.Load(dataReader);
+                dataGridView.DataSource = dt;
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о печатных продукциях");
+            }
+
+        }
+
+        /// <summary>
+        /// Метод получения макета печатной продукции из бд
+        /// </summary>
+        /// <param name="name">Название печатной продукции</param>
+        /// <param name="numEdition">Номер тиража</param>
+        /// <returns>Макет в виде массива байт</returns>
         private static byte[] GetPhotoProduct(string name, int numEdition)
         {
             byte[] photo = null;
