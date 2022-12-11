@@ -33,8 +33,7 @@ namespace PublishingHouse
         }
 
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            //ConnectionToDb.Close();
+        {           
             System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
 
@@ -60,6 +59,17 @@ namespace PublishingHouse
         {
             ProductMenu productMenu = new ProductMenu();
             Transition.TransitionByForms(this, productMenu); // Переход между формами
+        }
+
+        private void inputDataButton_Click(object sender, EventArgs e)
+        {
+            FillDataBooking fillDataBooking = new FillDataBooking('A');
+            Transition.TransitionByForms(this, fillDataBooking);
+        }
+
+        private void bookingDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
     }
 }

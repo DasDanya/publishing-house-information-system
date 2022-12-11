@@ -36,7 +36,10 @@ namespace PublishingHouse
             this.printingHouseTab = new System.Windows.Forms.ToolStripMenuItem();
             this.customersTab = new System.Windows.Forms.ToolStripMenuItem();
             this.productTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.bookingDataGridView = new System.Windows.Forms.DataGridView();
+            this.inputDataButton = new System.Windows.Forms.Button();
             this.Tabs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bookingDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // Tabs
@@ -50,7 +53,7 @@ namespace PublishingHouse
             this.productTab});
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
-            this.Tabs.Size = new System.Drawing.Size(800, 28);
+            this.Tabs.Size = new System.Drawing.Size(1006, 28);
             this.Tabs.TabIndex = 0;
             this.Tabs.Text = "menuStrip1";
             // 
@@ -94,11 +97,39 @@ namespace PublishingHouse
             this.productTab.Text = "Печатная продукция";
             this.productTab.Click += new System.EventHandler(this.productTab_Click);
             // 
+            // bookingDataGridView
+            // 
+            this.bookingDataGridView.AllowUserToAddRows = false;
+            this.bookingDataGridView.AllowUserToDeleteRows = false;
+            this.bookingDataGridView.AllowUserToResizeColumns = false;
+            this.bookingDataGridView.AllowUserToResizeRows = false;
+            this.bookingDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.bookingDataGridView.Location = new System.Drawing.Point(12, 47);
+            this.bookingDataGridView.Name = "bookingDataGridView";
+            this.bookingDataGridView.RowHeadersVisible = false;
+            this.bookingDataGridView.RowHeadersWidth = 51;
+            this.bookingDataGridView.RowTemplate.Height = 50;
+            this.bookingDataGridView.Size = new System.Drawing.Size(844, 308);
+            this.bookingDataGridView.TabIndex = 1;
+            this.bookingDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.bookingDataGridView_ColumnStateChanged);
+            // 
+            // inputDataButton
+            // 
+            this.inputDataButton.Location = new System.Drawing.Point(12, 376);
+            this.inputDataButton.Name = "inputDataButton";
+            this.inputDataButton.Size = new System.Drawing.Size(207, 53);
+            this.inputDataButton.TabIndex = 2;
+            this.inputDataButton.Text = "Сформировать заказ";
+            this.inputDataButton.UseVisualStyleBackColor = true;
+            this.inputDataButton.Click += new System.EventHandler(this.inputDataButton_Click);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1006, 531);
+            this.Controls.Add(this.inputDataButton);
+            this.Controls.Add(this.bookingDataGridView);
             this.Controls.Add(this.Tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -111,6 +142,7 @@ namespace PublishingHouse
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.Tabs.ResumeLayout(false);
             this.Tabs.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bookingDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,6 +156,8 @@ namespace PublishingHouse
         private System.Windows.Forms.ToolStripMenuItem printingHouseTab;
         private System.Windows.Forms.ToolStripMenuItem customersTab;
         private System.Windows.Forms.ToolStripMenuItem productTab;
+        private System.Windows.Forms.DataGridView bookingDataGridView;
+        private System.Windows.Forms.Button inputDataButton;
     }
 }
 
