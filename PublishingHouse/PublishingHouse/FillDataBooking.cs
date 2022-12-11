@@ -50,11 +50,13 @@ namespace PublishingHouse
                 //Загружаем данные в компоненты
                 LoadStartData();
 
+                
                 // Если пользователь изменяет запись
                 if (booking != null && state == 'C')
                 {
                     //LoadDataAboutProduct();
                     //id = Product.GetIdProduct(product.Name, product.NumberEdition);
+                    dateAddBookingTimePicker.Enabled = true;
                 }
             }
             catch
@@ -77,21 +79,98 @@ namespace PublishingHouse
             // Данные о заказчиках
             Customer.LoadCustomers(customerDataGridView);
             WorkWithDataDgv.SetReadOnlyColumns(customerDataGridView);
-
-            // Данные о печатных продукциях (неиспользуемые)
-            Product.LoadProductsWithoutOrdersInTable(productsDataGridView);
-            WorkWithDataDgv.SetReadOnlyColumns(productsDataGridView);
-            productsDataGridView.Columns[1].Width = 200;
-
+          
             // Данные о типографиях
             PrintingHouse.LoadNamePrintingHouseIntoComboBox(printingHouseComboBox);
             printingHouseComboBox.SelectedIndex = 0;
 
+            if (state == 'A')
+            {
+                // Данные о печатной продукции
+                Product.LoadProductsWithoutOrdersInTable(productsDataGridView);
+
+            }
+            else if (state == 'C') 
+            { 
+                // Метод, который учитывает id
+            }
+
+            WorkWithDataDgv.SetReadOnlyColumns(productsDataGridView);
+            productsDataGridView.Columns[1].Width = 200;
         }
 
         private void employeesDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            MainMenu mainMenu = null;
+            Booking booking = null;
+
+            try
+            {
+                // Если пользователь правильно ввёл данные
+                if (CorrectInputData())
+                {
+                   
+                    // Получаем данные для формирования заказа
+                    int idPrintingHouse = PrintingHouse.GetIdPrintingHouseByName(printingHouseComboBox.Text);
+                    DateTime startBooking = DateTime.Now.Date;
+                    int idCustomer = Customer.GetIdCustomerByPhone(customerDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(customerDataGridView)].Cells["Номер телефона"].Value.ToString());
+                    string status = "Выполняется";
+                    double cost = Booking.GetCostBooking(productsDataGridView);
+                    int[] idProducts = Product.GetArrayIdProducts(productsDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(productsDataGridView));
+                    int[] idEmployees = Employee.GetArrayIdEmployees(employeesDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(employeesDataGridView));
+
+                    // Если пользователь добавляет запись
+                    if (state == 'A')
+                    {
+                        booking = new Booking(idPrintingHouse, idCustomer, cost, status, startBooking, idProducts, idEmployees);
+                        mainMenu = new MainMenu(booking, state);
+                    }
+
+                    // Если пользователь изменяет запись
+                    else if (state == 'C') 
+                    {
+                        booking = new Booking(idPrintingHouse, idCustomer, cost, status, startBooking, dateAddBookingTimePicker.Value.Date, idProducts, idEmployees);
+                        mainMenu = new MainMenu(booking, state, id);
+                    }
+
+                    Transition.TransitionByForms(this, mainMenu);
+
+                }
+                else
+                    MessageBox.Show("Необходимо выбрать одного заказчика, хотя бы одного сотрудника, одну печатную продукцию. Если вы изменяете данные, то вы должны выбрать дату, которая не превышает значение сегодняшней даты", "Ввод данных о заказе", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка ввода данных о заказе", "Ввод данных о заказе", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Метод проверки правильности введенных данных
+        /// </summary>
+        /// <returns>Правильно ли пользователь ввёл данные</returns>
+        private bool CorrectInputData()
+        {
+            if (state == 'A')
+            {
+                if (WorkWithDataDgv.CountSelectedRows(customerDataGridView) != 1 || WorkWithDataDgv.CountSelectedRows(employeesDataGridView) < 1 || WorkWithDataDgv.CountSelectedRows(productsDataGridView) < 1)
+                    return false;
+
+            }
+            else if (state == 'C') 
+            {
+                if (WorkWithDataDgv.CountSelectedRows(customerDataGridView) != 1 || WorkWithDataDgv.CountSelectedRows(employeesDataGridView) < 1 || WorkWithDataDgv.CountSelectedRows(productsDataGridView) < 1 || dateAddBookingTimePicker.Value.Date > DateTime.Now.Date)
+                    return false;
+            }
+
+            return true;
+        }
+
+
     }
 }

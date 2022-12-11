@@ -169,7 +169,7 @@ namespace PublishingHouse
                 while (dataReader.Read())
                 {
                     // Получаем номер заказа
-                    int numberOfOrder = Convert.ToInt32(dataReader["bkNumber"]);
+                    int numberOfOrder = Convert.ToInt32(dataReader["bkId"]);
                     orders.Add(numberOfOrder.ToString());
                 }
 
@@ -276,7 +276,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="email">Электронная почта</param>
         /// <returns>id записи</returns>
-        private static int GetIdPrintingHouseByName(string name)
+        public static int GetIdPrintingHouseByName(string name)
         {
             int id = 0;
 

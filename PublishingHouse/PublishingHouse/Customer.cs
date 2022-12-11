@@ -109,7 +109,7 @@ namespace PublishingHouse
                 while (dataReader.Read())
                 {
                     // Получаем id заказа
-                    int numberOrder = Convert.ToInt32(dataReader["bkNumber"]);
+                    int numberOrder = Convert.ToInt32(dataReader["bkId"]);
                     listNumbers.Add(numberOrder);
                 }
 

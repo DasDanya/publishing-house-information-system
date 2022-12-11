@@ -44,6 +44,8 @@ namespace PublishingHouse
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dateAddBookingTimePicker = new System.Windows.Forms.DateTimePicker();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.employeesDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productsDataGridView)).BeginInit();
@@ -165,12 +167,13 @@ namespace PublishingHouse
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(862, 486);
+            this.saveButton.Location = new System.Drawing.Point(862, 516);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(433, 91);
+            this.saveButton.Size = new System.Drawing.Size(433, 61);
             this.saveButton.TabIndex = 6;
             this.saveButton.Text = "Сохранить введённые данные";
             this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // label2
             // 
@@ -199,11 +202,30 @@ namespace PublishingHouse
             this.label4.TabIndex = 9;
             this.label4.Text = "Заказчики";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(983, 428);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(202, 20);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Начало выполнения заказа";
+            // 
+            // dateAddBookingTimePicker
+            // 
+            this.dateAddBookingTimePicker.Enabled = false;
+            this.dateAddBookingTimePicker.Location = new System.Drawing.Point(862, 451);
+            this.dateAddBookingTimePicker.Name = "dateAddBookingTimePicker";
+            this.dateAddBookingTimePicker.Size = new System.Drawing.Size(433, 27);
+            this.dateAddBookingTimePicker.TabIndex = 11;
+            // 
             // FillDataBooking
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1307, 589);
+            this.Controls.Add(this.dateAddBookingTimePicker);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -249,5 +271,7 @@ namespace PublishingHouse
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DateTimePicker dateAddBookingTimePicker;
     }
 }

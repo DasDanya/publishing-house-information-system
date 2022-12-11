@@ -38,8 +38,16 @@ namespace PublishingHouse
             this.productTab = new System.Windows.Forms.ToolStripMenuItem();
             this.bookingDataGridView = new System.Windows.Forms.DataGridView();
             this.inputDataButton = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.addButton = new System.Windows.Forms.Button();
+            this.addLabel = new System.Windows.Forms.Label();
             this.Tabs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookingDataGridView)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // Tabs
@@ -53,7 +61,7 @@ namespace PublishingHouse
             this.productTab});
             this.Tabs.Location = new System.Drawing.Point(0, 0);
             this.Tabs.Name = "Tabs";
-            this.Tabs.Size = new System.Drawing.Size(1006, 28);
+            this.Tabs.Size = new System.Drawing.Size(1134, 28);
             this.Tabs.TabIndex = 0;
             this.Tabs.Text = "menuStrip1";
             // 
@@ -109,13 +117,13 @@ namespace PublishingHouse
             this.bookingDataGridView.RowHeadersVisible = false;
             this.bookingDataGridView.RowHeadersWidth = 51;
             this.bookingDataGridView.RowTemplate.Height = 50;
-            this.bookingDataGridView.Size = new System.Drawing.Size(844, 308);
+            this.bookingDataGridView.Size = new System.Drawing.Size(1110, 308);
             this.bookingDataGridView.TabIndex = 1;
             this.bookingDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.bookingDataGridView_ColumnStateChanged);
             // 
             // inputDataButton
             // 
-            this.inputDataButton.Location = new System.Drawing.Point(12, 376);
+            this.inputDataButton.Location = new System.Drawing.Point(6, 66);
             this.inputDataButton.Name = "inputDataButton";
             this.inputDataButton.Size = new System.Drawing.Size(207, 53);
             this.inputDataButton.TabIndex = 2;
@@ -123,12 +131,69 @@ namespace PublishingHouse
             this.inputDataButton.UseVisualStyleBackColor = true;
             this.inputDataButton.Click += new System.EventHandler(this.inputDataButton_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.addLabel);
+            this.groupBox1.Controls.Add(this.addButton);
+            this.groupBox1.Controls.Add(this.inputDataButton);
+            this.groupBox1.Controls.Add(this.menuStrip1);
+            this.groupBox1.Location = new System.Drawing.Point(12, 375);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1110, 213);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Работа с данными";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.processingTab,
+            this.searchTab});
+            this.menuStrip1.Location = new System.Drawing.Point(3, 23);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1104, 28);
+            this.menuStrip1.TabIndex = 3;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // processingTab
+            // 
+            this.processingTab.Image = ((System.Drawing.Image)(resources.GetObject("processingTab.Image")));
+            this.processingTab.Name = "processingTab";
+            this.processingTab.Size = new System.Drawing.Size(119, 24);
+            this.processingTab.Text = "Обработка";
+            // 
+            // searchTab
+            // 
+            this.searchTab.Image = ((System.Drawing.Image)(resources.GetObject("searchTab.Image")));
+            this.searchTab.Name = "searchTab";
+            this.searchTab.Size = new System.Drawing.Size(86, 24);
+            this.searchTab.Text = "Поиск";
+            // 
+            // addButton
+            // 
+            this.addButton.Location = new System.Drawing.Point(6, 152);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(207, 53);
+            this.addButton.TabIndex = 4;
+            this.addButton.Text = "Добавить заказ";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            // 
+            // addLabel
+            // 
+            this.addLabel.AutoSize = true;
+            this.addLabel.Location = new System.Drawing.Point(6, 129);
+            this.addLabel.Name = "addLabel";
+            this.addLabel.Size = new System.Drawing.Size(0, 20);
+            this.addLabel.TabIndex = 5;
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1006, 531);
-            this.Controls.Add(this.inputDataButton);
+            this.ClientSize = new System.Drawing.Size(1134, 597);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.bookingDataGridView);
             this.Controls.Add(this.Tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -143,6 +208,10 @@ namespace PublishingHouse
             this.Tabs.ResumeLayout(false);
             this.Tabs.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookingDataGridView)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -158,6 +227,12 @@ namespace PublishingHouse
         private System.Windows.Forms.ToolStripMenuItem productTab;
         private System.Windows.Forms.DataGridView bookingDataGridView;
         private System.Windows.Forms.Button inputDataButton;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label addLabel;
+        private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem processingTab;
+        private System.Windows.Forms.ToolStripMenuItem searchTab;
     }
 }
 

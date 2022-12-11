@@ -368,7 +368,7 @@ namespace PublishingHouse
                 for (int i = 0; i < ids.Count; i++)
                 {
                     // Получаем номера заказов и добавляем в список
-                    SqlCommand command = new SqlCommand("SELECT bkNumber FROM booking WHERE bkId = '"+ids[i]+"'",ConnectionToDb.Connection);
+                    SqlCommand command = new SqlCommand("SELECT bkId FROM booking WHERE bkId = '"+ids[i]+"'",ConnectionToDb.Connection);
                     orders.Add(Convert.ToInt32(command.ExecuteScalar()));
                     
                 }

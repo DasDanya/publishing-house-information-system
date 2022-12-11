@@ -9,7 +9,7 @@ using System.IO;
 
 namespace PublishingHouse
 {
-   public class Product
+    public class Product
     {
 
         string name, nameTypeProduct;
@@ -20,14 +20,14 @@ namespace PublishingHouse
         List<Material> materials = new List<Material>();
 
         public string Name { get { return name; } }
-        public string NameTypeProduct { get { return nameTypeProduct;} }
+        public string NameTypeProduct { get { return nameTypeProduct; } }
         public int NumberEdition { get { return numberEdition; } }
         public int ProdEdition { get { return prodEdition; } }
         public int IdTypeProduct { get { return idTypeProduct; } }
         public double Cost { get { return cost; } }
         public Image DesignAsImage { get { return designAsImage; } }
         public List<Material> Materials { get { return materials; } }
-        
+
 
         public Product(string name, int numberEdition)
         {
@@ -52,7 +52,7 @@ namespace PublishingHouse
             this.materials = materials;
         }
 
-        public Product(string name, string nameTypeProduct, int numberEdition, int prodEdition,Image designAsImage, List<Material> materials, double cost) : this(name, numberEdition)
+        public Product(string name, string nameTypeProduct, int numberEdition, int prodEdition, Image designAsImage, List<Material> materials, double cost) : this(name, numberEdition)
         {
             this.nameTypeProduct = nameTypeProduct;
             this.prodEdition = prodEdition;
@@ -83,7 +83,7 @@ namespace PublishingHouse
                 if (typeWork == 'A')
                 {
                     // Запрос на существование печатной продукции
-                    command = new SqlCommand("SELECT prodId FROM product WHERE prodName = N'" + newName + "' AND prodNumEdition = '"+newNumEdition+"'", ConnectionToDb.Connection);             
+                    command = new SqlCommand("SELECT prodId FROM product WHERE prodName = N'" + newName + "' AND prodNumEdition = '" + newNumEdition + "'", ConnectionToDb.Connection);
                 }
 
 
@@ -95,7 +95,7 @@ namespace PublishingHouse
                     ConnectionToDb.Open();
 
                     //Запрос на существование печатной продукции, не учитывая изменяемую запись 
-                    command = new SqlCommand("SELECT COUNT(prodId) FROM product WHERE prodNumEdition = '"+newNumEdition+"' AND prodName = N'" + newName + "' AND prodId != '" + id + "' ", ConnectionToDb.Connection);
+                    command = new SqlCommand("SELECT COUNT(prodId) FROM product WHERE prodNumEdition = '" + newNumEdition + "' AND prodName = N'" + newName + "' AND prodId != '" + id + "' ", ConnectionToDb.Connection);
 
                 }
 
@@ -132,7 +132,7 @@ namespace PublishingHouse
 
                 // Формируем запрос на получение id печатной продукции и выполняем его
                 SqlCommand command = new SqlCommand("SELECT prodId FROM product WHERE prodName = N'" + name + "' AND prodNumEdition = '" + numEdition + "'", ConnectionToDb.Connection);
-                
+
 
                 //Получаем id                 
                 id = Convert.ToInt32(command.ExecuteScalar());
@@ -155,7 +155,7 @@ namespace PublishingHouse
         /// <param name="margin">Наценка</param>
         /// <param name="countProduct">Количество печатной продукции</param>
         /// <returns>Стоимость печатной продукции</returns>
-        public static double GetCostProduct(DataGridView dataGridView, int margin, int countProduct) 
+        public static double GetCostProduct(DataGridView dataGridView, int margin, int countProduct)
         {
             double cost = 0;
 
@@ -173,7 +173,7 @@ namespace PublishingHouse
                 cost = ((costWithoutMargin / 100) * (margin + 100)) * Convert.ToDouble(countProduct);
                 cost = Math.Round(cost, 2);
             }
-            catch 
+            catch
             {
                 throw new Exception("Ошибка подсчёта стоимости печатной продукции");
             }
@@ -185,7 +185,7 @@ namespace PublishingHouse
         /// Метод добавления печатной продукции
         /// </summary>
         /// <returns>1- если количество добавленных строк равно ожидаемому количеству добавленных строк</returns>
-        public int AddProduct() 
+        public int AddProduct()
         {
             int countSelectedRows = -1;
 
@@ -194,7 +194,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Формируем запрос на добавление типа печатной продукции и выполняем его
-                SqlCommand command = new SqlCommand("INSERT INTO product (prodNumEdition, prodName, prodVisual, prodEdition, prodCost, ftypeProdId) VALUES ('"+numberEdition+"', N'"+name+"', @visual, '"+prodEdition+"', @cost, '"+idTypeProduct+"')", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("INSERT INTO product (prodNumEdition, prodName, prodVisual, prodEdition, prodCost, ftypeProdId) VALUES ('" + numberEdition + "', N'" + name + "', @visual, '" + prodEdition + "', @cost, '" + idTypeProduct + "')", ConnectionToDb.Connection);
                 command.Parameters.Add("@visual", SqlDbType.Image).Value = design;
                 command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
                 countSelectedRows = command.ExecuteNonQuery();
@@ -220,7 +220,7 @@ namespace PublishingHouse
         /// <param name="materials">Список материалов</param>
         /// <param name="idProduct">id печатной продукции</param>
         /// <returns>Добавилось ли в таблицу указанное количество записей</returns>
-        private static bool AddProductTypeProduct(List<Material> materials, int idProduct) 
+        private static bool AddProductTypeProduct(List<Material> materials, int idProduct)
         {
             bool success = false;
             int countAddRows = 0;
@@ -232,7 +232,7 @@ namespace PublishingHouse
                 for (int i = 0; i < materials.Count; i++)
                 {
                     SqlCommand command = new SqlCommand("INSERT INTO productMaterial (matCount, fprodId, fmatId) VALUES ('" + materials[i].Count + "', '" + idProduct + "', '" + materials[i].Id + "')", ConnectionToDb.Connection);
-                    countAddRows += command.ExecuteNonQuery();         
+                    countAddRows += command.ExecuteNonQuery();
                 }
 
                 // Если количество добавленных записей равно количеству записей в списке
@@ -261,24 +261,24 @@ namespace PublishingHouse
             {
                 ConnectionToDb.Open();
 
-                SqlCommand command = new SqlCommand("DELETE FROM productMaterial WHERE fprodId = '"+idProduct+"' ", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("DELETE FROM productMaterial WHERE fprodId = '" + idProduct + "' ", ConnectionToDb.Connection);
                 countDeletedRows = command.ExecuteNonQuery();
 
                 ConnectionToDb.Close();
             }
-            catch 
+            catch
             {
                 throw new Exception("Ошибка удаления данных из таблицы \"Печатная продукция-Материал\"");
             }
             return countDeletedRows;
         }
 
-    
+
         /// <summary>
         /// Метод загрузки данных о печатных продукциях в таблицу
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
-        public static void LoadProductsInTable(DataGridView dataGridView) 
+        public static void LoadProductsInTable(DataGridView dataGridView)
         {
             try
             {
@@ -303,10 +303,10 @@ namespace PublishingHouse
 
         }
 
-       /// <summary>
-       /// Метод загрузки не успользуемых печатных продукций в таблицу
-       /// </summary>
-       /// <param name="dataGridView">Таблица</param>
+        /// <summary>
+        /// Метод загрузки не успользуемых печатных продукций в таблицу
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
         public static void LoadProductsWithoutOrdersInTable(DataGridView dataGridView)
         {
             try
@@ -347,7 +347,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Формируем запрос на получение фотографии печатной продукции и выполняем его
-                SqlCommand command = new SqlCommand("SELECT prodVisual FROM product WHERE prodName = N'" + name + "' AND prodNumEdition = '"+numEdition+"'", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("SELECT prodVisual FROM product WHERE prodName = N'" + name + "' AND prodNumEdition = '" + numEdition + "'", ConnectionToDb.Connection);
                 command.CommandType = CommandType.Text;
                 photo = (byte[])command.ExecuteScalar();
 
@@ -402,7 +402,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Получаем количество заказов, где указана печатная продукция
-                SqlCommand command = new SqlCommand("SELECT fbkId FROM product WHERE prodId = '" + idProduct+ "'", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("SELECT fbkId FROM product WHERE prodId = '" + idProduct + "'", ConnectionToDb.Connection);
 
                 if (command.ExecuteScalar() != DBNull.Value)
                     isSpecified = true;
@@ -418,11 +418,11 @@ namespace PublishingHouse
             return isSpecified;
         }
 
-       /// <summary>
-       /// Метод определения того, что печатные продукции упоминаются хоть в одном заказе
-       /// </summary>
-       /// <param name="arrayIdProducts">Массив id печатных продукций</param>
-       /// <returns>Упоминаются ли печатные продукции хоть в одном заказе</returns>
+        /// <summary>
+        /// Метод определения того, что печатные продукции упоминаются хоть в одном заказе
+        /// </summary>
+        /// <param name="arrayIdProducts">Массив id печатных продукций</param>
+        /// <returns>Упоминаются ли печатные продукции хоть в одном заказе</returns>
         public static bool ProductsAreSpecified(int[] arrayIdProducts)
         {
             bool areSpecified = false;
@@ -462,7 +462,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Формируем запрос на изменение данных о печатной продукции
-                SqlCommand command = new SqlCommand("UPDATE product SET prodName = N'"+name+"', prodNumEdition = '"+numberEdition+"', prodVisual = @visual, prodEdition = '"+prodEdition+"', prodCost = @cost, ftypeProdId = '"+idTypeProduct+"' WHERE prodId = '"+idProduct+"'", ConnectionToDb.Connection);
+                SqlCommand command = new SqlCommand("UPDATE product SET prodName = N'" + name + "', prodNumEdition = '" + numberEdition + "', prodVisual = @visual, prodEdition = '" + prodEdition + "', prodCost = @cost, ftypeProdId = '" + idTypeProduct + "' WHERE prodId = '" + idProduct + "'", ConnectionToDb.Connection);
                 command.Parameters.Add("@visual", SqlDbType.Image).Value = design;
                 command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
                 countChangedRows = command.ExecuteNonQuery();
@@ -477,7 +477,7 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch 
+            catch
             {
                 throw new Exception("Ошибка изменения данных о печатной продукции");
             }
@@ -523,7 +523,7 @@ namespace PublishingHouse
             return arrayId;
         }
 
-     
+
         /// <summary>
         /// Метод удаления печатной продукции
         /// </summary>
@@ -535,7 +535,7 @@ namespace PublishingHouse
 
             try
             {
-                
+
                 // Проходимся по массиву id
                 for (int i = 0; i < arrayId.Length; i++)
                 {
@@ -573,7 +573,7 @@ namespace PublishingHouse
             int numOrder = -1;
             try
             {
-                
+
                 ConnectionToDb.Open();
 
                 //Указываем,что команда является хранимой процедурой
@@ -595,6 +595,44 @@ namespace PublishingHouse
             }
 
             return numOrder;
+        }
+
+        /// <summary>
+        /// Метод, устанавливающий печатной продукции заказ
+        /// </summary>
+        /// <param name="idProducts">Массив id печатных продукций</param>
+        /// <param name="idBooking"></param>
+        /// <returns></returns>
+        public static bool SetBooking(int[] idProducts, int idBooking) 
+        {
+            bool successSet = false;
+            int countSet = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Указываем каждой печатной продукции номер заказа
+                for (int i = 0; i < idProducts.Length; i++)
+                {
+                    // Устанавливаем заказ
+                    SqlCommand command = new SqlCommand("UPDATE product SET fbkId = '"+idBooking+"' WHERE prodId = '"+idProducts[i]+"'", ConnectionToDb.Connection);
+                    countSet += command.ExecuteNonQuery();
+                }
+
+                // Если для каждой печатной продукции был указан заказ
+                if (countSet == idProducts.Length)
+                    successSet = true;
+
+                ConnectionToDb.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+                //throw new Exception("Ошибка установки заказа печатной продукции");
+            }
+
+            return successSet;
         }
 
     }
