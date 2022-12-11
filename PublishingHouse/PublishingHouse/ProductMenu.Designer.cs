@@ -38,6 +38,21 @@ namespace PublishingHouse
             this.label1 = new System.Windows.Forms.Label();
             this.productPictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.searchStringTextBox = new System.Windows.Forms.TextBox();
+            this.stringLabel = new System.Windows.Forms.Label();
+            this.stringComboBox = new System.Windows.Forms.ComboBox();
+            this.secondLabel = new System.Windows.Forms.Label();
+            this.resetSearchButton = new System.Windows.Forms.Button();
+            this.getNumbersDataButton = new System.Windows.Forms.Button();
+            this.toTextBox = new System.Windows.Forms.TextBox();
+            this.toLabel = new System.Windows.Forms.Label();
+            this.fromTextBox = new System.Windows.Forms.TextBox();
+            this.fromLabel = new System.Windows.Forms.Label();
+            this.numbersComboBox = new System.Windows.Forms.ComboBox();
+            this.firstColumnsLabel = new System.Windows.Forms.Label();
+            this.outputAllDataButton = new System.Windows.Forms.Button();
+            this.searchOrdersButton = new System.Windows.Forms.Button();
+            this.ordersTreeView = new System.Windows.Forms.TreeView();
             this.changeLabel = new System.Windows.Forms.Label();
             this.addLabel = new System.Windows.Forms.Label();
             this.resetSelectRowsButton = new System.Windows.Forms.Button();
@@ -133,6 +148,21 @@ namespace PublishingHouse
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.searchStringTextBox);
+            this.groupBox1.Controls.Add(this.stringLabel);
+            this.groupBox1.Controls.Add(this.stringComboBox);
+            this.groupBox1.Controls.Add(this.secondLabel);
+            this.groupBox1.Controls.Add(this.resetSearchButton);
+            this.groupBox1.Controls.Add(this.getNumbersDataButton);
+            this.groupBox1.Controls.Add(this.toTextBox);
+            this.groupBox1.Controls.Add(this.toLabel);
+            this.groupBox1.Controls.Add(this.fromTextBox);
+            this.groupBox1.Controls.Add(this.fromLabel);
+            this.groupBox1.Controls.Add(this.numbersComboBox);
+            this.groupBox1.Controls.Add(this.firstColumnsLabel);
+            this.groupBox1.Controls.Add(this.outputAllDataButton);
+            this.groupBox1.Controls.Add(this.searchOrdersButton);
+            this.groupBox1.Controls.Add(this.ordersTreeView);
             this.groupBox1.Controls.Add(this.changeLabel);
             this.groupBox1.Controls.Add(this.addLabel);
             this.groupBox1.Controls.Add(this.resetSelectRowsButton);
@@ -150,6 +180,158 @@ namespace PublishingHouse
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
+            // 
+            // searchStringTextBox
+            // 
+            this.searchStringTextBox.Location = new System.Drawing.Point(838, 177);
+            this.searchStringTextBox.MaxLength = 150;
+            this.searchStringTextBox.Name = "searchStringTextBox";
+            this.searchStringTextBox.Size = new System.Drawing.Size(272, 27);
+            this.searchStringTextBox.TabIndex = 25;
+            this.searchStringTextBox.Visible = false;
+            this.searchStringTextBox.TextChanged += new System.EventHandler(this.searchStringTextBox_TextChanged);
+            // 
+            // stringLabel
+            // 
+            this.stringLabel.AutoSize = true;
+            this.stringLabel.Location = new System.Drawing.Point(884, 154);
+            this.stringLabel.Name = "stringLabel";
+            this.stringLabel.Size = new System.Drawing.Size(181, 20);
+            this.stringLabel.TabIndex = 24;
+            this.stringLabel.Text = "Данные для поиска типа";
+            this.stringLabel.Visible = false;
+            // 
+            // stringComboBox
+            // 
+            this.stringComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.stringComboBox.FormattingEnabled = true;
+            this.stringComboBox.Location = new System.Drawing.Point(838, 86);
+            this.stringComboBox.Name = "stringComboBox";
+            this.stringComboBox.Size = new System.Drawing.Size(272, 28);
+            this.stringComboBox.TabIndex = 23;
+            this.stringComboBox.Visible = false;
+            // 
+            // secondLabel
+            // 
+            this.secondLabel.AutoSize = true;
+            this.secondLabel.Location = new System.Drawing.Point(898, 63);
+            this.secondLabel.Name = "secondLabel";
+            this.secondLabel.Size = new System.Drawing.Size(148, 20);
+            this.secondLabel.TabIndex = 22;
+            this.secondLabel.Text = "Столбец для поиска";
+            this.secondLabel.Visible = false;
+            // 
+            // resetSearchButton
+            // 
+            this.resetSearchButton.Location = new System.Drawing.Point(580, 154);
+            this.resetSearchButton.Name = "resetSearchButton";
+            this.resetSearchButton.Size = new System.Drawing.Size(243, 55);
+            this.resetSearchButton.TabIndex = 21;
+            this.resetSearchButton.Text = "Сбросить поиск";
+            this.resetSearchButton.UseVisualStyleBackColor = true;
+            this.resetSearchButton.Visible = false;
+            this.resetSearchButton.Click += new System.EventHandler(this.resetSearchButton_Click);
+            // 
+            // getNumbersDataButton
+            // 
+            this.getNumbersDataButton.Location = new System.Drawing.Point(580, 63);
+            this.getNumbersDataButton.Name = "getNumbersDataButton";
+            this.getNumbersDataButton.Size = new System.Drawing.Size(243, 55);
+            this.getNumbersDataButton.TabIndex = 20;
+            this.getNumbersDataButton.Text = "Поиск числовых данных";
+            this.getNumbersDataButton.UseVisualStyleBackColor = true;
+            this.getNumbersDataButton.Visible = false;
+            this.getNumbersDataButton.Click += new System.EventHandler(this.getNumbersDataButton_Click);
+            // 
+            // toTextBox
+            // 
+            this.toTextBox.Location = new System.Drawing.Point(499, 154);
+            this.toTextBox.MaxLength = 6;
+            this.toTextBox.Name = "toTextBox";
+            this.toTextBox.Size = new System.Drawing.Size(75, 27);
+            this.toTextBox.TabIndex = 19;
+            this.toTextBox.Visible = false;
+            this.toTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.fromTextBox_KeyPress);
+            // 
+            // toLabel
+            // 
+            this.toLabel.AutoSize = true;
+            this.toLabel.Location = new System.Drawing.Point(462, 154);
+            this.toLabel.Name = "toLabel";
+            this.toLabel.Size = new System.Drawing.Size(31, 20);
+            this.toLabel.TabIndex = 18;
+            this.toLabel.Text = "До:";
+            this.toLabel.Visible = false;
+            // 
+            // fromTextBox
+            // 
+            this.fromTextBox.Location = new System.Drawing.Point(334, 154);
+            this.fromTextBox.MaxLength = 6;
+            this.fromTextBox.Name = "fromTextBox";
+            this.fromTextBox.Size = new System.Drawing.Size(75, 27);
+            this.fromTextBox.TabIndex = 17;
+            this.fromTextBox.Visible = false;
+            this.fromTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.fromTextBox_KeyPress);
+            // 
+            // fromLabel
+            // 
+            this.fromLabel.AutoSize = true;
+            this.fromLabel.Location = new System.Drawing.Point(299, 154);
+            this.fromLabel.Name = "fromLabel";
+            this.fromLabel.Size = new System.Drawing.Size(29, 20);
+            this.fromLabel.TabIndex = 16;
+            this.fromLabel.Text = "От:";
+            this.fromLabel.Visible = false;
+            // 
+            // numbersComboBox
+            // 
+            this.numbersComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.numbersComboBox.FormattingEnabled = true;
+            this.numbersComboBox.Location = new System.Drawing.Point(299, 86);
+            this.numbersComboBox.Name = "numbersComboBox";
+            this.numbersComboBox.Size = new System.Drawing.Size(275, 28);
+            this.numbersComboBox.TabIndex = 15;
+            this.numbersComboBox.Visible = false;
+            // 
+            // firstColumnsLabel
+            // 
+            this.firstColumnsLabel.AutoSize = true;
+            this.firstColumnsLabel.Location = new System.Drawing.Point(364, 63);
+            this.firstColumnsLabel.Name = "firstColumnsLabel";
+            this.firstColumnsLabel.Size = new System.Drawing.Size(148, 20);
+            this.firstColumnsLabel.TabIndex = 14;
+            this.firstColumnsLabel.Text = "Столбец для поиска";
+            this.firstColumnsLabel.Visible = false;
+            // 
+            // outputAllDataButton
+            // 
+            this.outputAllDataButton.Location = new System.Drawing.Point(112, 154);
+            this.outputAllDataButton.Name = "outputAllDataButton";
+            this.outputAllDataButton.Size = new System.Drawing.Size(181, 55);
+            this.outputAllDataButton.TabIndex = 13;
+            this.outputAllDataButton.Text = "Вывод всех данных о печ. продукции";
+            this.outputAllDataButton.UseVisualStyleBackColor = true;
+            this.outputAllDataButton.Visible = false;
+            this.outputAllDataButton.Click += new System.EventHandler(this.outputAllDataButton_Click);
+            // 
+            // searchOrdersButton
+            // 
+            this.searchOrdersButton.Location = new System.Drawing.Point(112, 63);
+            this.searchOrdersButton.Name = "searchOrdersButton";
+            this.searchOrdersButton.Size = new System.Drawing.Size(181, 55);
+            this.searchOrdersButton.TabIndex = 12;
+            this.searchOrdersButton.Text = "Поиск заказа";
+            this.searchOrdersButton.UseVisualStyleBackColor = true;
+            this.searchOrdersButton.Visible = false;
+            this.searchOrdersButton.Click += new System.EventHandler(this.searchOrdersButton_Click);
+            // 
+            // ordersTreeView
+            // 
+            this.ordersTreeView.Location = new System.Drawing.Point(6, 63);
+            this.ordersTreeView.Name = "ordersTreeView";
+            this.ordersTreeView.Size = new System.Drawing.Size(100, 146);
+            this.ordersTreeView.TabIndex = 11;
+            this.ordersTreeView.Visible = false;
             // 
             // changeLabel
             // 
@@ -266,6 +448,7 @@ namespace PublishingHouse
             this.processingTab.Name = "processingTab";
             this.processingTab.Size = new System.Drawing.Size(119, 24);
             this.processingTab.Text = "Обработка";
+            this.processingTab.Click += new System.EventHandler(this.processingTab_Click);
             // 
             // searchTab
             // 
@@ -273,6 +456,7 @@ namespace PublishingHouse
             this.searchTab.Name = "searchTab";
             this.searchTab.Size = new System.Drawing.Size(86, 24);
             this.searchTab.Text = "Поиск";
+            this.searchTab.Click += new System.EventHandler(this.searchTab_Click);
             // 
             // ProductMenu
             // 
@@ -330,5 +514,20 @@ namespace PublishingHouse
         private System.Windows.Forms.Button selectForChangeButton;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Label changeLabel;
+        private System.Windows.Forms.TreeView ordersTreeView;
+        private System.Windows.Forms.Button outputAllDataButton;
+        private System.Windows.Forms.Button searchOrdersButton;
+        private System.Windows.Forms.Label firstColumnsLabel;
+        private System.Windows.Forms.ComboBox numbersComboBox;
+        private System.Windows.Forms.Label toLabel;
+        private System.Windows.Forms.TextBox fromTextBox;
+        private System.Windows.Forms.Label fromLabel;
+        private System.Windows.Forms.TextBox toTextBox;
+        private System.Windows.Forms.Button resetSearchButton;
+        private System.Windows.Forms.Button getNumbersDataButton;
+        private System.Windows.Forms.Label stringLabel;
+        private System.Windows.Forms.ComboBox stringComboBox;
+        private System.Windows.Forms.Label secondLabel;
+        private System.Windows.Forms.TextBox searchStringTextBox;
     }
 }

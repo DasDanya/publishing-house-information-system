@@ -53,6 +53,56 @@ namespace PublishingHouse
             this.count = count;
         }
 
+        public Material(string type, string color, string size, double cost, int count) 
+        {
+            this.type = type;
+            this.color = color;
+            this.size = size;
+            this.cost = cost;
+            this.count = count;
+
+        }
+
+        /// <summary>
+        /// Метод получения материала
+        /// </summary>
+        /// <param name="idMaterial">id материала</param>
+        /// <param name="count">Количество использований</param>
+        /// <returns>Материал</returns>
+        public static Material GetMaterial(int idMaterial, int count) 
+        {
+            Material material = null;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запос на получение данных о материале
+                SqlCommand command = new SqlCommand("SELECT matType, matColor, matSize, matCost FROM Material WHERE matId = '"+idMaterial+"' ", ConnectionToDb.Connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Получаем данные о материале
+                while (reader.Read()) 
+                {
+                    material = new Material(reader["matType"].ToString(), reader["matColor"].ToString(), reader["matSize"].ToString(), Convert.ToDouble(reader["matCost"]), count);
+                }
+
+                reader.Close();
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения данных о материале");
+            }
+
+            return material;
+        }
+
+        public override string ToString()
+        {
+            return $"Тип: {type}\nЦвет: {color}\nРазмер: {size}\nСтоимость: {cost}\nКоличество: {count}";
+        }
+
         /// <summary>
         /// Метод загрузки данных из базы данных
         /// </summary>

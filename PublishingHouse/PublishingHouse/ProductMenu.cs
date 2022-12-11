@@ -328,19 +328,23 @@ namespace PublishingHouse
                         // Если печатная продукция(-ии) не упоминается(-ются) ни в одном заказе 
                         if (!Product.ProductsAreSpecified(arrayId))
                         {
-                            // Если мы удалили указанное количество записей
-                            int check = Product.DeleteProducts(arrayId);
-                            if (check == arrayId.Length)
+                            // Если мы удалили указанное количество записей                          
+                            if (Product.DeleteProducts(arrayId) == arrayId.Length)
                             {
                                 MessageBox.Show("Записи успешно удалены!", "Удаление печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 ReloadData();
                                 DisplayStartPhoto();
+
+                                // Очищаем поле для макета печатной продукции, если таблица пустая
+                                if (productDataGridView.RowCount < 1)
+                                    WorkWithDataDgv.EmptyPictureBox(productPictureBox);
+                             
                             }
                             else
                             {
                                 MessageBox.Show("Количество удаленных записей не совпадает с ожидаемым количеством", "Удаление печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
-                            MessageBox.Show(check.ToString());
+                            
                         }
                         else
                             MessageBox.Show("Невозможно удалить запись(-и), так как существует заказ(-ы), где указана выбранная печатная продукция. Удалите заказ(-ы), где указана выбранная печатная продукция, и повторите попытку", "Удаление печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -352,6 +356,186 @@ namespace PublishingHouse
             {
 
                 MessageBox.Show("Произошла ошибка удаления печатных продукций", "Удаление печатных продукций", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void searchTab_Click(object sender, EventArgs e)
+        {
+            inputDataButton.Visible = false;
+            addButton.Visible = false;
+            addLabel.Visible = false;
+            selectForChangeButton.Visible = false;
+            resetAddOrChangeButton.Visible = false;
+            deleteButton.Visible = false;
+            changeLabel.Visible = false;
+            changeButton.Visible = false;
+            selectAllRowsButton.Visible = false;
+            resetSelectRowsButton.Visible = false;
+            ordersTreeView.Visible = true;
+            searchOrdersButton.Visible = true;
+            outputAllDataButton.Visible = true;
+            firstColumnsLabel.Visible = true;
+            numbersComboBox.Visible = true;
+            fromLabel.Visible = true;
+            fromTextBox.Visible = true;
+            toLabel.Visible = true;
+            toTextBox.Visible = true;
+            getNumbersDataButton.Visible = true;
+            resetSearchButton.Visible = true;
+            secondLabel.Visible = true;
+            stringComboBox.Visible = true;
+            stringLabel.Visible = true;
+            searchStringTextBox.Visible = true;
+
+            // Устанавливаем значения и свойства полям для поиска
+            WorkWithDataDgv.SetElementsForSearchStringData(productDataGridView, stringComboBox, searchStringTextBox);
+            WorkWithDataDgv.SetRowOfIntComboBox(productDataGridView, numbersComboBox, fromTextBox, toTextBox);
+            
+        }
+
+        private void processingTab_Click(object sender, EventArgs e)
+        {
+            inputDataButton.Visible = true;
+            addButton.Visible = true;
+            addLabel.Visible = true;
+            selectForChangeButton.Visible = true;
+            resetAddOrChangeButton.Visible = true;
+            deleteButton.Visible = true;
+            changeLabel.Visible = true;
+            changeButton.Visible = true;
+            selectAllRowsButton.Visible = true;
+            resetSelectRowsButton.Visible = true;
+            ordersTreeView.Visible = false;
+            searchOrdersButton.Visible = false;
+            outputAllDataButton.Visible = false;
+            firstColumnsLabel.Visible = false;
+            numbersComboBox.Visible = false;
+            fromLabel.Visible = false;
+            fromTextBox.Visible = false;
+            toLabel.Visible = false;
+            toTextBox.Visible = false;
+            getNumbersDataButton.Visible = false;
+            resetSearchButton.Visible = false;
+            secondLabel.Visible = false;
+            stringComboBox.Visible = false;
+            stringLabel.Visible = false;
+            searchStringTextBox.Visible = false;
+
+        }
+
+        private void fromTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Получаем символ, который ввёл пользователь
+            char number = e.KeyChar;
+
+            // Если пользователь ввёл не цифру, не нажал на Backspace или запятую, то не отображаем символ в textbox
+            if (!Char.IsDigit(number) && number != 8 && number != 44)
+                e.Handled = true;
+        }
+
+        private void searchStringTextBox_TextChanged(object sender, EventArgs e)
+        {
+            // Ищём запрашиваемые данные в таблице
+            WorkWithDataDgv.GetLikeString(productDataGridView, stringComboBox, searchStringTextBox);
+            DisplayStartPhoto();
+        }
+
+        private void resetSearchButton_Click(object sender, EventArgs e)
+        {
+            WorkWithDataDgv.ResetSearch(productDataGridView);
+            searchStringTextBox.Text = "";
+            toTextBox.Text = "";
+            fromTextBox.Text = "";
+            DisplayStartPhoto();
+        }
+
+        private void getNumbersDataButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (productDataGridView.RowCount < 1)
+                    MessageBox.Show("Отсутствуют строки для поиска", "Поиск числовых данных", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    double from = Convert.ToDouble(fromTextBox.Text);
+                    double to = Convert.ToDouble(toTextBox.Text);
+
+                    if (from >= to)
+                        MessageBox.Show("Данные в поле \"От\" должны быть меньше данных в поле \"До\"", "Поиск числовых данных", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    else
+                    {
+                        // Производим поиск числовых данных
+                        WorkWithDataDgv.SearchByDifference(productDataGridView, numbersComboBox.Text, from, to);
+                        DisplayStartPhoto();
+                    }
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка поиска числовых данных. Возможно, что вы ввели нецелые числа для поиска данных из столбца, которых хранит в себе только целые числа", "Поиск числовых данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void searchOrdersButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ordersTreeView.Nodes.Clear();
+
+                // Если пользователь выбрал 0 или несколько записей
+                if (WorkWithDataDgv.CountSelectedRows(productDataGridView) != 1)
+                    MessageBox.Show("Неодходимо выбрать одну запись", "Поиск заказа", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+
+                    int numberRow = WorkWithDataDgv.NumberSelectedRows(productDataGridView);
+
+                    // Получаем номер заказа
+                    int numOrder = Product.GetNumberOfOrdersThisProduct(Product.GetIdProduct(productDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Номер тиража"].Value)));
+
+                    if (numOrder == 0)
+                       MessageBox.Show("Данная печатная продукция нигде не указана", "Поиск заказа", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                    {
+                        // Выводим номер заказа
+                        ordersTreeView.Nodes.Add("Заказ №:");
+                        ordersTreeView.Nodes.Add(numOrder.ToString());
+                    }                    
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка поиска заказа", "Поиск заказа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void outputAllDataButton_Click(object sender, EventArgs e)
+        {
+            if (WorkWithDataDgv.CountSelectedRows(productDataGridView) != 1)
+                MessageBox.Show("Неодходимо выбрать одну запись", "Вывод всех данных о печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else 
+            {
+                Product product = null;
+
+                for (int i = 0; i < productDataGridView.RowCount; i++)
+                {
+                    // Если список содержит индекс выбранной строки
+                    if (WorkWithDataDgv.GetListIndexesSelectedRows(productDataGridView).Contains(i))
+                    {
+                        // Добавляем данные о печатной продукции в список
+                        int idProduct = Product.GetIdProduct(productDataGridView.Rows[i].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[i].Cells["Номер тиража"].Value));
+                        List<Material> materials = Material.GetListMaterials(idProduct);
+
+                        product = new Product(productDataGridView.Rows[i].Cells["Название"].Value.ToString(), productDataGridView.Rows[i].Cells["Тип печ. продукции"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[i].Cells["Номер тиража"].Value), Convert.ToInt32(productDataGridView.Rows[i].Cells["Тираж"].Value),
+                            Product.GetPhotoAsImage(productDataGridView.Rows[i].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[i].Cells["Номер тиража"].Value)), materials, Convert.ToDouble(productDataGridView.Rows[i].Cells["Стоимость"].Value));
+                    }
+                }
+
+                // Переход в меню вывода данных
+                OtputAllDataProduct otputAllDataProduct = new OtputAllDataProduct(product);
+                Transition.TransitionByForms(this, otputAllDataProduct);
+                 
             }
         }
     }

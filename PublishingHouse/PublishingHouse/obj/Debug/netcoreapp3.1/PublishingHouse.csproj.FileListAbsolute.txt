@@ -39,3 +39,4 @@ C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHou
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FillDataTypeProduct.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FashionTypeProductMenu.resources
 C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.FillDataProduct.resources
+C:\Users\User\Documents\GitHub\publishing-house-information-system\PublishingHouse\PublishingHouse\obj\Debug\netcoreapp3.1\PublishingHouse.OtputAllDataProduct.resources

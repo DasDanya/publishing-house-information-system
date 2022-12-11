@@ -12,7 +12,7 @@ namespace PublishingHouse
    public class Product
     {
 
-        string name;
+        string name, nameTypeProduct;
         int numberEdition, prodEdition, idTypeProduct;
         byte[] design;
         double cost;
@@ -20,9 +20,11 @@ namespace PublishingHouse
         List<Material> materials = new List<Material>();
 
         public string Name { get { return name; } }
+        public string NameTypeProduct { get { return nameTypeProduct;} }
         public int NumberEdition { get { return numberEdition; } }
         public int ProdEdition { get { return prodEdition; } }
         public int IdTypeProduct { get { return idTypeProduct; } }
+        public double Cost { get { return cost; } }
         public Image DesignAsImage { get { return designAsImage; } }
         public List<Material> Materials { get { return materials; } }
         
@@ -48,6 +50,15 @@ namespace PublishingHouse
             this.idTypeProduct = idTypeProduct;
             this.designAsImage = designAsImage;
             this.materials = materials;
+        }
+
+        public Product(string name, string nameTypeProduct, int numberEdition, int prodEdition,Image designAsImage, List<Material> materials, double cost) : this(name, numberEdition)
+        {
+            this.nameTypeProduct = nameTypeProduct;
+            this.prodEdition = prodEdition;
+            this.designAsImage = designAsImage;
+            this.materials = materials;
+            this.cost = cost;
         }
 
         /// <summary>
@@ -520,6 +531,41 @@ namespace PublishingHouse
                 throw new Exception("Произошла ошибка удаления печатной продукции");
             }
             return countDeleteRows;
+        }
+
+
+        /// <summary>
+        /// Метод получения номера заказа, где указана печатная продукция
+        /// </summary>
+        /// <param name="idProduct">id печатной продукции</param>
+        /// <returns>Номер заказа</returns>
+        public static int GetNumberOfOrdersThisProduct(int idProduct)
+        {
+            int numOrder = -1;
+            try
+            {
+                
+                ConnectionToDb.Open();
+
+                //Указываем,что команда является хранимой процедурой
+                const string SQLPROCEDURE = "getNumberBooking";
+                SqlCommand command = new SqlCommand(SQLPROCEDURE, ConnectionToDb.Connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                //Передаём данные id печатной продукции
+                command.Parameters.AddWithValue("@idProduct", idProduct);
+
+                //Получаем номер заказа
+                numOrder = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения номера заказа");
+            }
+
+            return numOrder;
         }
 
     }

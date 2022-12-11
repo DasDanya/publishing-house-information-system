@@ -13,11 +13,11 @@ namespace PublishingHouse
     /// </summary>
     public static class WorkWithDataDgv
     {
-       /// <summary>
-       /// Метод подсчёта выбранных строк
-       /// </summary>
-       /// <param name="dataGridView">Таблица</param>
-       /// <returns>Количество выбранных строк</returns>
+        /// <summary>
+        /// Метод подсчёта выбранных строк
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <returns>Количество выбранных строк</returns>
         public static int CountSelectedRows(DataGridView dataGridView)
         {
             int count = 0;
@@ -37,7 +37,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
         /// <returns>Номер выбранной строки в DataGridView</returns>
-        public static int NumberSelectedRows(DataGridView dataGridView) 
+        public static int NumberSelectedRows(DataGridView dataGridView)
         {
             int number = -1;
 
@@ -48,7 +48,7 @@ namespace PublishingHouse
                     number = i;
             }
             return number;
-            
+
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
         /// <returns>Список индексов выбранных строк</returns>
-        public static List<int> GetListIndexesSelectedRows(DataGridView dataGridView) 
+        public static List<int> GetListIndexesSelectedRows(DataGridView dataGridView)
         {
             List<int> indexes = new List<int>();
 
@@ -83,8 +83,9 @@ namespace PublishingHouse
         /// Метод, возвращаюший ComboBox столбцов для поиска данных
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
+        /// <param name="comboBox">Выпадающий список</param>>
         /// <returns>ComboBox столбцов для поиска данных</returns>
-        private static void SetRowOfColumnsIntoComboBox(DataGridView dataGridView, ComboBox comboBox) 
+        private static void SetRowOfColumnsIntoComboBox(DataGridView dataGridView, ComboBox comboBox)
         {
 
             comboBox.Items.Clear();
@@ -101,7 +102,7 @@ namespace PublishingHouse
                 for (int i = 1; i < dataGridView.Columns.Count; i++)
                 {
                     // Если данные в этом столбце имеют строковой тип данных
-                    if (dataGridView.Rows[0].Cells[i].Value.GetType() == typeof(string)) 
+                    if (dataGridView.Rows[0].Cells[i].Value.GetType() == typeof(string))
                     {
                         // Добавляем имя этого столбца в ComboBox
                         comboBox.Items.Add(dataGridView.Columns[i].Name);
@@ -109,17 +110,52 @@ namespace PublishingHouse
                 }
             }
 
-          
+
         }
 
-       
+        /// <summary>
+        /// Метод, устанавливающий определенные свойства и данные для компонентов, работающих с числовыми типами данных
+        /// </summary>
+        /// <param name="dataGridView">Таблица с данными</param>
+        /// <param name="comboBox">Выпадающий список</param>
+        /// <param name="firsttextBox">Первое текстовое поле</param>
+        /// <param name="secondTextBox">Второе текстовое поле</param>
+        public static void SetRowOfIntComboBox(DataGridView dataGridView, ComboBox comboBox, TextBox firsttextBox, TextBox secondTextBox) 
+        {        
+            comboBox.Items.Clear();
+
+            // Если DataGridView пустой
+            if (dataGridView.Rows.Count < 1)
+            {
+                comboBox.Items.Add("Отсутствуют данные для поиска");
+                firsttextBox.Enabled = false;
+                secondTextBox.Enabled = false;               
+            }
+
+            else
+            {
+                // Проходим каждый столбец
+                for (int i = 1; i < dataGridView.Columns.Count; i++)
+                {
+                    // Если данные в этом столбце имеют числовой тип данных
+                    if (dataGridView.Rows[0].Cells[i].Value.GetType() == typeof(int) || dataGridView.Rows[0].Cells[i].Value.GetType() == typeof(double) || dataGridView.Rows[0].Cells[i].Value.GetType() == typeof(float))
+                    {
+                        // Добавляем имя этого столбца в ComboBox
+                        comboBox.Items.Add(dataGridView.Columns[i].Name);
+                    }
+                }  
+            }
+
+            comboBox.SelectedIndex = 0;
+        }
+
         /// <summary>
         /// Метод, выводящий строки, удовлетворяющие запросу пользователя
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
         /// <param name="comboBox">Список столбцов</param>
         /// <param name="textBox">Поле,хранящее запрос пользователя</param>
-        public static void GetLikeString(DataGridView dataGridView, ComboBox comboBox, TextBox textBox) 
+        public static void GetLikeString(DataGridView dataGridView, ComboBox comboBox, TextBox textBox)
         {
             (dataGridView.DataSource as DataTable).DefaultView.RowFilter = String.Format("[{0}] LIKE '%{1}%'", comboBox.Text, textBox.Text);
         }
@@ -131,10 +167,10 @@ namespace PublishingHouse
         /// <param name="column">Столбец</param>
         /// <param name="from">Левое пороговое значение</param>
         /// <param name="to">Правое пороговое значение</param>
-        public static void SearchByDifference(DataGridView dataGridView, string column, double from, double to) 
+        public static void SearchByDifference(DataGridView dataGridView, string column, double from, double to)
         {
 
-            (dataGridView.DataSource as DataTable).DefaultView.RowFilter = "["+column+"] >= '" + from.ToString() + "' AND ["+column+"] <= '" + to.ToString() + "'";
+            (dataGridView.DataSource as DataTable).DefaultView.RowFilter = "[" + column + "] >= '" + from.ToString() + "' AND [" + column + "] <= '" + to.ToString() + "'";
         }
 
         /// <summary>
@@ -154,7 +190,7 @@ namespace PublishingHouse
         /// Сброс поиска данных
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
-        public static void ResetSearch(DataGridView dataGridView) 
+        public static void ResetSearch(DataGridView dataGridView)
         {
             (dataGridView.DataSource as DataTable).DefaultView.RowFilter = string.Empty;
         }
@@ -165,7 +201,7 @@ namespace PublishingHouse
         /// <param name="dataGridView">Таблица</param>
         /// <param name="comboBox">Список столбцов</param>
         /// <param name="textBox">Поле для поиска</param>
-        public static void SetElementsForSearchStringData(DataGridView dataGridView, ComboBox comboBox,TextBox textBox) 
+        public static void SetElementsForSearchStringData(DataGridView dataGridView, ComboBox comboBox, TextBox textBox)
         {
             // Устанавливаем список столбцов
             SetRowOfColumnsIntoComboBox(dataGridView, comboBox);
@@ -175,7 +211,7 @@ namespace PublishingHouse
             if (dataGridView.Rows.Count < 1)
                 textBox.Enabled = false;
             else
-                textBox.Enabled = true;    
+                textBox.Enabled = true;
         }
 
         /// <summary>
@@ -183,16 +219,16 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
         /// <param name="select">True - установка, False - сброс</param>
-        public static void SelectOrCancelSelectAllRows(DataGridView dataGridView, bool select) 
+        public static void SelectOrCancelSelectAllRows(DataGridView dataGridView, bool select)
         {
             if (dataGridView.Rows.Count < 1)
                 return;
-            else 
+            else
             {
                 for (int i = 0; i < dataGridView.Rows.Count; i++)
                 {
-                   dataGridView.Rows[i].Cells[0].Value = select;
-                }    
+                    dataGridView.Rows[i].Cells[0].Value = select;
+                }
             }
         }
 
@@ -217,7 +253,7 @@ namespace PublishingHouse
         /// Метод, устанавливающий для столбцов нужное значение свойства ReadOnly
         /// </summary>
         /// <param name="dataGridView">Таблица</param>
-        public static void SetReadOnlyColumns(DataGridView dataGridView) 
+        public static void SetReadOnlyColumns(DataGridView dataGridView)
         {
             dataGridView.Columns[0].ReadOnly = false;
 
@@ -225,14 +261,14 @@ namespace PublishingHouse
             {
                 dataGridView.Columns[i].ReadOnly = true;
             }
-        
+
         }
 
-       /// <summary>
-       /// Метод, возвращающий изображение в виде массива байт
-       /// </summary>
-       /// <param name="image">Изображение</param>
-       /// <returns>Изображение в виде массива байт</returns>
+        /// <summary>
+        /// Метод, возвращающий изображение в виде массива байт
+        /// </summary>
+        /// <param name="image">Изображение</param>
+        /// <returns>Изображение в виде массива байт</returns>
         public static byte[] GetBytePhoto(Image image)
         {
             byte[] photo = null;
@@ -257,20 +293,33 @@ namespace PublishingHouse
         /// Метод удаления всех строк из DataGridView
         /// </summary>
         /// <param name="dataGridView">DataGridView, у которого надо удалить все строки</param>
-        public static void DeleteAllRowsFromDataGridView(DataGridView dataGridView) 
+        public static void DeleteAllRowsFromDataGridView(DataGridView dataGridView)
         {
             dataGridView.Rows.Clear();
             dataGridView.Refresh();
         }
 
-        public static void DeleteSelectedRowsFromDataGridView(DataGridView dataGridView) 
+        public static void DeleteSelectedRowsFromDataGridView(DataGridView dataGridView)
         {
-            for (int i = dataGridView.Rows.Count-1; i >= 0; i--)
+            for (int i = dataGridView.Rows.Count - 1; i >= 0; i--)
             {
                 // Если строка выбрана, то удаляем её
                 if (Convert.ToBoolean(dataGridView.Rows[i].Cells[0].Value))
                     dataGridView.Rows.RemoveAt(i);
             }
+
+        }
+
+
+
+        /// <summary>
+        /// Устанавка фона PictureBox по умолчанию 
+        /// </summary>
+        /// <param name="pictureBox">PictureBox для установки фона</param>
+        public static void EmptyPictureBox(PictureBox pictureBox) 
+        {
+            pictureBox.Image = null;
+            pictureBox.BackColor = SystemColors.ControlDark;
 
         }
     }

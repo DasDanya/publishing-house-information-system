@@ -490,6 +490,10 @@ namespace PublishingHouse
                                 MessageBox.Show("Записи успешно удалены!", "Удаление сотрудников", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 ReloadData();
                                 DisplayStartPhoto();
+
+                                // Очищаем поле для фото сотрудника, если таблица пустая
+                                if (employeeDataGridView.RowCount < 1)
+                                    WorkWithDataDgv.EmptyPictureBox(employeePictureBox);
                             }
                             else
                             {
