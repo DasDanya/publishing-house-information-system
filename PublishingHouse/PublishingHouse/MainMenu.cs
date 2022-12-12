@@ -224,19 +224,22 @@ namespace PublishingHouse
                 {
                     int numberRow = WorkWithDataDgv.NumberSelectedRows(bookingDataGridView);
                     int idBooking = Convert.ToInt32((bookingDataGridView.Rows[numberRow].Cells["Номер заказа"].Value));
-                    if (!Product.ProductIsSpecified(id))
+                    if (Booking.BookingIsBeingExecuted(idBooking))
                     {
 
-                        //Cоздаём объект печатной продукции              
-                        Product product = new Product(productDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Номер тиража"].Value), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Тираж"].Value),
-                            TypeProduct.GetIdTypeProduct(id), Product.GetPhotoAsImage(productDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Номер тиража"].Value)), Material.GetListMaterials(id));
+                        // Получаем данные о заказе
+                        int idCustomer = Booking.GetIdCustomer(idBooking);
+                        int[] idEmployees = Booking.GetArrayIdEmployees(idBooking);
+                        int[] idProducts = Booking.GetArrayIdProducts(idBooking);
+
+                        Booking booking = new Booking(idBooking,idCustomer, bookingDataGridView.Rows[numberRow].Cells["Типография"].Value.ToString(), idProducts, idEmployees);
 
                         // Переходим в меню ввода данных для изменения этих самых данных
-                        FillDataProduct fillDataProduct = new FillDataProduct(product, 'C');
-                        Transition.TransitionByForms(this, fillDataProduct);
+                        FillDataBooking fillDataBooking = new FillDataBooking(booking, 'C');
+                        Transition.TransitionByForms(this, fillDataBooking);
                     }
                     else
-                        MessageBox.Show("Невозможно изменить запись, так как существует заказ(-ы), где указана печатная продукция. Удалите заказ(-ы), где указана печатная продукция, или создайте новую печатную продукцию", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Невозможно изменить заказ, потому что он выполнен", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             catch

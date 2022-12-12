@@ -333,6 +333,35 @@ namespace PublishingHouse
         }
 
         /// <summary>
+        /// Метод загрузки не успользуемых печатных продукций в таблицу
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        public static void LoadProductsWithoutOrdersInTable(DataGridView dataGridView, int idBooking)
+        {
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение печатных продукций
+                SqlCommand command = new SqlCommand("SELECT product.prodName AS N'Название', typeProduct.typeProdName AS N'Тип печ. продукции', product.prodNumEdition AS N'Номер тиража', product.prodEdition AS N'Тираж', product.prodCost AS N'Стоимость' FROM product JOIN typeProduct ON product.ftypeProdId = typeProduct.typeProdId WHERE product.fbkId IS NULL OR product.fbkId = '"+idBooking+"' ORDER BY product.prodName", ConnectionToDb.Connection);
+                command.CommandType = CommandType.Text;
+                SqlDataReader dataReader = command.ExecuteReader();
+
+                // Загружаем данные о печатных продукциях в таблицу
+                DataTable dt = new DataTable();
+                dt.Load(dataReader);
+                dataGridView.DataSource = dt;
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения данных о печатных продукциях");
+            }
+
+        }
+
+        /// <summary>
         /// Метод получения макета печатной продукции из бд
         /// </summary>
         /// <param name="name">Название печатной продукции</param>
@@ -627,6 +656,45 @@ namespace PublishingHouse
             }
 
             return successSet;
+        }
+
+        /// <summary>
+        /// Метод, который подсвечивает строки с данными о печатных продукциях
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="idProducts">Массив id печатных продукций</param>
+        public static void SelectRowsInTable(DataGridView dataGridView, int[] idProducts)
+        {
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Если нет данных
+                if (dataGridView.RowCount < 1 || idProducts.Length < 1)
+                    return;
+
+                else
+                {
+                    for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < idProducts.Length; j++)
+                        {
+                            string name = dataGridView.Rows[i].Cells["Название"].Value.ToString();
+                            int numEdition = Convert.ToInt32(dataGridView.Rows[i].Cells["Номер тиража"].Value);
+
+                            // Если нашли печатную продукцию
+                            if (idProducts[j] == GetIdProduct(name, numEdition))
+                                dataGridView.Rows[i].Cells[0].Value = true;
+                        }
+                    }
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка поиска строк с данными о печатных продукциях");
+            }
         }
 
     }

@@ -401,6 +401,11 @@ namespace PublishingHouse
             return exist;
         }
 
+        /// <summary>
+        /// Метод изменения данных о заказчике
+        /// </summary>
+        /// <param name="id">id заказчика</param>
+        /// <returns>Количество измененных данных</returns>
         public int ChangeCustomer(int id)
         {
             int countChangedRows = -1;
@@ -501,6 +506,40 @@ namespace PublishingHouse
                 throw new Exception("Произошла ошибка удаления заказчиков");
             }
             return countDeleteRows;
+        }
+
+        /// <summary>
+        /// Метод, который подсвечивает строку с данными о заказчике
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="idCustomer">id заказчика</param>
+        public static void SelectRowInTable(DataGridView dataGridView, int idCustomer)
+        {
+            try
+            {
+                ConnectionToDb.Open();
+
+                if (dataGridView.RowCount < 1)
+                    return;
+
+                else
+                {
+                    for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    {
+                        string phone = dataGridView.Rows[i].Cells["Номер телефона"].Value.ToString();
+
+                        // Если нашли сотрудника
+                        if (idCustomer == GetIdCustomerByPhone(phone))
+                            dataGridView.Rows[i].Cells[0].Value = true;
+                    }
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка поиска строки с данными о заказчике");
+            }
         }
     }
 }

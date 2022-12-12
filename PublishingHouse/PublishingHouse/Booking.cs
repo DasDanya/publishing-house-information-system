@@ -10,15 +10,18 @@ namespace PublishingHouse
     public class Booking
     {
 
-        int idPrintingHouse, idCustomer;
+        int idPrintingHouse, idCustomer, numBooking;
         double cost;
-        string status;
+        string status, namePrintingHouse;
         DateTime startBooking, endBooking;
         int[] idProducts, idEmployees;
 
         public int IdPrintingHouse { get { return idPrintingHouse; } }
         public int IdCustomer { get { return idCustomer; } }
+        public int NumBooking { get { return numBooking; } }
         public double Cost { get { return cost; } }
+
+        public String NamePrintingHouse { get { return namePrintingHouse; } }
         public DateTime StartBooking { get { return startBooking; } }
         public DateTime EndBooking { get { return endBooking; } }
         public int[] IdProducts { get { return idProducts; } }
@@ -35,6 +38,15 @@ namespace PublishingHouse
             this.idEmployees = idEmployees;
         }
 
+        public Booking(int numBooking, int idCustomer, string namePrintingHouse, int[] idProducts, int[] idEmployees)
+        {
+            this.numBooking = numBooking;
+            this.idCustomer = idCustomer;
+            this.namePrintingHouse = namePrintingHouse;
+            this.idProducts = idProducts;
+            this.idEmployees = idEmployees;
+        }
+
         public Booking(int idPrintingHouse, int idCustomer, double cost, string status, DateTime startBooking, DateTime endBooking, int[] idProducts, int[] idEmployees)
         {
             this.idPrintingHouse = idPrintingHouse;
@@ -46,6 +58,8 @@ namespace PublishingHouse
             this.idProducts = idProducts;
             this.idEmployees = idEmployees;
         }
+
+
 
 
 
@@ -205,6 +219,11 @@ namespace PublishingHouse
             }
         }
 
+        /// <summary>
+        /// Метод проверки статуса заказа
+        /// </summary>
+        /// <param name="idBooking">id заказа</param>
+        /// <returns>Выполняется ли заказ</returns>
         public static bool BookingIsBeingExecuted(int idBooking) 
         {
             bool isBeingExecuted = false;
@@ -213,7 +232,14 @@ namespace PublishingHouse
             {
                 ConnectionToDb.Open();
 
+                // Получаем данные о статусе заказа
+                SqlCommand command = new SqlCommand("SELECT bkStatus FROM booking WHERE bkId = '"+idBooking+"'", ConnectionToDb.Connection);
+                string status = command.ExecuteScalar().ToString();
 
+                // Если статус выполняется
+                if (status == "Выполняется")
+                    isBeingExecuted = true;
+                
 
                 ConnectionToDb.Close();
             }
@@ -224,5 +250,112 @@ namespace PublishingHouse
 
             return isBeingExecuted;
         }
+
+        /// <summary>
+        /// Метод получения id заказчика 
+        /// </summary>
+        /// <param name="idBooking">id заказа</param>
+        /// <returns>id заказчика</returns>
+        public static int GetIdCustomer(int idBooking) 
+        {
+            int id = -1;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Получаем id заказчика
+                SqlCommand command = new SqlCommand("SELECT fcustId FROM booking WHERE bkId = '"+idBooking+"'", ConnectionToDb.Connection);
+                id = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения уникального номера записи о заказчике");
+            }
+
+            return id;
+        }
+
+        /// <summary>
+        /// Метод получения массива id сотрудников
+        /// </summary>
+        /// <param name="idBooking">id заказа</param>
+        /// <returns>Массив id заказов</returns>
+        public static int[] GetArrayIdEmployees(int idBooking) 
+        {
+            List<int> idEmployees = new List<int>();
+            int[] arrayId;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+              
+                // Запрос на получение id сотрудников
+                SqlCommand command = new SqlCommand("SELECT fempId FROM bookingEmployee WHERE fbkId = '"+idBooking+"'" , ConnectionToDb.Connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Записываем данные в массив
+                while (reader.Read()) 
+                {
+                    idEmployees.Add(Convert.ToInt32(reader["fempId"]));
+                }
+
+                arrayId = new int[idEmployees.Count];
+                idEmployees.CopyTo(arrayId, 0);
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+               throw new Exception("Ошибка получения массива идентификаторов записей о сотрудниках");
+            }
+
+            
+
+            return arrayId; 
+        }
+
+        /// <summary>
+        /// Метод получения массива id печатных продукций 
+        /// </summary>
+        /// <param name="idBooking">id заказа</param>
+        /// <returns>Массив id печатных продукций</returns>
+        public static int[] GetArrayIdProducts(int idBooking)
+        {
+            List<int> idProducts = new List<int>();
+            int[] arrayId;
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение id печатных продукций
+                SqlCommand command = new SqlCommand("SELECT prodId FROM product WHERE fbkId = '" + idBooking + "'", ConnectionToDb.Connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Записываем данные в массив
+                while (reader.Read())
+                {
+                    idProducts.Add(Convert.ToInt32(reader["prodId"]));
+                }
+
+                arrayId = new int[idProducts.Count];
+                idProducts.CopyTo(arrayId, 0);
+
+                reader.Close();
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения массива идентификаторов записей о печатных продукциях");
+            }
+
+            
+
+            return arrayId;
+        }
     }
+
 }

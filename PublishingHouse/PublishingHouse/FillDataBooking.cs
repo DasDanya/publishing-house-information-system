@@ -55,14 +55,13 @@ namespace PublishingHouse
                 if (booking != null && state == 'C')
                 {
                     //LoadDataAboutProduct();
-                    //id = Product.GetIdProduct(product.Name, product.NumberEdition);
+                    id = this.booking.NumBooking;
                     dateAddBookingTimePicker.Enabled = true;
                 }
             }
             catch
             {
-
-                MessageBox.Show("Ошибка загрузки формы ввода данных о заказе", "Ввод данных о заказе", MessageBoxButtons.OK, MessageBoxIcon.Error);
+               MessageBox.Show("Ошибка загрузки формы ввода данных о заказе", "Ввод данных о заказе", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -91,12 +90,26 @@ namespace PublishingHouse
 
             }
             else if (state == 'C') 
-            { 
+            {
                 // Метод, который учитывает id
+                Product.LoadProductsWithoutOrdersInTable(productsDataGridView, booking.NumBooking);
+                LoadDataForChange();
             }
 
             WorkWithDataDgv.SetReadOnlyColumns(productsDataGridView);
             productsDataGridView.Columns[1].Width = 200;
+        }
+
+        /// <summary>
+        /// Метод загрузки стартовых данных при изменении данных
+        /// </summary>
+        private void LoadDataForChange() 
+        {
+            printingHouseComboBox.Text = booking.NamePrintingHouse;
+            Customer.SelectRowInTable(customerDataGridView, booking.IdCustomer);
+            Employee.SelectRowsInTable(employeesDataGridView, booking.IdEmployees);
+            Product.SelectRowsInTable(productsDataGridView, booking.IdProducts);
+
         }
 
         private void employeesDataGridView_ColumnStateChanged(object sender, DataGridViewColumnStateChangedEventArgs e)

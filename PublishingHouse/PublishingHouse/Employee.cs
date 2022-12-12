@@ -608,5 +608,43 @@ namespace PublishingHouse
             return countDeleteRows;
         }
 
+        /// <summary>
+        /// Метод, который подсвечивает строки с данными о сотрудниках
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="idEmployees">Массив id сотрудников</param>
+        public static void SelectRowsInTable(DataGridView dataGridView, int[] idEmployees)
+        {
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Если нет данных
+                if (dataGridView.RowCount < 1 || idEmployees.Length < 1)
+                    return;
+
+                else
+                {
+                    for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < idEmployees.Length; j++)
+                        {
+                            string phone = dataGridView.Rows[i].Cells["Номер телефона"].Value.ToString();
+
+                            // Если нашли сотрудника
+                            if (idEmployees[j] == GetIdEmployeeByPhone(phone))
+                                dataGridView.Rows[i].Cells[0].Value = true;
+                        }
+                    }
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка поиска строк с данными о сотрудниках");
+            }
+        }
+
     }
 }
