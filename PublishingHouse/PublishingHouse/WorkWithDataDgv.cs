@@ -134,6 +134,9 @@ namespace PublishingHouse
 
             else
             {
+                firsttextBox.Enabled = true;
+                secondTextBox.Enabled = true;
+
                 // Проходим каждый столбец
                 for (int i = 1; i < dataGridView.Columns.Count; i++)
                 {

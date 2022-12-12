@@ -365,11 +365,137 @@ namespace PublishingHouse
 
                 }
             }
-            catch(Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
-                //MessageBox.Show("Ошибка удаления заказа", "Удаление заказа", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка удаления заказа", "Удаление заказа", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void processingTab_Click(object sender, EventArgs e)
+        {
+            inputDataButton.Visible = true;
+            addLabel.Visible = true;
+            addButton.Visible = true;
+            selectForChangeButton.Visible = true;
+            resetAddOrChangeButton.Visible = true;
+            deleteButton.Visible = true;
+            changeLabel.Visible = true;
+            changeButton.Visible = true;
+            selectAllRowsButton.Visible = true;
+            resetSelectRowsButton.Visible = true;
+            completeBookingButton.Visible = true;
+            generateReportButton.Visible = true;
+            stringColumnLabel.Visible = false;
+            stringComboBox.Visible = false;
+            stringDataLabel.Visible = false;
+            stringTextBox.Visible = false;
+            intLabel.Visible = false;
+            numberComboBox.Visible = false;
+            toLabel.Visible = false;
+            toTextBox.Visible = false;
+            fromLabel.Visible = false;
+            fromTextBox.Visible = false;
+            searchNumbersButton.Visible = false;
+            searchDateButton.Visible = false;
+            dateLabel.Visible = false;
+            dateComboBox.Visible = false;
+            toDataLabel.Visible = false;
+            toDateTimePicker.Visible = false;
+            fromDataLabel.Visible = false;
+            fromDateTimePicker.Visible = false;
+            resetSearchButton.Visible = false;
+        }
+
+        private void searchTab_Click(object sender, EventArgs e)
+        {
+            inputDataButton.Visible = false;
+            addLabel.Visible = false;
+            addButton.Visible = false;
+            selectForChangeButton.Visible = false;
+            resetAddOrChangeButton.Visible = false;
+            deleteButton.Visible = false;
+            changeLabel.Visible = false;
+            changeButton.Visible = false;
+            selectAllRowsButton.Visible = false;
+            resetSelectRowsButton.Visible = false;
+            completeBookingButton.Visible = false;
+            generateReportButton.Visible = false;
+            stringColumnLabel.Visible = true;
+            stringComboBox.Visible = true;
+            stringDataLabel.Visible = true;
+            stringTextBox.Visible = true;
+            intLabel.Visible = true;
+            numberComboBox.Visible = true;
+            toLabel.Visible = true;
+            toTextBox.Visible = true;
+            fromLabel.Visible = true;
+            fromTextBox.Visible = true;
+            searchNumbersButton.Visible = true;
+            searchDateButton.Visible = true;
+            dateLabel.Visible = true;
+            dateComboBox.Visible = true;
+            toDataLabel.Visible = true;
+            toDateTimePicker.Visible = true;
+            fromDataLabel.Visible = true;
+            fromDateTimePicker.Visible = true;
+            resetSearchButton.Visible = true;
+
+            // Устанавливаем значения и свойства полям для поиска
+            WorkWithDataDgv.SetElementsForSearchStringData(bookingDataGridView, stringComboBox, stringTextBox);
+            WorkWithDataDgv.SetRowOfIntComboBox(bookingDataGridView, numberComboBox, fromTextBox, toTextBox);
+        }
+
+        private void stringTextBox_TextChanged(object sender, EventArgs e)
+        {
+            // Ищём запрашиваемые данные в таблице
+            WorkWithDataDgv.GetLikeString(bookingDataGridView, stringComboBox, stringTextBox);
+        }
+
+        private void fromTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Получаем символ, который ввёл пользователь
+            char number = e.KeyChar;
+
+            // Если пользователь ввёл не цифру, не нажал на Backspace или запятую, то не отображаем символ в textbox
+            if (!Char.IsDigit(number) && number != 8 && number != 44)
+                e.Handled = true;
+        }
+
+        private void searchNumbersButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (bookingDataGridView.RowCount < 1)
+                    MessageBox.Show("Отсутствуют строки для поиска", "Поиск числовых данных", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    double from = Convert.ToDouble(fromTextBox.Text);
+                    double to = Convert.ToDouble(toTextBox.Text);
+
+                    if (from >= to)
+                        MessageBox.Show("Данные в поле \"От\" должны быть меньше данных в поле \"До\"", "Поиск числовых данных", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    else
+                    {
+                        // Производим поиск числовых данных
+                        WorkWithDataDgv.SearchByDifference(bookingDataGridView, numberComboBox.Text, from, to);
+                        
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка поиска числовых данных. Возможно, что вы ввели нецелые числа для поиска данных из столбца, которых хранит в себе только целые числа", "Поиск числовых данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void resetSearchButton_Click(object sender, EventArgs e)
+        {
+            WorkWithDataDgv.ResetSearch(bookingDataGridView);
+            stringTextBox.Text = "";
+            toTextBox.Text = "";
+            fromTextBox.Text = "";
+            fromDateTimePicker.Value = DateTime.Now.Date;
+            toDateTimePicker.Value = DateTime.Now.Date;
         }
     }
 }
