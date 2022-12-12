@@ -40,7 +40,7 @@ namespace PublishingHouse
         {
             try
             {
-                //LoadTable();
+                LoadTable();
 
                 // Если пользователь добавляет запись
                 if (booking != null && state == 'A')
@@ -50,16 +50,69 @@ namespace PublishingHouse
                 else if (booking != null && state == 'C')
                 {
                     addButton.Enabled = false;
-                    //deleteButton.Enabled = false;
-                    //changeButton.Enabled = true;
+                    deleteButton.Enabled = false;
+                    changeButton.Enabled = true;
 
-                    //changeLabel.Text = "Вы можете изменить запись";
+                    changeLabel.Text = "Вы можете изменить запись";
                 }
             }
             catch
-            {
+            {               
                 MessageBox.Show("Ошибка отображения стартовых данных", "Отображение стартовых данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+        }
+
+        /// <summary>
+        /// Метод загрузки данных в таблицу
+        /// </summary>
+        private void LoadTable()
+        {
+            // Загружаем данные о заказах в таблицу
+            Booking.LoadBookings(bookingDataGridView);
+            WorkWithDataDgv.SetReadOnlyColumns(bookingDataGridView);
+            bookingDataGridView.Columns["Заказчик"].Width = 240;
+
+        }
+
+        /// <summary>
+        /// Метод,который приводит компоненты и переменные в состояние по умолчанию
+        /// </summary>
+        private void DefaultStateOfMenu()
+        {
+            ClearBuffer();
+            addLabel.Text = "";
+            changeLabel.Text = "";
+            addButton.Enabled = true;
+            deleteButton.Enabled = true;
+            changeButton.Enabled = false;
+
+        }
+
+        /// <summary>
+        /// Метод очистки значений для буфферных переменных
+        /// </summary>
+        private void ClearBuffer()
+        {
+            booking = null;
+            state = ' ';
+            id = -1;
+        }
+
+
+        /// <summary>
+        /// Метод вывода новых данных из бд
+        /// </summary>
+        private void ReloadData()
+        {
+            // Удаляем все строки из таблицы
+            while (bookingDataGridView.Rows.Count != 0)
+            {
+                bookingDataGridView.Rows.Remove(bookingDataGridView.Rows[bookingDataGridView.Rows.Count - 1]);
+            }
+
+            // Загружаем новые данные
+            LoadTable();
 
         }
 
@@ -120,13 +173,11 @@ namespace PublishingHouse
                 {
                     if (booking.AddBooking() == 1)
                     {
-                        MessageBox.Show("Запись успешно добавлена!", "Добавление печатной продукции", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Запись успешно добавлена!", "Добавление заказа", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         // Выводим новые данные и делаем комноненты и переменные в состояние по умолчанию
-                        //ReloadData();
-                        //DefaultStateOfMenu();
-                        //DisplayStartPhoto();
-
+                        ReloadData();
+                        DefaultStateOfMenu();
                     }
                     else
                         MessageBox.Show("Количество добавленных записей не равно должному количеству", "Добавление заказа", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -137,6 +188,12 @@ namespace PublishingHouse
             {
                 MessageBox.Show("Ошибка добавления заказа", "Добавление заказа", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void resetAddOrChangeButton_Click(object sender, EventArgs e)
+        {
+            // Приводим буфферные данные и компоненты в состояние по умолчанию
+            DefaultStateOfMenu();
         }
     }
 }

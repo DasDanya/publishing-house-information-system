@@ -89,10 +89,9 @@ namespace PublishingHouse
                 ConnectionToDb.Close();
 
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
-                //throw new Exception("Ошибка получения уникального номера записи о заказе");
+                throw new Exception("Ошибка получения уникального номера записи о заказе");
             }
 
             return id;
@@ -132,10 +131,9 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch (Exception ex)
+            catch 
             {
-                throw new Exception(ex.Message);
-                //throw new Exception("Ошибка добавления данных о заказе");            
+                throw new Exception("Ошибка добавления данных о заказе");            
             }
 
             return success;
@@ -170,13 +168,41 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-                //throw new Exception("Ошибка добавления данных в таблицу \"Заказ-Сотрудник\"");
+            catch 
+            {              
+                throw new Exception("Ошибка добавления данных в таблицу \"Заказ-Сотрудник\"");
             }
 
             return success;
+        }
+
+        /// <summary>
+        /// Загрузка данных о заказе в таблицу
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        public static void LoadBookings(DataGridView dataGridView)
+        {
+            try 
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение данных о заказе
+                SqlCommand command = new SqlCommand("SELECT booking.bkId AS N'Номер заказа', booking.bkDateOfAdd AS N'Дата приёма', booking.bkDateOfComplete AS N'Дата выполнения', booking.bkStatus AS N'Статус', booking.bkCost AS N'Стоимость выполнения', customer.custName AS N'Заказчик', printingHouse.phName AS 'Типография' FROM booking, customer, printingHouse WHERE booking.fcustId = customer.custId AND booking.fphId = printingHouse.phId", ConnectionToDb.Connection);
+                SqlDataReader reader = command.ExecuteReader();
+                DataTable dataTable = new DataTable();
+
+                // Загружаем данные в таблицу
+                dataTable.Load(reader);
+                dataGridView.DataSource = dataTable;
+
+
+                reader.Close();
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка загрузки данных о заказах");
+            }
         }
     }
 }
