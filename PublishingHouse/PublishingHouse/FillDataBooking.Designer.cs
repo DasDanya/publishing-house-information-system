@@ -88,6 +88,7 @@ namespace PublishingHouse
             this.employeesDataGridView.Size = new System.Drawing.Size(810, 236);
             this.employeesDataGridView.TabIndex = 1;
             this.employeesDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.employeesDataGridView_ColumnStateChanged);
+           
             // 
             // Select
             // 

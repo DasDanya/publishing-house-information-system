@@ -620,7 +620,7 @@ namespace PublishingHouse
                 ConnectionToDb.Open();
 
                 // Если нет данных
-                if (dataGridView.RowCount < 1 || idEmployees.Length < 1)
+                if (dataGridView.RowCount < 1)
                     return;
 
                 else
@@ -629,11 +629,15 @@ namespace PublishingHouse
                     {
                         for (int j = 0; j < idEmployees.Length; j++)
                         {
+                           
                             string phone = dataGridView.Rows[i].Cells["Номер телефона"].Value.ToString();
 
                             // Если нашли сотрудника
-                            if (idEmployees[j] == GetIdEmployeeByPhone(phone))
+                            if (idEmployees[j] == GetIdEmployeeByPhone(phone))                           
                                 dataGridView.Rows[i].Cells[0].Value = true;
+                               
+                            
+                            
                         }
                     }
                 }

@@ -274,5 +274,54 @@ namespace PublishingHouse
                 MessageBox.Show("Ошибка изменения данных о заказе", "Изменение данных о заказе", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void completeBookingButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Количество выбранных заказов
+                int numberSelectedRows = WorkWithDataDgv.CountSelectedRows(bookingDataGridView);
+
+                if ( numberSelectedRows < 1)
+                    MessageBox.Show("Необходимо выбрать хотя бы одну запись", "Выполнить заказ", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    // Если пользователь подтвердил выполнение заказа
+                    if (MessageBox.Show("Вы точно хотите выполнить заказ? После выполнения заказа изменение его данных станет невозможным", "Выполнить заказ", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        int countCompleBookings = 0;
+
+                        // Проходимся по таблице
+                        for (int i = 0; i < bookingDataGridView.RowCount; i++)
+                        {
+                            // id заказа
+                            int idBooking = Convert.ToInt32(bookingDataGridView.Rows[i].Cells["Номер заказа"].Value);
+
+                            // Если заказ выбран
+                            if (Convert.ToBoolean(bookingDataGridView.Rows[i].Cells[0].Value))
+                            {
+                                // Если заказ выполняется
+                                if (Booking.BookingIsBeingExecuted(idBooking))
+                                    countCompleBookings += Booking.BookingIsCompleted(idBooking);
+                            }
+                        }
+
+                        if (countCompleBookings != numberSelectedRows)
+                            MessageBox.Show("Некоторые выбранные заказы уже выполнены!", "Выполнить заказ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        else
+                            MessageBox.Show("Выбранные заказы выполнены!", "Выполнить заказ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                        ReloadData();
+                        DefaultStateOfMenu();
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                //MessageBox.Show("Ошибка выполнения заказа", "Выполнить заказ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

@@ -186,6 +186,7 @@ namespace PublishingHouse
             this.completeBookingButton.TabIndex = 12;
             this.completeBookingButton.Text = "Выполнить заказ";
             this.completeBookingButton.UseVisualStyleBackColor = true;
+            this.completeBookingButton.Click += new System.EventHandler(this.completeBookingButton_Click);
             // 
             // resetSelectRowsButton
             // 

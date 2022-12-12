@@ -75,11 +75,13 @@ namespace PublishingHouse
             // Данные о сотрудниках
             Employee.LoadEmployees(employeesDataGridView);
             WorkWithDataDgv.SetReadOnlyColumns(employeesDataGridView);
+            
 
             // Данные о заказчиках
             Customer.LoadCustomers(customerDataGridView);
             WorkWithDataDgv.SetReadOnlyColumns(customerDataGridView);
-          
+            
+
             // Данные о типографиях
             PrintingHouse.LoadNamePrintingHouseIntoComboBox(printingHouseComboBox);
             printingHouseComboBox.SelectedIndex = 0;
@@ -87,13 +89,13 @@ namespace PublishingHouse
             if (state == 'A')
             {
                 // Данные о печатной продукции
-                Product.LoadProductsWithoutOrdersInTable(productsDataGridView);
+                Product.LoadProductsWithoutOrdersInTable(productsDataGridView);              
 
             }
             else if (state == 'C') 
             {
                 // Метод, который учитывает id
-                Product.LoadProductsWithoutOrdersInTable(productsDataGridView, booking.NumBooking);
+                Product.LoadProductsWithoutOrdersInTable(productsDataGridView, booking.NumBooking);               
                 LoadDataForChange();
             }
 
@@ -109,6 +111,7 @@ namespace PublishingHouse
             printingHouseComboBox.Text = booking.NamePrintingHouse;
             Customer.SelectRowInTable(customerDataGridView, booking.IdCustomer);
             Employee.SelectRowsInTable(employeesDataGridView, booking.IdEmployees);
+            employeesDataGridView.CurrentCell = employeesDataGridView.Rows[0].Cells[1];
             Product.SelectRowsInTable(productsDataGridView, booking.IdProducts);
 
         }
@@ -185,6 +188,6 @@ namespace PublishingHouse
             return true;
         }
 
-
+       
     }
 }

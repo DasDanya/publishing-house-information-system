@@ -280,6 +280,7 @@ namespace PublishingHouse
             return isBeingExecuted;
         }
 
+      
         /// <summary>
         /// Метод получения id заказчика 
         /// </summary>
@@ -427,6 +428,36 @@ namespace PublishingHouse
             }
 
             return success;
+        }
+
+        /// <summary>
+        /// Метод выполнения заказа
+        /// </summary>
+        /// <param name="idBooking">id заказа</param>
+        /// <returns>Количество выполненных заказов</returns>
+        public static int BookingIsCompleted(int idBooking) 
+        {
+            int countCompletedRows = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на выполнение заказа
+                SqlCommand command = new SqlCommand("UPDATE booking SET bkStatus = N'Выполнен', bkDateOfComplete = @endBooking WHERE bkId = '"+idBooking+"'", ConnectionToDb.Connection);
+                command.Parameters.Add("@endBooking", SqlDbType.Date).Value = DateTime.Now.Date;
+
+                // Получаем количество выполненных заказов
+                countCompletedRows = command.ExecuteNonQuery();
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка выполнения заказа");
+            }
+
+            return countCompletedRows;
         }
     }
 
