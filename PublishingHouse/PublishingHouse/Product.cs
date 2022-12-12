@@ -576,14 +576,9 @@ namespace PublishingHouse
 
                 ConnectionToDb.Open();
 
-                //Указываем,что команда является хранимой процедурой
-                const string SQLPROCEDURE = "getNumberBooking";
-                SqlCommand command = new SqlCommand(SQLPROCEDURE, ConnectionToDb.Connection);
-                command.CommandType = CommandType.StoredProcedure;
-
-                //Передаём данные id печатной продукции
-                command.Parameters.AddWithValue("@idProduct", idProduct);
-
+                // Запрос на получение номера заказа
+                SqlCommand command = new SqlCommand("SELECT fbkId FROM product WHERE prodId = '"+idProduct+"'", ConnectionToDb.Connection);
+               
                 //Получаем номер заказа
                 numOrder = Convert.ToInt32(command.ExecuteScalar());
 
@@ -626,10 +621,9 @@ namespace PublishingHouse
 
                 ConnectionToDb.Close();
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
-                //throw new Exception("Ошибка установки заказа печатной продукции");
+                throw new Exception("Ошибка установки заказа печатной продукции");
             }
 
             return successSet;

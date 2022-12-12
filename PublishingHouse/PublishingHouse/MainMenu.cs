@@ -71,8 +71,9 @@ namespace PublishingHouse
             // Загружаем данные о заказах в таблицу
             Booking.LoadBookings(bookingDataGridView);
             WorkWithDataDgv.SetReadOnlyColumns(bookingDataGridView);
-            bookingDataGridView.Columns["Заказчик"].Width = 240;
-
+            bookingDataGridView.Columns["Заказчик"].Width = 270;
+            bookingDataGridView.Columns["Дата выполнения"].Width = 170;
+            bookingDataGridView.Columns["Стоимость выполнения"].Width = 200;
         }
 
         /// <summary>
@@ -194,6 +195,54 @@ namespace PublishingHouse
         {
             // Приводим буфферные данные и компоненты в состояние по умолчанию
             DefaultStateOfMenu();
+        }
+
+        private void selectAllRowsButton_Click(object sender, EventArgs e)
+        {
+            if (bookingDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки для выбора", "Выбрать всё", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(bookingDataGridView, true);
+        }
+
+        private void resetSelectRowsButton_Click(object sender, EventArgs e)
+        {
+            if (bookingDataGridView.Rows.Count < 1)
+                MessageBox.Show("Отсутствуют строки", "Отменить выбор строк", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+                WorkWithDataDgv.SelectOrCancelSelectAllRows(bookingDataGridView, false);
+        }
+
+        private void selectForChangeButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Если количество выбранный записей не равно 1
+                if (WorkWithDataDgv.CountSelectedRows(bookingDataGridView) != 1)
+                    MessageBox.Show("Неодходимо выбрать одну запись", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    int numberRow = WorkWithDataDgv.NumberSelectedRows(bookingDataGridView);
+                    int idBooking = Convert.ToInt32((bookingDataGridView.Rows[numberRow].Cells["Номер заказа"].Value));
+                    if (!Product.ProductIsSpecified(id))
+                    {
+
+                        //Cоздаём объект печатной продукции              
+                        Product product = new Product(productDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Номер тиража"].Value), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Тираж"].Value),
+                            TypeProduct.GetIdTypeProduct(id), Product.GetPhotoAsImage(productDataGridView.Rows[numberRow].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[numberRow].Cells["Номер тиража"].Value)), Material.GetListMaterials(id));
+
+                        // Переходим в меню ввода данных для изменения этих самых данных
+                        FillDataProduct fillDataProduct = new FillDataProduct(product, 'C');
+                        Transition.TransitionByForms(this, fillDataProduct);
+                    }
+                    else
+                        MessageBox.Show("Невозможно изменить запись, так как существует заказ(-ы), где указана печатная продукция. Удалите заказ(-ы), где указана печатная продукция, или создайте новую печатную продукцию", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка выбора записи для её изменения", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

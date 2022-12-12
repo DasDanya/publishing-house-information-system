@@ -204,5 +204,25 @@ namespace PublishingHouse
                 throw new Exception("Ошибка загрузки данных о заказах");
             }
         }
+
+        public static bool BookingIsBeingExecuted(int idBooking) 
+        {
+            bool isBeingExecuted = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения данных о статусе выполнения заказа");
+            }
+
+            return isBeingExecuted;
+        }
     }
 }
