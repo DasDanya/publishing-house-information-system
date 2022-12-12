@@ -317,10 +317,58 @@ namespace PublishingHouse
                     }
                 }
             }
+            catch
+            {
+                MessageBox.Show("Ошибка выполнения заказа", "Выполнить заказ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (WorkWithDataDgv.CountSelectedRows(bookingDataGridView) < 1)
+                {
+                    MessageBox.Show("Необходимо выбрать хотя бы одну запись", "Удаление заказа", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else 
+                {
+                    if (MessageBox.Show("Вы точно хотите удалить выбранные заказы?", "Удаление заказа", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        // Получаем массив выбранных строк
+                        int[] arrayIdBookings = Booking.GetArrayIdBookings(bookingDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(bookingDataGridView));
+
+                        bool executed = false;
+                        for (int i = 0; i < arrayIdBookings.Length; i++)
+                        {
+                            if (Booking.BookingIsBeingExecuted(arrayIdBookings[i]))
+                            {
+                                executed = true;
+                                break;
+                            }
+                        }
+
+                        // Если хоть один из выбранных заказов выполняется
+                        if (executed)
+                            MessageBox.Show("Невозможно удалить заказы, так как присутствует заказ, который ещё выполняется", "Удаление заказа", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        else
+                        {
+                            if (Booking.DeleteBooking(arrayIdBookings) == arrayIdBookings.Length)
+                            {
+                                MessageBox.Show("Заказы успешно удалены!", "Удаление заказов", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                ReloadData();
+                            }
+                            else
+                                MessageBox.Show("Количество удаленных заказов не равно выбранному количеству записей", "Удаление заказов", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+
+                }
+            }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                //MessageBox.Show("Ошибка выполнения заказа", "Выполнить заказ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("Ошибка удаления заказа", "Удаление заказа", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

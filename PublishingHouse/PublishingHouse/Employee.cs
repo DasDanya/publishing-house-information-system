@@ -634,10 +634,7 @@ namespace PublishingHouse
 
                             // Если нашли сотрудника
                             if (idEmployees[j] == GetIdEmployeeByPhone(phone))                           
-                                dataGridView.Rows[i].Cells[0].Value = true;
-                               
-                            
-                            
+                                dataGridView.Rows[i].Cells[0].Value = true;     
                         }
                     }
                 }

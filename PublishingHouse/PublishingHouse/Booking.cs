@@ -459,6 +459,61 @@ namespace PublishingHouse
 
             return countCompletedRows;
         }
+
+        /// <summary>
+        /// Метод получения массива id выбранных записей о заказах
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="selectedRows">Список индексов выбранных строк</param>
+        /// <returns>Массив id выбранных записей о заказах</returns>
+        public static int[] GetArrayIdBookings(DataGridView dataGridView, List<int> selectedRows) 
+        {
+            int[] arrayId = new int[selectedRows.Count];
+            int indexArray = 0;
+
+            for (int i = 0; i < dataGridView.RowCount; i++)
+            {
+                // Если строка выбрана
+                if (selectedRows.Contains(i)) 
+                { 
+                    arrayId[indexArray++] = Convert.ToInt32(dataGridView.Rows[i].Cells["Номер заказа"].Value);
+                }
+            }
+
+
+            return arrayId;
+        }
+
+        /// <summary>
+        /// Метод удаления данных о заказах
+        /// </summary>
+        /// <param name="arrayIdBoookings">Массив id заказов</param>
+        /// <returns>Количество удаленных строк</returns>
+        public static int DeleteBooking(int[] arrayIdBoookings) 
+        {
+            int countDeletedRows = 0;
+          
+            try
+            {
+                ConnectionToDb.Open();
+
+                for (int i = 0; i < arrayIdBoookings.Length; i++)
+                {
+                    // Запрос на удаление заказов
+                    SqlCommand command = new SqlCommand("DELETE FROM booking WHERE bkId = '"+arrayIdBoookings[i]+"'", ConnectionToDb.Connection);
+                    countDeletedRows += command.ExecuteNonQuery();
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+                //throw new Exception("Ошибка удаления данных о заказе");
+            }
+
+            return countDeletedRows;
+        }
     }
 
 }
