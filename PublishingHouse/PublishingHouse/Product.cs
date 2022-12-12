@@ -178,7 +178,7 @@ namespace PublishingHouse
                 throw new Exception("Ошибка подсчёта стоимости печатной продукции");
             }
 
-            return cost;
+            return Math.Round(cost, 2);
         }
 
         /// <summary>
@@ -695,6 +695,37 @@ namespace PublishingHouse
             {
                 throw new Exception("Ошибка поиска строк с данными о печатных продукциях");
             }
+        }
+
+        /// <summary>
+        /// Метод сброса заказов
+        /// </summary>
+        /// <param name="idBooking">id заказа</param>
+        /// <returns>Успешно ли сброшены заказы</returns>
+        public static bool DeleteBooking(int idBooking)
+        {
+            bool success = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+                
+                // Запрос на сброс заказов
+                SqlCommand command = new SqlCommand("UPDATE product SET fbkId = @value WHERE fbkId = '"+idBooking+"'", ConnectionToDb.Connection);
+                command.Parameters.Add(new SqlParameter("@value", DBNull.Value));
+
+                // Если сбросили заказы
+                if (command.ExecuteNonQuery() > 0)
+                    success = true;
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка удаления заказов");
+            }
+
+            return success;
         }
 
     }

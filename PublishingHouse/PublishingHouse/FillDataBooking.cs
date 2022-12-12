@@ -57,6 +57,7 @@ namespace PublishingHouse
                     //LoadDataAboutProduct();
                     id = this.booking.NumBooking;
                     dateAddBookingTimePicker.Enabled = true;
+                    dateAddBookingTimePicker.Value = booking.StartBooking;
                 }
             }
             catch
@@ -147,7 +148,7 @@ namespace PublishingHouse
                     // Если пользователь изменяет запись
                     else if (state == 'C') 
                     {
-                        booking = new Booking(idPrintingHouse, idCustomer, cost, status, startBooking, dateAddBookingTimePicker.Value.Date, idProducts, idEmployees);
+                        booking = new Booking(idPrintingHouse, idCustomer, cost, status, dateAddBookingTimePicker.Value.Date, idProducts, idEmployees);
                         mainMenu = new MainMenu(booking, state, id);
                     }
 

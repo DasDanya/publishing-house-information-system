@@ -232,7 +232,7 @@ namespace PublishingHouse
                         int[] idEmployees = Booking.GetArrayIdEmployees(idBooking);
                         int[] idProducts = Booking.GetArrayIdProducts(idBooking);
 
-                        Booking booking = new Booking(idBooking,idCustomer, bookingDataGridView.Rows[numberRow].Cells["Типография"].Value.ToString(), idProducts, idEmployees);
+                        Booking booking = new Booking(idBooking,idCustomer, bookingDataGridView.Rows[numberRow].Cells["Типография"].Value.ToString(), (DateTime)bookingDataGridView.Rows[numberRow].Cells["Дата приёма"].Value, idProducts, idEmployees);
 
                         // Переходим в меню ввода данных для изменения этих самых данных
                         FillDataBooking fillDataBooking = new FillDataBooking(booking, 'C');
@@ -245,6 +245,33 @@ namespace PublishingHouse
             catch
             {
                 MessageBox.Show("Ошибка выбора записи для её изменения", "Выбор записи для её изменения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void changeButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Если пользователь изменяет запись
+                if (MessageBox.Show("Вы точно хотите изменить запись?", "Изменение данных о заказе", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+
+                    // Если изменилась только выбранная запись
+                    if (booking.ChangeBooking(id) == 1)
+                        MessageBox.Show("Запись успешно изменена!", "Изменение данных о заказе", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show("Количество измененных записей не равно ожидаемому количеству изменяемых записей", "Изменение данных о заказе", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                    // Выводим новые данные и делаем комноненты и переменные в состояние по умолчанию
+                    ReloadData();
+                    DefaultStateOfMenu();
+                  
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка изменения данных о заказе", "Изменение данных о заказе", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -37,22 +37,22 @@ namespace PublishingHouse
             this.customersTab = new System.Windows.Forms.ToolStripMenuItem();
             this.productTab = new System.Windows.Forms.ToolStripMenuItem();
             this.bookingDataGridView = new System.Windows.Forms.DataGridView();
+            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.inputDataButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.changeLabel = new System.Windows.Forms.Label();
+            this.completeBookingButton = new System.Windows.Forms.Button();
+            this.resetSelectRowsButton = new System.Windows.Forms.Button();
+            this.selectAllRowsButton = new System.Windows.Forms.Button();
+            this.changeButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
+            this.resetAddOrChangeButton = new System.Windows.Forms.Button();
+            this.selectForChangeButton = new System.Windows.Forms.Button();
             this.addLabel = new System.Windows.Forms.Label();
             this.addButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.processingTab = new System.Windows.Forms.ToolStripMenuItem();
             this.searchTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.Select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.selectForChangeButton = new System.Windows.Forms.Button();
-            this.resetAddOrChangeButton = new System.Windows.Forms.Button();
-            this.deleteButton = new System.Windows.Forms.Button();
-            this.changeButton = new System.Windows.Forms.Button();
-            this.selectAllRowsButton = new System.Windows.Forms.Button();
-            this.resetSelectRowsButton = new System.Windows.Forms.Button();
-            this.completeBookingButton = new System.Windows.Forms.Button();
-            this.changeLabel = new System.Windows.Forms.Label();
             this.Tabs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookingDataGridView)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -132,6 +132,13 @@ namespace PublishingHouse
             this.bookingDataGridView.TabIndex = 1;
             this.bookingDataGridView.ColumnStateChanged += new System.Windows.Forms.DataGridViewColumnStateChangedEventHandler(this.bookingDataGridView_ColumnStateChanged);
             // 
+            // Select
+            // 
+            this.Select.HeaderText = "Выбрать";
+            this.Select.MinimumWidth = 6;
+            this.Select.Name = "Select";
+            this.Select.Width = 125;
+            // 
             // inputDataButton
             // 
             this.inputDataButton.Location = new System.Drawing.Point(6, 66);
@@ -162,6 +169,83 @@ namespace PublishingHouse
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Работа с данными";
+            // 
+            // changeLabel
+            // 
+            this.changeLabel.AutoSize = true;
+            this.changeLabel.Location = new System.Drawing.Point(546, 129);
+            this.changeLabel.Name = "changeLabel";
+            this.changeLabel.Size = new System.Drawing.Size(0, 20);
+            this.changeLabel.TabIndex = 13;
+            // 
+            // completeBookingButton
+            // 
+            this.completeBookingButton.Location = new System.Drawing.Point(1086, 66);
+            this.completeBookingButton.Name = "completeBookingButton";
+            this.completeBookingButton.Size = new System.Drawing.Size(175, 139);
+            this.completeBookingButton.TabIndex = 12;
+            this.completeBookingButton.Text = "Выполнить заказ";
+            this.completeBookingButton.UseVisualStyleBackColor = true;
+            // 
+            // resetSelectRowsButton
+            // 
+            this.resetSelectRowsButton.Location = new System.Drawing.Point(816, 152);
+            this.resetSelectRowsButton.Name = "resetSelectRowsButton";
+            this.resetSelectRowsButton.Size = new System.Drawing.Size(207, 53);
+            this.resetSelectRowsButton.TabIndex = 11;
+            this.resetSelectRowsButton.Text = "Отменить выбор строк";
+            this.resetSelectRowsButton.UseVisualStyleBackColor = true;
+            this.resetSelectRowsButton.Click += new System.EventHandler(this.resetSelectRowsButton_Click);
+            // 
+            // selectAllRowsButton
+            // 
+            this.selectAllRowsButton.Location = new System.Drawing.Point(816, 66);
+            this.selectAllRowsButton.Name = "selectAllRowsButton";
+            this.selectAllRowsButton.Size = new System.Drawing.Size(207, 53);
+            this.selectAllRowsButton.TabIndex = 10;
+            this.selectAllRowsButton.Text = "Выбрать всё";
+            this.selectAllRowsButton.UseVisualStyleBackColor = true;
+            this.selectAllRowsButton.Click += new System.EventHandler(this.selectAllRowsButton_Click);
+            // 
+            // changeButton
+            // 
+            this.changeButton.Enabled = false;
+            this.changeButton.Location = new System.Drawing.Point(546, 152);
+            this.changeButton.Name = "changeButton";
+            this.changeButton.Size = new System.Drawing.Size(207, 53);
+            this.changeButton.TabIndex = 9;
+            this.changeButton.Text = "Изменить данные о заказе";
+            this.changeButton.UseVisualStyleBackColor = true;
+            this.changeButton.Click += new System.EventHandler(this.changeButton_Click);
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Location = new System.Drawing.Point(546, 66);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(207, 53);
+            this.deleteButton.TabIndex = 8;
+            this.deleteButton.Text = "Удалить заказ";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            // 
+            // resetAddOrChangeButton
+            // 
+            this.resetAddOrChangeButton.Location = new System.Drawing.Point(276, 152);
+            this.resetAddOrChangeButton.Name = "resetAddOrChangeButton";
+            this.resetAddOrChangeButton.Size = new System.Drawing.Size(207, 53);
+            this.resetAddOrChangeButton.TabIndex = 7;
+            this.resetAddOrChangeButton.Text = "Отменить добавление/ изменение";
+            this.resetAddOrChangeButton.UseVisualStyleBackColor = true;
+            this.resetAddOrChangeButton.Click += new System.EventHandler(this.resetAddOrChangeButton_Click);
+            // 
+            // selectForChangeButton
+            // 
+            this.selectForChangeButton.Location = new System.Drawing.Point(276, 66);
+            this.selectForChangeButton.Name = "selectForChangeButton";
+            this.selectForChangeButton.Size = new System.Drawing.Size(207, 53);
+            this.selectForChangeButton.TabIndex = 6;
+            this.selectForChangeButton.Text = "Выбрать для изменения";
+            this.selectForChangeButton.UseVisualStyleBackColor = true;
+            this.selectForChangeButton.Click += new System.EventHandler(this.selectForChangeButton_Click);
             // 
             // addLabel
             // 
@@ -206,88 +290,6 @@ namespace PublishingHouse
             this.searchTab.Name = "searchTab";
             this.searchTab.Size = new System.Drawing.Size(86, 24);
             this.searchTab.Text = "Поиск";
-            // 
-            // Select
-            // 
-            this.Select.HeaderText = "Выбрать";
-            this.Select.MinimumWidth = 6;
-            this.Select.Name = "Select";
-            this.Select.Width = 125;
-            // 
-            // selectForChangeButton
-            // 
-            this.selectForChangeButton.Location = new System.Drawing.Point(276, 66);
-            this.selectForChangeButton.Name = "selectForChangeButton";
-            this.selectForChangeButton.Size = new System.Drawing.Size(207, 53);
-            this.selectForChangeButton.TabIndex = 6;
-            this.selectForChangeButton.Text = "Выбрать для изменения";
-            this.selectForChangeButton.UseVisualStyleBackColor = true;
-            this.selectForChangeButton.Click += new System.EventHandler(this.selectForChangeButton_Click);
-            // 
-            // resetAddOrChangeButton
-            // 
-            this.resetAddOrChangeButton.Location = new System.Drawing.Point(276, 152);
-            this.resetAddOrChangeButton.Name = "resetAddOrChangeButton";
-            this.resetAddOrChangeButton.Size = new System.Drawing.Size(207, 53);
-            this.resetAddOrChangeButton.TabIndex = 7;
-            this.resetAddOrChangeButton.Text = "Отменить добавление/ изменение";
-            this.resetAddOrChangeButton.UseVisualStyleBackColor = true;
-            this.resetAddOrChangeButton.Click += new System.EventHandler(this.resetAddOrChangeButton_Click);
-            // 
-            // deleteButton
-            // 
-            this.deleteButton.Location = new System.Drawing.Point(546, 66);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(207, 53);
-            this.deleteButton.TabIndex = 8;
-            this.deleteButton.Text = "Удалить заказ";
-            this.deleteButton.UseVisualStyleBackColor = true;
-            // 
-            // changeButton
-            // 
-            this.changeButton.Location = new System.Drawing.Point(546, 152);
-            this.changeButton.Name = "changeButton";
-            this.changeButton.Size = new System.Drawing.Size(207, 53);
-            this.changeButton.TabIndex = 9;
-            this.changeButton.Text = "Изменить данные о заказе";
-            this.changeButton.UseVisualStyleBackColor = true;
-            // 
-            // selectAllRowsButton
-            // 
-            this.selectAllRowsButton.Location = new System.Drawing.Point(816, 66);
-            this.selectAllRowsButton.Name = "selectAllRowsButton";
-            this.selectAllRowsButton.Size = new System.Drawing.Size(207, 53);
-            this.selectAllRowsButton.TabIndex = 10;
-            this.selectAllRowsButton.Text = "Выбрать всё";
-            this.selectAllRowsButton.UseVisualStyleBackColor = true;
-            this.selectAllRowsButton.Click += new System.EventHandler(this.selectAllRowsButton_Click);
-            // 
-            // resetSelectRowsButton
-            // 
-            this.resetSelectRowsButton.Location = new System.Drawing.Point(816, 152);
-            this.resetSelectRowsButton.Name = "resetSelectRowsButton";
-            this.resetSelectRowsButton.Size = new System.Drawing.Size(207, 53);
-            this.resetSelectRowsButton.TabIndex = 11;
-            this.resetSelectRowsButton.Text = "Отменить выбор строк";
-            this.resetSelectRowsButton.UseVisualStyleBackColor = true;
-            this.resetSelectRowsButton.Click += new System.EventHandler(this.resetSelectRowsButton_Click);
-            // 
-            // completeBookingButton
-            // 
-            this.completeBookingButton.Location = new System.Drawing.Point(1086, 66);
-            this.completeBookingButton.Name = "completeBookingButton";
-            this.completeBookingButton.Size = new System.Drawing.Size(175, 139);
-            this.completeBookingButton.TabIndex = 12;
-            this.completeBookingButton.Text = "Выполнить заказ";
-            this.completeBookingButton.UseVisualStyleBackColor = true;
-            // 
-            // changeLabel
-            // 
-            this.changeLabel.AutoSize = true;
-            this.changeLabel.Location = new System.Drawing.Point(546, 129);
-            this.changeLabel.Name = "changeLabel";
-            this.changeLabel.Size = new System.Drawing.Size(0, 20);
-            this.changeLabel.TabIndex = 13;
             // 
             // MainMenu
             // 

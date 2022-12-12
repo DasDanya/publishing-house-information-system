@@ -38,11 +38,12 @@ namespace PublishingHouse
             this.idEmployees = idEmployees;
         }
 
-        public Booking(int numBooking, int idCustomer, string namePrintingHouse, int[] idProducts, int[] idEmployees)
+        public Booking(int numBooking, int idCustomer, string namePrintingHouse, DateTime startBooking, int[] idProducts, int[] idEmployees)
         {
             this.numBooking = numBooking;
             this.idCustomer = idCustomer;
             this.namePrintingHouse = namePrintingHouse;
+            this.startBooking = startBooking;
             this.idProducts = idProducts;
             this.idEmployees = idEmployees;
         }
@@ -81,7 +82,7 @@ namespace PublishingHouse
                     cost += Convert.ToDouble(dataGridView.Rows[i].Cells["Стоимость"].Value);
             }
 
-            return cost;
+            return Math.Round(cost, 2);
         }
 
         /// <summary>
@@ -185,6 +186,34 @@ namespace PublishingHouse
             catch 
             {              
                 throw new Exception("Ошибка добавления данных в таблицу \"Заказ-Сотрудник\"");
+            }
+
+            return success;
+        }
+
+        /// <summary>
+        /// Метод удаления данных из таблицы "Заказ-Сотрудник"
+        /// </summary>
+        /// <param name="idBooking">id заказа</param>
+        /// <returns>Удалились ли данные из таблицы</returns>
+        private static bool DeleteBookingEmployees(int idBooking) 
+        {
+            bool success = false;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Удаляем данные из таблицы определенного заказа
+                SqlCommand command = new SqlCommand("DELETE FROM bookingEmployee WHERE fbkId = '"+idBooking+"'", ConnectionToDb.Connection);
+                if (command.ExecuteNonQuery() > 0)
+                    success = true;
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка удаления данных из таблицы \"Заказ-Сотрудник\"");
             }
 
             return success;
@@ -355,6 +384,49 @@ namespace PublishingHouse
             
 
             return arrayId;
+        }
+
+        public int ChangeBooking(int idBooking) 
+        {
+            int success = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на извенение данных в таблице Заказы
+                SqlCommand command = new SqlCommand("UPDATE booking SET bkDateOfAdd = @startBooking, bkCost = @cost, fphId = '"+idPrintingHouse+"', fcustId = '"+idCustomer+"' WHERE bkId = '"+idBooking+"'", ConnectionToDb.Connection);
+                command.Parameters.Add("@startBooking", SqlDbType.Date).Value = startBooking;
+                command.Parameters.Add("@cost", SqlDbType.Float).Value = cost;
+
+                // Если успешно изменили данные в таблице Заказы
+                if (command.ExecuteNonQuery() == 1) 
+                {
+                    // Если сбросили прошлые заказы
+                    if (Product.DeleteBooking(idBooking)) 
+                    {
+                        // Если мы установили новые заказы 
+                        if (Product.SetBooking(idProducts, idBooking))
+                        {
+                            // Если удалили старые данные из таблицы "Заказ-Сотрудник"
+                            if (DeleteBookingEmployees(idBooking)) 
+                            {
+                                // Если добавили нужное количество записей в таблицу "Заказ-Сотрудник"
+                                if (AddBookingEmployee(idEmployees, idBooking))
+                                    success = 1;
+                            }
+                        }
+                    }
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка изменения данных о заказе");
+            }
+
+            return success;
         }
     }
 
