@@ -123,6 +123,7 @@ namespace PublishingHouse
         public static void SetRowOfIntComboBox(DataGridView dataGridView, ComboBox comboBox, TextBox firsttextBox, TextBox secondTextBox) 
         {        
             comboBox.Items.Clear();
+           
 
             // Если DataGridView пустой
             if (dataGridView.Rows.Count < 1)
@@ -150,6 +151,50 @@ namespace PublishingHouse
             }
 
             comboBox.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// Метод, устанавливающий определенные свойства и данные для компонентов, работающих с DateTime данными
+        /// </summary>
+        /// <param name="dataGridView">Таблица</param>
+        /// <param name="comboBox">Выпадающий список</param>
+        /// <param name="fromTimePicker">Первый пикер даты</param>
+        /// <param name="toTimePicker">Второй пикер даты</param>
+        public static void SetDateForSearch(DataGridView dataGridView, ComboBox comboBox, DateTimePicker fromTimePicker, DateTimePicker toTimePicker) 
+        {
+
+            comboBox.Items.Clear();
+
+            // Если DataGridView пустой
+            if (dataGridView.Rows.Count < 1)
+            {
+                comboBox.Items.Add("Отсутствуют данные для поиска");
+                fromTimePicker.Enabled = false;
+                toTimePicker.Enabled = false;
+            }
+
+            else
+            {
+                fromTimePicker.Enabled = true;
+                toTimePicker.Enabled = true;
+
+                // Проходим каждый столбец
+                for (int i = 1; i < dataGridView.Columns.Count; i++)
+                {
+                    for (int j = 0; j < dataGridView.Rows.Count; j++)
+                    {
+                        // Если данные в этом столбце имеют тип данных DateTime
+                        if (dataGridView.Rows[j].Cells[i].Value.GetType() == typeof(DateTime) && !comboBox.Items.Contains(dataGridView.Columns[i].Name))
+                        {
+                            // Добавляем имя этого столбца в ComboBox
+                            comboBox.Items.Add(dataGridView.Columns[i].Name);
+                        }
+                    }
+                }
+            }
+
+            comboBox.SelectedIndex = 0;
+
         }
 
         /// <summary>

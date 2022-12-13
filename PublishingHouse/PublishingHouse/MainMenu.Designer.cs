@@ -286,6 +286,7 @@ namespace PublishingHouse
             this.searchDateButton.Text = "Поиск по дате";
             this.searchDateButton.UseVisualStyleBackColor = true;
             this.searchDateButton.Visible = false;
+            this.searchDateButton.Click += new System.EventHandler(this.searchDateButton_Click);
             // 
             // searchNumbersButton
             // 

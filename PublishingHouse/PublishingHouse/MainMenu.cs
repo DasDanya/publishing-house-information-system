@@ -408,6 +408,7 @@ namespace PublishingHouse
 
         private void searchTab_Click(object sender, EventArgs e)
         {
+            
             inputDataButton.Visible = false;
             addLabel.Visible = false;
             addButton.Visible = false;
@@ -440,9 +441,17 @@ namespace PublishingHouse
             fromDateTimePicker.Visible = true;
             resetSearchButton.Visible = true;
 
-            // Устанавливаем значения и свойства полям для поиска
-            WorkWithDataDgv.SetElementsForSearchStringData(bookingDataGridView, stringComboBox, stringTextBox);
-            WorkWithDataDgv.SetRowOfIntComboBox(bookingDataGridView, numberComboBox, fromTextBox, toTextBox);
+            try
+            {
+                // Устанавливаем значения и свойства полям для поиска
+                WorkWithDataDgv.SetElementsForSearchStringData(bookingDataGridView, stringComboBox, stringTextBox);
+                WorkWithDataDgv.SetRowOfIntComboBox(bookingDataGridView, numberComboBox, fromTextBox, toTextBox);
+                WorkWithDataDgv.SetDateForSearch(bookingDataGridView, dateComboBox, fromDateTimePicker, toDateTimePicker);
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка отображения компонентов для поиска данных", "Поиск данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void stringTextBox_TextChanged(object sender, EventArgs e)
@@ -496,6 +505,32 @@ namespace PublishingHouse
             fromTextBox.Text = "";
             fromDateTimePicker.Value = DateTime.Now.Date;
             toDateTimePicker.Value = DateTime.Now.Date;
+        }
+
+        private void searchDateButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (bookingDataGridView.RowCount < 1)
+                    MessageBox.Show("Отсутствуют строки для поиска", "Поиск по дате", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
+                    DateTime from = fromDateTimePicker.Value.Date;
+                    DateTime to = toDateTimePicker.Value.Date;
+
+                    if (from >= to || from > DateTime.Now.Date || to > DateTime.Now.Date)
+                        MessageBox.Show("Дата \"с\", дата \"по\" не должны превышать сегодняшний день. Дата \"с\" должна быть мешьше даты \"по\"", "Поиск по дате", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    else
+                    {
+                        // Производим поиск по дате
+                        WorkWithDataDgv.SearchByDifference(bookingDataGridView, dateComboBox.Text, from, to);
+                    }
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка поиска по дате", "Поиск по дате", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

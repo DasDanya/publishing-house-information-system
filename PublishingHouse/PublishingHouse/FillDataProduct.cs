@@ -119,15 +119,15 @@ namespace PublishingHouse
                     // Получаем массив выбранных материалов
                     Material[] materials = Material.GetArrayMaterials(fromDataGridView, WorkWithDataDgv.GetListIndexesSelectedRows(fromDataGridView));
 
-                    // Если материалы имеют одинаковый размер и не имеют одинаковый тип,цвет,размер, то добавляем в таблицу
-                    if (Material.SameSizeMaterials(materials) && !Material.SameSizeColorTypeMaterial(materials))
+                    // Если материалы не имеют одинаковый тип,цвет,размер, то добавляем в таблицу
+                    if (/*Material.SameSizeMaterials(materials) && */ !Material.SameSizeColorTypeMaterial(materials))
                     {
                         // Добавляем материалы в таблицу добавления материалов
                         Material.FillTableWithMaterials(toDataGridView, materials);
                         WorkWithDataDgv.SelectOrCancelSelectAllRows(fromDataGridView, false);
                     }
                     else
-                        MessageBox.Show("Выбранные материалы должны иметь одинаковый размер. Нельзя добавить материалы с одинаковым типом, цветом и размером", "Выбор материалов", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Нельзя добавить материалы с одинаковым типом, цветом и размером", "Выбор материалов", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             catch
