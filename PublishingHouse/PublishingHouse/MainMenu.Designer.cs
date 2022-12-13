@@ -307,6 +307,7 @@ namespace PublishingHouse
             this.generateReportButton.TabIndex = 24;
             this.generateReportButton.Text = "Сформировать отчёт";
             this.generateReportButton.UseVisualStyleBackColor = true;
+            this.generateReportButton.Click += new System.EventHandler(this.generateReportButton_Click);
             // 
             // fromTextBox
             // 

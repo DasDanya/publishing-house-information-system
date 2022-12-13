@@ -52,6 +52,9 @@
     <Compile Update="OtputAllDataProduct.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="OutputDataBooking.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="PrintingHouseMenu.cs">
       <SubType>Form</SubType>
     </Compile>

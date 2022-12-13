@@ -61,6 +61,51 @@ namespace PublishingHouse
             this.cost = cost;
         }
 
+        public Product(string name, int numberEdition, int prodEdition, double cost) : this(name, numberEdition)
+        {
+            this.prodEdition = prodEdition;         
+            this.cost = cost;
+        }
+
+        public override string ToString()
+        {
+            return $"Название печатной продукции: {name}\nНомер тиража: {numberEdition}\nТираж: {prodEdition}\nСтоимость печатной продукции: {cost}";
+        }
+
+        /// <summary>
+        /// Метод получения данных о печатной продукции
+        /// </summary>
+        /// <param name="idProduct">id печатной продукции</param>
+        /// <returns>Данные о печатной продукции</returns>
+        public static Product GetProduct(int idProduct) 
+        {
+            Product product = null;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение данных о печатной продукции
+                SqlCommand command = new SqlCommand("SELECT * FROM product WHERE prodId = '"+idProduct+"'", ConnectionToDb.Connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Считываем полученные данные
+                while (reader.Read()) 
+                {
+                    product = new Product(reader["prodName"].ToString(), Convert.ToInt32(reader["prodNumEdition"]), Convert.ToInt32(reader["prodEdition"]), Convert.ToDouble(reader["prodCost"]));
+                }
+
+                reader.Close();
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения данных о печатной продукции");
+            }
+
+            return product;
+        }
+
         /// <summary>
         /// Метод проверки существования печатной продукции в бд
         /// </summary>

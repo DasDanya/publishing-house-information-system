@@ -523,7 +523,7 @@ namespace PublishingHouse
                     // Если список содержит индекс выбранной строки
                     if (WorkWithDataDgv.GetListIndexesSelectedRows(productDataGridView).Contains(i))
                     {
-                        // Добавляем данные о печатной продукции в список
+                        // Получаем данные о печатной продукции 
                         int idProduct = Product.GetIdProduct(productDataGridView.Rows[i].Cells["Название"].Value.ToString(), Convert.ToInt32(productDataGridView.Rows[i].Cells["Номер тиража"].Value));
                         List<Material> materials = Material.GetListMaterials(idProduct);
 

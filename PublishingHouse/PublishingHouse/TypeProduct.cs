@@ -21,7 +21,10 @@ namespace PublishingHouse
             this.margin = margin;
         }
 
-       
+        public override string ToString()
+        {
+            return $"Тип печатной продукции: {name}\nНаценка в %: {margin}";
+        }
 
         /// <summary>
         /// Метод получения id типа печатной продукции
@@ -60,32 +63,95 @@ namespace PublishingHouse
             return id;
         }
 
+
         /// <summary>
-        /// Метод получения id типа печатной продукции
+        /// Метод получения данных о типе печатных продукций
         /// </summary>
-        /// <param name="idProduct">id печатной продукции</param>
-        /// <returns>id типа печатной продукции</returns>
-        public static int GetIdTypeProduct(int idProduct)
+        /// <param name="idTypeProduct">id типа печатной продукции</param>
+        /// <returns>Данные о типе печатных продукций</returns>
+        public static TypeProduct GetTypeProduct(int idTypeProduct) 
         {
-            int idTypeProduct = 0;
+            TypeProduct typeProduct = null;
 
             try
             {
                 ConnectionToDb.Open();
 
-                // Формируем запрос на получение id типа печатной продукции
-                SqlCommand command = new SqlCommand("SELECT ftypeProdId FROM product WHERE prodId = '"+idProduct+"'", ConnectionToDb.Connection);
-                idTypeProduct = Convert.ToInt32(command.ExecuteScalar());
+                // Запрос на получение данных о типе печатных продукций
+                SqlCommand command = new SqlCommand("SELECT * FROM typeProduct WHERE typeProdId = '"+idTypeProduct+"'", ConnectionToDb.Connection);
+                SqlDataReader reader = command.ExecuteReader();
 
+                // Считываем полученные данные
+                while (reader.Read()) 
+                {
+                    typeProduct = new TypeProduct(reader["typeProdName"].ToString(), Convert.ToDouble(reader["typeProdMargin"]));
+                }
+
+                reader.Close();
                 ConnectionToDb.Close();
             }
             catch
             {
-                throw new Exception("Ошибка получения id типа печатной продукции");
+                throw new Exception("Ошибка получения данных о типе печатной продукции");
             }
 
-            return idTypeProduct;
+            return typeProduct;
         }
+
+
+        /// <summary>
+        /// Метод получения id типа печатной продукции
+        /// </summary>
+        /// <param name="idProduct">id печатной продукции</param>
+        /// <returns>id типа печатной продукции</returns>
+        public static int GetIdTypeProduct(int idProduct) 
+        {
+            int id = 0;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение id типа печатной продукции
+                SqlCommand command = new SqlCommand("SELECT ftypeProdId FROM product WHERE prodId = '"+idProduct+"'", ConnectionToDb.Connection);
+                id = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получение уникального номера записи о типе печатной продукции");
+            }
+
+            return id;
+        }
+
+        ///// <summary>
+        ///// Метод получения id типа печатной продукции
+        ///// </summary>
+        ///// <param name="idProduct">id печатной продукции</param>
+        ///// <returns>id типа печатной продукции</returns>
+        //public static int GetIdTypeProduct(int idProduct)
+        //{
+        //    int idTypeProduct = 0;
+
+        //    try
+        //    {
+        //        ConnectionToDb.Open();
+
+        //        // Формируем запрос на получение id типа печатной продукции
+        //        SqlCommand command = new SqlCommand("SELECT ftypeProdId FROM product WHERE prodId = '"+idProduct+"'", ConnectionToDb.Connection);
+        //        idTypeProduct = Convert.ToInt32(command.ExecuteScalar());
+
+        //        ConnectionToDb.Close();
+        //    }
+        //    catch
+        //    {
+        //        throw new Exception("Ошибка получения id типа печатной продукции");
+        //    }
+
+        //    return idTypeProduct;
+        //}
 
 
         /// <summary>

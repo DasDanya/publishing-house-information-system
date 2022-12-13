@@ -48,8 +48,9 @@ namespace PublishingHouse
             this.idEmployees = idEmployees;
         }
 
-        public Booking(int idPrintingHouse, int idCustomer, double cost, string status, DateTime startBooking, DateTime endBooking, int[] idProducts, int[] idEmployees)
+        public Booking(int numBooking, int idPrintingHouse, int idCustomer, double cost, string status, DateTime startBooking, DateTime endBooking, int[] idProducts, int[] idEmployees)
         {
+            this.numBooking = numBooking;
             this.idPrintingHouse = idPrintingHouse;
             this.idCustomer = idCustomer;
             this.cost = cost;
@@ -309,6 +310,33 @@ namespace PublishingHouse
         }
 
         /// <summary>
+        /// Метод получения id типографии
+        /// </summary>
+        /// <param name="idBooking">id заказа</param>
+        /// <returns>id типографии</returns>
+        public static int GetIdPrintingHouse(int idBooking)
+        {
+            int id = -1;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Получаем id типографии
+                SqlCommand command = new SqlCommand("SELECT fphId FROM booking WHERE bkId = '" + idBooking + "'", ConnectionToDb.Connection);
+                id = Convert.ToInt32(command.ExecuteScalar());
+
+                ConnectionToDb.Close();
+            }
+            catch
+            {
+                throw new Exception("Ошибка получения уникального номера записи о типографии");
+            }
+
+            return id;
+        }
+
+        /// <summary>
         /// Метод получения массива id сотрудников
         /// </summary>
         /// <param name="idBooking">id заказа</param>
@@ -499,17 +527,22 @@ namespace PublishingHouse
 
                 for (int i = 0; i < arrayIdBoookings.Length; i++)
                 {
-                    // Запрос на удаление заказов
-                    SqlCommand command = new SqlCommand("DELETE FROM booking WHERE bkId = '"+arrayIdBoookings[i]+"'", ConnectionToDb.Connection);
+                                
+                    // Хранимая процедура для удаления заказа
+                    const string SQLPROCEDURE = "deleteBooking";
+                    SqlCommand command = new SqlCommand(SQLPROCEDURE, ConnectionToDb.Connection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    // Передаём данные в хранимую процедуру и выполняем её
+                    command.Parameters.Add("@idBooking", SqlDbType.NVarChar).Value = arrayIdBoookings[i];
                     countDeletedRows += command.ExecuteNonQuery();
                 }
 
                 ConnectionToDb.Close();
             }
-            catch(Exception ex)
+            catch
             {
-                throw new Exception(ex.Message);
-                //throw new Exception("Ошибка удаления данных о заказе");
+                throw new Exception("Ошибка удаления данных о заказе");
             }
 
             return countDeletedRows;

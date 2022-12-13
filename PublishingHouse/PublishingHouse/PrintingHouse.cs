@@ -40,7 +40,41 @@ namespace PublishingHouse
 
         public override string ToString()
         {
-            return $"{name}\n {numberPhone}\n {email}\n {typeState}\n {nameState}\n {city}\n {typeStreet}\n {nameStreet}\n {numberHouse}";
+            return $"Название: {name}\nНомер телефона: {numberPhone}\nЭлектронная почта: {email}\nТип субъекта: {typeState}\nНазвание субъекта: {nameState}\nГород: {city}\nТип улицы: {typeStreet}\nНазвание улицы: {nameStreet}\nНомер дома: {numberHouse}";
+        }
+
+        /// <summary>
+        /// Метод получения данных о типографии
+        /// </summary>
+        /// <param name="idPrintingHouse">id типографии</param>
+        /// <returns>Данные о типографии</returns>
+        public static PrintingHouse GetPrintingHouse(int idPrintingHouse) 
+        {
+            PrintingHouse printingHouse = null;
+
+            try
+            {
+                ConnectionToDb.Open();
+                
+                // Запрос на получение данных о типографии
+                SqlCommand command = new SqlCommand("SELECT * FROM printingHouse WHERE phId = '"+idPrintingHouse+"'", ConnectionToDb.Connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Считываем полученные данные
+                while (reader.Read()) 
+                {
+                    printingHouse = new PrintingHouse(reader["phName"].ToString(), reader["phPhone"].ToString(), reader["phEmail"].ToString(), reader["phTypeState"].ToString(), reader["phState"].ToString(), reader["phCity"].ToString(), reader["phTypeStreet"].ToString(), reader["phStreet"].ToString(), reader["phHouse"].ToString());
+                }
+
+                reader.Close();
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения данных о типографии");
+            }
+
+            return printingHouse;
         }
 
         /// <summary>

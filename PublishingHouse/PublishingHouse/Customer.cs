@@ -27,6 +27,44 @@ namespace PublishingHouse
             this.phone = phone;
         }
 
+        public override string ToString()
+        {
+            return $"Наименование заказчика: {name}\nНомер телефона: {phone}\nЭлектронная почта: {email}";
+        }
+
+        /// <summary>
+        /// Метод получения данных о заказчике
+        /// </summary>
+        /// <param name="idCustomer">id заказчика</param>
+        /// <returns>Данные о заказчике</returns>
+        public static Customer GetCustomer(int idCustomer) 
+        {
+            Customer customer = null;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение данных о заказчике
+                SqlCommand command = new SqlCommand("SELECT * FROM customer WHERE custId = '"+idCustomer+"'", ConnectionToDb.Connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Считываем полученные данные
+                while (reader.Read()) 
+                {
+                    customer = new Customer(reader["custName"].ToString(), reader["custEmail"].ToString(), reader["custPhone"].ToString());
+                }
+
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения данных о заказчике");
+            }
+
+            return customer;
+        }
+
         /// <summary>
         /// Метод добавления заказчика в бд
         /// </summary>

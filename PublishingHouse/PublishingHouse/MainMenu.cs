@@ -532,5 +532,39 @@ namespace PublishingHouse
                 MessageBox.Show("Ошибка поиска по дате", "Поиск по дате", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void generateReportButton_Click(object sender, EventArgs e)
+        {
+            if (WorkWithDataDgv.CountSelectedRows(bookingDataGridView) != 1)
+                MessageBox.Show("Необходимо выбрать одну запись", "Генерация отчёта", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
+            {
+                int numberRow = WorkWithDataDgv.NumberSelectedRows(bookingDataGridView);                
+                int idBooking = Convert.ToInt32(bookingDataGridView.Rows[numberRow].Cells["Номер заказа"].Value);
+
+                // Если заказ выполнен
+                if (!Booking.BookingIsBeingExecuted(idBooking))
+                {
+                    int idCustomer = Booking.GetIdCustomer(idBooking);
+                    int idPrintingHouse = Booking.GetIdPrintingHouse(idBooking);
+                    double cost = Convert.ToDouble(bookingDataGridView.Rows[numberRow].Cells["Стоимость выполнения"].Value);
+                    DateTime startBooking = (DateTime)bookingDataGridView.Rows[numberRow].Cells["Дата приёма"].Value;
+                    DateTime endBooking = (DateTime)bookingDataGridView.Rows[numberRow].Cells["Дата выполнения"].Value;
+                    int[] idProducts = Booking.GetArrayIdProducts(idBooking);
+                    int[] idEmployees = Booking.GetArrayIdEmployees(idBooking);
+
+                    // Создаём объект заказа
+                    Booking booking = new Booking(idBooking, idPrintingHouse, idCustomer, cost, bookingDataGridView.Rows[numberRow].Cells["Статус"].Value.ToString(), startBooking, endBooking, idProducts, idEmployees);
+
+                    // Переходим в меню формирования отчёта
+                    OutputDataBooking outputDataBooking = new OutputDataBooking(booking);
+                    Transition.TransitionByForms(this, outputDataBooking);
+
+                }
+                else
+                    MessageBox.Show("Необходимо выбрать выполненный заказ", "Генерация отчёта", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            
+        }
     }
 }

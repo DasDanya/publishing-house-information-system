@@ -52,6 +52,57 @@ namespace PublishingHouse
             this.photoAsImage = photoAsImage;
         }
 
+        public Employee(string name, string surname, string middlename, string type, string email, string phone, DateTime birthday)
+        {
+            this.name = name;
+            this.surname = surname;
+            this.middlename = middlename;
+            this.type = type;
+            this.email = email;
+            this.phone = phone;
+            this.birthday = birthday;
+        }
+
+        public override string ToString()
+        {
+            return $"ФИО сотрудника: {surname} {name} {middlename}\nДата рождения: {birthday.Date.ToShortDateString()}\nДолжность сотрудника: {type}\nНомер телефона: {phone}\nЭлектронная почта: {email}";
+        }
+
+
+        /// <summary>
+        /// Метод получения данных о сотруднике
+        /// </summary>
+        /// <param name="idEmployee">id сотрудника</param>
+        /// <returns>Данные о сотруднике</returns>
+        public static Employee GetEmployee(int idEmployee) 
+        {
+            Employee employee = null;
+
+            try
+            {
+                ConnectionToDb.Open();
+
+                // Запрос на получение данных о сотруднике
+                SqlCommand command = new SqlCommand("SELECT * FROM employee WHERE empId = '"+idEmployee+"'", ConnectionToDb.Connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                // Считываем полученные данные
+                while (reader.Read()) 
+                {
+                    employee = new Employee(reader["empFirstname"].ToString(), reader["empSurname"].ToString(), reader["empMiddlename"].ToString(), reader["empType"].ToString(), reader["empEmail"].ToString(), reader["empPhone"].ToString(), (DateTime)reader["empBirthday"]);
+                }
+
+                reader.Close();
+                ConnectionToDb.Close();
+            }
+            catch 
+            {
+                throw new Exception("Ошибка получения данных о сотруднике");
+            }
+
+            return employee;
+        }
+
 
         /// <summary>
         /// Метод добавления сотрудника в бд
