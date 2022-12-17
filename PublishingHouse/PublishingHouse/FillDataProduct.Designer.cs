@@ -86,6 +86,7 @@ namespace PublishingHouse
             // fromDataGridView
             // 
             this.fromDataGridView.AllowUserToAddRows = false;
+            this.fromDataGridView.AllowUserToDeleteRows = false;
             this.fromDataGridView.AllowUserToResizeColumns = false;
             this.fromDataGridView.AllowUserToResizeRows = false;
             this.fromDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -110,6 +111,7 @@ namespace PublishingHouse
             // toDataGridView
             // 
             this.toDataGridView.AllowUserToAddRows = false;
+            this.toDataGridView.AllowUserToDeleteRows = false;
             this.toDataGridView.AllowUserToResizeColumns = false;
             this.toDataGridView.AllowUserToResizeRows = false;
             this.toDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -225,6 +227,7 @@ namespace PublishingHouse
             // typeProductDataGridView
             // 
             this.typeProductDataGridView.AllowUserToAddRows = false;
+            this.typeProductDataGridView.AllowUserToDeleteRows = false;
             this.typeProductDataGridView.AllowUserToResizeColumns = false;
             this.typeProductDataGridView.AllowUserToResizeRows = false;
             this.typeProductDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

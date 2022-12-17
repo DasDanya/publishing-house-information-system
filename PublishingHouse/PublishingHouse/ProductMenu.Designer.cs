@@ -105,6 +105,7 @@ namespace PublishingHouse
             // productDataGridView
             // 
             this.productDataGridView.AllowUserToAddRows = false;
+            this.productDataGridView.AllowUserToDeleteRows = false;
             this.productDataGridView.AllowUserToResizeColumns = false;
             this.productDataGridView.AllowUserToResizeRows = false;
             this.productDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

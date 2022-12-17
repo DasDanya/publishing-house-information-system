@@ -160,7 +160,7 @@ namespace PublishingHouse
         /// </summary>
         /// <param name="idEmployees">Массив id сотрудников</param>
         /// <param name="idBooking">id заказа</param>
-        /// <returns></returns>
+        /// <returns>Добавились ли данные в таблицу</returns>
         private static bool AddBookingEmployee(int[] idEmployees, int idBooking) 
         {
             bool success = false;
@@ -415,6 +415,11 @@ namespace PublishingHouse
             return arrayId;
         }
 
+        /// <summary>
+        /// Метод изменения данных о заказе
+        /// </summary>
+        /// <param name="idBooking">id заказа</param>
+        /// <returns>1 - если изменение прошло успешно </returns>
         public int ChangeBooking(int idBooking) 
         {
             int success = 0;

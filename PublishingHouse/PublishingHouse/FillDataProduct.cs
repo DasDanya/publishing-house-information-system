@@ -207,7 +207,7 @@ namespace PublishingHouse
                     {
 
                        // Данные о печатной продукции
-                       double cost = Product.GetCostProduct(toDataGridView, Convert.ToInt32(typeProductDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(typeProductDataGridView)].Cells["Наценка в %"].Value), Convert.ToInt32(countTextBox.Text));
+                       double cost = Product.GetCostProduct(toDataGridView, Convert.ToDouble(typeProductDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(typeProductDataGridView)].Cells["Наценка в %"].Value), Convert.ToInt32(countTextBox.Text));
                        byte[] design = WorkWithDataDgv.GetBytePhoto(productPictureBox.Image);
                        int idTypeProduct = TypeProduct.GetIdTypeProduct(typeProductDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(typeProductDataGridView)].Cells["Тип печатной продукции"].Value.ToString(), Convert.ToDouble(typeProductDataGridView.Rows[WorkWithDataDgv.NumberSelectedRows(typeProductDataGridView)].Cells["Наценка в %"].Value));
                        List<Material> materials = Material.GetListMaterials(toDataGridView);

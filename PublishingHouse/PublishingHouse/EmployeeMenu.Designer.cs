@@ -94,6 +94,7 @@ namespace PublishingHouse
             // employeeDataGridView
             // 
             this.employeeDataGridView.AllowUserToAddRows = false;
+            this.employeeDataGridView.AllowUserToDeleteRows = false;
             this.employeeDataGridView.AllowUserToResizeColumns = false;
             this.employeeDataGridView.AllowUserToResizeRows = false;
             this.employeeDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -314,10 +315,8 @@ namespace PublishingHouse
             this.changeLabel.AutoSize = true;
             this.changeLabel.Location = new System.Drawing.Point(588, 121);
             this.changeLabel.Name = "changeLabel";
-            this.changeLabel.Size = new System.Drawing.Size(209, 20);
+            this.changeLabel.Size = new System.Drawing.Size(0, 20);
             this.changeLabel.TabIndex = 8;
-            this.changeLabel.Text = "";
-            this.changeLabel.Visible = true;
             // 
             // deleteButton
             // 
@@ -365,10 +364,8 @@ namespace PublishingHouse
             this.addLabel.AutoSize = true;
             this.addLabel.Location = new System.Drawing.Point(35, 121);
             this.addLabel.Name = "addLabel";
-            this.addLabel.Size = new System.Drawing.Size(207, 20);
+            this.addLabel.Size = new System.Drawing.Size(0, 20);
             this.addLabel.TabIndex = 3;
-            this.addLabel.Text = "";
-            this.addLabel.Visible = true;
             // 
             // addEmployeeButton
             // 

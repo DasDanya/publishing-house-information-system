@@ -200,7 +200,7 @@ namespace PublishingHouse
         /// <param name="margin">Наценка</param>
         /// <param name="countProduct">Количество печатной продукции</param>
         /// <returns>Стоимость печатной продукции</returns>
-        public static double GetCostProduct(DataGridView dataGridView, int margin, int countProduct)
+        public static double GetCostProduct(DataGridView dataGridView, double margin, int countProduct)
         {
             double cost = 0;
 

@@ -84,6 +84,7 @@ namespace PublishingHouse
             // customersDataGridView
             // 
             this.customersDataGridView.AllowUserToAddRows = false;
+            this.customersDataGridView.AllowUserToDeleteRows = false;
             this.customersDataGridView.AllowUserToResizeColumns = false;
             this.customersDataGridView.AllowUserToResizeRows = false;
             this.customersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

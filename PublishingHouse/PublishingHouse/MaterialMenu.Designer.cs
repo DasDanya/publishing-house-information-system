@@ -82,6 +82,7 @@ namespace PublishingHouse
             // materialDataGridView
             // 
             this.materialDataGridView.AllowUserToAddRows = false;
+            this.materialDataGridView.AllowUserToDeleteRows = false;
             this.materialDataGridView.AllowUserToResizeColumns = false;
             this.materialDataGridView.AllowUserToResizeRows = false;
             this.materialDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

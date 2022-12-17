@@ -84,6 +84,7 @@ namespace PublishingHouse
             // printingHouseDataGridView
             // 
             this.printingHouseDataGridView.AllowUserToAddRows = false;
+            this.printingHouseDataGridView.AllowUserToDeleteRows = false;
             this.printingHouseDataGridView.AllowUserToResizeColumns = false;
             this.printingHouseDataGridView.AllowUserToResizeRows = false;
             this.printingHouseDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;

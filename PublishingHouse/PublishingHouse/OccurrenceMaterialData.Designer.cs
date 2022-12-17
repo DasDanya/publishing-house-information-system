@@ -97,6 +97,7 @@ namespace PublishingHouse
             // typeDataGridView
             // 
             this.typeDataGridView.AllowUserToAddRows = false;
+            this.typeDataGridView.AllowUserToDeleteRows = false;
             this.typeDataGridView.AllowUserToResizeColumns = false;
             this.typeDataGridView.AllowUserToResizeRows = false;
             this.typeDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -260,6 +261,7 @@ namespace PublishingHouse
             // colorDataGridView
             // 
             this.colorDataGridView.AllowUserToAddRows = false;
+            this.colorDataGridView.AllowUserToDeleteRows = false;
             this.colorDataGridView.AllowUserToResizeColumns = false;
             this.colorDataGridView.AllowUserToResizeRows = false;
             this.colorDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -350,6 +352,7 @@ namespace PublishingHouse
             // sizeDataGridView
             // 
             this.sizeDataGridView.AllowUserToAddRows = false;
+            this.sizeDataGridView.AllowUserToDeleteRows = false;
             this.sizeDataGridView.AllowUserToResizeColumns = false;
             this.sizeDataGridView.AllowUserToResizeRows = false;
             this.sizeDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -440,6 +443,7 @@ namespace PublishingHouse
             // costDataGridView
             // 
             this.costDataGridView.AllowUserToAddRows = false;
+            this.costDataGridView.AllowUserToDeleteRows = false;
             this.costDataGridView.AllowUserToResizeColumns = false;
             this.costDataGridView.AllowUserToResizeRows = false;
             this.costDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
