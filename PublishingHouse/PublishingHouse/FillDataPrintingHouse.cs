@@ -45,11 +45,17 @@ namespace PublishingHouse
 
         private void FillDataPrintingHouse_Load(object sender, EventArgs e)
         {
-           
-            if(printingHouse != null)
+            try
             {
-                LoadDataAboutPrintingHouse();
-                id = PrintingHouse.GetIdPrintingHouseByEmail(printingHouse.Email);
+                if (printingHouse != null)
+                {
+                    LoadDataAboutPrintingHouse();
+                    id = PrintingHouse.GetIdPrintingHouseByEmail(printingHouse.Email);
+                }
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка загрузки данных", "Ошибка стартовых данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
